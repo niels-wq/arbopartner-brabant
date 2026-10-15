@@ -3,7 +3,11 @@ import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ClusterNav from "../../components/ClusterNav.astro";
 import Figure from "../../components/Figure.astro";
+import BrabantMap from "../../components/BrabantMap.astro";
+import BrabantPhoto from "../../components/BrabantPhoto.astro";
 import InlineLead from "../../components/InlineLead.astro";
+import { fotoVoorPlaats } from "../../data/brabant-fotos";
+import { gemeenten } from "../../data/gemeenten";
 import { places } from "../../data/places";
 import { crumbsLd } from "../../lib/schema";
 
@@ -13,29 +17,41 @@ const crumbs = [
 ];
 ---
 
-<Base title="Werkgebied" description="Arbopartner Brabant werkt binnen ongeveer 45 minuten van Uden, voor werkgevers met 35 of meer medewerkers." jsonLd={[crumbsLd(crumbs)]}>
+<Base title="Casemanager in Brabant" description="Werkgebied van Arbopartner Brabant: heel Noord-Brabant. Het kantoor staat in Uden, Losplaats 16d. Voor werkgevers met 35 of meer medewerkers." jsonLd={[crumbsLd(crumbs)]}>
   <Breadcrumbs crumbs={crumbs} />
   <header class="mx-auto max-w-6xl px-4 pt-6">
-    <h1 class="font-serif text-5xl text-green-950">Werkgebied</h1>
-    <p class="mt-4 max-w-2xl">Het werkgebied van Arbopartner Brabant is ongeveer 45 minuten rijden van Uden, voor werkgevers met 35 of meer medewerkers. Zestien plaatsen, één uitvalsbasis. De minuten zijn een indicatie per auto buiten de spits, geen navigatie.</p>
-    <Figure id="pagina-werkgebied" eager class="mt-6 max-w-3xl" />
+    <h1 class="font-serif text-5xl text-green-950">Casemanager in heel Brabant</h1>
+    <p class="mt-4 max-w-2xl">Arbopartner Brabant werkt voor werkgevers in Noord-Brabant, nuchter en dichtbij. De thuisbasis is het kantoor aan de Losplaats 16d in Uden. Reistijd binnen ongeveer 45 minuten van dat kantoor zit in het tarief. Ligt uw adres verder in de provincie, dan staat de rit in de offerte. De minuten bij een stad zijn een indicatie per auto buiten de spits.</p>
+    <BrabantMap class="mt-6" />
   </header>
   <ul class="mx-auto grid max-w-6xl gap-4 px-4 py-8 sm:grid-cols-2 lg:grid-cols-3">
-    {places.map((place) => (
-      <li>
-        <a class="block h-full overflow-hidden rounded-[2rem] border border-line bg-white/80" href={`/werkgebied/${place.slug}`}>
-          <Figure id={`plaats-${place.slug}`} sizes="(min-width: 1024px) 18rem, (min-width: 640px) 50vw, 100vw" />
-          <div class="p-5">
-          <h2 class="font-serif text-2xl text-green-950">{place.name}</h2>
-          <p class="text-sm text-ochre-800">{place.minutes} minuten vanuit Uden · {place.municipality}</p>
-          <p class="mt-2 text-sm">{place.sectors.join(", ")}</p>
-          </div>
-        </a>
-      </li>
-    ))}
+    {places.map((place) => {
+      const foto = fotoVoorPlaats(place.slug);
+      return (
+        <li>
+          <a class="block h-full overflow-hidden rounded-[2rem] border border-line bg-white/80" href={`/werkgebied/${place.slug}`}>
+            {foto ? <BrabantPhoto id={foto} caption={false} plain /> : <Figure id={`plaats-${place.slug}`} sizes="(min-width: 1024px) 18rem, (min-width: 640px) 50vw, 100vw" />}
+            <div class="p-5">
+              <h2 class="font-serif text-2xl text-green-950">{place.name}</h2>
+              <p class="text-sm text-ochre-800">{place.buitenBrabant ? "Rand, Gelderland" : place.municipality} · ongeveer {place.minutes} minuten</p>
+              <p class="mt-2 text-sm">{place.sectors.join(", ")}</p>
+            </div>
+          </a>
+        </li>
+      );
+    })}
   </ul>
+  <section class="mx-auto max-w-6xl px-4 pb-8">
+    <h2 class="font-serif text-3xl text-green-950">Alle gemeenten in Noord-Brabant</h2>
+    <p class="mt-2 max-w-2xl text-sm text-ink-soft">De lijst volgt de gemeentelijke indeling van het CBS op 1 januari 2026. Een stad als Uden hoort bij Maashorst, Veghel bij Meierijstad.</p>
+    <ul class="mt-4 flex flex-wrap gap-2">
+      {gemeenten.map((name) => (
+        <li class="rounded-full bg-white px-3 py-1 text-sm ring-1 ring-line">{name}</li>
+      ))}
+    </ul>
+  </section>
   <div class="mx-auto max-w-3xl px-4">
-    <InlineLead source="werkgebied-overzicht" title="Valt uw plaats erbinnen?" text="Twee stappen. We bellen terug en kijken of de rit ongeveer binnen 45 minuten van Uden past." />
+    <InlineLead source="werkgebied-overzicht" title="Waar zit uw bedrijf?" text="Twee stappen. We bellen terug en kijken of de rit binnen de ring van ongeveer 45 minuten valt, of dat de rit in de offerte hoort." />
   </div>
   <ClusterNav />
 </Base>

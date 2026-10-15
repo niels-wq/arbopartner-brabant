@@ -1,0 +1,28 @@
+---
+import Mark from "./Mark.astro";
+
+const stappen = [
+  { when: "Dag 1", text: "Ziekmelding. Vraag naar het werk, niet naar de diagnose." },
+  { when: "Week 6", text: "Probleemanalyse van de bedrijfsarts: wat iemand nog kan." },
+  { when: "Week 8", text: "Plan van aanpak. Beide partijen tekenen." },
+  { when: "Week 42", text: "De werkgever meldt de ziekmelding bij UWV." },
+  { when: "Week 52", text: "Eerstejaarsevaluatie. Moet ander werk starten?" },
+  { when: "Week 104", text: "Einde van de loondoorbetaling. UWV toetst de re-integratie." },
+];
+---
+
+<section class="mx-auto max-w-6xl px-4 py-8" aria-labelledby="tijdlijn-kop">
+  <h2 id="tijdlijn-kop" class="font-serif text-4xl text-green-950"><Mark name="clock" />Tijdlijn bij ziekte</h2>
+  <p class="mt-2 max-w-2xl text-ink-soft">Van de eerste dag tot week 104. Een geheugensteun, geen juridisch advies. Cao’s wijken af.</p>
+  <ol class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    {stappen.map((stap, index) => (
+      <li class="rounded-3xl border border-line bg-white/80 p-4">
+        <p class="text-sm font-semibold uppercase tracking-wide text-ochre-800">{index + 1}. {stap.when}</p>
+        <p class="mt-1">{stap.text}</p>
+      </li>
+    ))}
+  </ol>
+  <p class="mt-4">
+    <a class="font-semibold text-green-900 underline decoration-ochre-500" data-cta="home-tijdlijn" href="/tools/tijdlijn-ziekteverzuim">De hele tijdlijn, met wie welke stap zet</a>
+  </p>
+</section>

@@ -33,7 +33,7 @@ const pakketKeuze = Astro.url.searchParams.get("pakket") ?? "";
         <label class="block">Plaats
           <select class="ap-field" name="plaats" required>
             {places.map((place) => <option value={place.name}>{place.name}</option>)}
-            <option value="Anders, binnen 45 minuten">Anders, binnen 45 minuten</option>
+            <option value="Elders in Noord-Brabant">Elders in Noord-Brabant</option>
           </select>
         </label>
         <label class="block">Aantal medewerkers<input class="ap-field" name="medewerkers" type="number" min="35" required /></label>

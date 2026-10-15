@@ -1,6 +1,6 @@
 # Arbopartner Brabant
 
-Nederlandstalige site voor Arbopartner Brabant, een label van Matchvermogen. Het label detacheert een vaste casemanager bij werkgevers met 35 of meer medewerkers, binnen ongeveer 45 minuten rijden van Uden.
+Nederlandstalige site voor Arbopartner Brabant, een label van Matchvermogen. Het label detacheert een vaste casemanager bij werkgevers met 35 of meer medewerkers in Noord-Brabant. Het kantoor staat in Uden. Reistijd binnen ongeveer 45 minuten van dat kantoor zit in het tarief.
 
 De site is statische HTML (Astro) met interactieve calculators. Formulieren lopen via een kleine Node-server. Het domein `https://www.arbopartnerbrabant.nl` is nog niet live. Canonicals, sitemap en structured data wijzen al naar dat domein.
 

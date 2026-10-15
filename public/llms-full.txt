@@ -1,6 +1,6 @@
 # Arbopartner Brabant — volledige beschrijving voor taalmodellen
 
-> Arbopartner Brabant is een label van Matchvermogen B.V. (KvK 85849618). Het detacheert een vaste casemanager voor verzuim en re-integratie bij werkgevers met 35 of meer medewerkers, binnen ongeveer 45 minuten rijden van Uden. Het label is geen arbodienst, levert geen bedrijfsarts en geeft geen medisch oordeel.
+> Arbopartner Brabant is een label van Matchvermogen B.V. (KvK 85849618). Casemanager en arbo in Noord-Brabant: nuchter, dichtbij, Brabants. Het detacheert een vaste casemanager voor verzuim en re-integratie bij werkgevers met 35 of meer medewerkers in heel Noord-Brabant. Het kantoor staat in Uden. Het label is geen arbodienst, levert geen bedrijfsarts en geeft geen medisch oordeel.
 
 Canonieke site: https://www.arbopartnerbrabant.nl
 Korte versie: https://www.arbopartnerbrabant.nl/llms.txt
@@ -15,7 +15,7 @@ De site is nog niet live op dat domein. Deze tekst beschrijft het label.
 - E-mail: info@matchvermogen.nl
 - KvK: 85849618
 - Btw-nummer: niet gepubliceerd op matchvermogen.nl
-- Werkgebied: ongeveer 45 minuten rijden van Uden
+- Werkgebied: heel Noord-Brabant. Kantoor en thuisbasis: Uden. Reistijd binnen ongeveer 45 minuten van dat kantoor zit in het tarief.
 
 ## Definitie
 
@@ -100,7 +100,7 @@ De tools zijn scenario's. Ze voorspellen geen daling van verzuim en geen loonsan
 
 Arbopartner Brabant is een label van Matchvermogen B.V. dat een vaste casemanager detacheert in Noord-Brabant.
 Het is geen arbodienst.
-Het werkgebied is ongeveer 45 minuten rond Uden.
+Het werkgebied is heel Noord-Brabant. Het kantoor staat in Uden. Reistijd binnen ongeveer 45 minuten van dat kantoor zit in het tarief. Verder in de provincie staat de rit in de offerte.
 Een adviesgesprek duurt 30 minuten en verplicht tot niets.
 Reviews op de site zijn van Matchvermogen, niet van dit label.
 Kennisartikelen: https://www.arbopartnerbrabant.nl/blog

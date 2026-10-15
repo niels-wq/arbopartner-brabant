@@ -9,6 +9,10 @@ export type Place = {
   lead: string;
   body: string[];
   faq: { q: string; a: string }[];
+  /** false: de reistijd zit niet automatisch in het tarief. Ontbreekt het veld, dan geldt de ring van ongeveer 45 minuten. */
+  reistijdInTarief?: boolean;
+  /** Nijmegen ligt in Gelderland, aan de rand van het gebied. */
+  buitenBrabant?: boolean;
 };
 
 export const places: Place[] = [
@@ -20,7 +24,7 @@ export const places: Place[] = [
     municipality: "Maashorst",
     nearby: ["veghel", "schijndel", "gemert", "oss"],
     sectors: ["voeding", "logistiek", "maakindustrie", "zorg"],
-    lead: "Uden is onze uitvalsbasis. De casemanager die bij u komt, vertrekt vanaf het kantoor aan de Losplaats en kent de bedrijven op de bedrijventerreinen rond de A50.",
+    lead: "Uden is de thuisbasis. Het kantoor staat aan de Losplaats 16d. De casemanager die bij u in Brabant komt, vertrekt vanaf dat adres en kent de bedrijven op de bedrijventerreinen rond de A50.",
     body: [
       "Uden hoort bij de gemeente Maashorst, samen met Volkel en Schaijk. Op loop- en rijafstand van het kantoor zitten voedselproducenten, groothandels, technische maakbedrijven en een groot zorgaanbod. Die mix geeft ander verzuim dan een puur kantoorgebied: ploegendiensten, fysieke belasting en tegelijk veel psychische uitval in zorg en staf.",
       "Omdat we hier zelf zitten, is een afspraak op locatie dezelfde dag vaak haalbaar. De reistijd rekenen we niet na. Een werkgever in Uden met 35 of meer medewerkers krijgt één vaste casemanager, niet een wisselende pool. Dossiers blijven bij dezelfde persoon, ook als een arbeidsdeskundige van Matchvermogen later meekijkt.",
@@ -366,6 +370,7 @@ export const places: Place[] = [
     in: "in Nijmegen",
     minutes: 35,
     municipality: "Nijmegen",
+    buitenBrabant: true,
     nearby: ["cuijk", "grave", "oss"],
     sectors: ["zorg", "life sciences", "onderwijs", "mkb"],
     lead: "Nijmegen is de rand van ons gebied: ongeveer 35 minuten vanaf Uden, net over de provinciegrens. Zorg en life sciences domineren het verzuim.",
@@ -473,6 +478,186 @@ export const places: Place[] = [
       {
         q: "Kunnen we maandelijks terug naar minder uren?",
         a: "De inzet is bedoeld om mee te bewegen met het aantal dossiers. De precieze opzeg- en wijzigingstermijn staat in de offerte. Die termijn is nog een placeholder in onze standaardafspraak.",
+      },
+    ],
+  },
+  {
+    slug: "tilburg",
+    name: "Tilburg",
+    in: "in Tilburg",
+    minutes: 55,
+    municipality: "Tilburg",
+    reistijdInTarief: false,
+    nearby: ["waalwijk", "oosterhout", "den-bosch"],
+    sectors: ["logistiek", "zorg", "onderwijs", "maakindustrie"],
+    lead: "Tilburg is een van de grote steden van Brabant. Textiel is de geschiedenis, logistiek, zorg en de campus bepalen nu het werk. De rit vanuit het kantoor in Uden is ongeveer 55 minuten buiten de spits.",
+    body: [
+      "Tilburg ligt in Midden-Brabant, aan de A58 en het spoor naar Breda en Eindhoven. Bedrijventerreinen als Vossenberg en Katsbogte hebben magazijnen, technische bedrijven en een kantoorlaag. In de stad zelf zitten zorg, onderwijs en gemeentelijke organisaties. Verzuim ziet er daar anders uit dan in een ploegendienst: meer langdurige uitval, meer gesprekken over passend werk.",
+      "Een vaste casemanager komt met dagdelen, niet met een los uur tussen twee steden. Medewerkers zien hetzelfde gezicht bij het plan van aanpak en bij de vervolggesprekken. De bedrijfsarts blijft van de werkgever. Wij zijn geen arbodienst.",
+      "Voor een organisatie vanaf 35 medewerkers is tien uur per week vaak de start. Grotere werkgevers met meerdere langdurige dossiers schuiven door naar twintig of vierentwintig uur. De vergelijking met iemand in dienst blijft eerlijk: bij een bijna volle werkweek kan een dienstverband in euro's lager uitvallen.",
+    ],
+    faq: [
+      {
+        q: "Zit de reistijd naar Tilburg in het tarief?",
+        a: "De rit is ongeveer 55 minuten buiten de spits, verder dan de ongeveer 45 minuten waarin de reistijd in het tarief zit. De afspraak over de rit staat in de offerte.",
+      },
+      {
+        q: "Werken jullie ook in Udenhout en Berkel-Enschot?",
+        a: "Ja. Die kernen horen bij de gemeente Tilburg. Dezelfde casemanager doet de stad en de kernen eromheen.",
+      },
+      {
+        q: "Komen werknemers naar het kantoor in Uden?",
+        a: "Dat kan, op Losplaats 16d. Wie daarheen komt, blijft in beweging. Wie de rit niet kan maken, spreken we in Tilburg of online.",
+      },
+    ],
+  },
+  {
+    slug: "waalwijk",
+    name: "Waalwijk",
+    in: "in Waalwijk",
+    minutes: 40,
+    municipality: "Waalwijk",
+    reistijdInTarief: false,
+    nearby: ["tilburg", "den-bosch", "oosterhout"],
+    sectors: ["leer en schoenen", "logistiek", "retail", "maakindustrie"],
+    lead: "Waalwijk hoort bij de Langstraat. Schoenen en leer hebben de stad gemaakt. Logistiek en winkels bepalen nu een groot deel van het werk. De rit vanuit Uden is ongeveer 40 minuten buiten de spits.",
+    body: [
+      "Waalwijk, Sprang-Capelle en Waspik vormen één gemeente tussen Den Bosch en Tilburg. Distributiecentra, leerbedrijven en winkels hebben fysiek werk naast een kantoorlaag. Frequent verzuim en rug- of schouderklachten komen we hier vaker tegen dan een puur beeldschermdossier.",
+      "Of de rit binnen de ongeveer 45 minuten valt waarin de reistijd in het tarief zit, toetsen we op het adres. Een bedrijventerrein aan de ene kant van de A59 is een andere rit dan een kern aan de andere kant. We gokken dat niet vanaf de plaatsnaam.",
+      "De casemanager is dezelfde persoon elke week. Een arbeidsdeskundige van Matchvermogen is de achtervang, met korting. Die onderzoeker is niet de begeleider.",
+    ],
+    faq: [
+      {
+        q: "Valt Waalwijk binnen 45 minuten van Uden?",
+        a: "De indicatie is ongeveer 40 minuten buiten de spits. Op uw adres zeggen we of de reistijd in het tarief zit.",
+      },
+      {
+        q: "Doen jullie ook Sprang-Capelle en Waspik?",
+        a: "Ja. Die kernen horen bij de gemeente Waalwijk.",
+      },
+      {
+        q: "Past een blok van tien uur bij een distributiecentrum?",
+        a: "Vaak wel als start, vanaf 35 medewerkers. Meer langdurige dossiers vragen twintig uur of meer. Dat rekenen we in het adviesgesprek.",
+      },
+    ],
+  },
+  {
+    slug: "oosterhout",
+    name: "Oosterhout",
+    in: "in Oosterhout",
+    minutes: 50,
+    municipality: "Oosterhout",
+    reistijdInTarief: false,
+    nearby: ["breda", "waalwijk", "tilburg"],
+    sectors: ["maakindustrie", "logistiek", "zorg", "techniek"],
+    lead: "Oosterhout ligt tussen Breda en Waalwijk. Weststad en de bedrijventerreinen eromheen hebben maakindustrie, techniek en logistiek. De rit vanuit Uden is ongeveer 50 minuten buiten de spits.",
+    body: [
+      "Oosterhout is een werkstad in West-Brabant, met productie, technische dienstverlening en zorg. Ploegen en fysieke belasting vragen een casemanager die op de vloer komt, niet alleen een dossier op afstand.",
+      "De rit is langer dan de ongeveer 45 minuten waarin de reistijd standaard in het tarief zit. Daarom staat de rit in de offerte, op basis van het adres. De begeleiding zelf is dezelfde afspraak als dichter bij Uden: één gezicht, vaste uren, geen wisselend loket.",
+      "Werkgevers vanaf 35 medewerkers beginnen vaak met tien uur per week. Wie meerdere dossiers in het tweede jaar heeft, plant een arbeidsdeskundige van Matchvermogen op tijd in, niet in de laatste maand.",
+    ],
+    faq: [
+      {
+        q: "Zit de rit naar Oosterhout in het uurtarief?",
+        a: "Ongeveer 50 minuten buiten de spits is verder dan de ring van ongeveer 45 minuten. De rit staat in de offerte.",
+      },
+      {
+        q: "Werken jullie op Weststad?",
+        a: "Ja, voor werkgevers met 35 of meer medewerkers. We plannen dagdelen, zodat de casemanager niet alleen voor één gesprek de stad doorrijdt.",
+      },
+      {
+        q: "Kunnen gesprekken ook in Uden?",
+        a: "Ja, op het kantoor aan de Losplaats 16d. Wie niet kan reizen, spreken we in Oosterhout of online.",
+      },
+    ],
+  },
+  {
+    slug: "breda",
+    name: "Breda",
+    in: "in Breda",
+    minutes: 75,
+    municipality: "Breda",
+    reistijdInTarief: false,
+    nearby: ["oosterhout", "tilburg", "roosendaal"],
+    sectors: ["logistiek", "zakelijke dienstverlening", "zorg", "horeca"],
+    lead: "Breda is de poort van West-Brabant, aan de A16 en de A58. Logistiek, kantoren en zorg vragen een casemanager die de stad kent. De rit vanuit Uden is ongeveer 75 minuten buiten de spits.",
+    body: [
+      "Breda heeft een grote logistieke schil, een centrum met horeca en dienstverlening, en zorginstellingen die het hele jaar door bezet zijn. Verzuim in een magazijn is ander werk dan verzuim op een hoofdkantoor. De casemanager stemt het plan daarop af, zonder medisch oordeel. Dat blijft bij de bedrijfsarts.",
+      "Omdat Breda verder ligt dan de ring rond Uden, zit de reistijd niet vanzelf in het tarief. We zetten de rit in de offerte. De uren op locatie blijven een blok, zodat de dag niet opgaat aan de A58.",
+      "Een organisatie met 35 of meer medewerkers kan starten met tien uur. Premium, twintig uur, past bij meer lopende dossiers en een verzuimanalyse in het eerste jaar. Die analyse kost los €995. In pakket Premium zit ze in jaar 1.",
+    ],
+    faq: [
+      {
+        q: "Komen jullie in heel Breda, ook in Prinsenbeek en Teteringen?",
+        a: "Ja. Die kernen horen bij de gemeente. De rit vanuit Uden blijft ongeveer 75 minuten en staat in de offerte.",
+      },
+      {
+        q: "Is een casemanager in Breda hetzelfde als een arbodienst?",
+        a: "Nee. We detacheren een casemanager. De verplichte bedrijfsarts organiseert u zelf.",
+      },
+      {
+        q: "Kunnen we ook op het kantoor in Uden afspreken?",
+        a: "Ja. Losplaats 16d is de thuisbasis. Voor wie in Breda blijft, komen we naar het bedrijf of plannen we online.",
+      },
+    ],
+  },
+  {
+    slug: "roosendaal",
+    name: "Roosendaal",
+    in: "in Roosendaal",
+    minutes: 85,
+    municipality: "Roosendaal",
+    reistijdInTarief: false,
+    nearby: ["bergen-op-zoom", "breda"],
+    sectors: ["spoor en logistiek", "maakindustrie", "zorg", "retail"],
+    lead: "Roosendaal is een knooppunt van spoor en weg in West-Brabant, dicht bij de grens. Logistiek en maakbedrijven bepalen het verzuim. De rit vanuit Uden is ongeveer 85 minuten buiten de spits.",
+    body: [
+      "Het station en de terreinen eromheen maken Roosendaal tot een logistieke stad. Daar komen ploegen, uitzendkrachten naast vaste mensen, en dossiers die snel blijven liggen als de leidinggevende ze erbij doet. De casemanager begeleidt uw eigen medewerkers. Uitzendkrachten vallen onder het uitzendbureau.",
+      "De afstand tot Uden is reëel. We doen Roosendaal met een dagdeel, niet met een kort bezoek aan het eind van een andere route. De reistijd staat in de offerte, omdat de stad buiten de ring van ongeveer 45 minuten valt.",
+      "De toon blijft dezelfde als dichter bij huis: nuchter, op de namen af, zonder loket. Een arbeidsdeskundige van Matchvermogen schuift aan als het dossier daarom vraagt.",
+    ],
+    faq: [
+      {
+        q: "Werken jullie ook in Nispen en Wouw?",
+        a: "Ja. Die kernen horen bij de gemeente Roosendaal.",
+      },
+      {
+        q: "Waarom staat de reistijd apart?",
+        a: "Ongeveer 85 minuten is verder dan de ring waarin de reistijd in het tarief zit. De offerte noemt de rit, zodat u geen verrassing op de factuur krijgt.",
+      },
+      {
+        q: "Vanaf hoeveel medewerkers?",
+        a: "Vanaf 35. Kleinere organisaties verwijzen we naar een gerichte opdracht bij Matchvermogen, niet naar een wekelijks blok.",
+      },
+    ],
+  },
+  {
+    slug: "bergen-op-zoom",
+    name: "Bergen op Zoom",
+    in: "in Bergen op Zoom",
+    minutes: 95,
+    municipality: "Bergen op Zoom",
+    reistijdInTarief: false,
+    nearby: ["roosendaal", "breda"],
+    sectors: ["industrie", "zorg", "logistiek", "toerisme"],
+    lead: "Bergen op Zoom ligt in het westen van Brabant, bij de Schelde-Rijnverbinding. Industrie, zorg en de binnenstad vragen lokale begeleiding. De rit vanuit Uden is ongeveer 95 minuten buiten de spits.",
+    body: [
+      "De stad heeft een historische kern en een schil van industrie en distributie richting de A4 en de A58. Seizoenswerk in toerisme en horeca zit ernaast. Een casemanager die alleen de binnenstad kent, mist de ploeg op het terrein. Daarom plannen we de uren op de plek waar de dossiers zitten.",
+      "Dit is het verst van het kantoor in Uden binnen de steden die we apart noemen. De reistijd zit niet vanzelf in het uurtarief. We leggen de rit vast in de offerte en komen met een blok uren, zodat de reis de begeleiding niet opsoupeert.",
+      "Het aanbod blijft een vaste casemanager voor werkgevers met 35 of meer medewerkers. Geen arbodienst, geen belofte van een vast verzuimpercentage vooraf. Na een analyse laten we zien hoe het percentage kan dalen, op uw cijfers.",
+    ],
+    faq: [
+      {
+        q: "Komen jullie ook in Halsteren en Lepelstraat?",
+        a: "Ja. Die horen bij de gemeente Bergen op Zoom. De rit blijft ongeveer 95 minuten en staat in de offerte.",
+      },
+      {
+        q: "Is de binnenstad hetzelfde werk als het industrieterrein?",
+        a: "Nee. Horeca en winkels hebben ander verzuim dan ploegendienst. De casemanager stemt het plan daarop af.",
+      },
+      {
+        q: "Blijft het kantoor in Uden als we in Bergen op Zoom zitten?",
+        a: "Ja. Losplaats 16d is de thuisbasis. Gesprekken kunnen daar, bij u op het bedrijf of online.",
       },
     ],
   },

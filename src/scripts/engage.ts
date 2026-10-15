@@ -58,7 +58,7 @@ if (root && !root.dataset.ready) {
     },
     {
       test: /werkgebied|uden|brabant|reistijd|waar werken/,
-      text: "Het werkgebied is ongeveer 45 minuten rijden van Uden: onder meer Veghel, Oss, Den Bosch, Eindhoven en Helmond. De reistijd zit in het tarief.",
+      text: "We werken in heel Noord-Brabant: Den Bosch, Eindhoven, Tilburg, Breda, Helmond, Oss, Uden, Veghel, Roosendaal, Bergen op Zoom en de gemeenten eromheen. Het kantoor staat in Uden, Losplaats 16d. Reistijd binnen ongeveer 45 minuten van dat kantoor zit in het tarief. Verder in Brabant staat de rit in de offerte.",
     },
     {
       test: /spoed|ziek|vandaag|terugbel/,

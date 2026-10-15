@@ -57,8 +57,15 @@ function scene(id: string): string {
 </svg>`;
 }
 
+const only = process.argv.slice(2);
+const ids = only.length ? visualIds.filter((id) => only.includes(id)) : [...visualIds];
+if (only.length && ids.length !== only.length) {
+  const missing = only.filter((id) => !ids.includes(id as (typeof ids)[number]));
+  throw new Error(`Onbekende beelden: ${missing.join(", ")}`);
+}
+
 await mkdir(outDir, { recursive: true });
-for (const id of visualIds) {
+for (const id of ids) {
   const svg = scene(id);
   const source = Buffer.from(svg);
   await writeFile(path.join(outDir, `${id}.svg`), svg);
@@ -69,4 +76,4 @@ for (const id of visualIds) {
     await pipeline().avif({ quality: 40, effort: 4 }).toFile(path.join(outDir, `${id}-${width}.avif`));
   }
 }
-console.log(`beelden: ${visualIds.length}`);
+console.log(`beelden: ${ids.length}`);

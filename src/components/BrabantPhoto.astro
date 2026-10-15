@@ -1,0 +1,35 @@
+---
+import { brabantFotos, type FotoId } from "../data/brabant-fotos";
+
+interface Props {
+  id: FotoId;
+  eager?: boolean;
+  caption?: boolean;
+  plain?: boolean;
+  class?: string;
+  sizes?: string;
+}
+
+const { id, eager = false, caption = true, plain = false, class: className, sizes = "(min-width: 1024px) 22rem, 100vw" } = Astro.props;
+const foto = brabantFotos[id];
+---
+
+<figure class:list={[plain ? "bg-white" : "overflow-hidden rounded-[1.5rem] bg-white ring-1 ring-line", className]}>
+  <picture>
+    <source type="image/avif" srcset={`/brabant/${id}.avif`} sizes={sizes} />
+    <img
+      src={`/brabant/${id}.webp`}
+      alt={foto.alt}
+      width={foto.width}
+      height={foto.height}
+      loading={eager ? "eager" : "lazy"}
+      decoding="async"
+      class="aspect-[3/2] w-full object-cover"
+    />
+  </picture>
+  {caption && (
+    <figcaption class="px-3 py-2 text-xs leading-snug text-ink-soft">
+      {foto.caption} Foto: {foto.author}, <a class="underline" href={foto.licenseUrl} rel="license noopener">{foto.license}</a>. <a class="underline" href={foto.sourceUrl}>Wikimedia Commons</a>.
+    </figcaption>
+  )}
+</figure>
