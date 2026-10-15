@@ -1,0 +1,143 @@
+---
+import Figure from "../components/Figure.astro";
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { site } from "../data/site";
+import werken from "../data/werken.json";
+import { crumbsLd, jobPostingLd } from "../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Werken bij", path: "/werken-bij" },
+];
+---
+
+<Base
+  title="Werken bij"
+  description="Meld u aan als zzp-casemanager of solliciteer naar een baan in dienst bij Matchvermogen B.V. in Uden. Salaris publiceren we hier niet."
+  jsonLd={[crumbsLd(crumbs), jobPostingLd()]}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <article class="mx-auto max-w-3xl px-4 pt-6">
+    <h1 class="font-serif text-5xl text-green-950">Werken bij</h1>
+    <Figure id="pagina-over-ons" eager class="mt-6" />
+    <p class="mt-4 text-lg">Twee trajecten, één formulier. U meldt zich aan als zzp-casemanager, of u solliciteert naar een baan in dienst bij {site.parent.legalName}.</p>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      <section class="rounded-[2rem] border border-line bg-white/80 p-5">
+        <h2 class="font-serif text-2xl text-green-950">Zzp-casemanager</h2>
+        <p class="mt-2">U werkt als zelfstandige in het netwerk, naast een vaste kern. Per casus kijken we wie past. Wie in loondienst is en wie als zzp'er meewerkt, staat in de offerte aan de opdrachtgever, niet op de teampagina.</p>
+      </section>
+      <section class="rounded-[2rem] border border-line bg-white/80 p-5">
+        <h2 class="font-serif text-2xl text-green-950">Baan in dienst</h2>
+        <p class="mt-2">U solliciteert naar casemanager verzuim in loondienst, standplaats {site.parent.city}. Het salaris en het aantal uren publiceren we hier niet. Die spreken we af in de procedure.</p>
+      </section>
+    </div>
+
+    <form class="mt-8 space-y-4" data-werken data-wizard data-kind="werken" data-cta="werken">
+      <p aria-live="polite">Stap <span data-step-label>1</span> van 6</p>
+
+      <fieldset data-step="1" class="space-y-3 rounded-[2rem] border border-line bg-white/80 p-5">
+        <legend class="font-serif text-2xl">1. Uw gegevens</legend>
+        <fieldset class="space-y-2">
+          <legend class="font-semibold">Welk traject?</legend>
+          <label class="flex items-center gap-2"><input type="radio" name="traject" value="zzp" required /> Zzp-casemanager</label>
+          <label class="flex items-center gap-2"><input type="radio" name="traject" value="dienst" /> Baan in dienst</label>
+        </fieldset>
+        <label class="block">Naam<input class="ap-field" name="naam" required autocomplete="name" /></label>
+        <label class="block">E-mail<input class="ap-field" name="email" type="email" required autocomplete="email" /></label>
+        <label class="block">Telefoon<input class="ap-field" name="telefoon" type="tel" required autocomplete="tel" /></label>
+        <label class="block">Woonplaats<input class="ap-field" name="woonplaats" required autocomplete="address-level2" /></label>
+      </fieldset>
+
+      <fieldset data-step="2" class="space-y-3 rounded-[2rem] border border-line bg-white/80 p-5">
+        <legend class="font-serif text-2xl">2. CV</legend>
+        <p>Pdf of docx, maximaal 10 MB. Geen BSN in het bestand.</p>
+        <label class="block">Bestand<input class="ap-field" name="cv" type="file" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required /></label>
+      </fieldset>
+
+      <fieldset data-step="3" class="space-y-3 rounded-[2rem] border border-line bg-white/80 p-5">
+        <legend class="font-serif text-2xl">3. Motivatie</legend>
+        <label class="block">Waarom dit traject?
+          <textarea class="ap-field min-h-32" name="motivatie" required minlength="20" maxlength="4000"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset data-step="4" class="space-y-4 rounded-[2rem] border border-line bg-white/80 p-5">
+        <legend class="font-serif text-2xl">4. Vragenlijst</legend>
+        <label class="block">Ervaring in jaren<input class="ap-field" name="ervaring_jaren" type="number" min="0" max="60" step="1" required /></label>
+        <fieldset>
+          <legend class="font-semibold">Registraties</legend>
+          <div class="mt-2 flex flex-wrap gap-3">
+            {werken.registraties.map((item) => (
+              <label class="flex items-center gap-2"><input type="checkbox" name="registraties" value={item} /> {item}</label>
+            ))}
+          </div>
+        </fieldset>
+        <label class="block">Opleiding<input class="ap-field" name="opleiding" required maxlength="200" /></label>
+        <fieldset>
+          <legend class="font-semibold">Regio's in Brabant waar u kunt werken</legend>
+          <p class="mt-1 text-sm">Dit is uw eigen bereik. Het werkgebied voor opdrachtgevers blijft ongeveer 45 minuten rond Uden. Nijmegen hoort bij dat werkgebied, maar ligt niet in Brabant en staat hier niet bij.</p>
+          <div class="mt-2 grid gap-2 sm:grid-cols-2">
+            {werken.regios.map((item) => (
+              <label class="flex items-center gap-2"><input type="checkbox" name="regios" value={item} /> {item}</label>
+            ))}
+          </div>
+        </fieldset>
+        <label class="block">Beschikbaarheid in uren per week<input class="ap-field" name="beschikbaarheid_uren" type="number" min="1" max="40" step="0.5" required /></label>
+        <fieldset data-zzp disabled class="space-y-3 rounded-2xl border border-line p-4">
+          <legend class="font-semibold">Alleen bij zzp</legend>
+          <label class="block">Uw uurtarief, exclusief btw<input class="ap-field" name="uurtarief" type="number" min="1" max="999" step="0.01" required /></label>
+          <label class="block">KvK-nummer<input class="ap-field" name="kvk" inputmode="numeric" pattern="[0-9]{8}" maxlength="8" required /></label>
+        </fieldset>
+        <label class="block">VOG
+          <select class="ap-field" name="vog" required>
+            <option value="">Kies</option>
+            {werken.vog.map((item) => <option value={item}>{item}</option>)}
+          </select>
+        </label>
+        <label class="block">Beroepsaansprakelijkheidsverzekering
+          <select class="ap-field" name="verzekering" required>
+            <option value="">Kies</option>
+            {werken.verzekering.map((item) => <option value={item}>{item}</option>)}
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset data-step="5" class="space-y-3 rounded-[2rem] border border-line bg-white/80 p-5">
+        <legend class="font-serif text-2xl">5. Specialisaties</legend>
+        <p>Meerkeuze. Het vrije veld is er voor iets dat niet in de lijst staat.</p>
+        <div class="grid gap-2 sm:grid-cols-2">
+          {werken.specialisaties.map((item) => (
+            <label class="flex items-center gap-2"><input type="checkbox" name="specialisaties" value={item} /> {item}</label>
+          ))}
+        </div>
+        <label class="block">Vrij veld<input class="ap-field" name="specialisatie_overig" maxlength="200" /></label>
+      </fieldset>
+
+      <fieldset data-step="6" class="space-y-3 rounded-[2rem] border border-line bg-white/80 p-5">
+        <legend class="font-serif text-2xl">6. Toestemming</legend>
+        <p>{site.placeholders.bewaartermijn} Tot die termijn vaststaat, bewaren we een aanmelding niet langer dan nodig is om haar te beoordelen. Er is geen apart aantal maanden vastgesteld.</p>
+        <label class="flex items-start gap-2 text-sm">
+          <input name="toestemming" type="checkbox" value="ja" required />
+          <span>{site.parent.legalName} mag deze aanmelding en het CV gebruiken om te beoordelen of u past. Zie de <a class="underline" href="/privacy">privacyverklaring</a>.</span>
+        </label>
+        <button class="rounded-full bg-green-800 px-5 py-3 font-semibold" type="submit">Verstuur de aanmelding</button>
+        <p data-status class="text-sm" role="status"></p>
+        <p class="text-sm">Lukt het formulier niet, mail het CV dan naar <a class="font-semibold underline" href={`mailto:${site.parent.email}`}>{site.parent.email}</a>.</p>
+      </fieldset>
+
+      <div class="absolute -left-[9999px]" aria-hidden="true">
+        <label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label>
+      </div>
+      <div class="flex gap-3" data-nav>
+        <button type="button" data-prev class="rounded-full border border-green-800 px-4 py-2 font-semibold">Vorige</button>
+        <button type="button" data-next class="rounded-full bg-ochre-500 px-4 py-2 font-semibold">Volgende stap</button>
+      </div>
+    </form>
+  </article>
+</Base>
+
+<script>
+  import "../scripts/wizard.ts";
+  import "../scripts/werken.ts";
+</script>

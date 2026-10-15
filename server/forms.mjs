@@ -1,3 +1,5 @@
+import { handleWerken } from "./werken.mjs";
+
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_HITS = 8;
 const hits = new Map();
@@ -153,6 +155,17 @@ export async function handleApi(req, res) {
   }
 
   const kind = url.pathname.split("/")[2];
+  if (kind === "werken") {
+    try {
+      const result = await handleWerken(req, clientIp(req));
+      res.writeHead(result.status, { "content-type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify(result.payload));
+    } catch {
+      res.writeHead(400, { "content-type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ ok: false, errors: ["De aanmelding kon niet worden gelezen."] }));
+    }
+    return true;
+  }
   try {
     const body = await readJson(req);
     const result = await processSubmission(kind, body, clientIp(req));

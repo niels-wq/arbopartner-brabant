@@ -79,3 +79,54 @@ Deze punten zijn bewust open gelaten:
 - SMTP-gegevens voor echte aflevering.
 - Inkoopprijzen van zzp-casemanagers zijn niet gepubliceerd. De verkooprijzen zijn richtprijzen.
 - Eigen Google-reviews bestaan nog niet. Citaten zijn letterlijk van matchvermogen.nl/referenties/.
+- Bewaartermijn van sollicitaties. Die is dezelfde open placeholder als bij de andere formulieren. Er staat geen aantal maanden op de site.
+- Salaris en uren van de baan in dienst. Die spreken we af in de procedure.
+
+## Werken bij
+
+`/werken-bij` heeft twee trajecten: zzp-casemanager en een baan in dienst. Het formulier loopt in zes stappen en post multipart naar `POST /api/werken`. Honeypot-veld `company_website`. Per IP maximaal 4 aanmeldingen per 10 minuten. Een CV is pdf of docx, maximaal 10 MB.
+
+Ontvanger van de mailfallback is vast `info@matchvermogen.nl`. Zonder `SMTP_HOST` én zonder Airtable antwoordt de site dat de aanmelding nog niet is opgeslagen. Een mailto met het CV kan de browser niet maken.
+
+### Omgevingsvariabelen
+
+| Variabele | Nodig | Betekenis |
+| --- | --- | --- |
+| `AIRTABLE_TOKEN` | voor de database | Personal access token met `data.records:write` en recht op bijlagen |
+| `AIRTABLE_BASE_ID` | voor de database | Base-id, begint met `app` |
+| `AIRTABLE_TABLE` | voor de database | Tabelnaam, voorstel `Kandidaten` |
+| `AIRTABLE_CV_FIELD` | nee | Bijlageveld, standaard `CV` |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM` | voor de mailfallback | Zelfde mailer als de andere formulieren |
+
+Staan de drie Airtable-variabelen niet alle drie aan, dan gaat de aanmelding per mail, met het CV als bijlage. De Airtable-upload van het bestand zelf stopt bij 5 MB. Een CV tot 10 MB maken we wel aan als record; het bestand gaat dan per mail mee en het veld `CvNotitie` legt dat uit.
+
+### Tabelschema
+
+Maak de keuzes exact zo aan. `typecast` staat aan, maar een ontbrekende keuze laat de schrijfactie alsnog falen als Airtable hem weigert.
+
+| Veld | Type | Opmerking |
+| --- | --- | --- |
+| Traject | single select | `Zzp`, `In dienst` |
+| Naam | single line | |
+| Email | email | |
+| Telefoon | single line | |
+| Woonplaats | single line | |
+| Motivatie | long text | |
+| ErvaringJaren | number | geheel getal, 0 tot 60 |
+| Registraties | multiple select | `RCM`, `SKO`, `BIG`, `Geen` |
+| Opleiding | single line | |
+| Regios | multiple select | de plaatsen uit `src/data/werken.json`, inclusief `Elders in Noord-Brabant` |
+| BeschikbaarheidUren | number | tot 40 |
+| Uurtarief | number | alleen bij zzp, het tarief dat de kandidaat zelf opgeeft |
+| KvK | single line | alleen bij zzp, 8 cijfers |
+| VOG | single select | `Ja`, `Nee`, `Aangevraagd` |
+| Beroepsaansprakelijkheid | single select | `Ja`, `Nee` |
+| Specialisaties | multiple select | de twaalf waarden uit `src/data/werken.json` |
+| SpecialisatieOverig | single line | vrije tekst, leeg mag |
+| Toestemming | checkbox | |
+| Ingediend | date | `YYYY-MM-DD` |
+| Bron | single line | `https://www.arbopartnerbrabant.nl/werken-bij` |
+| CV | attachment | tot 5 MB via de upload-API |
+| CvNotitie | long text | alleen als het CV niet als bijlage in Airtable past |
+
+Een boeking of aanmelding stuurt geen cv-bestandsnaam en geen e-mailadres naar `dataLayer`. Wel `form_step`, `form_error` en `generate_lead` met `form_id` `werken` en het traject.

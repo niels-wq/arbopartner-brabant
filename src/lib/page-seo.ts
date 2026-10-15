@@ -22,6 +22,17 @@ const byPath: Record<string, FaqItem[]> = {
     ...shared,
   ],
   "/contact": shared,
+  "/werken-bij": [
+    {
+      q: "Kan ik me aanmelden als zzp-casemanager?",
+      a: "Ja. Het formulier heeft een traject voor zzp, met KvK en uurtarief. De teampagina vermeldt niet wie in loondienst is en wie als zzp'er meewerkt. Dat staat in de offerte aan de opdrachtgever.",
+    },
+    {
+      q: "Staat het salaris van de baan in dienst hier?",
+      a: "Nee. Salaris en uren spreken we af in de procedure. Deze pagina noemt geen bedrag.",
+    },
+    shared[0],
+  ],
   "/offerte": [
     {
       q: "Wanneer krijg ik een offerte?",

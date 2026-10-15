@@ -144,6 +144,39 @@ export function teamPeopleLd() {
   return team.filter((member) => member.slug !== "niels-alderding").map((member) => personNode(member));
 }
 
+export function jobPostingLd() {
+  return {
+    "@type": "JobPosting",
+    title: "Casemanager verzuim, in dienst",
+    description:
+      "Casemanager in loondienst bij Matchvermogen B.V. in Uden, voor verzuimbegeleiding bij werkgevers rond Uden. Het werk kan op het kantoor aan de Losplaats 16d, bij de werkgever of online. Salaris en uren per week staan niet in deze vacature. Die spreken we af in de procedure. Solliciteren kan direct op de pagina Werken bij.",
+    datePosted: "2026-10-15",
+    directApply: true,
+    hiringOrganization: {
+      "@type": "Organization",
+      name: site.parent.legalName,
+      sameAs: site.parent.url,
+      logo: absoluteUrl("/logo.png"),
+    },
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: site.parent.street,
+        postalCode: site.parent.postalCode,
+        addressLocality: site.parent.city,
+        addressRegion: site.parent.region,
+        addressCountry: site.parent.country,
+      },
+    },
+    applicantLocationRequirements: {
+      "@type": "AdministrativeArea",
+      name: "Noord-Brabant",
+    },
+    url: absoluteUrl("/werken-bij"),
+  };
+}
+
 export function graph(nodes: Record<string, unknown>[]) {
   return {
     "@context": "https://schema.org",
