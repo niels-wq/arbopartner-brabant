@@ -5,7 +5,7 @@ import Footer from "../components/Footer.astro";
 import Engagement from "../components/Engagement.astro";
 import FaqList from "../components/FaqList.astro";
 import { site, absoluteUrl } from "../data/site";
-import { faqLd, graph, organizationLd } from "../lib/schema";
+import { faqLd, graph, organizationLd, personLd } from "../lib/schema";
 import { faqForPath, howToForPath, serviceNodesForPath } from "../lib/page-seo";
 
 interface Props {
@@ -28,6 +28,7 @@ const hasOrg = jsonLd.some((node) => node["@id"] === `${site.domain}/#organisati
 const pageFaq = hasFaq ? [] : faqForPath(pathname);
 const schema = graph([
   ...(hasOrg ? [] : [organizationLd()]),
+  personLd(),
   ...jsonLd,
   ...(pageFaq.length ? [faqLd(pageFaq)] : []),
   ...serviceNodesForPath(pathname),
@@ -43,7 +44,9 @@ const schema = graph([
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
     </script>
@@ -53,10 +56,14 @@ const schema = graph([
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={site.locale} />
     <meta property="og:site_name" content={site.name} />
-    <meta property="og:image" content={absoluteUrl("/og.svg")} />
+    <meta property="og:image" content={absoluteUrl("/og.png")} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Arbopartner Brabant, een label van Matchvermogen" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteUrl("/og.png")} />
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body>

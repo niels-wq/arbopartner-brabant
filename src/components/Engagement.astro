@@ -16,9 +16,11 @@ import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
 <a class="ap-calc btn" data-cta="calculator-fab" href="/welke-casemanager">Welke casemanager</a>
 
 <div class="ap-dock">
-  <button id="ap-chat-open" class="ap-icon" type="button" aria-expanded="false" aria-controls="ap-chat">Chat</button>
+  <button id="ap-chat-open" class="ap-icon" type="button" aria-expanded="false" aria-controls="ap-chat" aria-label="Chat openen">
+    <img src={site.founder.avatar} width="160" height="160" alt="" />
+  </button>
   <details class="ap-contact">
-    <summary>Contact</summary>
+    <summary><img src={site.founder.avatar} width="160" height="160" alt="" /> Contact</summary>
     <div class="ap-contact-menu">
       <a data-cta="fab-bel" data-channel="phone" href={phoneHref}>Bel {site.parent.phoneDisplay}</a>
       <a data-cta="fab-whatsapp" data-channel="whatsapp" href={whatsappHref} rel="noopener">WhatsApp {site.parent.whatsappDisplay}</a>
@@ -29,9 +31,10 @@ import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
 
 <section id="ap-chat" class="ap-chat" hidden role="dialog" aria-modal="false" aria-labelledby="ap-chat-title">
   <div class="ap-chat-head">
+    <img class="ap-avatar" src={site.founder.avatar} width="160" height="160" alt="" />
     <div>
       <p id="ap-chat-title" class="font-semibold">Arbopartner Brabant</p>
-      <p class="text-sm">Korte antwoorden, geen medisch advies</p>
+      <p class="text-sm">Korte antwoorden. Foto: {site.founder.name}</p>
     </div>
     <button type="button" data-close aria-label="Chat sluiten">×</button>
   </div>

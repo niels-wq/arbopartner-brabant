@@ -14,7 +14,14 @@ const crumbs = [
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Uw vaste gezicht</h1>
-    <p class="mt-4 text-lg">Elke klant krijgt één casemanager, met naam, regio en een rechtstreeks nummer. Die gegevens zetten we hier pas als de persoon zelf akkoord is. Tot die tijd verzinnen we geen portretten.</p>
+    <figure class="mt-6 flex items-center gap-4">
+      <img class="h-24 w-20 rounded-2xl object-cover object-[center_20%]" src="/mensen/niels-alderding-240.webp" width="240" height="300" alt="Niels Alderding, oprichter van Matchvermogen" />
+      <figcaption>
+        <p class="font-serif text-2xl text-green-950">Niels Alderding</p>
+        <p>Oprichter van Matchvermogen, het moederbedrijf. Hij is niet de wekelijkse casemanager van dit label. <a class="underline" href="/over-ons">Over hem</a></p>
+      </figcaption>
+    </figure>
+    <p class="mt-4 text-lg">Elke klant krijgt één casemanager, met naam, regio en een rechtstreeks nummer. Die gegevens zetten we hier pas als de persoon zelf akkoord is. Tot die tijd verzinnen we geen portretten van casemanagers.</p>
     <p class="mt-4 rounded-3xl bg-ochre-200 px-5 py-4">{site.placeholders.team}</p>
     <div class="mt-6 grid gap-4 sm:grid-cols-2">
       <div class="rounded-[2rem] border border-dashed border-ochre-700 bg-white/60 p-6">

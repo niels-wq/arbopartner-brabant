@@ -52,6 +52,15 @@ export const site = {
     tweedeSpoor: 10,
   },
   adviesMinuten: 30,
+  founder: {
+    name: "Niels Alderding",
+    role: "Oprichter van Matchvermogen",
+    quote:
+      "Geen zin om eerst een heel formulier in te vullen? Plan gewoon een gratis kop koffie in — ik denk graag vrijblijvend met je mee.",
+    quoteUrl: "https://www.arbeidsdeskundig.com/over-ons",
+    photo: "/mensen/niels-alderding-800.webp",
+    avatar: "/mensen/niels-alderding-avatar.webp",
+  },
   placeholders: {
     callback:
       "PLACEHOLDER: de terugbeltermijn is nog niet vastgesteld. Bel of app, dan pakt Matchvermogen B.V. uw vraag op.",

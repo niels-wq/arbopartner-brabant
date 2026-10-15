@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import CtaBand from "../components/CtaBand.astro";
 import ClusterNav from "../components/ClusterNav.astro";
 import FaqList from "../components/FaqList.astro";
+import NielsPhoto from "../components/NielsPhoto.astro";
 import ReviewCard from "../components/ReviewCard.astro";
 import { site } from "../data/site";
 import { reviews } from "../data/reviews";
@@ -37,7 +38,7 @@ const jsonLd = [faqLd(faq)];
   description={site.description}
   jsonLd={jsonLd}
 >
-  <section class="mx-auto grid max-w-6xl items-end gap-8 px-4 pb-6 pt-10 md:grid-cols-[1.3fr_0.7fr] md:pt-16">
+  <section class="mx-auto grid max-w-6xl items-start gap-8 px-4 pb-6 pt-10 md:grid-cols-[1.3fr_0.7fr] md:pt-16">
     <div>
       <p class="text-sm font-semibold uppercase tracking-[0.16em] text-ochre-800">{site.labelStatement}</p>
       <h1 class="mt-3 max-w-xl font-serif text-5xl leading-[1.05] text-green-950 md:text-6xl">Uw casemanager kent de namen op de werkvloer.</h1>
@@ -53,6 +54,21 @@ const jsonLd = [faqLd(faq)];
         <a class="rounded-full border border-green-800 px-5 py-3 text-center font-semibold text-green-900" data-cta="home-spoed" href="/spoedhulp">Ik heb nu een probleem</a>
       </div>
     </div>
+    <figure class="overflow-hidden rounded-[2rem] bg-white ring-1 ring-line">
+      <NielsPhoto eager sizes="(min-width: 768px) 22rem, 92vw" class="aspect-[4/5] w-full object-cover" />
+      <figcaption class="p-5">
+        <blockquote class="font-serif text-2xl leading-snug text-green-950">
+          <p>{site.founder.quote}</p>
+        </blockquote>
+        <p class="mt-3 text-sm text-ink-soft">
+          {site.founder.name}, {site.founder.role.toLowerCase()}.
+          <a class="font-semibold text-green-900 underline" href={site.founder.quoteUrl}>Bron: arbeidsdeskundig.com</a>
+        </p>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4">
     <aside class="rounded-[2rem] bg-ochre-200 p-6">
       <p class="font-serif text-2xl text-green-950">Wat u niet krijgt</p>
       <ul class="mt-3 space-y-2 text-ink">

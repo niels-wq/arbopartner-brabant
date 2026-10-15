@@ -1,0 +1,22 @@
+---
+interface Props {
+  sizes: string;
+  class?: string;
+  eager?: boolean;
+  alt?: string;
+}
+const { sizes, class: className = "", eager = false, alt = "Niels Alderding, oprichter van Matchvermogen" } = Astro.props;
+---
+
+<img
+  src="/mensen/niels-alderding-800.webp"
+  srcset="/mensen/niels-alderding-240.webp 240w, /mensen/niels-alderding-480.webp 480w, /mensen/niels-alderding-800.webp 800w, /mensen/niels-alderding-1200.webp 1200w"
+  sizes={sizes}
+  width="800"
+  height="1000"
+  alt={alt}
+  class={className}
+  loading={eager ? "eager" : "lazy"}
+  decoding="async"
+  fetchpriority={eager ? "low" : "auto"}
+/>

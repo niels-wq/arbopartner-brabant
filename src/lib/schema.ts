@@ -36,7 +36,17 @@ export function organizationLd(areaName?: string) {
     url: site.domain,
     telephone: site.parent.phoneTel,
     email: site.parent.email,
-    image: absoluteUrl("/og.svg"),
+    image: absoluteUrl("/og.png"),
+    logo: {
+      "@type": "ImageObject",
+      "@id": `${site.domain}/#logo`,
+      url: absoluteUrl("/logo.png"),
+      contentUrl: absoluteUrl("/logo.svg"),
+      width: 756,
+      height: 128,
+      caption: `${site.name}, een label van Matchvermogen`,
+    },
+    founder: { "@id": `${site.domain}/#niels-alderding` },
     priceRange: "€€",
     address: {
       "@type": "PostalAddress",
@@ -79,17 +89,28 @@ export function articleLd(input: {
     datePublished: input.date,
     dateModified: input.updated,
     mainEntityOfPage: absoluteUrl(input.path),
-    author: {
-      "@type": "Organization",
-      name: site.name,
-      url: site.domain,
-    },
+    author: { "@id": `${site.domain}/#niels-alderding` },
     publisher: {
       "@type": "Organization",
       name: site.parent.legalName,
       url: site.parent.url,
     },
-    image: absoluteUrl("/og.svg"),
+    image: absoluteUrl("/og.png"),
+  };
+}
+
+export function personLd() {
+  return {
+    "@type": "Person",
+    "@id": `${site.domain}/#niels-alderding`,
+    name: site.founder.name,
+    jobTitle: site.founder.role,
+    description:
+      "Oprichter van Matchvermogen B.V. en verantwoordelijk voor de kennisartikelen van het label Arbopartner Brabant. Algemene informatie voor werkgevers, geen advies over één dossier.",
+    image: absoluteUrl("/mensen/niels-alderding-800.webp"),
+    url: absoluteUrl("/over-ons"),
+    worksFor: { "@id": `${site.domain}/#organisatie` },
+    sameAs: [site.parent.url, site.founder.quoteUrl],
   };
 }
 

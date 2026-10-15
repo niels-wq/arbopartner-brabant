@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import AuthorBlock from "../components/AuthorBlock.astro";
+import NielsPhoto from "../components/NielsPhoto.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import CtaBand from "../components/CtaBand.astro";
 import { site } from "../data/site";
@@ -27,7 +28,15 @@ const faq = [
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Een label, geen loket</h1>
     <p class="mt-4 text-lg">{site.name} is een label van {site.parent.legalName}, KvK {site.parent.kvk}, {site.parent.street}, {site.parent.postalCode} {site.parent.city}. Het moederbedrijf werkt als register-arbeidsdeskundig bureau. Dit label doet iets anders: een vaste casemanager op locatie, voor werkgevers met {site.minEmployees} of meer medewerkers, binnen ongeveer {site.travelMinutes} minuten van Uden.</p>
-    <p class="mt-4">De oprichter van Matchvermogen is Niels Alderding. Dat staat publiek op het zustermerk <a class="underline" href="https://www.arbeidsdeskundig.com/over-ons">arbeidsdeskundig.com</a>. Een aparte biografie voor dit label verzinnen we niet.</p>
+    <figure class="mt-6 grid items-start gap-5 sm:grid-cols-[12rem_1fr]">
+      <NielsPhoto sizes="12rem" class="aspect-[4/5] w-full rounded-[1.5rem] object-cover" />
+      <figcaption>
+        <blockquote class="font-serif text-2xl leading-snug text-green-950">
+          <p>{site.founder.quote}</p>
+        </blockquote>
+        <p class="mt-3">{site.founder.name} is oprichter en directeur van Matchvermogen, en arbeidsdeskundige. De foto staat op de teampagina van <a class="underline" href="https://matchvermogen.nl/over-matchvermogen/">matchvermogen.nl</a>. Een aparte biografie voor dit label verzinnen we niet. Achtergrond en de regel hierboven staan ook op <a class="underline" href={site.founder.quoteUrl}>arbeidsdeskundig.com</a>.</p>
+      </figcaption>
+    </figure>
     <h2 class="mt-8 font-serif text-3xl">Waarom een eigen gezicht</h2>
     <p class="mt-3">Werkgevers die bellen, hebben meestal geen behoefte aan een portal. Ze willen iemand die morgen op de plant staat, de leidinggevende kent en het dossier bijhoudt. De arbeidsdeskundige blijft beschikbaar als het dossier vastloopt, met {site.discount.arbeidsdeskundige}% korting. Tweede spoor loopt via <a class="underline" href="https://bestmatchbv.nl">Best Match</a>, met {site.discount.tweedeSpoor}% korting. WHK-vragen horen bij <a class="underline" href="https://werkhervattingskas.nl">werkhervattingskas.nl</a>.</p>
     <h2 class="mt-8 font-serif text-3xl">Wat we niet zijn</h2>
