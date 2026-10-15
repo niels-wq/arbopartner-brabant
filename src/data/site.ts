@@ -1,6 +1,6 @@
 export const site = {
   name: "Arbopartner Brabant",
-  domain: "https://arbopartnerbrabant.nl",
+  domain: "https://www.arbopartnerbrabant.nl",
   locale: "nl_NL",
   tagline: "Een vast gezicht voor verzuim in Brabant",
   description:

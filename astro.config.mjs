@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { formApiPlugin } from "./server/vite-plugin.mjs";
 
 export default defineConfig({
-  site: "https://arbopartnerbrabant.nl",
+  site: "https://www.arbopartnerbrabant.nl",
   trailingSlash: "never",
   vite: {
     plugins: [tailwindcss(), formApiPlugin()],

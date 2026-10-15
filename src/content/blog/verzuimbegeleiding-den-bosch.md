@@ -22,7 +22,7 @@ sources:
     url: "https://wetten.overheid.nl/BWBR0005290/"
     note: "Het dossier moet de inspanningen tonen, ook bij een mkb-werkgever."
   - title: "Lokale pagina Den Bosch"
-    url: "https://arbopartnerbrabant.nl/werkgebied/den-bosch"
+    url: "https://www.arbopartnerbrabant.nl/werkgebied/den-bosch"
     note: "Reistijd, sectoren en veelgestelde vragen."
 related:
   - verzuimbegeleiding-uden-veghel

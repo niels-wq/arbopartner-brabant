@@ -2,7 +2,7 @@
 
 Nederlandstalige site voor Arbopartner Brabant, een label van Matchvermogen. Het label detacheert een vaste casemanager bij werkgevers met 35 of meer medewerkers, binnen ongeveer 45 minuten rijden van Uden.
 
-De site is statische HTML (Astro) met interactieve calculators. Formulieren lopen via een kleine Node-server. Het domein `https://arbopartnerbrabant.nl` is nog niet live. Canonicals, sitemap en structured data wijzen al naar dat domein.
+De site is statische HTML (Astro) met interactieve calculators. Formulieren lopen via een kleine Node-server. Het domein `https://www.arbopartnerbrabant.nl` is nog niet live. Canonicals, sitemap en structured data wijzen al naar dat domein.
 
 ## Lokaal draaien
 
@@ -52,7 +52,7 @@ De repository bevat een `Dockerfile` en `railway.toml`. Railway bouwt de image, 
 3. Zet de SMTP-variabelen hierboven als secrets. Zonder die variabelen blijft de site werken, met mailto-fallback.
 4. Geen vaste poort instellen. De server leest `PORT`.
 5. Healthcheck: `GET /`.
-6. DNS later: CNAME van `arbopartnerbrabant.nl` naar het Railway-domein. Tot die tijd is dit een preview.
+6. DNS later: CNAME van `www.arbopartnerbrabant.nl` naar het Railway-domein. Tot die tijd is dit een preview.
 
 Nixpacks kan ook, als u de Dockerfile niet gebruikt: startcommando `npm run build && npm start`. De Dockerfile is de bedoelde route.
 

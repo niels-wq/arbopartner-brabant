@@ -19,10 +19,10 @@ sources:
     url: "https://publications.tno.nl/publication/34646745/vbrmvNib/TNO-2026-17537.pdf"
     note: "Orde van grootte van een verzuimdag, ook bruikbaar voor food en logistiek."
   - title: "Werkgebied Uden"
-    url: "https://arbopartnerbrabant.nl/werkgebied/uden"
+    url: "https://www.arbopartnerbrabant.nl/werkgebied/uden"
     note: "Lokale pagina met reistijd en sectoren."
   - title: "Werkgebied Veghel"
-    url: "https://arbopartnerbrabant.nl/werkgebied/veghel"
+    url: "https://www.arbopartnerbrabant.nl/werkgebied/veghel"
     note: "Lokale pagina voor de oostkant van Meierijstad."
 related:
   - verzuimbegeleiding-den-bosch

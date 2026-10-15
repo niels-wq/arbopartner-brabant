@@ -55,6 +55,11 @@ const server = createServer(async (req, res) => {
   try {
     if (await handleApi(req, res)) return;
     const url = new URL(req.url || "/", "http://localhost");
+    if (url.pathname === "/sitemap.xml") {
+      res.writeHead(301, { location: "/sitemap-index.xml" });
+      res.end();
+      return;
+    }
     if (url.pathname !== "/" && url.pathname.endsWith("/")) {
       res.writeHead(308, { location: url.pathname.slice(0, -1) + url.search });
       res.end();

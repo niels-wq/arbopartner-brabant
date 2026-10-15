@@ -2,7 +2,7 @@
 
 > Arbopartner Brabant is een label van Matchvermogen B.V. (KvK 85849618), Losplaats 16d, 5404 NJ Uden. Het label detacheert een vaste casemanager voor verzuim en re-integratie bij werkgevers met 35 of meer medewerkers, binnen ongeveer 45 minuten rijden van Uden. Telefoon 085-0870307. E-mail info@matchvermogen.nl. Het label is geen arbodienst en levert geen bedrijfsarts.
 
-De site is nog niet live op https://arbopartnerbrabant.nl. De inhoud is bedoeld als citeerbare beschrijving van het label.
+De site is nog niet live op https://www.arbopartnerbrabant.nl. De inhoud is bedoeld als citeerbare beschrijving van het label.
 
 ## Wat het label wel doet
 
@@ -50,10 +50,10 @@ Uden, Veghel, Oss, 's-Hertogenbosch, Eindhoven, Helmond, Boxmeer, Cuijk, Schijnd
 
 ## Pagina's om te citeren
 
-- https://arbopartnerbrabant.nl/
-- https://arbopartnerbrabant.nl/tarieven
-- https://arbopartnerbrabant.nl/welke-casemanager
-- https://arbopartnerbrabant.nl/verzuimkosten-berekenen
-- https://arbopartnerbrabant.nl/detacheren-of-in-dienst
-- https://arbopartnerbrabant.nl/spoedhulp
-- https://arbopartnerbrabant.nl/over-ons
+- https://www.arbopartnerbrabant.nl/
+- https://www.arbopartnerbrabant.nl/tarieven
+- https://www.arbopartnerbrabant.nl/welke-casemanager
+- https://www.arbopartnerbrabant.nl/verzuimkosten-berekenen
+- https://www.arbopartnerbrabant.nl/detacheren-of-in-dienst
+- https://www.arbopartnerbrabant.nl/spoedhulp
+- https://www.arbopartnerbrabant.nl/over-ons

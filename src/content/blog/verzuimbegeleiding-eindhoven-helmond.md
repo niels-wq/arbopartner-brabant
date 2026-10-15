@@ -22,7 +22,7 @@ sources:
     url: "https://www.uwv.nl/nl/nieuws/werkgevers-leiden-vaker-nieuw-personeel-op-door-aanhoudende-krapte"
     note: "Technische beroepen blijven lastig vervulbaar. Dat raakt ook vervanging bij ziekte."
   - title: "Lokale pagina Eindhoven"
-    url: "https://arbopartnerbrabant.nl/werkgebied/eindhoven"
+    url: "https://www.arbopartnerbrabant.nl/werkgebied/eindhoven"
     note: "Reistijd en type werkgevers."
 related:
   - verzuim-maakindustrie-brabant

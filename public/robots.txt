@@ -25,4 +25,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://arbopartnerbrabant.nl/sitemap-index.xml
+Sitemap: https://www.arbopartnerbrabant.nl/sitemap-index.xml
