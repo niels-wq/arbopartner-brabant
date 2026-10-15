@@ -1,0 +1,27 @@
+---
+const points = [
+  { x: 70, label: "Dag 1" },
+  { x: 155, label: "Week 1" },
+  { x: 240, label: "Week 6" },
+  { x: 325, label: "Week 8" },
+  { x: 410, label: "Week 42" },
+  { x: 500, label: "Week 52" },
+  { x: 590, label: "Week 88" },
+  { x: 690, label: "Week 104" },
+];
+---
+
+<figure class="ap-figure mt-6">
+  <svg viewBox="0 0 760 180" role="img" aria-label="Tijdlijn bij ziekte voor werkgevers in Brabant: van de ziekmelding op dag 1 tot week 104." width="760" height="180">
+    <rect width="760" height="180" rx="28" fill="#f4ecdf" />
+    <line x1="70" y1="78" x2="690" y2="78" stroke="#c4923a" stroke-width="4" />
+    {points.map((point, index) => (
+      <g>
+        <circle cx={point.x} cy="78" r={index === points.length - 1 ? 12 : 8} fill={index === 0 ? "#8c3d2a" : "#0c3b27"} />
+        <text x={point.x} y="118" text-anchor="middle" fill="#12261c" font-size="14" font-family="Source Sans 3, Segoe UI, sans-serif">{point.label}</text>
+      </g>
+    ))}
+    <text x="40" y="40" fill="#6d4d1c" font-size="14" font-family="Source Sans 3, Segoe UI, sans-serif">Ziekmelding</text>
+    <text x="560" y="40" fill="#6d4d1c" font-size="14" font-family="Source Sans 3, Segoe UI, sans-serif">Einde loondoorbetaling</text>
+  </svg>
+</figure>

@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Figure from "../components/Figure.astro";
 import OfficeVisit from "../components/OfficeVisit.astro";
 import { officeConversation, site, phoneHref } from "../data/site";
 import { crumbsLd } from "../lib/schema";
@@ -16,6 +17,7 @@ const crumbs = [
   <article class="mx-auto grid max-w-6xl gap-8 px-4 pt-6 lg:grid-cols-2">
     <div>
       <h1 class="font-serif text-5xl text-green-950">Dertig minuten, zonder verplichting</h1>
+      <Figure id="pagina-advies" eager class="mt-6" />
       <p class="mt-4 text-lg">Een adviesgesprek is een gratis gesprek van 30 minuten over uw verzuimdossiers. We kijken of een vaste casemanager past, welk niveau, en of u eerst een analyse nodig heeft. U hoeft niets af te nemen. Het gesprek kan op het kantoor in Uden, bij u op het bedrijf of online.</p>
       <p class="mt-4">Op kantoor, {site.parent.street} in {site.parent.city}, is het {officeConversation.place.charAt(0).toLowerCase()}{officeConversation.place.slice(1)} Voor de begeleiding zelf komen werknemers daarheen. {officeConversation.threshold} {officeConversation.employer} {officeConversation.care}</p>
       <a class="mt-5 inline-block rounded-full bg-green-800 px-5 py-3 font-semibold text-sand-50" data-cta="advies-kantoor" href="#afspraak">Plan een gesprek op ons kantoor</a>

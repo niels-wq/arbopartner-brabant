@@ -1,4 +1,5 @@
 ---
+import Figure from "../../components/Figure.astro";
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { crumbsLd } from "../../lib/schema";
@@ -23,6 +24,7 @@ const items = [
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Zitten er gaten in het dossier?</h1>
+    <Figure id="pagina-loonsanctie" eager class="mt-6" />
     <p class="mt-4 text-lg">UWV kan na 104 weken nog maximaal 52 weken loon opleggen als de re-integratie onvoldoende was. Deze check voorspelt dat niet. Hij laat zien waar een dossier vaak rammelt.</p>
     <form data-sanction class="mt-6 space-y-3">
       {items.map((item) => (
@@ -39,6 +41,7 @@ const items = [
 </Base>
 
 <script>
+  import { barChart } from "../../lib/chart-svg";
   import { mountReport } from "../../scripts/report";
   import { track } from "../../scripts/track";
 
@@ -51,7 +54,7 @@ const items = [
     const checked = form.querySelectorAll('input[type="checkbox"]:checked').length;
     const gaps = total - checked;
     const tone = gaps === 0 ? "U vinkt alles aan. Dat is een begin, geen vrijbrief." : gaps <= 2 ? "Er zijn een paar gaten. Die zijn meestal nog te repareren." : "Er ontbreekt veel. Wacht niet tot de WIA-aanvraag.";
-    out.innerHTML = `<p class="font-semibold uppercase tracking-wide text-ochre-800">Geen UWV-oordeel</p><p class="mt-2 font-serif text-3xl text-green-950">${gaps} van ${total} punten ontbreken</p><p class="mt-2">${tone}</p>${gaps >= 3 ? '<p class="mt-3"><a class="font-semibold underline" data-cta="sanctie-spoed" href="/spoedhulp">Naar spoedhulp</a></p>' : ""}`;
+    out.innerHTML = `<p class="font-semibold uppercase tracking-wide text-ochre-800">Geen UWV-oordeel</p><p class="mt-2 font-serif text-3xl text-green-950">${gaps} van ${total} punten ontbreken</p>${barChart("Aangevinkte punten en ontbrekende punten in deze dossiercheck.", [{ label: "Aanwezig", value: checked, tone: "green" }, { label: "Ontbreekt", value: Math.max(gaps, 0), tone: "clay" }])}<p class="mt-2">${tone}</p>${gaps >= 3 ? '<p class="mt-3"><a class="font-semibold underline" data-cta="sanctie-spoed" href="/spoedhulp">Naar spoedhulp</a></p>' : ""}`;
     track("calculator_result", { calculator: "loonsanctie-check" });
     mountReport(out, { calculator: "loonsanctie-check", title: "Loonsanctie-check", body: out.innerText.trim() });
   });

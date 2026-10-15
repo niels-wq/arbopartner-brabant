@@ -4,8 +4,19 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import FaqList from "../../components/FaqList.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import HireBenefits from "../../components/HireBenefits.astro";
+import Figure from "../../components/Figure.astro";
+import Mark from "../../components/Mark.astro";
 import InlineLead from "../../components/InlineLead.astro";
 import { services } from "../../data/services";
+
+const icon: Record<string, "calendar" | "chart" | "document" | "balance" | "route" | "shield"> = {
+  "casemanager-detachering": "calendar",
+  verzuimanalyse: "chart",
+  "verzuimbeleid-protocol": "document",
+  "vso-en-ontslagdossier": "balance",
+  "tweede-spoor": "route",
+  "arbeidsdeskundig-onderzoek": "shield",
+};
 import { crumbsLd, faqLd } from "../../lib/schema";
 
 export function getStaticPaths() {
@@ -25,9 +36,10 @@ const crumbs = [
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">{service.title}</h1>
     <p class="mt-4 text-lg text-ink-soft">{service.lead}</p>
+    <Figure id={`dienst-${service.slug}`} eager class="mt-6" />
     {service.sections.map((section) => (
       <section class="mt-8">
-        <h2 class="font-serif text-3xl text-green-950">{section.heading}</h2>
+        <h2 class="font-serif text-3xl text-green-950"><Mark name={icon[service.slug] ?? "document"} />{section.heading}</h2>
         {section.paragraphs.map((paragraph) => <p class="mt-3">{paragraph}</p>)}
       </section>
     ))}

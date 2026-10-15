@@ -3,8 +3,19 @@ import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ClusterNav from "../../components/ClusterNav.astro";
 import CtaBand from "../../components/CtaBand.astro";
+import Figure from "../../components/Figure.astro";
+import Mark from "../../components/Mark.astro";
 import InlineLead from "../../components/InlineLead.astro";
-import { services } from "../../data/services";
+import { services, type Service } from "../../data/services";
+
+const icon: Record<Service["slug"], "calendar" | "chart" | "document" | "balance" | "route" | "shield"> = {
+  "casemanager-detachering": "calendar",
+  verzuimanalyse: "chart",
+  "verzuimbeleid-protocol": "document",
+  "vso-en-ontslagdossier": "balance",
+  "tweede-spoor": "route",
+  "arbeidsdeskundig-onderzoek": "shield",
+};
 import { crumbsLd } from "../../lib/schema";
 
 const crumbs = [
@@ -18,12 +29,16 @@ const crumbs = [
   <header class="mx-auto max-w-6xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Diensten</h1>
     <p class="mt-4 max-w-2xl text-lg text-ink-soft">Een dienst van Arbopartner Brabant is begeleiding van verzuim door een vaste gedetacheerde casemanager. Daaromheen zitten analyse, protocol, dossier bij vertrek, tweede spoor en arbeidsdeskundig onderzoek. Het label is geen arbodienst.</p>
+    <Figure id="pagina-diensten" eager class="mt-6 max-w-3xl" />
   </header>
   <div class="mx-auto grid max-w-6xl gap-4 px-4 py-8 md:grid-cols-2">
     {services.map((service) => (
-      <a class="rounded-[2rem] border border-line bg-white/80 p-6" href={`/diensten/${service.slug}`}>
-        <h2 class="font-serif text-3xl text-green-950">{service.title}</h2>
+      <a class="overflow-hidden rounded-[2rem] border border-line bg-white/80" href={`/diensten/${service.slug}`}>
+        <Figure id={`dienst-${service.slug}`} sizes="(min-width: 768px) 28rem, 100vw" />
+        <div class="p-6">
+        <h2 class="font-serif text-3xl text-green-950"><Mark name={icon[service.slug]} />{service.title}</h2>
         <p class="mt-2 text-ink-soft">{service.lead}</p>
+        </div>
       </a>
     ))}
   </div>

@@ -1,4 +1,5 @@
 ---
+import Figure from "../components/Figure.astro";
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import ReviewCard from "../components/ReviewCard.astro";
@@ -28,6 +29,7 @@ const reviewLd = reviews.map((review) => ({
   <Breadcrumbs crumbs={crumbs} />
   <header class="mx-auto max-w-6xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Reviews</h1>
+    <Figure id="pagina-reviews" eager class="mt-6" />
     <p class="mt-4 max-w-3xl">{reviewNotice} Matchvermogen schrijft op de eigen site dat opdrachtgevers het bureau 5/5 sterren op Google geven. Dat getal nemen we niet over als score van Arbopartner Brabant, en het staat niet in een samengestelde beoordeling op deze site.</p>
     <p class="mt-3"><a class="font-semibold underline" href="https://matchvermogen.nl/referenties/">Alle referenties op matchvermogen.nl</a></p>
   </header>

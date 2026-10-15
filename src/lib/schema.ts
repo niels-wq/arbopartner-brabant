@@ -91,6 +91,7 @@ export function articleLd(input: {
   path: string;
   date: string;
   updated: string;
+  image?: string;
 }) {
   return {
     "@type": "Article",
@@ -106,7 +107,7 @@ export function articleLd(input: {
       name: site.parent.legalName,
       url: site.parent.url,
     },
-    image: absoluteUrl("/og.png"),
+    image: input.image ?? absoluteUrl("/og.png"),
   };
 }
 

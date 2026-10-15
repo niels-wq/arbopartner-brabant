@@ -611,6 +611,41 @@ summary.rounded-full.border-green-800:focus-visible,
   }
 }
 
+.ap-mark {
+  display: inline-block;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-right: 0.45rem;
+  vertical-align: -0.35rem;
+  color: currentColor;
+}
+
+.ap-figure {
+  margin: 0;
+}
+
+.ap-figure img,
+.ap-figure svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 1.5rem;
+  background: #f4ecdf;
+}
+
+a > .ap-figure img {
+  border-radius: 0;
+}
+
+.ap-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  background: #fffaf3;
+}
+
 .ap-field {
   display: block;
   margin-top: 0.25rem;

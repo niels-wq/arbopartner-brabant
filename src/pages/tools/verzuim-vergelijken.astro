@@ -1,4 +1,5 @@
 ---
+import Figure from "../../components/Figure.astro";
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { crumbsLd } from "../../lib/schema";
@@ -14,6 +15,7 @@ const crumbs = [
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Uw verzuim naast CBS</h1>
+    <Figure id="pagina-cbs" eager class="mt-6" />
     <p class="mt-4">Cijfers 2025 uit CBS StatLine 80072ned: Nederland 5,4%, bedrijven met 10 tot 100 werknemers 4,7%, 100 of meer werknemers 6,0%. Een branchecijfer is dit niet.</p>
     <form data-cbs class="mt-6 space-y-4 rounded-[2rem] border border-line bg-white/80 p-5">
       <label class="block font-semibold">Aantal medewerkers
@@ -30,6 +32,7 @@ const crumbs = [
 </Base>
 
 <script>
+  import { barChart } from "../../lib/chart-svg";
   import { defaultAbsencePct, CBS } from "../../lib/calc";
   import { num } from "../../lib/format";
   import { mountReport } from "../../scripts/report";
@@ -46,7 +49,7 @@ const crumbs = [
     const bench = defaultAbsencePct(n);
     const diff = own - bench;
     const direction = diff > 0.05 ? "boven" : diff < -0.05 ? "onder" : "ongeveer op";
-    out.innerHTML = `<p class="font-serif text-3xl text-green-950">U zit ${direction} de benchmark van ${num(bench)}%</p><p class="mt-2">Verschil: ${num(Math.abs(diff))} procentpunt. Landelijk was het ${num(CBS.nl2025)}%. Dit zegt niets over de oorzaak.</p>`;
+    out.innerHTML = `<p class="font-serif text-3xl text-green-950">U zit ${direction} de benchmark van ${num(bench)}%</p>${barChart("Uw verzuimpercentage naast de CBS-benchmark bij deze bedrijfsgrootte.", [{ label: "Uw percentage", value: own, tone: "clay" }, { label: "CBS", value: bench, tone: "green" }])}<p class="mt-2">Verschil: ${num(Math.abs(diff))} procentpunt. Landelijk was het ${num(CBS.nl2025)}%. Dit zegt niets over de oorzaak.</p>`;
     track("calculator_result", { calculator: "verzuim-vergelijken" });
     mountReport(out, { calculator: "verzuim-vergelijken", title: "Verzuim naast CBS", body: out.innerText.trim() });
   });

@@ -1,4 +1,6 @@
 ---
+import Figure from "../components/Figure.astro";
+import Mark from "../components/Mark.astro";
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import { site } from "../data/site";
@@ -14,18 +16,19 @@ const crumbs = [
   <Breadcrumbs crumbs={crumbs} />
   <article class="prose-ap mx-auto max-w-3xl px-4 pt-6">
     <h1>Voorwaarden</h1>
+    <Figure id="pagina-voorwaarden" eager class="mt-6" />
     <p class="rounded-3xl bg-ochre-200 px-4 py-3">Dit is een concept voor een nog niet live label. Laat de tekst juridisch toetsen voordat u op basis hiervan contracteert, inclusief de vraag of het detacheringsmodel een toelating of een DBA-toets nodig heeft.</p>
-    <h2>Opdrachtgever</h2>
+    <h2><Mark name="document" />Opdrachtgever</h2>
     <p>Opdrachten lopen via {site.parent.legalName}, KvK {site.parent.kvk}, tenzij een offerte een andere rechtspersoon noemt. {site.labelStatement}.</p>
-    <h2>Inzet</h2>
+    <h2><Mark name="document" />Inzet</h2>
     <p>U neemt een blok uren af tegen het geoffreerde tarief, exclusief btw. Reistijd binnen ongeveer 45 minuten van Uden is inbegrepen. De casemanager werkt onder regie van de opdracht, op uw dossiers. Wij zijn geen arbodienst en leveren geen bedrijfsarts.</p>
-    <h2>Wijzigen van uren</h2>
+    <h2><Mark name="document" />Wijzigen van uren</h2>
     <p>De inzet is bedoeld om mee te bewegen met het aantal dossiers. {site.placeholders.opzegtermijn}</p>
-    <h2>Vervanging</h2>
+    <h2><Mark name="document" />Vervanging</h2>
     <p>Valt de ingezette casemanager uit, dan regelen wij vervanging. U betaalt geen loon door en bouwt geen transitievergoeding op over deze inzet.</p>
-    <h2>Aansprakelijkheid</h2>
+    <h2><Mark name="document" />Aansprakelijkheid</h2>
     <p>We voeren de opdracht zorgvuldig uit. We garanderen geen daling van het verzuim en geen uitkomst bij UWV. Aansprakelijkheid is beperkt tot het bedrag van de opdracht over de laatste drie maanden, behalve bij opzet of bewuste roekeloosheid. Een verzekerd bedrag publiceren we pas als de polis er is.</p>
-    <h2>Toepasselijk recht</h2>
+    <h2><Mark name="document" />Toepasselijk recht</h2>
     <p>Nederlands recht. Geschillen gaan naar de rechter in het arrondissement Oost-Brabant, voor zover de wet die keuze toestaat.</p>
   </article>
 </Base>

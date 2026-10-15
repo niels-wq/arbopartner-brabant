@@ -3,6 +3,7 @@ import { hourlySavingPct, levels, monthlyCost, type LevelId } from "../lib/rates
 import { euro, pct } from "../lib/format";
 import { centerStage, monthLine, packages, riskReversal, savingLine } from "../lib/pricing";
 import { site } from "../data/site";
+import Mark from "./Mark.astro";
 import ReviewCard from "./ReviewCard.astro";
 import { reviews } from "../data/reviews";
 
@@ -31,7 +32,7 @@ const review = reviews.find((item) => item.name === "Heidi Wichems") ?? reviews[
         <article class:list={["flex h-full flex-col rounded-[2rem] bg-white p-6", pack.featured ? "order-1 border-2 border-ochre-700 shadow-md md:order-none md:py-8" : "order-2 border border-line md:order-none"]}>
           {pack.featured && <p class="ap-badge mb-3 inline-flex w-fit rounded-full px-3 py-1 text-sm font-semibold">Richtadvies</p>}
           <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">{pack.concrete}</p>
-          <h2 class="font-serif text-4xl text-green-950">{pack.name}</h2>
+          <h2 class="font-serif text-4xl text-green-950"><Mark name={pack.slug === "basis" ? "clock" : pack.slug === "premium" ? "chart" : "shield"} />{pack.name}</h2>
           <p class="mt-2">{pack.summary}</p>
           <p class="mt-4 text-sm text-ink-soft">Vanaf, niveau medior</p>
           <p class="font-serif text-4xl text-green-950">{euro(monthly)} <span class="font-sans text-base font-semibold text-ink">per maand</span></p>

@@ -94,6 +94,7 @@
 </style>
 
 <script>
+  import { barChart } from "../../lib/chart-svg";
   import { headcountDefault, matchCasemanager, type MatchAnswers } from "../../lib/calc";
   import { euro, pct } from "../../lib/format";
   import { blocks, hourlySavingPct, levels } from "../../lib/rates";
@@ -136,6 +137,10 @@
     out.innerHTML = `
       <p class="text-sm uppercase tracking-[0.16em] text-ochre-200">Richtadvies, geen offerte</p>
       <h2 class="mt-2 font-serif text-4xl">${result.levelLabel}</h2>
+      ${barChart("Geadviseerde uren per week naast een volle werkweek van veertig uur.", [
+        { label: "Advies", value: result.billedHours, tone: "green" },
+        { label: "Volle week", value: 40, tone: "ochre" },
+      ])}
       <p class="mt-2 text-sand-100">${levels[result.level].summary}</p>
       <p class="mt-4">Score ${result.score}. ${result.override ? "Omdat er een sanctie- of conflictrisico samenvalt met psychisch verzuim, adviseren we een senior. Dat is een harde regel, ook als de score lager is." : ""} ${result.steppedUp ? "De score is 8 of hoger, daarom ligt het uurblok een stap hoger dan het aantal medewerkers alleen zou suggereren." : ""}</p>
       <dl class="mt-4 grid grid-cols-2 gap-3 text-sm">

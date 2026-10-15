@@ -3,6 +3,8 @@ import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import FaqList from "../../components/FaqList.astro";
 import CtaBand from "../../components/CtaBand.astro";
+import Figure from "../../components/Figure.astro";
+import Mark from "../../components/Mark.astro";
 import InlineLead from "../../components/InlineLead.astro";
 import { site, phoneHref, mailHref } from "../../data/site";
 import { getPlace, places } from "../../data/places";
@@ -31,6 +33,7 @@ const nearby = place.nearby.map((slug) => places.find((item) => item.slug === sl
     <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">{place.municipality} · ongeveer {place.minutes} minuten</p>
     <h1 class="mt-2 font-serif text-5xl text-green-950">Verzuimbegeleiding {place.in}</h1>
     <p class="mt-4 text-lg">Verzuimbegeleiding {place.in} betekent een vaste gedetacheerde casemanager van {site.name}, ongeveer {place.minutes} minuten vanuit Uden. {place.lead}</p>
+    <Figure id={`plaats-${place.slug}`} eager class="mt-6" />
     <address class="mt-4 rounded-3xl bg-sand-100 p-4 text-sm not-italic">
       <strong>{site.name}</strong>, label van {site.parent.legalName}<br />
       {site.parent.street}, {site.parent.postalCode} {site.parent.city}<br />
@@ -39,7 +42,7 @@ const nearby = place.nearby.map((slug) => places.find((item) => item.slug === sl
       Werkgebied: {place.name} ({place.municipality}), Noord-Brabant.
     </address>
     {place.body.map((paragraph) => <p class="mt-4">{paragraph}</p>)}
-    <h2 class="mt-8 font-serif text-3xl">Sectoren die we hier tegenkomen</h2>
+    <h2 class="mt-8 font-serif text-3xl"><Mark name="building" />Sectoren die we hier tegenkomen</h2>
     <ul class="mt-3 flex flex-wrap gap-2">
       {place.sectors.map((sector) => <li class="rounded-full bg-sand-200 px-3 py-1 text-sm font-semibold">{sector}</li>)}
     </ul>

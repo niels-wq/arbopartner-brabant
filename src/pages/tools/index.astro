@@ -1,4 +1,6 @@
 ---
+import Figure from "../../components/Figure.astro";
+import Mark from "../../components/Mark.astro";
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ClusterNav from "../../components/ClusterNav.astro";
@@ -8,14 +10,14 @@ const crumbs = [
   { name: "Home", path: "/" },
   { name: "Tools", path: "/tools" },
 ];
-const tools = [
-  { href: "/welke-casemanager", title: "Welke casemanager", text: "Acht vragen naar niveau en uurblok." },
-  { href: "/verzuimkosten-berekenen", title: "Verzuimkosten", text: "TNO-dagkosten en een scenario dat u zelf kiest." },
-  { href: "/casemanager-inhuren-of-in-dienst", title: "Casemanager inhuren of in dienst nemen?", text: "Jaarkosten naast elkaar, met bronnen die u kunt aanpassen. Indicatie, geen offerte." },
-  { href: "/tools/tijdlijn-ziekteverzuim", title: "Tijdlijn ziekteverzuim", text: "Wie doet wat, van dag 1 tot week 104." },
-  { href: "/tools/loonsanctie-check", title: "Loonsanctie-check", text: "Zeven vragen over gaten in het dossier. Geen oordeel van UWV." },
-  { href: "/tools/verzuim-vergelijken", title: "Verzuim vergelijken", text: "Uw percentage naast de CBS-cijfers van 2025." },
-  { href: "/checklist-verzuim", title: "Verzuim-checklist", text: "Geheugensteun van dag 1 tot week 104. Gratis, ook zonder formulier." },
+const tools: { href: string; title: string; text: string; icon: "chart" | "clock" | "balance" | "route" | "alert" | "document" }[] = [
+  { href: "/welke-casemanager", title: "Welke casemanager", text: "Acht vragen naar niveau en uurblok.", icon: "chart" },
+  { href: "/verzuimkosten-berekenen", title: "Verzuimkosten", text: "TNO-dagkosten en een scenario dat u zelf kiest.", icon: "chart" },
+  { href: "/casemanager-inhuren-of-in-dienst", title: "Casemanager inhuren of in dienst nemen?", text: "Jaarkosten naast elkaar, met bronnen die u kunt aanpassen. Indicatie, geen offerte.", icon: "balance" },
+  { href: "/tools/tijdlijn-ziekteverzuim", title: "Tijdlijn ziekteverzuim", text: "Wie doet wat, van dag 1 tot week 104.", icon: "route" },
+  { href: "/tools/loonsanctie-check", title: "Loonsanctie-check", text: "Zeven vragen over gaten in het dossier. Geen oordeel van UWV.", icon: "alert" },
+  { href: "/tools/verzuim-vergelijken", title: "Verzuim vergelijken", text: "Uw percentage naast de CBS-cijfers van 2025.", icon: "chart" },
+  { href: "/checklist-verzuim", title: "Verzuim-checklist", text: "Geheugensteun van dag 1 tot week 104. Gratis, ook zonder formulier.", icon: "document" },
 ];
 ---
 
@@ -23,12 +25,13 @@ const tools = [
   <Breadcrumbs crumbs={crumbs} />
   <header class="mx-auto max-w-6xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Tools</h1>
+    <Figure id="pagina-tools" eager class="mt-6 max-w-3xl" />
     <p class="mt-4 max-w-2xl">Een tool op deze site is een rekenhulp of checklist met bron. Geen van deze tools is een offerte, een medisch oordeel of een uitspraak van UWV.</p>
   </header>
   <div class="mx-auto grid max-w-6xl gap-4 px-4 py-8 md:grid-cols-2">
     {tools.map((tool) => (
       <a class="rounded-[2rem] border border-line bg-white/80 p-6" href={tool.href}>
-        <h2 class="font-serif text-3xl text-green-950">{tool.title}</h2>
+        <h2 class="font-serif text-3xl text-green-950"><Mark name={tool.icon} />{tool.title}</h2>
         <p class="mt-2">{tool.text}</p>
       </a>
     ))}
