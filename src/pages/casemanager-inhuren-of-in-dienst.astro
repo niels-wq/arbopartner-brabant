@@ -3,10 +3,13 @@ import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import Figure from "../components/Figure.astro";
 import CompareCalc from "../components/calculators/CompareCalc.astro";
+import Guarantees from "../components/Guarantees.astro";
+import InlineLead from "../components/InlineLead.astro";
 import CtaBand from "../components/CtaBand.astro";
 import FaqList from "../components/FaqList.astro";
 import HireBenefits from "../components/HireBenefits.astro";
 import ReviewCard from "../components/ReviewCard.astro";
+import { compareLeadTitle, priceFinePrint, pricePromise, qualityFaq } from "../data/garanties";
 import { officeConversation } from "../data/site";
 import { reviewsAboutNiels } from "../data/reviews";
 import { defaultScenario, scenarioNote } from "../lib/compare-view";
@@ -21,7 +24,7 @@ const scenario = defaultScenario();
 const faq = [
   {
     q: "Is een casemanager inhuren goedkoper dan iemand in dienst nemen?",
-    a: "Niet bij elke caseload. Heeft u duidelijk minder uren nodig dan een fulltime contract, dan betaalt u bij een dienstverband het volle salaris en bij inhuren alleen de afgenomen uren. In het standaardscenario van de tool, medior en tien uur per week, is inhuren daardoor lager. Bij een bijna volle werkweek kan een dienstverband in euro's lager zijn. De tool laat dat zien en zet dan de andere voordelen ernaast.",
+    a: `${pricePromise} ${priceFinePrint}`,
   },
   {
     q: "Welke kosten zitten er in het dienstverband?",
@@ -34,6 +37,11 @@ const faq = [
   {
     q: "Wat als we wel een volle caseload hebben?",
     a: "Dan blijft de tool rekenen. Ligt het dienstverband lager, dan zegt de uitkomst dat ook. Het voordeel is dan kwalitatief: een vaste casemanager met vervanging bij ziekte of vakantie, onafhankelijkheid, wisselen zonder ontslag, geen werkgeversrisico, uren die u meeschaalt, en een gesprek op het kantoor in Uden. Wie daarheen komt, blijft in beweging. Dat kan verzuim minder en korter maken. We noemen geen percentage. Wie echt niet kan reizen, spreken we op het bedrijf of online. De wijzigingstermijn staat in de offerte.",
+  },
+  qualityFaq,
+  {
+    q: "Blijft de vergelijking eerlijk als inhuren duurder uitvalt?",
+    a: priceFinePrint,
   },
 ];
 const jsonLd = [crumbsLd(crumbs), faqLd(faq)];
@@ -48,18 +56,26 @@ const jsonLd = [crumbsLd(crumbs), faqLd(faq)];
   <header class="mx-auto max-w-6xl px-4 pt-6">
     <h1 class="max-w-4xl font-serif text-5xl text-green-950">Casemanager inhuren of in dienst nemen?</h1>
     <Figure id="pagina-inhuren" eager class="mt-6 max-w-3xl" />
-    <p class="mt-4 max-w-3xl text-lg">Een casemanager inhuren betekent dat u de uren afneemt die de dossiers vragen. Een casemanager in dienst is een volledig contract: salaris, premies en werkplek lopen door, ook in een maand met weinig nieuwe gevallen. Een eigen casemanager spreekt meestal op de werkvloer, tussen collega's. Bij ons komen werknemer en werkgever naar Losplaats 16d in Uden. {officeConversation.place} {officeConversation.threshold} {officeConversation.employer} {officeConversation.care} De vergelijking hieronder is een total cost of ownership. Elke aanname heeft een bron en is aan te passen. De uitkomst is een indicatie, geen offerte.</p>
+    <p class="mt-4 max-w-3xl text-lg">Een casemanager inhuren betekent dat u de uren afneemt die de dossiers vragen. Een casemanager in dienst is een volledig contract: salaris, premies en werkplek lopen door, ook in een maand met weinig nieuwe gevallen. Een eigen casemanager spreekt meestal op de werkvloer, tussen collega's. Bij ons komen werknemer en werkgever naar Losplaats 16d in Uden. {officeConversation.place} {officeConversation.threshold} {officeConversation.employer} {officeConversation.care} {pricePromise} De vergelijking hieronder is die onderbouwing. Elke aanname heeft een bron en is aan te passen. De uitkomst is een berekening, geen offerte. {priceFinePrint}</p>
     {scenario.headline.positive && (
       <p class="mt-4 max-w-3xl text-lg font-semibold text-green-950">{scenario.headline.text}. {scenarioNote()}</p>
     )}
   </header>
+  <Guarantees plaats="vergelijking" />
   <HireBenefits />
   <div class="mx-auto max-w-6xl px-4 pb-4">
     <h2 class="font-serif text-4xl text-green-950">De vergelijking</h2>
-    <p class="mt-3 max-w-3xl">Het grote bedrag bovenaan is het verschil in jaarkosten. De grafiek zet het dienstverband naast inhuren. Daaronder staat waarom het verschil zo uitvalt. In het standaardscenario is het verschil {euro(scenario.result.saving, true)} per jaar.</p>
+    <p class="mt-3 max-w-3xl">Het grote bedrag bovenaan is het verschil in jaarkosten. De grafiek zet het dienstverband naast inhuren. Daaronder staat elke post. In het standaardscenario is het verschil {euro(scenario.result.saving, true)} per jaar. Past u de uren of het loon aan, dan rekent de tool opnieuw, ook als een dienstverband dan lager uitvalt.</p>
   </div>
   <div class="mx-auto max-w-6xl px-4 pb-8">
     <CompareCalc />
+    <InlineLead
+      id="kostenvergelijking"
+      source="kostenvergelijking"
+      title={compareLeadTitle}
+      submit={compareLeadTitle}
+      text="Twee stappen: eerst uw nummer, daarna naam en organisatie. We rekenen de vergelijking met uw uren en uw loon. Dit formulier is nog geen offerte."
+    />
   </div>
   <section class="mx-auto max-w-6xl px-4 py-6">
     <h2 class="font-serif text-4xl text-green-950">Wat opdrachtgevers over Niels schreven</h2>
@@ -72,5 +88,5 @@ const jsonLd = [crumbsLd(crumbs), faqLd(faq)];
   <div class="mx-auto max-w-6xl px-4">
     <FaqList items={faq} title="Vragen over inhuren of in dienst" />
   </div>
-  <CtaBand title="Uw uren omzetten in een offerte" text="De vergelijking is een scenario. De offerte bevestigt het tarief en de wijzigingstermijn. Het gesprek van 30 minuten verplicht u tot niets." />
+  <CtaBand title="Uw uren omzetten in een offerte" text="De vergelijking onderbouwt de garantie en blijft eerlijk. De offerte bevestigt het tarief en de wijzigingstermijn. Het gesprek van 30 minuten verplicht u tot niets." />
 </Base>

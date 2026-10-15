@@ -54,7 +54,15 @@ const crumbs = [
     <FaqList items={faq} />
   </article>
   <div class="mx-auto max-w-3xl px-4">
-    <InlineLead source={`dienst-${service.slug}`} title="Kort doorgeven over deze dienst" text="Twee stappen: eerst uw nummer, daarna naam en organisatie. We bellen terug. Dit formulier is nog geen offerte." />
+    <InlineLead
+      id={service.slug === "verzuimanalyse" ? "gratis" : undefined}
+      source={service.slug === "verzuimanalyse" ? "gratis-verzuimanalyse" : `dienst-${service.slug}`}
+      title={service.slug === "verzuimanalyse" ? "Gratis verzuimanalyse" : "Kort doorgeven over deze dienst"}
+      submit={service.slug === "verzuimanalyse" ? "Gratis verzuimanalyse" : "Verstuur"}
+      text={service.slug === "verzuimanalyse"
+        ? "Twee stappen: eerst uw nummer, daarna naam en organisatie. We laten op basis van uw cijfers zien hoe het verzuimpercentage kan dalen. Geen vast percentage vooraf. Het uitgewerkte rapport van €995 blijft een aparte opdracht."
+        : "Twee stappen: eerst uw nummer, daarna naam en organisatie. We bellen terug. Dit formulier is nog geen offerte."}
+    />
   </div>
   <CtaBand />
 </Base>

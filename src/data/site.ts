@@ -101,6 +101,7 @@ export const zzpFaq = {
   a: "Ja. Naast een vaste kern werken we met een netwerk van gecertificeerde zzp-professionals. Daardoor kunnen we snel opschalen, per casus de juiste specialist inzetten en wisselen als de klik ontbreekt. De namen, functies en foto’s op de teampagina zijn overgenomen van matchvermogen.nl. Die pagina vermeldt niet wie in loondienst is en wie als zzp’er meewerkt. Dat, en de certificering van de ingezette professional, staat in de offerte. Een zzp’er presenteren we niet als medewerker in loondienst.",
 } as const;
 
+/** Bellen gaat alleen via het vaste nummer. Het 06-nummer hoort uitsluitend in whatsappHref. */
 export const phoneHref = `tel:${site.parent.phoneTel}`;
 export const mailHref = `mailto:${site.parent.email}`;
 export const whatsappHref = `https://wa.me/${site.parent.whatsappE164}`;

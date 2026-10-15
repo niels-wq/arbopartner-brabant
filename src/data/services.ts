@@ -31,7 +31,7 @@ export const services: Service[] = [
         heading: "Waarom detacheren in plaats van een loket",
         paragraphs: [
           "Een vast gezicht betekent dat een medewerker niet telkens opnieuw zijn verhaal doet. De casemanager weet welk werk er op de afdeling ligt en welke leidinggevende terughoudend is met aangepaste taken. Dat scheelt weken in een dossier dat anders blijft liggen.",
-          "Detacheren geeft u zekerheid die een dienstverband niet vanzelf heeft. Wordt de casemanager ziek of gaat die met vakantie, dan neemt een collega het dossier over. U werft niet, u bouwt geen transitievergoeding op, en u schaalt de uren mee met het aantal dossiers. De wijzigingstermijn staat in de offerte. Zolang u geen volle werkweek nodig heeft, is inhuren meestal voordeliger dan een fulltime kracht: u betaalt alleen de afgenomen uren. De vergelijking met bronnen staat op de pagina Casemanager inhuren of in dienst nemen. Bij een hoge caseload kan een dienstverband in euro's lager zijn. Dan blijven continuïteit en onafhankelijkheid staan.",
+          "Detacheren geeft u zekerheid die een dienstverband niet vanzelf heeft. Wordt de casemanager ziek of gaat die met vakantie, dan neemt een collega het dossier over. U werft niet, u bouwt geen transitievergoeding op, en u schaalt de uren mee met het aantal dossiers. De wijzigingstermijn staat in de offerte. We garanderen dat inhuren goedkoper is dan een fulltime kracht in dienst: u betaalt de afgenomen uren. De vergelijking onderbouwt dat met bronnen. Bij een bijna volle werkweek kan een dienstverband in euro's lager zijn. Dan zegt de tool dat, en blijven continuïteit en onafhankelijkheid staan.",
         ],
       },
       {
@@ -72,13 +72,17 @@ export const services: Service[] = [
         ],
       },
       {
-        heading: "Wat we niet beloven",
+        heading: "Wat de analyse belooft",
         paragraphs: [
-          "Een analyse is geen garantie dat uw verzuim daalt. We laten zien waar het geld en de risico’s zitten. De besparingscalculator op deze site werkt met scenario’s die u zelf kiest. Die scenario’s zijn geen belofte.",
+          "Na een concrete verzuimanalyse laten we zien hoe uw verzuimpercentage kan dalen. Die belofte rust op uw cijfers, dossiers en protocol. We garanderen geen vast percentage vooraf. De besparingscalculator op deze site blijft een scenario dat u zelf kiest.",
         ],
       },
     ],
     faq: [
+      {
+        q: "Garanderen jullie dat het verzuim daalt?",
+        a: "We garanderen geen vast percentage. Na de analyse laten we zien hoe uw percentage kan dalen, op basis van wat we in uw cijfers aantreffen. De gratis aanvraag is die eerste analyse. Het rapport van €995 blijft de uitgewerkte versie, los of in het eerste jaar van Premium.",
+      },
       {
         q: "Hoe lang duurt een analyse?",
         a: "Reken op een paar weken, afhankelijk van hoe snel u de cijfers en dossiers deelt. Een exacte doorlooptijd spreken we vooraf af.",

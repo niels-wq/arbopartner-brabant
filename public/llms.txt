@@ -19,8 +19,10 @@ Uitgebreide versie: https://www.arbopartnerbrabant.nl/llms-full.txt
 ## Wat het label niet doet
 
 - Geen bedrijfsarts, geen arbodienst, geen medisch oordeel.
-- Geen claim dat inhuren bij een volle caseload altijd goedkoper is. De vergelijking rekent de jaarkosten eerlijk: bij weinig uren is inhuren meestal lager, bij een bijna volle werkweek kan een dienstverband in euro's lager zijn.
-- Geen belofte dat verzuim met een bepaald percentage daalt.
+- Garantie dat inhuren goedkoper is dan een casemanager in dienst nemen, onderbouwd met de vergelijking op /casemanager-inhuren-of-in-dienst. De calculator blijft eerlijk: bij een bijna volle werkweek kan een dienstverband in euro's lager zijn.
+- Belofte na een concrete verzuimanalyse: we laten zien hoe het verzuimpercentage kan dalen. Geen vast percentage vooraf. Aanvragen kan via Gratis verzuimanalyse.
+- Kwaliteitsgarantie als de adviezen worden gevolgd: kosteloos bijsturen of wisselen van casemanager. Geen geld-terug-bedrag. De voorwaarden wachten op een juridische check.
+- Bellen alleen via 085-0870307. Het 06-nummer 06-50213593 is alleen WhatsApp (https://wa.me/31650213593).
 - Geen eigen Google-reviews. Citaten op de site zijn letterlijk van matchvermogen.nl/referenties/ en gaan over Matchvermogen. Geen AggregateRating: de bron noemt 5 uit 5 bij 25 citaten, terwijl één citaat daar een 4 heeft, en een exact Google-aantal ontbreekt.
 - Team met naam, functie en foto van https://matchvermogen.nl/over-matchvermogen/. Vaste kern plus een netwerk van gecertificeerde zzp-professionals. Wie in loondienst is en wie als zzp'er werkt, staat in de offerte.
 

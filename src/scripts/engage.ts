@@ -46,7 +46,7 @@ if (root && !root.dataset.ready) {
     },
     {
       test: /dienstverband|in dienst|goedkoper|inhuren/,
-      text: "Zolang u geen volle werkweek nodig heeft, is inhuren vaak voordeliger dan een fulltime casemanager in dienst. U betaalt de uren die u afneemt. Een dienstverband betaalt u ook bij een lage caseload. De vergelijking met bronnen staat op de pagina Casemanager inhuren of in dienst nemen. Bij een hoge caseload kan een dienstverband in euro's lager zijn. Dan blijven continuïteit, onafhankelijkheid en het ontbreken van werkgeversrisico staan.",
+      text: "We garanderen dat inhuren goedkoper is dan een casemanager in dienst nemen. U betaalt de uren die u afneemt. De vergelijking met bronnen staat op de pagina Casemanager inhuren of in dienst nemen en rekent eerlijk. Bij een bijna volle werkweek kan een dienstverband in euro's lager zijn. Dan blijven continuïteit, onafhankelijkheid en het ontbreken van werkgeversrisico staan.",
     },
     {
       test: /kost|tarief|prijs|uur|premium|basis/,
