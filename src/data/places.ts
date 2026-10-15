@@ -27,7 +27,7 @@ export const places: Place[] = [
     lead: "Uden is de thuisbasis. Het kantoor staat aan de Losplaats 16d. De casemanager die bij u in Brabant komt, vertrekt vanaf dat adres en kent de bedrijven op de bedrijventerreinen rond de A50.",
     body: [
       "Uden hoort bij de gemeente Maashorst, samen met Volkel en Schaijk. Op loop- en rijafstand van het kantoor zitten voedselproducenten, groothandels, technische maakbedrijven en een groot zorgaanbod. Die mix geeft ander verzuim dan een puur kantoorgebied: ploegendiensten, fysieke belasting en tegelijk veel psychische uitval in zorg en staf.",
-      "Omdat we hier zelf zitten, is een afspraak op locatie dezelfde dag vaak haalbaar. De reistijd rekenen we niet na. Een werkgever in Uden met 35 of meer medewerkers krijgt één vaste casemanager, niet een wisselende pool. Dossiers blijven bij dezelfde persoon, ook als een arbeidsdeskundige van Matchvermogen later meekijkt.",
+      "Omdat we hier zelf zitten, is een afspraak op locatie dezelfde dag vaak haalbaar. De reistijd rekenen we niet na. Een werkgever in Uden met 35–500 medewerkers krijgt één vaste casemanager, niet een wisselende pool. Dossiers blijven bij dezelfde persoon, ook als een arbeidsdeskundige van Matchvermogen later meekijkt.",
       "Veel familiebedrijven in Maashorst hebben één HR-medewerker of een directeur die verzuim erbij doet. Dan is tien uur per week al genoeg om de lopende dossiers bij te houden en nieuwe ziekmeldingen de eerste week op te pakken. Grotere plants met meerdere langdurige dossiers schuiven door naar twintig of vierentwintig uur.",
     ],
     faq: [
@@ -57,7 +57,7 @@ export const places: Place[] = [
     body: [
       "Veghel hoort bij Meierijstad. De voedselketen is er groot, van productie tot de groothandel die de rest van het land belevert. Dat betekent seizoenspieken, uitzendkrachten naast vaste ploegen, en verzuim dat snel oploopt als een teamleider ook de dossiers moet bijhouden.",
       "Een casemanager uit Uden staat hier binnen een kwartier op de stoep, buiten de spits. We plannen de uren zo dat de casemanager een vaste ochtend of middag op locatie is, niet een los uur tussen twee andere klanten door. Medewerkers zien hetzelfde gezicht bij het plan van aanpak en bij de vervolggesprekken.",
-      "Voor een plant van tachtig tot tweehonderd mensen is twintig uur per week een gangbare start. Kleinere voedselbedrijven vanaf 35 medewerkers beginnen vaak met tien uur, plus een arbeidsdeskundige op de dossiers die richting het tweede jaar gaan. Die arbeidsdeskundige komt via Matchvermogen, met 8% korting voor klanten van dit label.",
+      "Voor een plant van tachtig tot tweehonderd mensen is twintig uur per week een gangbare start. Kleinere voedselbedrijven in de band van 35–500 medewerkers beginnen vaak met tien uur, plus een arbeidsdeskundige op de dossiers die richting het tweede jaar gaan. Die arbeidsdeskundige komt via Matchvermogen, met 8% korting voor klanten van dit label.",
     ],
     faq: [
       {
@@ -124,7 +124,7 @@ export const places: Place[] = [
       },
       {
         q: "Werken jullie voor gemeenten en andere overheden?",
-        a: "Ja, als opdrachtgever met 35 of meer medewerkers. We kennen het verschil tussen een ambtelijke organisatie en een familiebedrijf, en schrijven het dossier in gewone taal.",
+        a: "Ja, als opdrachtgever met 35–500 medewerkers. We kennen het verschil tussen een ambtelijke organisatie en een familiebedrijf, en schrijven het dossier in gewone taal.",
       },
       {
         q: "Is Rosmalen een aparte pagina?",
@@ -149,7 +149,7 @@ export const places: Place[] = [
     faq: [
       {
         q: "Komen jullie ook op de High Tech Campus?",
-        a: "Ja, als uw organisatie daar zit en binnen de afspraak van 35 of meer medewerkers valt. De reistijd vanuit Uden blijft binnen de 45 minuten en is inbegrepen.",
+        a: "Ja, als uw organisatie daar zit en binnen de afspraak van 35–500 medewerkers valt. De reistijd vanuit Uden blijft binnen de 45 minuten en is inbegrepen.",
       },
       {
         q: "Wat als een specialist niet vervangbaar is?",
@@ -236,7 +236,7 @@ export const places: Place[] = [
     faq: [
       {
         q: "Doen jullie ook de havenbedrijven?",
-        a: "Ja, vanaf 35 medewerkers. Veiligheid en fysieke belasting bespreken we met de leidinggevende, niet alleen met HR.",
+        a: "Ja, binnen 35–500 medewerkers. Veiligheid en fysieke belasting bespreken we met de leidinggevende, niet alleen met HR.",
       },
       {
         q: "Kunnen we de uren delen met een vestiging in Nijmegen?",
@@ -316,7 +316,7 @@ export const places: Place[] = [
     sectors: ["hightech-toelevering", "techniek", "kenniswerk"],
     lead: "Veldhoven is de hightech-schil van Eindhoven. Functies zijn specialistisch, verzuim is duur, en een vaste casemanager moet het werk kunnen uitleggen aan iemand die er nooit heeft gestaan.",
     body: [
-      "De rit vanuit Uden duurt ongeveer 40 minuten. Daarmee zit Veldhoven aan de buitenrand van het gebied, nog binnen de 45 minuten die we aanhouden. We komen er voor werkgevers met 35 of meer medewerkers, vooral toeleveranciers en technische dienstverleners rond het ASML-ecosysteem. We noemen geen klanten die we niet hebben. Het type werk is genoeg om de aanpak te bepalen.",
+      "De rit vanuit Uden duurt ongeveer 40 minuten. Daarmee zit Veldhoven aan de buitenrand van het gebied, nog binnen de 45 minuten die we aanhouden. We komen er voor werkgevers met 35–500 medewerkers, vooral toeleveranciers en technische dienstverleners rond het ASML-ecosysteem. We noemen geen klanten die we niet hebben. Het type werk is genoeg om de aanpak te bepalen.",
       "Aangepast eigen werk is hier schaars. Een procesengineer kan niet een middag orders picken. De casemanager moet dus vroeg de vraag stellen of terugkeer in de eigen functie realistisch is, en anders op tijd het tweede spoor openen. Te laat starten is een klassieke reden voor een loonsanctie. Die toets doet UWV, niet wij. Wij zorgen dat het dossier leesbaar is als die toets komt.",
       "Omdat de rit langer is, werken we met dagdelen. Een uurtje heen en weer is voor niemand productief. Tien uur op één dag, of twee keer vijf, houdt de reistijd in verhouding.",
     ],
@@ -327,7 +327,7 @@ export const places: Place[] = [
       },
       {
         q: "Werken jullie alleen voor hightech?",
-        a: "Nee. Ook zorg, bouw en voedsel in Veldhoven kunnen terecht, vanaf 35 medewerkers.",
+        a: "Nee. Ook zorg, bouw en voedsel in Veldhoven kunnen terecht, binnen 35–500 medewerkers.",
       },
       {
         q: "Kunnen gesprekken deels online?",
@@ -390,7 +390,7 @@ export const places: Place[] = [
       },
       {
         q: "Komen jullie ook in Beuningen of Wijchen?",
-        a: "Alleen als de rit vanuit Uden binnen ongeveer 45 minuten blijft en de opdracht bij een werkgever met 35 of meer medewerkers hoort. Dat toetsen we in het adviesgesprek, niet op de gok.",
+        a: "Alleen als de rit vanuit Uden binnen ongeveer 45 minuten blijft en de opdracht bij een werkgever met 35–500 medewerkers hoort. Dat toetsen we in het adviesgesprek, niet op de gok.",
       },
     ],
   },
@@ -402,7 +402,7 @@ export const places: Place[] = [
     municipality: "Land van Cuijk",
     nearby: ["cuijk", "oss", "nijmegen"],
     sectors: ["mkb", "zorg", "toerisme en horeca", "agrarisch"],
-    lead: "Grave ligt aan de Maas, op een kleine twintig minuten van Uden. Het mkb is er kleinschaliger, maar de ondergrens van 35 medewerkers halen zorg, productie en grotere horeca-achtige bedrijven wel.",
+    lead: "Grave ligt aan de Maas, op een kleine twintig minuten van Uden. Het mkb is er kleinschaliger, maar zorg, productie en grotere horeca-achtige bedrijven vallen wel in de band van 35–500 medewerkers.",
     body: [
       "Grave hoort bij Land van Cuijk en voelt kleiner dan Oss of Nijmegen. Juist daarom blijft verzuim vaak liggen bij de eigenaar. Die kent iedereen, en stelt het moeilijke gesprek uit. Een casemanager van buiten het dorp kan dat gesprek wel voeren, zonder de relatie te hoeven bewaren op de sportclub.",
       "We weigeren opdrachten onder de 35 medewerkers niet uit desinteresse, maar omdat het uurblok dan te groot wordt voor het aantal dossiers. Een kleiner bedrijf verwijzen we liever naar een gerichte opdracht, zoals één arbeidsdeskundig onderzoek, dan naar een wekelijkse detachering die niet rondkomt.",
@@ -411,7 +411,7 @@ export const places: Place[] = [
     faq: [
       {
         q: "Nemen jullie ook een hotel of zorglocatie van 40 mensen aan?",
-        a: "Ja, vanaf 35 medewerkers. De sector mag horeca, zorg of productie zijn. We kijken naar de dossiers, niet naar de gevel.",
+        a: "Ja, binnen 35–500 medewerkers. De sector mag horeca, zorg of productie zijn. We kijken naar de dossiers, niet naar de gevel.",
       },
       {
         q: "Is Velp of Escharen meegerekend?",
@@ -469,7 +469,7 @@ export const places: Place[] = [
     faq: [
       {
         q: "Doen jullie agrarische bedrijven?",
-        a: "Ja, vanaf 35 medewerkers. Seizoensdruk en fysieke belasting nemen we mee in het plan van aanpak.",
+        a: "Ja, binnen 35–500 medewerkers. Seizoensdruk en fysieke belasting nemen we mee in het plan van aanpak.",
       },
       {
         q: "En Asten of Someren?",
@@ -494,7 +494,7 @@ export const places: Place[] = [
     body: [
       "Tilburg ligt in Midden-Brabant, aan de A58 en het spoor naar Breda en Eindhoven. Bedrijventerreinen als Vossenberg en Katsbogte hebben magazijnen, technische bedrijven en een kantoorlaag. In de stad zelf zitten zorg, onderwijs en gemeentelijke organisaties. Verzuim ziet er daar anders uit dan in een ploegendienst: meer langdurige uitval, meer gesprekken over passend werk.",
       "Een vaste casemanager komt met dagdelen, niet met een los uur tussen twee steden. Medewerkers zien hetzelfde gezicht bij het plan van aanpak en bij de vervolggesprekken. De bedrijfsarts blijft van de werkgever. Wij zijn geen arbodienst.",
-      "Voor een organisatie vanaf 35 medewerkers is tien uur per week vaak de start. Grotere werkgevers met meerdere langdurige dossiers schuiven door naar twintig of vierentwintig uur. De vergelijking met iemand in dienst blijft eerlijk: bij een bijna volle werkweek kan een dienstverband in euro's lager uitvallen.",
+      "Voor een organisatie binnen 35–500 medewerkers is tien uur per week vaak de start. Grotere werkgevers met meerdere langdurige dossiers schuiven door naar twintig of vierentwintig uur. De vergelijking met iemand in dienst blijft eerlijk: bij een bijna volle werkweek kan een dienstverband in euro's lager uitvallen.",
     ],
     faq: [
       {
@@ -537,7 +537,7 @@ export const places: Place[] = [
       },
       {
         q: "Past een blok van tien uur bij een distributiecentrum?",
-        a: "Vaak wel als start, vanaf 35 medewerkers. Meer langdurige dossiers vragen twintig uur of meer. Dat rekenen we in het adviesgesprek.",
+        a: "Vaak wel als start, binnen 35–500 medewerkers. Meer langdurige dossiers vragen twintig uur of meer. Dat rekenen we in het adviesgesprek.",
       },
     ],
   },
@@ -554,7 +554,7 @@ export const places: Place[] = [
     body: [
       "Oosterhout is een werkstad in West-Brabant, met productie, technische dienstverlening en zorg. Ploegen en fysieke belasting vragen een casemanager die op de vloer komt, niet alleen een dossier op afstand.",
       "De rit is langer dan de ongeveer 45 minuten waarin de reistijd standaard in het tarief zit. Daarom staat de rit in de offerte, op basis van het adres. De begeleiding zelf is dezelfde afspraak als dichter bij Uden: één gezicht, vaste uren, geen wisselend loket.",
-      "Werkgevers vanaf 35 medewerkers beginnen vaak met tien uur per week. Wie meerdere dossiers in het tweede jaar heeft, plant een arbeidsdeskundige van Matchvermogen op tijd in, niet in de laatste maand.",
+      "Werkgevers binnen 35–500 medewerkers beginnen vaak met tien uur per week. Wie meerdere dossiers in het tweede jaar heeft, plant een arbeidsdeskundige van Matchvermogen op tijd in, niet in de laatste maand.",
     ],
     faq: [
       {
@@ -563,7 +563,7 @@ export const places: Place[] = [
       },
       {
         q: "Werken jullie op Weststad?",
-        a: "Ja, voor werkgevers met 35 of meer medewerkers. We plannen dagdelen, zodat de casemanager niet alleen voor één gesprek de stad doorrijdt.",
+        a: "Ja, voor werkgevers met 35–500 medewerkers. We plannen dagdelen, zodat de casemanager niet alleen voor één gesprek de stad doorrijdt.",
       },
       {
         q: "Kunnen gesprekken ook in Uden?",
@@ -584,7 +584,7 @@ export const places: Place[] = [
     body: [
       "Breda heeft een grote logistieke schil, een centrum met horeca en dienstverlening, en zorginstellingen die het hele jaar door bezet zijn. Verzuim in een magazijn is ander werk dan verzuim op een hoofdkantoor. De casemanager stemt het plan daarop af, zonder medisch oordeel. Dat blijft bij de bedrijfsarts.",
       "Omdat Breda verder ligt dan de ring rond Uden, zit de reistijd niet vanzelf in het tarief. We zetten de rit in de offerte. De uren op locatie blijven een blok, zodat de dag niet opgaat aan de A58.",
-      "Een organisatie met 35 of meer medewerkers kan starten met tien uur. Premium, twintig uur, past bij meer lopende dossiers en een verzuimanalyse in het eerste jaar. Die analyse kost los €995. In pakket Premium zit ze in jaar 1.",
+      "Een organisatie met 35–500 medewerkers kan starten met tien uur. Premium, twintig uur, past bij meer lopende dossiers en een verzuimanalyse in het eerste jaar. Die analyse kost los €995. In pakket Premium zit ze in jaar 1.",
     ],
     faq: [
       {
@@ -644,7 +644,7 @@ export const places: Place[] = [
     body: [
       "De stad heeft een historische kern en een schil van industrie en distributie richting de A4 en de A58. Seizoenswerk in toerisme en horeca zit ernaast. Een casemanager die alleen de binnenstad kent, mist de ploeg op het terrein. Daarom plannen we de uren op de plek waar de dossiers zitten.",
       "Dit is het verst van het kantoor in Uden binnen de steden die we apart noemen. De reistijd zit niet vanzelf in het uurtarief. We leggen de rit vast in de offerte en komen met een blok uren, zodat de reis de begeleiding niet opsoupeert.",
-      "Het aanbod blijft een vaste casemanager voor werkgevers met 35 of meer medewerkers. Geen arbodienst, geen belofte van een vast verzuimpercentage vooraf. Na een analyse laten we zien hoe het percentage kan dalen, op uw cijfers.",
+      "Het aanbod blijft een vaste casemanager voor werkgevers met 35–500 medewerkers. Geen arbodienst, geen belofte van een vast verzuimpercentage vooraf. Na een analyse laten we zien hoe het percentage kan dalen, op uw cijfers.",
     ],
     faq: [
       {

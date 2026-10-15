@@ -1,5 +1,6 @@
 ---
 import Mark from "./Mark.astro";
+import MedewerkersVeld from "./MedewerkersVeld.astro";
 interface Props {
   source: string;
   title?: string;
@@ -28,6 +29,7 @@ const {
     <legend class="font-semibold">Wie mogen we terugbellen?</legend>
     <label class="block">Naam<input class="ap-field" name="naam" required autocomplete="name" /></label>
     <label class="block">Organisatie<input class="ap-field" name="organisatie" required autocomplete="organization" /></label>
+    <MedewerkersVeld />
     <label class="flex items-start gap-2 text-sm">
       <input name="toestemming" type="checkbox" value="ja" required />
       <span>Matchvermogen B.V. mag contact opnemen over dit bericht. <a class="underline" href="/privacy">Privacy</a></span>

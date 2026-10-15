@@ -34,7 +34,7 @@ const nielsReviews = reviewsAboutNiels().slice(0, 2);
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Een label, geen loket</h1>
     <Figure id="pagina-over-ons" eager class="mt-6" />
-    <p class="mt-4 text-lg">{site.name} is een label van {site.parent.legalName}, KvK {site.parent.kvk}, {site.parent.street}, {site.parent.postalCode} {site.parent.city}. Het moederbedrijf werkt als register-arbeidsdeskundig bureau. Dit label doet iets anders: een vaste casemanager op locatie, nuchter en dichtbij, voor werkgevers met {site.minEmployees} of meer medewerkers in Noord-Brabant. Het kantoor in Uden is de thuisbasis. Reistijd binnen ongeveer {site.travelMinutes} minuten van dat kantoor zit in het tarief.</p>
+    <p class="mt-4 text-lg">{site.name} is een label van {site.parent.legalName}, KvK {site.parent.kvk}, {site.parent.street}, {site.parent.postalCode} {site.parent.city}. Het moederbedrijf werkt als register-arbeidsdeskundig bureau. Dit label doet iets anders: een vaste casemanager op locatie, nuchter en dichtbij, {site.audience} in Noord-Brabant. Het kantoor in Uden is de thuisbasis. Reistijd binnen ongeveer {site.travelMinutes} minuten van dat kantoor zit in het tarief.</p>
     <figure class="mt-8 flex items-start gap-4">
       <img class="h-20 w-20 shrink-0 rounded-full object-cover" src={site.founder.avatar} width="160" height="160" alt="Niels Alderding" />
       <figcaption>

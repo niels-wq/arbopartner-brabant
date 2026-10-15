@@ -59,7 +59,7 @@ export function absenceCost(employees: number, absencePct: number, annualWage: n
   return employees * (absencePct / 100) * TNO.workdays * dayCost(annualWage);
 }
 
-export type SizeBand = "35-75" | "76-200" | "200+";
+export type SizeBand = "35-75" | "76-200" | "201-500";
 export type AbsenceBand = "lt4" | "4-6" | "gt6";
 export type LongBand = "0-1" | "2-4" | "5+";
 export type NatureBand = "fysiek" | "gemengd" | "psychisch";
@@ -80,7 +80,7 @@ export type MatchAnswers = {
 export function headcountDefault(size: SizeBand): number {
   if (size === "35-75") return 50;
   if (size === "76-200") return 120;
-  return 250;
+  return 350;
 }
 
 export type MatchResult = {

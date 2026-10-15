@@ -1,0 +1,22 @@
+---
+import { site } from "../data/site";
+
+interface Props {
+  required?: boolean;
+}
+const { required = true } = Astro.props;
+---
+
+<label class="block">Aantal medewerkers
+  <input
+    class="field ap-field"
+    name="medewerkers"
+    type="number"
+    inputmode="numeric"
+    min={site.minEmployees}
+    max={site.maxEmployees}
+    step="1"
+    required={required}
+  />
+</label>
+<p class="text-sm opacity-80">Dit label is {site.audience}. Daarbuiten verwijzen we door.</p>

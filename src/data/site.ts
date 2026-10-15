@@ -4,9 +4,11 @@ export const site = {
   locale: "nl_NL",
   tagline: "Casemanager en arbo in Brabant",
   description:
-    "Casemanager en arbo in Noord-Brabant. Arbopartner Brabant detacheert een vaste casemanager bij werkgevers met 35 of meer medewerkers. Nuchter, dichtbij, Brabants. Het kantoor en de thuisbasis staan in Uden, Losplaats 16d.",
+    "Casemanager en arbo in Noord-Brabant. Arbopartner Brabant detacheert een vaste casemanager voor organisaties met 35–500 medewerkers. Nuchter, dichtbij, Brabants. Het kantoor en de thuisbasis staan in Uden, Losplaats 16d.",
   labelStatement: "Arbopartner Brabant is een label van Matchvermogen",
   minEmployees: 35,
+  maxEmployees: 500,
+  audience: "voor organisaties met 35–500 medewerkers",
   travelMinutes: 45,
   parent: {
     legalName: "Matchvermogen B.V.",

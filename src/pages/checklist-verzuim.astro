@@ -1,5 +1,6 @@
 ---
 import Figure from "../components/Figure.astro";
+import MedewerkersVeld from "../components/MedewerkersVeld.astro";
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import CtaBand from "../components/CtaBand.astro";
@@ -50,6 +51,7 @@ const faq = [
       <p>Als de mailserver aanstaat, sturen we deze tekst naar uw e-mailadres en naar ons. De pdf downloadt daarna ook op dit apparaat. U hoeft het formulier niet in te vullen om de lijst te lezen.</p>
       <label class="block">Naam<input class="ap-field" name="naam" required autocomplete="name" /></label>
       <label class="block">E-mail<input class="ap-field" name="email" type="email" required autocomplete="email" /></label>
+      <MedewerkersVeld />
       <input type="hidden" name="checklist" data-checklist-body />
       <label class="flex items-start gap-2 text-sm">
         <input name="toestemming" type="checkbox" value="ja" required />

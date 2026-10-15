@@ -10,7 +10,7 @@ faq:
   - q: "Is 25 minuten reistijd nog inbegrepen?"
     a: "Ja. Den Bosch ligt buiten de spits op ongeveer 25 minuten van Uden, binnen de grens van 45 minuten."
   - q: "Werken jullie voor overheden?"
-    a: "Ja, als de organisatie 35 of meer medewerkers heeft. Het dossier schrijven we in gewone taal, met oog voor de manier waarop besluiten daar lopen."
+    a: "Ja, als de organisatie 35–500 medewerkers heeft. Het dossier schrijven we in gewone taal, met oog voor de manier waarop besluiten daar lopen."
 sources:
   - title: "STAVV salaris casemanager"
     url: "https://www.stavv.nl/casemanager-verzuim/"

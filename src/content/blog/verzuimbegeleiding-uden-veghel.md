@@ -1,6 +1,6 @@
 ---
 title: "Verzuimbegeleiding in Uden en Veghel: lokaal en persoonlijk"
-description: "Hoe verzuimbegeleiding in Uden en Veghel werkt voor werkgevers met 35 of meer medewerkers, met een casemanager die vanuit Uden komt."
+description: "Hoe verzuimbegeleiding in Uden en Veghel werkt voor werkgevers met 35–500 medewerkers, met een casemanager die vanuit Uden komt."
 keyword: "verzuimbegeleiding Uden"
 pubDate: 2026-10-15
 updated: 2026-10-15

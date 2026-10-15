@@ -32,7 +32,7 @@ related:
 
 De maakindustrie in Brabant, van de Peel tot Helmond en de toelevering rond Eindhoven, heeft verzuim dat u ruikt op de werkvloer. Een lege plek aan de lijn is dezelfde ochtend een probleem. Een vervanger met de juiste certificaten is niet de volgende dag beschikbaar. UWV beschreef dat werkgevers in industrie en techniek de krapte nog steeds sterk voelen. Dat maakt een verzuimdag duurder dan de gemiddelde TNO-som, omdat de vervangingscomponent oploopt en de overige ploeg de druk overneemt tot ook daar iemand uitvalt.
 
-Een aanpak die werkt, begint niet bij een poster. Hij begint bij het rooster, de taken die écht lichter kunnen, en een dossier dat de ploegleider begrijpt. Arbopartner Brabant doet dat ter plaatse, binnen ongeveer 45 minuten van Uden, voor bedrijven met 35 of meer medewerkers.
+Een aanpak die werkt, begint niet bij een poster. Hij begint bij het rooster, de taken die écht lichter kunnen, en een dossier dat de ploegleider begrijpt. Arbopartner Brabant doet dat ter plaatse, binnen ongeveer 45 minuten van Uden, voor bedrijven met 35–500 medewerkers.
 
 ## Ploegen zijn het protocol
 

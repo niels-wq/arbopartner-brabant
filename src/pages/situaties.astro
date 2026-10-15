@@ -1,0 +1,29 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import ClusterNav from "../components/ClusterNav.astro";
+import CtaBand from "../components/CtaBand.astro";
+import Situaties from "../components/Situaties.astro";
+import { site } from "../data/site";
+import { crumbsLd } from "../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Situaties", path: "/situaties" },
+];
+---
+
+<Base
+  title="Situaties"
+  description={`Herkent u dit? Zes situaties rond verzuim, ${site.audience}. Probleem, oplossing en resultaat, zonder verzonnen klantnamen.`}
+  jsonLd={[crumbsLd(crumbs)]}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <header class="mx-auto max-w-6xl px-4 pt-6">
+    <h1 class="font-serif text-5xl text-green-950">Situaties</h1>
+    <p class="mt-4 max-w-2xl text-lg text-ink-soft">Herkent u dit? Dit label is {site.audience} in Noord-Brabant.</p>
+  </header>
+  <Situaties />
+  <ClusterNav />
+  <CtaBand />
+</Base>

@@ -1,12 +1,12 @@
 import { qualityFaq } from "../data/garanties";
 import { services } from "../data/services";
 import { site, absoluteUrl, zzpFaq } from "../data/site";
-import type { FaqItem } from "./schema";
+import { audienceLd, type FaqItem } from "./schema";
 
 const shared: FaqItem[] = [
   {
     q: "Wat is Arbopartner Brabant?",
-    a: "Arbopartner Brabant is een label van Matchvermogen B.V. Het detacheert een vaste casemanager bij werkgevers met 35 of meer medewerkers in Noord-Brabant. Nuchter, dichtbij, Brabants. Het kantoor staat in Uden. Het label is geen arbodienst.",
+    a: `Arbopartner Brabant is een label van Matchvermogen B.V. Het detacheert een vaste casemanager ${site.audience} in Noord-Brabant. Nuchter, dichtbij, Brabants. Het kantoor staat in Uden. Het label is geen arbodienst. Kleinere organisaties verwijzen we naar Matchvermogen. Meer dan ${site.maxEmployees} medewerkers valt buiten dit label.`,
   },
   {
     q: "Hoe neemt u contact op?",
@@ -44,7 +44,7 @@ const byPath: Record<string, FaqItem[]> = {
   "/diensten": [
     {
       q: "Welke dienst is de kern?",
-      a: "Een vaste gedetacheerde casemanager. Verzuimanalyse, protocol, dossier bij vertrek, tweede spoor en arbeidsdeskundig onderzoek komen daar omheen.",
+      a: "Een vaste gedetacheerde casemanager. Daaromheen: verzuimanalyse, protocol, training voor leidinggevenden, jobcoaching, mediation, eerste spoor, tweede spoor, WIA-dossier en arbeidsdeskundig onderzoek. Een preventief medisch onderzoek bieden de zustermerken niet als aparte dienst.",
     },
     shared[0],
   ],
@@ -149,6 +149,7 @@ export function serviceNodesForPath(pathname: string) {
       serviceType: "Verzuimbegeleiding",
       provider: { "@id": `${site.domain}/#organisatie` },
       areaServed: { "@type": "AdministrativeArea", name: "Noord-Brabant" },
+      audience: audienceLd(),
     }];
   }
   const list = path === "/diensten"
@@ -162,6 +163,7 @@ export function serviceNodesForPath(pathname: string) {
     serviceType: "Verzuimbegeleiding",
     provider: { "@id": `${site.domain}/#organisatie` },
     areaServed: { "@type": "AdministrativeArea", name: "Noord-Brabant" },
+    audience: audienceLd(),
   }));
 }
 

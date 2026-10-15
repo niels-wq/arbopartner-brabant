@@ -91,6 +91,20 @@ export function organizationLd(areaName?: string) {
     ],
     knowsLanguage: "nl",
     slogan: site.tagline,
+    audience: audienceLd(),
+  };
+}
+
+export function audienceLd() {
+  return {
+    "@type": "BusinessAudience",
+    audienceType: site.audience,
+    numberOfEmployees: {
+      "@type": "QuantitativeValue",
+      minValue: site.minEmployees,
+      maxValue: site.maxEmployees,
+      unitText: "medewerkers",
+    },
   };
 }
 

@@ -38,13 +38,13 @@ function validEmail(value) {
 
 const fields = {
   offerte: ["naam", "email", "telefoon", "organisatie", "plaats", "medewerkers", "pakket", "niveau", "situatie"],
-  advies: ["naam", "telefoon", "organisatie"],
-  spoed: ["naam", "telefoon", "organisatie", "wat"],
-  chat: ["naam", "organisatie", "telefoon", "vraag"],
+  advies: ["naam", "telefoon", "organisatie", "medewerkers"],
+  spoed: ["naam", "telefoon", "organisatie", "wat", "medewerkers"],
+  chat: ["naam", "organisatie", "telefoon", "vraag", "medewerkers"],
   rapport: ["email", "rapport"],
-  scan: ["naam", "telefoon"],
-  terugbel: ["naam", "telefoon"],
-  checklist: ["naam", "email"],
+  scan: ["naam", "telefoon", "medewerkers"],
+  terugbel: ["naam", "telefoon", "medewerkers"],
+  checklist: ["naam", "email", "medewerkers"],
 };
 
 export function validate(kind, body) {
@@ -58,6 +58,13 @@ export function validate(kind, body) {
   }
   if ((kind === "rapport" || body?.email) && !validEmail(oneLine(body?.email))) {
     if (kind === "rapport" || oneLine(body?.email)) errors.push("Het e-mailadres klopt niet.");
+  }
+  const headcount = oneLine(body?.medewerkers, 12);
+  if (headcount) {
+    const count = Number(headcount);
+    if (!Number.isInteger(count) || count < 35 || count > 500) {
+      errors.push("Aantal medewerkers hoort tussen 35 en 500 te liggen.");
+    }
   }
   return errors;
 }

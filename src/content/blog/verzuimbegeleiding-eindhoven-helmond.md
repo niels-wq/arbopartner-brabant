@@ -6,7 +6,7 @@ pubDate: 2026-10-15
 updated: 2026-10-15
 faq:
   - q: "Komen jullie op de High Tech Campus en in Veldhoven?"
-    a: "Ja, als uw organisatie 35 of meer medewerkers heeft. Veldhoven ligt op ongeveer 40 minuten van Uden en valt nog binnen het gebied. De reistijd zit in het tarief."
+    a: "Ja, als uw organisatie 35–500 medewerkers heeft. Veldhoven ligt op ongeveer 40 minuten van Uden en valt nog binnen het gebied. De reistijd zit in het tarief."
   - q: "Is een specialist die niet vervangen kan worden een reden voor een senior?"
     a: "Vaak wel, zeker als aangepast werk schaars is of een WIA-dossier nadert. De matchcalculator kijkt ook naar de aard van het verzuim."
   - q: "Doen jullie Helmond en Eindhoven met één persoon?"

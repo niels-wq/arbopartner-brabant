@@ -9,6 +9,7 @@ import { arbodienstUurtarieven } from "../data/arbodienst-tarieven";
 import { CBS_WAGE, compareEmployment, costPerNeededHour, defaultCompareInput } from "../lib/calc";
 import { euro } from "../lib/format";
 import { levels, verzuimanalysePrijs, type Block } from "../lib/rates";
+import Figure from "../components/Figure.astro";
 import { crumbsLd, faqLd } from "../lib/schema";
 
 const crumbs = [
@@ -40,7 +41,8 @@ const faq = [
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto max-w-3xl px-4 pb-4 pt-10">
     <h1 class="font-serif text-4xl text-green-950 md:text-5xl">Tarieven</h1>
-    <p class="mt-4 text-lg">Een tarief van Arbopartner Brabant is een richtprijs per uur voor een gedetacheerde casemanager, exclusief btw. Hoe groter het blok, hoe lager het uur. Dit is geen offerte.</p>
+    <p class="mt-4 text-lg">Een tarief van Arbopartner Brabant is een richtprijs per uur voor een gedetacheerde casemanager, exclusief btw. Hoe groter het blok, hoe lager het uur. Dit is geen offerte. Het label is voor organisaties met 35–500 medewerkers.</p>
+    <Figure id="pagina-tarieven" eager class="mt-6" />
 
     <h2 class="mt-12 font-serif text-3xl text-green-950">Uurtarieven</h2>
     <div class="mt-4 overflow-x-auto">

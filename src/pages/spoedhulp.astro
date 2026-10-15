@@ -1,5 +1,6 @@
 ---
 import Figure from "../components/Figure.astro";
+import MedewerkersVeld from "../components/MedewerkersVeld.astro";
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import { site, phoneHref, whatsappHref } from "../data/site";
@@ -51,6 +52,7 @@ const checks = [
       <label class="block text-sm">Naam<input class="field" name="naam" required /></label>
       <label class="block text-sm">Telefoon<input class="field" name="telefoon" type="tel" required /></label>
       <label class="block text-sm">Organisatie<input class="field" name="organisatie" required /></label>
+      <MedewerkersVeld />
       <label class="block text-sm">Wat is er aan de hand?<textarea class="field min-h-28" name="wat" required></textarea></label>
       <label class="flex items-start gap-2 text-sm">
         <input type="checkbox" name="toestemming" value="ja" required />

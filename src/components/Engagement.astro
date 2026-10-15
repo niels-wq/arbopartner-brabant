@@ -57,6 +57,7 @@ import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
     <label>Naam<input name="naam" required autocomplete="name" /></label>
     <label>Bedrijf<input name="organisatie" required autocomplete="organization" /></label>
     <label>Telefoon<input name="telefoon" type="tel" required autocomplete="tel" /></label>
+    <label>Aantal medewerkers<input name="medewerkers" type="number" min="35" max="500" required inputmode="numeric" /></label>
     <label>Vraag<textarea name="vraag" required maxlength="1000"></textarea></label>
     <label class="flex items-start gap-2 text-sm"><input type="checkbox" name="toestemming" value="ja" required /> <span>U mag contact opnemen. <a href="/privacy">Privacy</a></span></label>
     <div class="absolute -left-[9999px]" aria-hidden="true"><label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label></div>
@@ -81,6 +82,7 @@ import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
       <input type="hidden" name="soort" value="terugbel" />
       <label>Naam<input name="naam" required autocomplete="name" /></label>
       <label>Telefoon<input name="telefoon" type="tel" required autocomplete="tel" /></label>
+      <label>Aantal medewerkers<input name="medewerkers" type="number" min="35" max="500" required inputmode="numeric" /></label>
       <label>Bedrijf, als u wilt<input name="organisatie" autocomplete="organization" /></label>
       <label class="flex items-start gap-2 text-sm"><input type="checkbox" name="toestemming" value="ja" required /> <span>U mag mij bellen. <a href="/privacy">Privacy</a></span></label>
       <div class="absolute -left-[9999px]" aria-hidden="true"><label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label></div>

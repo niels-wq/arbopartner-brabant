@@ -611,6 +611,18 @@ summary.rounded-full.border-green-800:focus-visible,
   html {
     scroll-behavior: auto;
   }
+
+  .ap-reveal,
+  .ap-timeline::before,
+  a.rounded-full,
+  button.rounded-full,
+  .btn,
+  a.rounded-2xl,
+  article.rounded-2xl,
+  article.rounded-3xl {
+    animation: none;
+    transition: none;
+  }
 }
 
 .ap-mark {
@@ -708,4 +720,109 @@ select.field {
 main a.underline {
   text-decoration-color: #d8a03d;
   text-underline-offset: 3px;
+}
+
+.ap-timeline {
+  position: relative;
+  display: grid;
+  gap: 0.75rem;
+  margin-left: 0.25rem;
+  padding-left: 1.35rem;
+}
+
+.ap-timeline::before {
+  content: "";
+  position: absolute;
+  left: 0.35rem;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 2px;
+  background: #d8a03d;
+  transform-origin: top center;
+}
+
+.ap-timeline-item {
+  position: relative;
+}
+
+.ap-timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -1.2rem;
+  top: 1.15rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: #12382c;
+  box-shadow: 0 0 0 3px #f3f2ec;
+}
+
+@keyframes ap-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ap-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a.rounded-full,
+  button.rounded-full,
+  .btn,
+  button[type="submit"] {
+    transition: transform 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  a.rounded-full:hover,
+  button.rounded-full:hover,
+  .btn:hover,
+  button[type="submit"]:hover {
+    transform: translateY(-1px);
+  }
+
+  a.rounded-full:active,
+  button.rounded-full:active,
+  .btn:active,
+  button[type="submit"]:active {
+    transform: translateY(1px);
+  }
+
+  a.rounded-2xl,
+  article.rounded-2xl,
+  article.rounded-3xl {
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+
+  a.rounded-2xl:hover,
+  article.rounded-2xl:hover,
+  article.rounded-3xl:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgb(20 38 28 / 5%), 0 16px 36px rgb(20 38 28 / 10%);
+  }
+
+  @supports (animation-timeline: view()) {
+    .ap-reveal {
+      animation: ap-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
+
+    .ap-timeline::before {
+      animation: ap-grow linear both;
+      animation-timeline: view();
+      animation-range: entry 8% cover 70%;
+    }
+  }
 }

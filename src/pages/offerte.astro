@@ -36,7 +36,9 @@ const pakketKeuze = Astro.url.searchParams.get("pakket") ?? "";
             <option value="Elders in Noord-Brabant">Elders in Noord-Brabant</option>
           </select>
         </label>
-        <label class="block">Aantal medewerkers<input class="ap-field" name="medewerkers" type="number" min="35" required /></label>
+        <label class="block">Aantal medewerkers<input class="ap-field" name="medewerkers" type="number" min="35" max="500" required />
+          <span class="mt-1 block text-sm font-normal">Voor organisaties met 35–500 medewerkers.</span>
+        </label>
         <label class="block">Wat speelt er?
           <select class="ap-field" name="situatie" required>
             <option value="Nu een probleem">Nu een probleem</option>

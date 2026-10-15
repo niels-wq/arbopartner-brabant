@@ -2,14 +2,14 @@
   <form class="space-y-6 rounded-[2rem] border border-line bg-white/80 p-5 md:p-7">
     <fieldset>
       <legend class="font-semibold">1. Aantal medewerkers</legend>
-      <p class="text-sm text-ink-soft">We werken vanaf 35 medewerkers.</p>
+      <p class="text-sm text-ink-soft">Voor organisaties met 35–500 medewerkers. Standaard 50.</p>
       <div class="mt-2 flex flex-wrap gap-2">
         <label class="chip"><input type="radio" name="size" value="35-75" checked /> 35–75</label>
         <label class="chip"><input type="radio" name="size" value="76-200" /> 76–200</label>
-        <label class="chip"><input type="radio" name="size" value="200+" /> 200+</label>
+        <label class="chip"><input type="radio" name="size" value="201-500" /> 201–500</label>
       </div>
       <label class="mt-3 block text-sm">Precies aantal
-        <input class="field" type="number" name="headcount" min="35" value="50" />
+        <input class="field" type="number" name="headcount" min="35" max="500" value="50" />
       </label>
     </fieldset>
     <fieldset>

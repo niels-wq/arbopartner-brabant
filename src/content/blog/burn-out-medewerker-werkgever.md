@@ -70,6 +70,6 @@ Voor de collega’s die het werk dragen, is een burn-out in het team ook een bel
 
 ## Hulp van buiten
 
-Een casemanager neemt de behandeling niet over. Wel bewaakt die de afspraken, de toon en de termijnen, en houdt de leidinggevende bij de les als het ongemakkelijk wordt. In Brabant doen we dat op locatie, vanuit Uden, voor werkgevers met 35 of meer medewerkers. Is het contact nu verbroken, begin bij [spoedhulp](/spoedhulp). Is het een patroon in het team, begin bij een [adviesgesprek](/adviesgesprek) en eventueel een verzuimanalyse.
+Een casemanager neemt de behandeling niet over. Wel bewaakt die de afspraken, de toon en de termijnen, en houdt de leidinggevende bij de les als het ongemakkelijk wordt. In Brabant doen we dat op locatie, vanuit Uden, voor werkgevers met 35–500 medewerkers. Is het contact nu verbroken, begin bij [spoedhulp](/spoedhulp). Is het een patroon in het team, begin bij een [adviesgesprek](/adviesgesprek) en eventueel een verzuimanalyse.
 
 U kunt een burn-out niet wegnemen met een goed gesprek alleen. U kunt wel voorkomen dat het dossier verhardt, dat het werk op één collega landt, en dat u over een jaar niet kunt laten zien wat u heeft geprobeerd. Dat is de taak van de werkgever. De rest is zorg, en die ligt niet op uw bureau.

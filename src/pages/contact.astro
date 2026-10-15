@@ -1,4 +1,5 @@
 ---
+import MedewerkersVeld from "../components/MedewerkersVeld.astro";
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import CallbackForm from "../components/CallbackForm.astro";
@@ -41,6 +42,7 @@ const crumbs = [
       <label class="block">Naam<input class="field" name="naam" required autocomplete="name" /></label>
       <label class="block">Bedrijf<input class="field" name="organisatie" required autocomplete="organization" /></label>
       <label class="block">Telefoon<input class="field" name="telefoon" type="tel" required autocomplete="tel" /></label>
+      <MedewerkersVeld />
       <label class="block">E-mail, als u wilt<input class="field" name="email" type="email" autocomplete="email" /></label>
       <label class="block">Bericht<textarea class="field min-h-20" name="vraag" maxlength="1000"></textarea></label>
       <label class="flex gap-2 text-sm"><input type="checkbox" name="toestemming" value="ja" required /> <span>Akkoord met contact over dit bericht. <a class="underline" href="/privacy">Privacy</a></span></label>

@@ -1,0 +1,32 @@
+---
+import { gemeenten } from "../data/gemeenten";
+import { team } from "../data/team";
+import { site } from "../data/site";
+import { CBS } from "../lib/calc";
+
+const feiten = [
+  { value: gemeenten.length, decimals: 0, suffix: "", label: "gemeenten in Noord-Brabant" },
+  { value: team.length, decimals: 0, suffix: "", label: "mensen op de teampagina van Matchvermogen en Best Match" },
+  { value: CBS.nl2025, decimals: 1, suffix: "%", label: "ziekteverzuim Nederland, CBS 2025" },
+  { value: site.discount.arbeidsdeskundige, decimals: 0, suffix: "%", label: "korting op arbeidsdeskundig onderzoek voor klanten van dit label" },
+  { value: site.discount.tweedeSpoor, decimals: 0, suffix: "%", label: "korting op tweede spoor bij Best Match" },
+];
+
+function shown(value: number, decimals: number, suffix: string) {
+  return `${value.toLocaleString("nl-NL", { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}${suffix}`;
+}
+---
+
+<section class="mx-auto max-w-6xl px-4 py-8" aria-label="Cijfers met bron">
+  <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">{site.audience}</p>
+  <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+    {feiten.map((feit) => (
+      <li class="rounded-2xl border border-line bg-white p-4">
+        <p class="font-serif text-3xl text-green-950">
+          <span data-count={feit.value} data-decimals={feit.decimals} data-suffix={feit.suffix}>{shown(feit.value, feit.decimals, feit.suffix)}</span>
+        </p>
+        <p class="mt-1 text-sm text-ink-soft">{feit.label}</p>
+      </li>
+    ))}
+  </ul>
+</section>

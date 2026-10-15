@@ -17,7 +17,7 @@ export const services: Service[] = [
     title: "Casemanager detacheren",
     menu: "Casemanager detacheren",
     description:
-      "Een vaste gedetacheerde casemanager voor werkgevers in Noord-Brabant, vanaf 35 medewerkers. Nuchter en dichtbij. Reistijd binnen 45 minuten van het kantoor in Uden zit in het tarief.",
+      `Een vaste gedetacheerde casemanager ${site.audience} in Noord-Brabant. Nuchter en dichtbij. Reistijd binnen 45 minuten van het kantoor in Uden zit in het tarief.`,
     lead: "U krijgt één casemanager die de namen op de werkvloer kent. Geen loket, geen andere stem bij elk telefoontje.",
     sections: [
       {
@@ -44,7 +44,7 @@ export const services: Service[] = [
     faq: [
       {
         q: "Vanaf hoeveel medewerkers kan ik detacheren?",
-        a: "We werken voor werkgevers met 35 of meer medewerkers in Noord-Brabant. Het kantoor staat in Uden.",
+        a: `We werken ${site.audience} in Noord-Brabant. Het kantoor staat in Uden. Kleinere organisaties verwijzen we naar een gerichte opdracht bij Matchvermogen. Meer dan ${site.maxEmployees} medewerkers valt buiten dit label.`,
       },
       {
         q: "Zit reistijd in het tarief?",
@@ -116,9 +116,15 @@ export const services: Service[] = [
         heading: "Ingebruikname",
         paragraphs: [
           "Bij het protocol hoort een korte uitleg aan leidinggevenden. Zonder die uitleg blijft het papier. De uren kunnen uit uw pakket komen of als losse opdracht.",
+          "Matchvermogen publiceert een voorbeeld van een verzuimprotocol, met afspraken over de ziekmelding en het moment van een WIA-aanvraag. Een open spreekuur staat daar als vorm van preventie. Een preventief medisch onderzoek bieden we niet als aparte dienst. Een verzuimreglement als los product staat niet onder die naam op de zustermerken; de korte versie van één pagina is de afspraak voor op de afdeling.",
         ],
       },
     ],
+    sister: {
+      name: "Matchvermogen",
+      url: "https://matchvermogen.nl/verzuimprotocol-voorbeeld/",
+      text: "Voorbeeld van een verzuimprotocol bij Matchvermogen.",
+    },
     faq: [
       {
         q: "Leveren jullie een Word-bestand?",
@@ -190,6 +196,7 @@ export const services: Service[] = [
         heading: "Wanneer u start",
         paragraphs: [
           "De vuistregel: zodra duidelijk is dat structurele terugkeer in de eigen functie of in ander werk bij u niet waarschijnlijk is. Wachten tot de bedrijfsarts het woord ‘spoor 2’ uitspreekt, is vaak al laat. De casemanager zet die vraag eerder op tafel.",
+          "Arbeidsdeskundig.com vermeldt dat Best Match ook spoor 3 uitvoert. Wat dat traject inhoudt, werken we op deze pagina niet uit. Dat leest u bij Best Match.",
         ],
       },
     ],
@@ -255,7 +262,205 @@ export const services: Service[] = [
       text: "Naar het moederbedrijf voor arbeidsdeskundig onderzoek.",
     },
   },
+  {
+    slug: "eerste-spoor",
+    title: "Eerste spoor",
+    menu: "Eerste spoor",
+    description:
+      "Re-integratie in eigen werk of ander werk bij de eigen werkgever. Matchvermogen noemt dat spoor 1. De gedetacheerde casemanager begeleidt die route. Geen los tarief.",
+    lead: "Terugkeer bij u, voordat werk buiten de deur de enige route lijkt.",
+    sections: [
+      {
+        heading: "Wat eerste spoor hier betekent",
+        paragraphs: [
+          "Matchvermogen beschrijft spoor 1 als eigen werk. De casemanager begeleidt die route: aangepast eigen werk, ander werk in de organisatie, en de termijnen in het dossier. De bedrijfsarts blijft van u. Wij geven geen medisch oordeel.",
+          "Dit is het werk van de gedetacheerde casemanager, geen apart geprijsd product. De uren komen uit het blok dat u afneemt.",
+        ],
+      },
+      {
+        heading: "Wanneer een onderzoek erbij hoort",
+        paragraphs: [
+          "Arbeidsdeskundig.com beschrijft dat een onderzoek zicht geeft op passend werk binnen spoor 1, en dat bij de Ziektewet spoor 1 bij de ex-werkgever zorgvuldig wordt afgesloten. Dat onderzoek doet Matchvermogen. De onderzoeker is niet dezelfde persoon als de begeleider.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "Is eerste spoor een los traject met een eigen prijs?",
+        a: "Nee. De begeleiding in eigen werk hoort bij de casemanager. Een arbeidsdeskundig onderzoek of een tweede spoor offerteert het zustermerk apart.",
+      },
+      {
+        q: "Wanneer stopt eerste spoor?",
+        a: "Als terugkeer in eigen werk of ander werk bij u niet realistisch is. Dan zet de casemanager tweede spoor op tafel, op tijd, niet in de laatste maand.",
+      },
+    ],
+    sister: {
+      name: "Matchvermogen",
+      url: "https://matchvermogen.nl/verzuimtraining-op-maat/training-verzuim-en-interventies/",
+      text: "Daar legt Matchvermogen spoor 1 uit als eigen werk.",
+    },
+  },
+  {
+    slug: "leidinggevenden-training",
+    title: "Training voor leidinggevenden",
+    menu: "Training leidinggevenden",
+    description:
+      "Verzuimtraining voor leidinggevenden, zoals Matchvermogen die aanbiedt: oorzaken, beleid, verzuimgesprekken en het moment om een arbeidsdeskundige te bellen.",
+    lead: "Een protocol werkt pas als de leidinggevende het gesprek aandurft.",
+    sections: [
+      {
+        heading: "Wat de training behandelt",
+        paragraphs: [
+          "Matchvermogen biedt een verzuimtraining voor leidinggevenden. Onderwerpen die daar staan: oorzaken van verzuim, het beleid, het gesprek met de medewerker, patronen in het verzuim, en wanneer een arbeidsdeskundige erbij komt.",
+          "Duur en prijs publiceren we hier niet. Die hoort u in de offerte, of u leest het aanbod bij Matchvermogen. De training vervangt de casemanager niet.",
+        ],
+      },
+      {
+        heading: "Voor wie",
+        paragraphs: [
+          `De training is ${site.audience} in Noord-Brabant, naast een lopend blok of als losse opdracht. We oefenen met situaties uit uw organisatie, niet met een verzonnen casus met een naam.`,
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "Moet elke leidinggevende mee?",
+        a: "Dat spreken we af. Meestal starten we met de leidinggevenden die de ziekmeldingen doen.",
+      },
+      {
+        q: "Staat de prijs hier?",
+        a: "Nee. Matchvermogen biedt de training. Het bedrag bevestigen we in de offerte.",
+      },
+    ],
+    sister: {
+      name: "Matchvermogen",
+      url: "https://matchvermogen.nl/transformeer-verzuimbeheer-een-verzuimtraining-voor-leidinggevenden/",
+      text: "De verzuimtraining voor leidinggevenden bij Matchvermogen.",
+    },
+  },
+  {
+    slug: "jobcoaching",
+    title: "Jobcoaching",
+    menu: "Jobcoaching",
+    description:
+      "Jobcoaching van Matchvermogen, voor preventie en verzuim: coaching naar werk dat iemand kan volhouden, in de eigen functie of in ander werk.",
+    lead: "Een coach naast de medewerker, voordat een dossier alleen nog uit termijnen bestaat.",
+    sections: [
+      {
+        heading: "Wat Matchvermogen hieronder verstaat",
+        paragraphs: [
+          "De pagina Jobcoaching van Matchvermogen beschrijft coaching naar duurzame inzetbaarheid, in eigen werk of in ander werk, door geregistreerde coaches. Ook signalen vóór verzuim horen daarbij.",
+          "Een preventief medisch onderzoek staat niet als dienst op matchvermogen.nl, werkhervattingskas.nl of arbeidsdeskundig.com. Die pagina maken we niet. Preventie is hier de coaching en, in het voorbeeldprotocol, een open spreekuur.",
+        ],
+      },
+      {
+        heading: "Wat we niet overnemen",
+        paragraphs: [
+          "Besparingscijfers van die pagina, zoals een bedrag per dag of een percentage korter verzuim, zetten we hier niet neer. Onze verzuimkosten rekenen met de TNO-dagkosten en een scenario dat u zelf kiest. Geen garantie vooraf.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "Is jobcoaching hetzelfde als tweede spoor?",
+        a: "Nee. Jobcoaching kan ook in het eigen werk, en vóór een lang dossier. Tweede spoor is re-integratie bij een andere werkgever, via Best Match.",
+      },
+      {
+        q: "Wie is de opdrachtgever?",
+        a: "De werkgever. De coach blijft correct naar de medewerker. We zijn geen behandelaar.",
+      },
+    ],
+    sister: {
+      name: "Matchvermogen",
+      url: "https://matchvermogen.nl/jobcoaching/",
+      text: "Jobcoaching bij Matchvermogen, voor preventie en verzuim.",
+    },
+  },
+  {
+    slug: "mediation",
+    title: "Mediation bij verzuim",
+    menu: "Mediation",
+    description:
+      "Mediation door een arbeidsdeskundige mediator van Matchvermogen, als verzuim en een conflict door elkaar lopen.",
+    lead: "Eerst uit elkaar halen wat ziekte is en wat een conflict is. Daarna pas de route kiezen.",
+    sections: [
+      {
+        heading: "Wat de mediator doet",
+        paragraphs: [
+          "Matchvermogen werkt met een arbeidsdeskundige mediator. Die scheidt het verzuim van het conflict en kan een vaststellingsovereenkomst bespreken. Wij zijn geen advocatenkantoor. De jurist of advocaat blijft van u. Druk op een zieke medewerker om te tekenen, doen we niet.",
+          "De casemanager houdt het dossier bij. De mediator is een andere rol. Zo blijft het gesprek over het conflict los van de termijnen.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "Maken jullie de vaststellingsovereenkomst?",
+        a: "Nee. Die maakt uw jurist. De mediator en de casemanager leveren het feitenoverzicht.",
+      },
+      {
+        q: "Kan mediation naast een lopend blok?",
+        a: "Ja. De uren komen uit het blok, of we offreren een afgebakend aantal uren voor één dossier.",
+      },
+    ],
+    sister: {
+      name: "Matchvermogen",
+      url: "https://matchvermogen.nl/arbeidsdeskundige-mediator/",
+      text: "Arbeidsdeskundige mediator bij Matchvermogen.",
+    },
+  },
+  {
+    slug: "wia-begeleiding",
+    title: "WIA-begeleiding",
+    menu: "WIA-begeleiding",
+    description:
+      "De casemanager bewaakt het dossier richting de WIA. De aanvraag van de werknemer dienen we niet in. Bezwaar en premie horen bij de zustermerken.",
+    lead: "Rond week 88 hoort het re-integratiedossier compleet te zijn. Dat bewaken we. De aanvraag zelf niet.",
+    sections: [
+      {
+        heading: "Wat we wel doen",
+        paragraphs: [
+          "De casemanager houdt de datum in de gaten waarop de WIA in beeld komt, grofweg week 88 tot 93, en kijkt of de stukken er zijn: plannen, evaluaties, inzet op eigen werk en, waar nodig, tweede spoor. Arbeidsdeskundig.com beschrijft dat een arbeidsdeskundige vlak voor die aanvraag helpt bij een onderbouwde beoordeling. Dat onderzoek doet Matchvermogen.",
+          "Werkhervattingskas.nl heeft een rekenhulp voor een WIA-uitkering en hulp bij een WHK-beschikking, bezwaar en premie. Die producten blijven daar. We plakken hun uitkomsten niet op dit label.",
+        ],
+      },
+      {
+        heading: "Wat we niet doen",
+        paragraphs: [
+          "We dienen de WIA-aanvraag van de werknemer niet in en we voorspellen de uitkomst niet. UWV beslist. Een loonsanctie blijft een risico dat UWV oplegt, geen belofte die wij wegnemen.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "Vullen jullie de WIA-aanvraag in?",
+        a: "Nee. De werknemer vraagt de uitkering aan. Wij zorgen dat het dossier van de werkgever de re-integratie kan laten zien.",
+      },
+      {
+        q: "Waar regel ik bezwaar of de premie?",
+        a: "Bij Matchvermogen en op werkhervattingskas.nl. Dit label detacheert de casemanager.",
+      },
+    ],
+    sister: {
+      name: "Werkhervattingskas.nl",
+      url: "https://werkhervattingskas.nl",
+      text: "WIA-rekentool, WHK-beschikking en premie bij het zustermerk.",
+    },
+  },
 ];
+
+export const serviceIcons = {
+  "casemanager-detachering": "calendar",
+  verzuimanalyse: "chart",
+  "verzuimbeleid-protocol": "document",
+  "vso-en-ontslagdossier": "balance",
+  "tweede-spoor": "route",
+  "arbeidsdeskundig-onderzoek": "shield",
+  "eerste-spoor": "building",
+  "leidinggevenden-training": "chairs",
+  jobcoaching: "pin",
+  mediation: "swap",
+  "wia-begeleiding": "clock",
+} as const;
 
 export function getService(slug: string): Service | undefined {
   return services.find((service) => service.slug === slug);

@@ -1,4 +1,5 @@
 ---
+import MedewerkersVeld from "./MedewerkersVeld.astro";
 import { site } from "../data/site";
 ---
 
@@ -7,6 +8,7 @@ import { site } from "../data/site";
   <p>Naam en telefoon. We bellen u terug. {site.placeholders.callback}</p>
   <label class="block">Naam<input class="ap-field" name="naam" required autocomplete="name" /></label>
   <label class="block">Telefoon<input class="ap-field" name="telefoon" type="tel" required autocomplete="tel" /></label>
+  <MedewerkersVeld />
   <label class="block">Wanneer het u uitkomt, als u dat wilt<input class="ap-field" name="wanneer" maxlength="180" /></label>
   <label class="flex items-start gap-2 text-sm">
     <input name="toestemming" type="checkbox" value="ja" required />
