@@ -37,6 +37,10 @@ if (root && !root.dataset.ready) {
 
   const answers: { test: RegExp; text: string }[] = [
     {
+      test: /\bzzp\b|freelance|\bteam\b|wie werkt|niels/,
+      text: "Niels Alderding is directeur en arbeidsdeskundige van Matchvermogen. Zijn foto en het team staan op de teampagina, overgenomen van matchvermogen.nl. Naast die vaste kern werken we met gecertificeerde zzp-casemanagers, zodat we kunnen opschalen, een specialist per casus kunnen inzetten en kunnen wisselen. Wie in loondienst is en wie als zzp'er meewerkt, staat in de offerte. Ik ben de assistent, niet Niels.",
+    },
+    {
       test: /kantoor|losplaats|op bezoek|neutrale plek/,
       text: "Werknemers en werkgevers kunnen gesprekken voeren op het kantoor van Matchvermogen B.V., Losplaats 16d, 5404 NJ Uden. Wie daarheen komt, blijft in beweging. Dat verhoogt de drempel om zich ziek te melden en kan verzuim minder en korter maken. We noemen geen percentage. Wie echt niet kan reizen, spreken we op het bedrijf of online. Plan een gesprek op ons kantoor via de pagina Adviesgesprek.",
     },

@@ -5,7 +5,10 @@ import AuthorBlock from "../components/AuthorBlock.astro";
 import NielsPhoto from "../components/NielsPhoto.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import CtaBand from "../components/CtaBand.astro";
-import { site } from "../data/site";
+import ReviewCard from "../components/ReviewCard.astro";
+import { site, zzpFaq } from "../data/site";
+import { reviewsAboutNiels } from "../data/reviews";
+import { team } from "../data/team";
 import { crumbsLd, faqLd } from "../lib/schema";
 
 const crumbs = [
@@ -21,7 +24,10 @@ const faq = [
     q: "Werken jullie in heel Nederland?",
     a: "De casemanager van dit label werkt binnen ongeveer 45 minuten van Uden. Arbeidsdeskundig onderzoek doet Matchvermogen landelijk.",
   },
+  zzpFaq,
 ];
+const niels = team.find((person) => person.slug === "niels-alderding");
+const nielsReviews = reviewsAboutNiels().slice(0, 2);
 ---
 
 <Base title="Over ons" description="Arbopartner Brabant is een label van Matchvermogen B.V. in Uden, voor verzuimbegeleiding bij Brabantse werkgevers." jsonLd={[crumbsLd(crumbs), faqLd(faq)]}>
@@ -36,15 +42,23 @@ const faq = [
         <blockquote class="font-serif text-2xl leading-snug text-green-950">
           <p>{site.founder.quote}</p>
         </blockquote>
-        <p class="mt-3">{site.founder.name} is oprichter en directeur van Matchvermogen, en arbeidsdeskundige. De foto staat op de teampagina van <a class="underline" href="https://matchvermogen.nl/over-matchvermogen/">matchvermogen.nl</a>. Een aparte biografie voor dit label verzinnen we niet. Achtergrond en de regel hierboven staan ook op <a class="underline" href={site.founder.quoteUrl}>arbeidsdeskundig.com</a>.</p>
-        <p class="mt-3">De overige beelden op deze site zijn eigen illustraties in de huisstijl. Er is geen rechtenvrije foto van het kantoor aan de Losplaats gevonden, en er zijn geen gezichten verzonnen.</p>
+        <p class="mt-3">{site.founder.name} is oprichter en directeur van Matchvermogen, en arbeidsdeskundige. De foto hierboven is zijn portret van de teampagina van <a class="underline" href="https://matchvermogen.nl/over-matchvermogen/">matchvermogen.nl</a>. {niels?.bio}</p>
+        <p class="mt-3">De regel bij de foto staat ook op <a class="underline" href={site.founder.quoteUrl}>arbeidsdeskundig.com</a>. De overige portretten op deze site komen van dezelfde teampagina. Illustraties zijn eigen ontwerp. Er is geen rechtenvrije foto van het kantoor aan de Losplaats gevonden.</p>
       </figcaption>
     </figure>
+    <h2 class="mt-8 font-serif text-3xl">Vaste kern en zzp-casemanagers</h2>
+    <p class="mt-3">{zzpFaq.a}</p>
+    <h2 class="mt-8 font-serif text-3xl">Wat opdrachtgevers over hem schreven</h2>
+    <p class="mt-3 text-sm">Letterlijke citaten van matchvermogen.nl waarin Niels wordt genoemd. Ze gaan over Matchvermogen, niet over dit label.</p>
+    <div class="mt-4 grid gap-4">
+      {nielsReviews.map((review) => <ReviewCard review={review} />)}
+    </div>
+    <p class="mt-3"><a class="font-semibold underline" href="/reviews">Alle citaten, met bron en datum</a></p>
     <h2 class="mt-8 font-serif text-3xl">Waarom een eigen gezicht</h2>
     <p class="mt-3">Werkgevers die bellen, hebben meestal geen behoefte aan een portal. Ze willen iemand die morgen op de plant staat, de leidinggevende kent en het dossier bijhoudt. De arbeidsdeskundige blijft beschikbaar als het dossier vastloopt, met {site.discount.arbeidsdeskundige}% korting. Tweede spoor loopt via <a class="underline" href="https://bestmatchbv.nl">Best Match</a>, met {site.discount.tweedeSpoor}% korting. WHK-vragen horen bij <a class="underline" href="https://werkhervattingskas.nl">werkhervattingskas.nl</a>.</p>
     <h2 class="mt-8 font-serif text-3xl">Wat we niet zijn</h2>
     <p class="mt-3">Geen arbodienst. Geen bedrijfsarts. Geen advocatenkantoor. We begeleiden verzuim en re-integratie volgens de geldende wet, en we zeggen het als een ander specialisme nodig is.</p>
-    <p class="mt-6"><a class="font-semibold underline" href="/team">Het team, en wat daar nog ontbreekt</a></p>
+    <p class="mt-6"><a class="font-semibold underline" href="/team">Het team, met foto en functie</a></p>
     <AuthorBlock />
   </article>
   <CtaBand />

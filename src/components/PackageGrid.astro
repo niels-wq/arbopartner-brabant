@@ -5,12 +5,12 @@ import { centerStage, monthLine, packages, riskReversal, savingLine } from "../l
 import { site } from "../data/site";
 import Mark from "./Mark.astro";
 import ReviewCard from "./ReviewCard.astro";
-import { reviews } from "../data/reviews";
+import { reviewsAboutNiels } from "../data/reviews";
 
 const levelIds = Object.keys(levels) as LevelId[];
 const anchorRate = levels.senior.rates[24];
 const anchorMonthly = monthlyCost(24, anchorRate);
-const review = reviews.find((item) => item.name === "Heidi Wichems") ?? reviews[0];
+const review = reviewsAboutNiels()[0];
 ---
 
 <section class="mx-auto max-w-6xl px-4">
@@ -115,8 +115,8 @@ const review = reviews.find((item) => item.name === "Heidi Wichems") ?? reviews[
     </table>
   </div>
 
-  <h2 class="mt-12 font-serif text-3xl text-green-950">Ervaring bij het moederbedrijf</h2>
-  <p class="mt-2 max-w-3xl text-sm">Dit citaat gaat over Matchvermogen, niet over een pakket van Arbopartner Brabant.</p>
+  <h2 class="mt-12 font-serif text-3xl text-green-950">Wat een opdrachtgever over Niels schreef</h2>
+  <p class="mt-2 max-w-3xl text-sm">Dit citaat noemt Niels en gaat over Matchvermogen, niet over een pakket van Arbopartner Brabant.</p>
   <div class="mt-4 max-w-3xl">
     <ReviewCard review={review} />
   </div>

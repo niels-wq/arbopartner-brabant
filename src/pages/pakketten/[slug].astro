@@ -8,7 +8,7 @@ import { levels, monthlyCost } from "../../lib/rates";
 import { euro } from "../../lib/format";
 import { monthLine, packages, riskReversal, savingLine } from "../../lib/pricing";
 import { site } from "../../data/site";
-import { reviews } from "../../data/reviews";
+import { reviewsAboutNiels } from "../../data/reviews";
 import { crumbsLd } from "../../lib/schema";
 
 export function getStaticPaths() {
@@ -21,7 +21,7 @@ const crumbs = [
   { name: "Pakketten", path: "/pakketten" },
   { name: pack.name, path: `/pakketten/${pack.slug}` },
 ];
-const review = reviews.find((item) => item.name === "Heidi Wichems") ?? reviews[0];
+const review = reviewsAboutNiels()[0];
 ---
 
 <Base title={`Pakket ${pack.name}`} description={`${pack.concrete}. ${pack.summary} Richtprijzen exclusief btw, per maand en per uur.`} jsonLd={[crumbsLd(crumbs)]}>
@@ -71,8 +71,8 @@ const review = reviews.find((item) => item.name === "Heidi Wichems") ?? reviews[
       <a class="rounded-full bg-green-800 px-5 py-3 text-center font-semibold" data-cta={`pakket-${pack.slug}-offerte`} href={`/offerte?pakket=${encodeURIComponent(pack.offer)}`}>Offerte voor {pack.name}</a>
       <a class="rounded-full border border-green-800 px-5 py-3 text-center font-semibold" data-cta={`pakket-${pack.slug}-advies`} href="/adviesgesprek">Vrijblijvend kennismaken</a>
     </div>
-    <h2 class="mt-12 font-serif text-3xl text-green-950">Ervaring bij het moederbedrijf</h2>
-    <p class="mt-2 text-sm">Dit citaat gaat over Matchvermogen, niet over pakket {pack.name}.</p>
+    <h2 class="mt-12 font-serif text-3xl text-green-950">Wat een opdrachtgever over Niels schreef</h2>
+    <p class="mt-2 text-sm">Dit citaat noemt Niels en gaat over Matchvermogen, niet over pakket {pack.name}.</p>
     <div class="mt-4">
       <ReviewCard review={review} />
     </div>

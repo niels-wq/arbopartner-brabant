@@ -1,5 +1,5 @@
 import { services } from "../data/services";
-import { site, absoluteUrl } from "../data/site";
+import { site, absoluteUrl, zzpFaq } from "../data/site";
 import type { FaqItem } from "./schema";
 
 const shared: FaqItem[] = [
@@ -72,11 +72,11 @@ const byPath: Record<string, FaqItem[]> = {
     shared[0],
   ],
   "/team": [
+    zzpFaq,
     {
-      q: "Waarom staan er nog geen namen?",
-      a: site.placeholders.team,
+      q: "Waarom heeft niet iedereen een bio?",
+      a: "Matchvermogen publiceert op de teampagina naam, functie en foto. Een langere tekst staat daar alleen bij Niels Alderding. Die tekst nemen we over. Voor de anderen verzinnen we geen bio.",
     },
-    shared[0],
   ],
   "/privacy": [
     {

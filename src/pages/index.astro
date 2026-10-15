@@ -8,10 +8,11 @@ import FaqList from "../components/FaqList.astro";
 import HireBenefits from "../components/HireBenefits.astro";
 import NielsPhoto from "../components/NielsPhoto.astro";
 import ReviewCard from "../components/ReviewCard.astro";
-import { officeConversation, site } from "../data/site";
-import { reviews } from "../data/reviews";
+import { officeConversation, site, zzpFaq } from "../data/site";
+import { reviewsAboutNiels } from "../data/reviews";
 import { places } from "../data/places";
-import { faqLd, crumbsLd } from "../lib/schema";
+import TeamStrip from "../components/TeamStrip.astro";
+import { faqLd, teamPeopleLd } from "../lib/schema";
 
 const faq = [
   {
@@ -30,9 +31,10 @@ const faq = [
     q: "Van wie zijn de reviews?",
     a: "Van Matchvermogen, ons moederbedrijf. Ze staan letterlijk op matchvermogen.nl en gaan niet over dit nieuwe label. We hebben nog geen eigen reviews.",
   },
+  zzpFaq,
 ];
 
-const jsonLd = [faqLd(faq)];
+const jsonLd = [faqLd(faq), ...teamPeopleLd()];
 ---
 
 <Base
@@ -128,14 +130,16 @@ const jsonLd = [faqLd(faq)];
 
   <HireBenefits />
 
+  <TeamStrip />
+
   <section class="mx-auto max-w-6xl px-4 py-6">
     <div class="flex items-end justify-between gap-4">
-      <h2 class="font-serif text-4xl text-green-950"><Mark name="document" />Wat opdrachtgevers van Matchvermogen schreven</h2>
+      <h2 class="font-serif text-4xl text-green-950"><Mark name="document" />Wat opdrachtgevers over Niels schreven</h2>
       <a class="hidden font-semibold text-green-800 sm:inline" data-cta="home-reviews-kop" href="/reviews">Alle citaten</a>
     </div>
-    <p class="mt-2 max-w-2xl text-sm text-ink-soft">Deze citaten staan letterlijk op matchvermogen.nl. Ze gaan over het moederbedrijf, niet over dit label. Eigen reviews volgen als die er zijn.</p>
+    <p class="mt-2 max-w-2xl text-sm text-ink-soft">Deze citaten noemen Niels en staan letterlijk op matchvermogen.nl. Ze gaan over het moederbedrijf, niet over dit label.</p>
     <div class="mt-5 grid gap-4 md:grid-cols-3">
-      {reviews.slice(0, 3).map((review) => <ReviewCard review={review} />)}
+      {reviewsAboutNiels().slice(0, 3).map((review) => <ReviewCard review={review} />)}
     </div>
   </section>
 

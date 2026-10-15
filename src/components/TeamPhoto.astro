@@ -1,0 +1,30 @@
+---
+import type { TeamMember } from "../data/team";
+
+interface Props {
+  member: TeamMember;
+  sizes: string;
+  eager?: boolean;
+  class?: string;
+}
+const { member, sizes, eager = false, class: className = "" } = Astro.props;
+const base = `/mensen/${member.slug}`;
+const webp = member.widths.map((width) => `${base}-${width}.webp ${width}w`).join(", ");
+const avif = member.widths.map((width) => `${base}-${width}.avif ${width}w`).join(", ");
+const largest = member.widths[member.widths.length - 1];
+---
+
+<picture>
+  <source type="image/avif" srcset={avif} sizes={sizes} />
+  <img
+    src={`${base}-${largest}.webp`}
+    srcset={webp}
+    sizes={sizes}
+    width={member.width}
+    height={member.height}
+    alt={member.alt}
+    class={className}
+    loading={eager ? "eager" : "lazy"}
+    decoding="async"
+  />
+</picture>
