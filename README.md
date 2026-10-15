@@ -60,7 +60,17 @@ Nixpacks kan ook, als u de Dockerfile niet gebruikt: startcommando `npm run buil
 
 - `/welke-casemanager` — medior, medior+ of senior, plus uurblok.
 - `/verzuimkosten-berekenen` — TNO-dagkosten. Daling is een scenario, geen belofte.
-- `/casemanager-inhuren-of-in-dienst` — jaarkosten van inhuren naast een dienstverband. Bronnen en aanpasbare aannames. Bij een hoge caseload blijft de som eerlijk. `/detacheren-of-in-dienst` verwijst door.
+- `/casemanager-inhuren-of-in-dienst` — jaarkosten van inhuren naast een dienstverband. Bronnen en aanpasbare aannames. De pagina garandeert dat inhuren goedkoper is en laat de som eerlijk, ook bij een hoge caseload. Daaronder staat het formulier “Vraag uw persoonlijke kostenvergelijking aan”. `/detacheren-of-in-dienst` verwijst door.
+
+## Garanties
+
+Het blok “Onze garanties” staat op de homepage, de pakketten en de vergelijking.
+
+- Na een concrete verzuimanalyse laten we zien hoe het verzuimpercentage kan dalen. Geen vast percentage. De knop heet “Gratis verzuimanalyse”.
+- Kwaliteitsgarantie als de adviezen worden gevolgd: kosteloos bijsturen of wisselen van casemanager. Geen geld-terug-bedrag. In `src/data/garanties.ts` staat `TODO(juridisch)` voor een Wtta/DBA-advocaat, ja/nee 322.
+- Goedkoper dan iemand in dienst, onderbouwd met de vergelijkingscalculator. De rekenregels veranderen niet.
+
+Bellen gaat via het vaste nummer 085-0870307 (`tel:` en schema). Het 06-nummer staat alleen op WhatsApp-links (`wa.me`).
 
 ## Placeholders
 

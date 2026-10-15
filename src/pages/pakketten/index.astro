@@ -4,6 +4,7 @@ import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ClusterNav from "../../components/ClusterNav.astro";
 import CtaBand from "../../components/CtaBand.astro";
+import Guarantees from "../../components/Guarantees.astro";
 import PackageGrid from "../../components/PackageGrid.astro";
 import { crumbsLd } from "../../lib/schema";
 
@@ -20,6 +21,7 @@ const crumbs = [
     <Figure id="pagina-pakketten" eager class="mt-6 max-w-3xl" />
     <p class="mt-4 max-w-3xl text-lg">Een pakket is een vast uurblok voor een gedetacheerde casemanager. Basis is tien uur, Premium twintig, Pro vanaf 24. Het niveau bepaalt wie er komt. Het maandbedrag rekent u als uren × uurtarief × 52 / 12.</p>
   </header>
+  <Guarantees plaats="pakketten" />
   <div class="pt-8">
     <PackageGrid />
   </div>

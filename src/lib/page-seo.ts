@@ -1,3 +1,4 @@
+import { qualityFaq } from "../data/garanties";
 import { services } from "../data/services";
 import { site, absoluteUrl, zzpFaq } from "../data/site";
 import type { FaqItem } from "./schema";
@@ -9,7 +10,7 @@ const shared: FaqItem[] = [
   },
   {
     q: "Hoe neemt u contact op?",
-    a: `Bel ${site.parent.phoneDisplay}, app ${site.parent.whatsappDisplay} of mail ${site.parent.email}. Een adviesgesprek duurt 30 minuten en verplicht u tot niets. Werknemer en werkgever kunnen ook op het kantoor komen: ${site.parent.street}, ${site.parent.postalCode} ${site.parent.city}.`,
+    a: `Bellen kan op ${site.parent.phoneDisplay}. Appen kan via WhatsApp op ${site.parent.whatsappDisplay}. Mailen kan naar ${site.parent.email}. Een adviesgesprek duurt 30 minuten en verplicht u tot niets. Werknemer en werkgever kunnen ook op het kantoor komen: ${site.parent.street}, ${site.parent.postalCode} ${site.parent.city}.`,
   },
 ];
 
@@ -52,6 +53,7 @@ const byPath: Record<string, FaqItem[]> = {
       q: "Wat is het verschil tussen Basis, Premium en Pro?",
       a: "Basis is 10 uur per week, Premium 20 uur met een verzuimanalyse in jaar 1, Pro 24 uur of meer. Per pakket kiest u medior, medior+ of senior.",
     },
+    qualityFaq,
     shared[1],
   ],
   "/tools": [

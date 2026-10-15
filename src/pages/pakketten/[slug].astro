@@ -4,6 +4,7 @@ import Figure from "../../components/Figure.astro";
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import CtaBand from "../../components/CtaBand.astro";
+import Guarantees from "../../components/Guarantees.astro";
 import ReviewCard from "../../components/ReviewCard.astro";
 import { levels, monthlyCost } from "../../lib/rates";
 import { euro } from "../../lib/format";
@@ -79,5 +80,6 @@ const review = reviewsAboutNiels()[0];
       <ReviewCard review={review} />
     </div>
   </article>
+  <Guarantees plaats="pakketten" />
   <CtaBand title={`Offerte voor ${pack.name}`} text="Drie korte stappen, in een paar minuten. Daarna rekenen we een voorstel. Het gesprek verplicht u tot niets." />
 </Base>
