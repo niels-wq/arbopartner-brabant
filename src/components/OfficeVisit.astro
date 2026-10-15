@@ -1,5 +1,5 @@
 ---
-import { site, mapsDirectionsHref, osmEmbedSrc, osmHref } from "../data/site";
+import { officeConversation, site, mapsDirectionsHref, osmEmbedSrc, osmHref } from "../data/site";
 
 interface Props {
   cta?: boolean;
@@ -10,7 +10,7 @@ const { cta = true, heading = "Gesprek op ons kantoor" } = Astro.props;
 
 <section id="kantoor" class="scroll-mt-24" aria-labelledby="kantoor-kop">
   <h2 id="kantoor-kop" class="font-serif text-3xl text-green-950">{heading}</h2>
-  <p class="mt-3 max-w-3xl">Werknemers en werkgevers kunnen bij ons op kantoor komen voor gesprekken. Dat is een neutrale, rustige plek, buiten de werkvloer, met privacy en zonder de druk van de werkgever.</p>
+  <p class="mt-3 max-w-3xl">Werknemers komen voor gesprekken naar dit kantoor, samen met hun werkgever of leidinggevende. {officeConversation.place} {officeConversation.threshold} {officeConversation.employer} {officeConversation.care}</p>
   <address class="mt-4 not-italic">
     {site.parent.legalName}<br />
     {site.parent.street}<br />

@@ -33,7 +33,7 @@ export const places: Place[] = [
       },
       {
         q: "Kunnen we op kantoor aan de Losplaats afspreken?",
-        a: "Ja. Losplaats 16d is het kantoor van Matchvermogen B.V. Een adviesgesprek kan daar, bij u op het bedrijf of online.",
+        a: "Ja. Losplaats 16d is het kantoor van Matchvermogen B.V. Wie voor een gesprek daarheen komt, blijft in beweging. Dat verhoogt de drempel om zich ziek te melden en kan verzuim minder en korter maken. We noemen geen percentage. Wie echt niet kan reizen, spreken we op het bedrijf of online.",
       },
       {
         q: "Is de reistijd in Uden echt inbegrepen?",

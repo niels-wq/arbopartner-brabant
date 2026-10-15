@@ -38,7 +38,7 @@ if (root && !root.dataset.ready) {
   const answers: { test: RegExp; text: string }[] = [
     {
       test: /kantoor|losplaats|op bezoek|neutrale plek/,
-      text: "Werknemers en werkgevers kunnen gesprekken voeren op het kantoor van Matchvermogen B.V., Losplaats 16d, 5404 NJ Uden. Dat is een neutrale plek buiten de werkvloer. Plan een gesprek op ons kantoor via de pagina Adviesgesprek.",
+      text: "Werknemers en werkgevers kunnen gesprekken voeren op het kantoor van Matchvermogen B.V., Losplaats 16d, 5404 NJ Uden. Wie daarheen komt, blijft in beweging. Dat verhoogt de drempel om zich ziek te melden en kan verzuim minder en korter maken. We noemen geen percentage. Wie echt niet kan reizen, spreken we op het bedrijf of online. Plan een gesprek op ons kantoor via de pagina Adviesgesprek.",
     },
     {
       test: /dienstverband|in dienst|goedkoper|inhuren/,

@@ -84,6 +84,17 @@ export const site = {
   },
 } as const;
 
+export const officeConversation = {
+  place:
+    "Een neutrale, rustige plek buiten de werkvloer, met privacy en zonder de druk van de werkgever.",
+  threshold:
+    "Wie voor het gesprek naar kantoor komt, blijft actief en in beweging. Dat verhoogt de drempel om zich ziek te melden en ondersteunt herstel en re-integratie.",
+  employer:
+    "Voor de werkgever is het voordeel de kans op minder en korter verzuim. We hangen daar geen cijfer aan.",
+  care:
+    "Het is een uitnodiging om in beweging te blijven, geen straf. Wie echt niet kan reizen, spreken we op het bedrijf of online.",
+} as const;
+
 export const phoneHref = `tel:${site.parent.phoneTel}`;
 export const mailHref = `mailto:${site.parent.email}`;
 export const whatsappHref = `https://wa.me/${site.parent.whatsappE164}`;

@@ -7,7 +7,7 @@ import FaqList from "../components/FaqList.astro";
 import HireBenefits from "../components/HireBenefits.astro";
 import NielsPhoto from "../components/NielsPhoto.astro";
 import ReviewCard from "../components/ReviewCard.astro";
-import { site } from "../data/site";
+import { officeConversation, site } from "../data/site";
 import { reviews } from "../data/reviews";
 import { places } from "../data/places";
 import { faqLd, crumbsLd } from "../lib/schema";
@@ -118,7 +118,7 @@ const jsonLd = [faqLd(faq)];
       </article>
       <article class="rounded-3xl border border-line bg-white/70 p-5">
         <h3 class="font-serif text-2xl">Gesprek op ons kantoor</h3>
-        <p class="mt-2">Werknemer en werkgever kunnen naar Losplaats 16d in Uden komen. Een neutrale, rustige plek buiten de werkvloer, met privacy en zonder de druk van de werkgever.</p>
+        <p class="mt-2">Werknemer en werkgever komen naar Losplaats 16d in Uden. {officeConversation.place} {officeConversation.threshold} {officeConversation.employer} {officeConversation.care}</p>
         <a class="mt-3 inline-block font-semibold text-green-900 underline decoration-ochre-500" data-cta="home-kantoor" href="/adviesgesprek?plek=kantoor#afspraak">Plan een gesprek op ons kantoor</a>
       </article>
     </div>
