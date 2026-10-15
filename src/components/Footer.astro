@@ -19,9 +19,9 @@ import { places } from "../data/places";
     </div>
     <div>
       <p class="font-semibold text-ochre-200">Contact</p>
-      <p class="mt-2 text-sm">
-        <a href={phoneHref}>{site.parent.phoneDisplay}</a><br />
-        <a href={mailHref}>{site.parent.email}</a>
+      <p class="mt-2 flex flex-col gap-2 text-sm">
+        <a class="inline-flex min-h-8 items-center" data-cta="footer-bel" data-channel="phone" href={phoneHref}>{site.parent.phoneDisplay}</a>
+        <a class="inline-flex min-h-8 items-center" data-cta="footer-mail" data-channel="email" href={mailHref}>{site.parent.email}</a>
       </p>
       <p class="mt-3 text-xs text-sand-200">{site.placeholders.eigenEmail}</p>
       <a class="mt-4 inline-block text-sm font-semibold text-ochre-200" href="/contact">Contactpagina</a>

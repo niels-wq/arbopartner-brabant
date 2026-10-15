@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import ClusterNav from "../../components/ClusterNav.astro";
 import { places } from "../../data/places";
 import { crumbsLd } from "../../lib/schema";
 
@@ -14,7 +15,7 @@ const crumbs = [
   <Breadcrumbs crumbs={crumbs} />
   <header class="mx-auto max-w-6xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Werkgebied</h1>
-    <p class="mt-4 max-w-2xl">Zestien plaatsen, één uitvalsbasis. De minuten zijn een indicatie per auto buiten de spits, geen navigatie.</p>
+    <p class="mt-4 max-w-2xl">Het werkgebied van Arbopartner Brabant is ongeveer 45 minuten rijden van Uden, voor werkgevers met 35 of meer medewerkers. Zestien plaatsen, één uitvalsbasis. De minuten zijn een indicatie per auto buiten de spits, geen navigatie.</p>
   </header>
   <ul class="mx-auto grid max-w-6xl gap-4 px-4 py-8 sm:grid-cols-2 lg:grid-cols-3">
     {places.map((place) => (
@@ -27,4 +28,5 @@ const crumbs = [
       </li>
     ))}
   </ul>
+  <ClusterNav />
 </Base>

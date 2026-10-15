@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import ClusterNav from "../../components/ClusterNav.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import { levels, monthlyCost } from "../../lib/rates";
 import { euro } from "../../lib/format";
@@ -21,7 +22,7 @@ const cards = [
   <Breadcrumbs crumbs={crumbs} />
   <header class="mx-auto max-w-6xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Pakketten</h1>
-    <p class="mt-4 max-w-2xl text-lg">Het pakket bepaalt de uren. Het niveau bepaalt wie er komt. Alle pakketten hebben een arbeidsdeskundige als achtervang, met korting via de zustermerken.</p>
+    <p class="mt-4 max-w-2xl text-lg">Een pakket is een vast uurblok voor een gedetacheerde casemanager: Basis (10 uur), Premium (20 uur) of Pro (24 uur of meer). Het niveau bepaalt wie er komt. Alle pakketten hebben een arbeidsdeskundige als achtervang, met korting via de zustermerken.</p>
   </header>
   <div class="mx-auto grid max-w-6xl gap-4 px-4 py-8 md:grid-cols-3">
     {cards.map((card) => (
@@ -32,5 +33,6 @@ const cards = [
       </a>
     ))}
   </div>
+  <ClusterNav />
   <CtaBand />
 </Base>

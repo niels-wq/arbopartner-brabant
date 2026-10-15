@@ -26,3 +26,6 @@ User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://www.arbopartnerbrabant.nl/sitemap-index.xml
+
+# https://www.arbopartnerbrabant.nl/llms.txt
+# https://www.arbopartnerbrabant.nl/llms-full.txt

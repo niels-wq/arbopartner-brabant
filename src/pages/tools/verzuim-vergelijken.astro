@@ -32,6 +32,8 @@ const crumbs = [
 <script>
   import { defaultAbsencePct, CBS } from "../../lib/calc";
   import { num } from "../../lib/format";
+  import { mountReport } from "../../scripts/report";
+  import { track } from "../../scripts/track";
 
   const form = document.querySelector<HTMLFormElement>("[data-cbs]");
   const out = document.querySelector<HTMLElement>("[data-out]");
@@ -45,5 +47,7 @@ const crumbs = [
     const diff = own - bench;
     const direction = diff > 0.05 ? "boven" : diff < -0.05 ? "onder" : "ongeveer op";
     out.innerHTML = `<p class="font-serif text-3xl text-green-950">U zit ${direction} de benchmark van ${num(bench)}%</p><p class="mt-2">Verschil: ${num(Math.abs(diff))} procentpunt. Landelijk was het ${num(CBS.nl2025)}%. Dit zegt niets over de oorzaak.</p>`;
+    track("calculator_result", { calculator: "verzuim-vergelijken" });
+    mountReport(out, { calculator: "verzuim-vergelijken", title: "Verzuim naast CBS", body: out.innerText.trim() });
   });
 </script>

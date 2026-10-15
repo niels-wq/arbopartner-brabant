@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import ClusterNav from "../../components/ClusterNav.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import { services } from "../../data/services";
 import { crumbsLd } from "../../lib/schema";
@@ -15,7 +16,7 @@ const crumbs = [
   <Breadcrumbs crumbs={crumbs} />
   <header class="mx-auto max-w-6xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Diensten</h1>
-    <p class="mt-4 max-w-2xl text-lg text-ink-soft">De kern is een vaste casemanager. De andere diensten zijn er voor het moment dat een dossier meer vraagt dan begeleiding. We zijn geen arbodienst.</p>
+    <p class="mt-4 max-w-2xl text-lg text-ink-soft">Een dienst van Arbopartner Brabant is begeleiding van verzuim door een vaste gedetacheerde casemanager. Daaromheen zitten analyse, protocol, dossier bij vertrek, tweede spoor en arbeidsdeskundig onderzoek. Het label is geen arbodienst.</p>
   </header>
   <div class="mx-auto grid max-w-6xl gap-4 px-4 py-8 md:grid-cols-2">
     {services.map((service) => (
@@ -25,5 +26,6 @@ const crumbs = [
       </a>
     ))}
   </div>
+  <ClusterNav />
   <CtaBand />
 </Base>

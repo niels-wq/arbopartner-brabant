@@ -36,8 +36,11 @@ function validEmail(value) {
 
 const fields = {
   offerte: ["naam", "email", "telefoon", "organisatie", "plaats", "medewerkers", "pakket", "niveau", "situatie"],
-  advies: ["naam", "email", "telefoon", "organisatie", "voorkeur", "vraag"],
+  advies: ["naam", "telefoon", "organisatie"],
   spoed: ["naam", "telefoon", "organisatie", "wat"],
+  chat: ["naam", "organisatie", "telefoon", "vraag"],
+  rapport: ["email", "rapport"],
+  scan: ["naam", "telefoon"],
 };
 
 export function validate(kind, body) {
@@ -46,9 +49,12 @@ export function validate(kind, body) {
   if (body?.toestemming !== "ja") errors.push("Vink de toestemming aan om het bericht te versturen.");
   const required = fields[kind] || [];
   for (const key of required) {
-    if (!oneLine(body?.[key], 500)) errors.push(`Veld ontbreekt: ${key}.`);
+    const value = key === "rapport" || key === "vraag" || key === "wat" ? textBlock(body?.[key], 4000) : oneLine(body?.[key], 500);
+    if (!value) errors.push(`Veld ontbreekt: ${key}.`);
   }
-  if (body?.email && !validEmail(oneLine(body.email))) errors.push("Het e-mailadres klopt niet.");
+  if ((kind === "rapport" || body?.email) && !validEmail(oneLine(body?.email))) {
+    if (kind === "rapport" || oneLine(body?.email)) errors.push("Het e-mailadres klopt niet.");
+  }
   return errors;
 }
 

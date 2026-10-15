@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
+import ClusterNav from "../components/ClusterNav.astro";
 import CtaBand from "../components/CtaBand.astro";
 import { levels, monthlyCost, verzuimanalysePrijs, type Block } from "../lib/rates";
 import { euro } from "../lib/format";
@@ -31,7 +32,7 @@ const faq = [
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Tarieven</h1>
-    <p class="mt-4 text-lg">Richtprijzen exclusief btw, per uur. Hoe groter het blok, hoe lager het uur. U kiest daarnaast het niveau.</p>
+    <p class="mt-4 text-lg">Een tarief van Arbopartner Brabant is een richtprijs per uur voor een gedetacheerde casemanager, exclusief btw. Hoe groter het blok, hoe lager het uur. U kiest daarnaast het niveau. Dit is geen offerte.</p>
     <div class="mt-6 overflow-x-auto">
       <table class="w-full min-w-[32rem] text-left">
         <thead>
@@ -82,5 +83,6 @@ const faq = [
     </ul>
     <p class="mt-6 text-sm">Losse verzuimanalyse: {euro(verzuimanalysePrijs, true)} exclusief btw.</p>
   </article>
+  <ClusterNav />
   <CtaBand />
 </Base>

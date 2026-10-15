@@ -97,6 +97,8 @@
   import { headcountDefault, matchCasemanager, type MatchAnswers } from "../../lib/calc";
   import { euro } from "../../lib/format";
   import { blocks, levels } from "../../lib/rates";
+  import { mountReport } from "../../scripts/report";
+  import { track } from "../../scripts/track";
 
   const root = document.querySelector<HTMLElement>("[data-match]");
   const form = root?.querySelector("form");
@@ -144,10 +146,13 @@
       </dl>
       <p class="mt-3 text-sm text-sand-200">Exclusief btw. Reistijd binnen 45 minuten zit erin. ${result.twoPeople ? "Vanaf 30 uur werken twee casemanagers." : ""} Vuistregel: ongeveer 10 uur per 100 medewerkers, met een minimum van 10 uur.</p>
       <div class="mt-5 flex flex-col gap-3 sm:flex-row">
-        <a class="rounded-full bg-ochre-500 px-4 py-2 text-center font-semibold text-ink" href="/adviesgesprek">Plan een adviesgesprek</a>
-        <a class="rounded-full border border-sand-200 px-4 py-2 text-center font-semibold" href="/offerte">Vraag een offerte</a>
+        <a class="rounded-full bg-ochre-500 px-4 py-2 text-center font-semibold text-ink" data-cta="match-advies" href="/adviesgesprek">Plan een adviesgesprek</a>
+        <a class="rounded-full border border-sand-200 px-4 py-2 text-center font-semibold" data-cta="match-offerte" href="/offerte">Vraag een offerte</a>
       </div>
-      ${result.spoed ? `<p class="mt-4"><a class="font-semibold text-ochre-200 underline" href="/spoedhulp">U noemt een sanctie, een conflict of een arbeidsrechtelijke component. Ga naar spoedhulp.</a></p>` : ""}
+      ${result.spoed ? `<p class="mt-4"><a class="font-semibold text-ochre-200 underline" data-cta="match-spoed" href="/spoedhulp">U noemt een sanctie, een conflict of een arbeidsrechtelijke component. Ga naar spoedhulp.</a></p>` : ""}
     `;
+    const body = out.innerText.trim();
+    track("calculator_result", { calculator: "welke-casemanager" });
+    mountReport(out, { calculator: "welke-casemanager", title: "Richtadvies casemanager", body });
   });
 </script>

@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import CtaBand from "../components/CtaBand.astro";
+import ClusterNav from "../components/ClusterNav.astro";
 import FaqList from "../components/FaqList.astro";
 import ReviewCard from "../components/ReviewCard.astro";
 import { site } from "../data/site";
@@ -40,10 +41,16 @@ const jsonLd = [faqLd(faq)];
     <div>
       <p class="text-sm font-semibold uppercase tracking-[0.16em] text-ochre-800">{site.labelStatement}</p>
       <h1 class="mt-3 max-w-xl font-serif text-5xl leading-[1.05] text-green-950 md:text-6xl">Uw casemanager kent de namen op de werkvloer.</h1>
-      <p class="mt-5 max-w-xl text-lg text-ink-soft">Een vaste gedetacheerde casemanager voor werkgevers in Brabant met 35 of meer medewerkers. Binnen 45 minuten van Uden. Een arbeidsdeskundige staat als achtervang klaar, met korting.</p>
+      <p class="mt-5 max-w-xl text-lg text-ink-soft">Arbopartner Brabant is een label van Matchvermogen B.V. Het detacheert een vaste casemanager bij werkgevers met 35 of meer medewerkers, binnen ongeveer 45 minuten van Uden. Het label is geen arbodienst. Een arbeidsdeskundige van Matchvermogen staat als achtervang klaar, met korting.</p>
+      <ul class="mt-5 flex flex-wrap gap-2 text-sm font-semibold" aria-label="Vertrouwen">
+        <li class="rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line">Label van Matchvermogen</li>
+        <li class="rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line">KvK {site.parent.kvk}</li>
+        <li><a class="inline-block rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line" data-cta="home-reviews" href="/reviews">Reviews van Matchvermogen</a></li>
+        <li><a class="inline-block rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line" data-cta="home-werkgebied" href="/werkgebied">Werkgebied: 45 minuten rond Uden</a></li>
+      </ul>
       <div class="mt-6 flex flex-col gap-3 sm:flex-row">
-        <a class="rounded-full bg-green-800 px-5 py-3 text-center font-semibold text-sand-50" href="/adviesgesprek">Plan een adviesgesprek</a>
-        <a class="rounded-full border border-green-800 px-5 py-3 text-center font-semibold text-green-900" href="/spoedhulp">Ik heb nu een probleem</a>
+        <a class="rounded-full bg-green-800 px-5 py-3 text-center font-semibold text-sand-50" data-cta="home-advies" href="/adviesgesprek">Plan een adviesgesprek</a>
+        <a class="rounded-full border border-green-800 px-5 py-3 text-center font-semibold text-green-900" data-cta="home-spoed" href="/spoedhulp">Ik heb nu een probleem</a>
       </div>
     </div>
     <aside class="rounded-[2rem] bg-ochre-200 p-6">
@@ -59,15 +66,15 @@ const jsonLd = [faqLd(faq)];
   </section>
 
   <section class="mx-auto grid max-w-6xl gap-4 px-4 py-8 md:grid-cols-3" aria-label="Keuzehulp">
-    <a class="rounded-[2rem] bg-green-900 p-6 text-sand-50" href="/spoedhulp">
+    <a class="rounded-[2rem] bg-green-900 p-6 text-sand-50" data-cta="home-kaart-spoed" href="/spoedhulp">
       <h2 class="font-serif text-3xl">Ik heb nu een verzuimprobleem</h2>
       <p class="mt-2 text-sand-100">Een zieke medewerker, een vastgelopen dossier of een sanctierisico. Bel, app of laat u terugbellen.</p>
     </a>
-    <a class="rounded-[2rem] border border-line bg-white/80 p-6" href="/pakketten">
+    <a class="rounded-[2rem] border border-line bg-white/80 p-6" data-cta="home-kaart-pakket" href="/pakketten">
       <h2 class="font-serif text-3xl text-green-950">Ik wil verzuim structureel regelen</h2>
       <p class="mt-2 text-ink-soft">Basis, Premium of Pro. Eén niveau casemanager, een vast aantal uren, een vast gezicht.</p>
     </a>
-    <a class="rounded-[2rem] bg-sand-200 p-6" href="/verzuimkosten-berekenen">
+    <a class="rounded-[2rem] bg-sand-200 p-6" data-cta="home-kaart-kosten" href="/verzuimkosten-berekenen">
       <h2 class="font-serif text-3xl text-green-950">Wat kost verzuim mij?</h2>
       <p class="mt-2 text-ink-soft">Reken met de TNO-dagkosten en kies zelf een scenario. Geen belofte, wel een bedrag.</p>
     </a>
@@ -89,13 +96,15 @@ const jsonLd = [faqLd(faq)];
         <p class="mt-2">Via Best Match, met {site.discount.tweedeSpoor}% korting. Op tijd, niet in de laatste maand van het tweede jaar.</p>
       </article>
     </div>
+    <p class="mt-5"><a class="font-semibold text-green-900 underline decoration-ochre-500" data-cta="home-diensten" href="/diensten">Bekijk de diensten</a> of <a class="font-semibold text-green-900 underline decoration-ochre-500" data-cta="home-advies-sectie" href="/adviesgesprek">plan een adviesgesprek van 30 minuten</a>. Dat gesprek verplicht u tot niets.</p>
   </section>
 
   <section class="mx-auto max-w-6xl px-4 py-6">
     <div class="flex items-end justify-between gap-4">
       <h2 class="font-serif text-4xl text-green-950">Wat opdrachtgevers van Matchvermogen schreven</h2>
-      <a class="hidden font-semibold text-green-800 sm:inline" href="/reviews">Alle citaten</a>
+      <a class="hidden font-semibold text-green-800 sm:inline" data-cta="home-reviews-kop" href="/reviews">Alle citaten</a>
     </div>
+    <p class="mt-2 max-w-2xl text-sm text-ink-soft">Deze citaten staan letterlijk op matchvermogen.nl. Ze gaan over het moederbedrijf, niet over dit label. Eigen reviews volgen als die er zijn.</p>
     <div class="mt-5 grid gap-4 md:grid-cols-3">
       {reviews.slice(0, 3).map((review) => <ReviewCard review={review} />)}
     </div>
@@ -113,7 +122,10 @@ const jsonLd = [faqLd(faq)];
         </li>
       ))}
     </ul>
+    <p class="mt-4"><a class="font-semibold text-green-900 underline decoration-ochre-500" data-cta="home-plaatsen" href="/werkgebied">Alle plaatsen in het werkgebied</a></p>
   </section>
+
+  <ClusterNav />
 
   <div class="mx-auto max-w-6xl px-4">
     <FaqList items={faq} />

@@ -1,0 +1,23 @@
+---
+const links = [
+  { href: "/diensten", label: "Diensten" },
+  { href: "/pakketten", label: "Pakketten" },
+  { href: "/tarieven", label: "Tarieven" },
+  { href: "/welke-casemanager", label: "Welke casemanager" },
+  { href: "/verzuimkosten-berekenen", label: "Verzuimkosten" },
+  { href: "/detacheren-of-in-dienst", label: "Detacheren of in dienst" },
+  { href: "/werkgebied", label: "Werkgebied" },
+  { href: "/blog", label: "Kennis" },
+  { href: "/adviesgesprek", label: "Adviesgesprek" },
+];
+---
+
+<nav class="mx-auto mt-6 max-w-6xl px-4" aria-label="Onderwerpen">
+  <ul class="flex flex-wrap gap-2">
+    {links.map((link) => (
+      <li>
+        <a class="inline-block rounded-full bg-white px-3 py-1 text-sm font-semibold text-green-950 ring-1 ring-line" href={link.href}>{link.label}</a>
+      </li>
+    ))}
+  </ul>
+</nav>

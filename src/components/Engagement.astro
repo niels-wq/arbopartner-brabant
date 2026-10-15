@@ -1,0 +1,101 @@
+---
+import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
+---
+
+<div
+  id="ap-engage"
+  data-phone={site.parent.phoneDisplay}
+  data-tel={site.parent.phoneTel}
+></div>
+
+<aside class="ap-sticky" aria-label="Snel contact">
+  <a class="btn" data-cta="sticky-advies" href="/adviesgesprek">Adviesgesprek</a>
+  <a class="btn btn-urgent" data-cta="sticky-bel" data-channel="phone" href={phoneHref}>Bel {site.parent.phoneDisplay}</a>
+</aside>
+
+<a class="ap-calc btn" data-cta="calculator-fab" href="/welke-casemanager">Welke casemanager</a>
+
+<div class="ap-dock">
+  <button id="ap-chat-open" class="ap-icon" type="button" aria-expanded="false" aria-controls="ap-chat">Chat</button>
+  <details class="ap-contact">
+    <summary>Contact</summary>
+    <div class="ap-contact-menu">
+      <a data-cta="fab-bel" data-channel="phone" href={phoneHref}>Bel {site.parent.phoneDisplay}</a>
+      <a data-cta="fab-whatsapp" data-channel="whatsapp" href={whatsappHref} rel="noopener">WhatsApp {site.parent.whatsappDisplay}</a>
+      <a data-cta="fab-mail" data-channel="email" href={mailHref}>Mail {site.parent.email}</a>
+    </div>
+  </details>
+</div>
+
+<section id="ap-chat" class="ap-chat" hidden role="dialog" aria-modal="false" aria-labelledby="ap-chat-title">
+  <div class="ap-chat-head">
+    <div>
+      <p id="ap-chat-title" class="font-semibold">Arbopartner Brabant</p>
+      <p class="text-sm">Korte antwoorden, geen medisch advies</p>
+    </div>
+    <button type="button" data-close aria-label="Chat sluiten">×</button>
+  </div>
+  <div class="ap-log" data-log aria-live="polite"></div>
+  <div class="ap-chips" data-chips>
+    <button type="button">Wat kost een casemanager?</button>
+    <button type="button">Zijn jullie een arbodienst?</button>
+    <button type="button">Waar werken jullie?</button>
+    <button type="button" data-lead="1">Ik wil teruggebeld worden</button>
+  </div>
+  <form class="ap-chat-form" data-ask>
+    <label class="sr-only" for="ap-chat-q">Uw vraag</label>
+    <input id="ap-chat-q" name="q" maxlength="240" placeholder="Typ uw vraag" />
+    <button type="submit">Stuur</button>
+  </form>
+  <form class="ap-lead" data-lead hidden>
+    <label>Naam<input name="naam" required autocomplete="name" /></label>
+    <label>Bedrijf<input name="organisatie" required autocomplete="organization" /></label>
+    <label>Telefoon<input name="telefoon" type="tel" required autocomplete="tel" /></label>
+    <label>Vraag<textarea name="vraag" required maxlength="1000"></textarea></label>
+    <label class="flex items-start gap-2 text-sm"><input type="checkbox" name="toestemming" value="ja" required /> <span>U mag contact opnemen. <a href="/privacy">Privacy</a></span></label>
+    <div class="absolute -left-[9999px]" aria-hidden="true"><label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label></div>
+    <button class="btn" type="submit">Verstuur</button>
+    <p data-status class="text-sm" role="status"></p>
+  </form>
+</section>
+
+<div id="ap-exit" class="ap-exit" hidden role="dialog" aria-modal="true" aria-labelledby="ap-exit-title">
+  <div class="ap-exit-card">
+    <div class="flex items-start justify-between gap-3">
+      <h2 id="ap-exit-title" class="font-serif text-3xl text-green-950" tabindex="-1">Even meenemen voor u weggaat</h2>
+      <button class="ap-close" type="button" data-close aria-label="Sluiten">×</button>
+    </div>
+    <p class="mt-2">Een gratis gesprek over uw verzuimcijfers, of een terugbelverzoek. Een keer per bezoek, zonder teller en zonder verplichting.</p>
+    <div class="ap-actions">
+      <button class="btn" type="button" data-choice="verzuimscan">Gratis verzuimscan</button>
+      <button class="btn btn-ghost" type="button" data-choice="terugbel">Terugbelverzoek</button>
+    </div>
+    <form class="ap-lead mt-3" data-scan hidden>
+      <input type="hidden" name="soort" value="terugbel" />
+      <label>Naam<input name="naam" required autocomplete="name" /></label>
+      <label>Telefoon<input name="telefoon" type="tel" required autocomplete="tel" /></label>
+      <label>Bedrijf, als u wilt<input name="organisatie" autocomplete="organization" /></label>
+      <label class="flex items-start gap-2 text-sm"><input type="checkbox" name="toestemming" value="ja" required /> <span>U mag mij bellen. <a href="/privacy">Privacy</a></span></label>
+      <div class="absolute -left-[9999px]" aria-hidden="true"><label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label></div>
+      <button class="btn" type="submit">Verstuur</button>
+      <p data-status class="text-sm" role="status"></p>
+    </form>
+  </div>
+</div>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+</style>
+
+<script>
+  import "../scripts/engage.ts";
+</script>

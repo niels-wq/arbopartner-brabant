@@ -2,6 +2,8 @@
 import { getCollection, render } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import AuthorBlock from "../../components/AuthorBlock.astro";
+import ClusterNav from "../../components/ClusterNav.astro";
 import FaqList from "../../components/FaqList.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import { articleLd, crumbsLd, faqLd } from "../../lib/schema";
@@ -46,6 +48,7 @@ const iso = (date: Date) => date.toISOString().slice(0, 10);
     <div class="prose-ap mt-6">
       <Content />
     </div>
+    <AuthorBlock />
     <FaqList items={post.data.faq} />
     <section class="mt-10">
       <h2 class="font-serif text-3xl text-green-950">Bronnen</h2>
@@ -70,5 +73,6 @@ const iso = (date: Date) => date.toISOString().slice(0, 10);
       </p>
     )}
   </article>
+  <ClusterNav />
   <CtaBand />
 </Base>

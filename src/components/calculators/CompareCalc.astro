@@ -75,6 +75,8 @@
 <script>
   import { compareEmployment, compareSources, defaultGrossMonthly, type CompareInput } from "../../lib/calc";
   import { euro, num, pct } from "../../lib/format";
+  import { mountReport } from "../../scripts/report";
+  import { track } from "../../scripts/track";
 
   const root = document.querySelector<HTMLElement>("[data-compare]");
   const form = root?.querySelector("form");
@@ -172,5 +174,7 @@
       <p class="mt-4 text-sm">Transitievergoeding hoort niet in het uurtarief. Die ontstaat pas als het dienstverband eindigt. Na drie jaar is de illustratie één maandsalaris inclusief vakantiegeld: <strong>${euro(employed.transitionAfter3Years)}</strong>. Het wettelijk maximum kan dit begrenzen en wordt jaarlijks geïndexeerd. Bij detachering betaalt u die vergoeding niet.</p>
       <p class="mt-2 text-sm">Feestdagen: 7 werkdagen, aanname. Inwerken: 4 weken op 50% productiviteit, aanname. Whk is het landelijk gemiddelde van 1,52%, niet uw eigen beschikking.</p>
     `;
+    track("calculator_result", { calculator: "detacheren-of-in-dienst" });
+    mountReport(out, { calculator: "detacheren-of-in-dienst", title: "Detacheren of in dienst", body: out.innerText.trim() });
   });
 </script>

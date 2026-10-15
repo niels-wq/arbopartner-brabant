@@ -17,12 +17,12 @@ const links = [
   <div class="bg-clay-700 text-sand-50">
     <div class="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-2 text-sm sm:flex-row sm:items-center sm:justify-between">
       <p class="m-0">
-        <a class="font-semibold underline decoration-ochre-200 underline-offset-2" href="/spoedhulp">Zieke medewerker? Bel of app vandaag nog.</a>
+        <a class="font-semibold underline decoration-ochre-200 underline-offset-2" data-cta="top-spoed" href="/spoedhulp">Zieke medewerker? Bel of app vandaag nog.</a>
         <span class="hidden sm:inline"> {site.placeholders.callback}</span>
       </p>
       <p class="m-0 flex gap-4 font-semibold">
-        <a href={phoneHref}>{site.parent.phoneDisplay}</a>
-        <a href={whatsappHref} rel="noopener">App {site.parent.whatsappDisplay}</a>
+        <a data-cta="top-bel" data-channel="phone" href={phoneHref}>{site.parent.phoneDisplay}</a>
+        <a data-cta="top-whatsapp" data-channel="whatsapp" href={whatsappHref} rel="noopener">App {site.parent.whatsappDisplay}</a>
       </p>
     </div>
   </div>
@@ -36,7 +36,7 @@ const links = [
         {links.map((link) => (
           <a class="hover:text-green-700" href={link.href}>{link.label}</a>
         ))}
-        <a class="rounded-full bg-green-800 px-4 py-2 text-sand-50 hover:bg-green-900" href="/adviesgesprek">Adviesgesprek</a>
+        <a class="rounded-full bg-green-800 px-4 py-2 text-sand-50 hover:bg-green-900" data-cta="nav-advies" href="/adviesgesprek">Adviesgesprek</a>
       </nav>
       <details class="relative lg:hidden">
         <summary class="cursor-pointer list-none rounded-full border border-green-800 px-3 py-2 text-sm font-semibold text-green-900">Menu</summary>
@@ -44,8 +44,8 @@ const links = [
           {links.map((link) => (
             <a class="block py-2 font-semibold text-green-950" href={link.href}>{link.label}</a>
           ))}
-          <a class="mt-2 block rounded-full bg-green-800 px-4 py-2 text-center font-semibold text-sand-50" href="/adviesgesprek">Adviesgesprek</a>
-          <a class="mt-2 block py-2 text-clay-700" href="/spoedhulp">Spoedhulp</a>
+          <a class="mt-2 block rounded-full bg-green-800 px-4 py-2 text-center font-semibold text-sand-50" data-cta="menu-advies" href="/adviesgesprek">Adviesgesprek</a>
+          <a class="mt-2 block py-2 text-clay-700" data-cta="menu-spoed" href="/spoedhulp">Spoedhulp</a>
           <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-ochre-800">Diensten</p>
           {services.map((service) => (
             <a class="block py-1 text-sm" href={`/diensten/${service.slug}`}>{service.menu}</a>

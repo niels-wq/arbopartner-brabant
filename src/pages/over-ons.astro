@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import AuthorBlock from "../components/AuthorBlock.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import CtaBand from "../components/CtaBand.astro";
 import { site } from "../data/site";
@@ -25,13 +26,14 @@ const faq = [
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Een label, geen loket</h1>
-    <p class="mt-4 text-lg">{site.labelStatement}. Het moederbedrijf zit aan de {site.parent.street} in {site.parent.city} en werkt als register-arbeidsdeskundig bureau. Dit label doet iets anders: een vaste casemanager op locatie, voor werkgevers met {site.minEmployees} of meer medewerkers.</p>
+    <p class="mt-4 text-lg">{site.name} is een label van {site.parent.legalName}, KvK {site.parent.kvk}, {site.parent.street}, {site.parent.postalCode} {site.parent.city}. Het moederbedrijf werkt als register-arbeidsdeskundig bureau. Dit label doet iets anders: een vaste casemanager op locatie, voor werkgevers met {site.minEmployees} of meer medewerkers, binnen ongeveer {site.travelMinutes} minuten van Uden.</p>
     <p class="mt-4">De oprichter van Matchvermogen is Niels Alderding. Dat staat publiek op het zustermerk <a class="underline" href="https://www.arbeidsdeskundig.com/over-ons">arbeidsdeskundig.com</a>. Een aparte biografie voor dit label verzinnen we niet.</p>
     <h2 class="mt-8 font-serif text-3xl">Waarom een eigen gezicht</h2>
     <p class="mt-3">Werkgevers die bellen, hebben meestal geen behoefte aan een portal. Ze willen iemand die morgen op de plant staat, de leidinggevende kent en het dossier bijhoudt. De arbeidsdeskundige blijft beschikbaar als het dossier vastloopt, met {site.discount.arbeidsdeskundige}% korting. Tweede spoor loopt via <a class="underline" href="https://bestmatchbv.nl">Best Match</a>, met {site.discount.tweedeSpoor}% korting. WHK-vragen horen bij <a class="underline" href="https://werkhervattingskas.nl">werkhervattingskas.nl</a>.</p>
     <h2 class="mt-8 font-serif text-3xl">Wat we niet zijn</h2>
     <p class="mt-3">Geen arbodienst. Geen bedrijfsarts. Geen advocatenkantoor. We begeleiden verzuim en re-integratie volgens de geldende wet, en we zeggen het als een ander specialisme nodig is.</p>
     <p class="mt-6"><a class="font-semibold underline" href="/team">Het team, en wat daar nog ontbreekt</a></p>
+    <AuthorBlock />
   </article>
   <CtaBand />
 </Base>

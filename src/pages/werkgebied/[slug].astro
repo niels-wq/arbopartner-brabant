@@ -3,6 +3,7 @@ import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import FaqList from "../../components/FaqList.astro";
 import CtaBand from "../../components/CtaBand.astro";
+import { site, phoneHref, mailHref } from "../../data/site";
 import { getPlace, places } from "../../data/places";
 import { crumbsLd, faqLd, organizationLd } from "../../lib/schema";
 
@@ -28,7 +29,14 @@ const nearby = place.nearby.map((slug) => places.find((item) => item.slug === sl
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">{place.municipality} · ongeveer {place.minutes} minuten</p>
     <h1 class="mt-2 font-serif text-5xl text-green-950">Verzuimbegeleiding {place.in}</h1>
-    <p class="mt-4 text-lg">{place.lead}</p>
+    <p class="mt-4 text-lg">Verzuimbegeleiding {place.in} betekent een vaste gedetacheerde casemanager van {site.name}, ongeveer {place.minutes} minuten vanuit Uden. {place.lead}</p>
+    <address class="mt-4 rounded-3xl bg-sand-100 p-4 text-sm not-italic">
+      <strong>{site.name}</strong>, label van {site.parent.legalName}<br />
+      {site.parent.street}, {site.parent.postalCode} {site.parent.city}<br />
+      <a class="font-semibold underline" data-channel="phone" href={phoneHref}>{site.parent.phoneDisplay}</a>
+      · <a class="font-semibold underline" data-channel="email" href={mailHref}>{site.parent.email}</a><br />
+      Werkgebied: {place.name} ({place.municipality}), Noord-Brabant.
+    </address>
     {place.body.map((paragraph) => <p class="mt-4">{paragraph}</p>)}
     <h2 class="mt-8 font-serif text-3xl">Sectoren die we hier tegenkomen</h2>
     <ul class="mt-3 flex flex-wrap gap-2">

@@ -1,4 +1,5 @@
 import { site } from "../data/site";
+import { track } from "./track";
 
 function mailtoLink(kind: string, form: HTMLFormElement): string {
   const data = new FormData(form);
@@ -31,8 +32,10 @@ export function bindForms() {
         if (!response.ok || result.ok === false) {
           const errors = (result.errors || ["Versturen lukte niet."]).join(" ");
           if (status) status.textContent = errors;
+          track("form_error", { form_id: form.dataset.kind || "bericht" });
           return;
         }
+        track("generate_lead", { form_id: form.dataset.kind || "bericht", lead_source: form.dataset.cta || "form" });
         if (result.delivered) {
           form.reset();
           if (status) status.textContent = "Verstuurd. We lezen uw bericht en nemen contact op.";
