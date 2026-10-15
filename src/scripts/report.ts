@@ -22,7 +22,7 @@ function pdfEscape(value: string) {
   return pdfSafe(value).replace(/[\\()]/g, (char) => `\\${char}`);
 }
 
-export function downloadPdf(title: string, body: string) {
+export function downloadPdf(title: string, body: string, fileName = "arbopartner-rapport.pdf") {
   const lines = pdfSafe(`${title}\n\n${body}`).split(/\n/).slice(0, 42);
   const commands = ["BT", "/F1 11 Tf", "50 800 Td", "14 TL"];
   lines.forEach((line, index) => {
@@ -55,7 +55,7 @@ export function downloadPdf(title: string, body: string) {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "arbopartner-rapport.pdf";
+  link.download = fileName;
   link.click();
   URL.revokeObjectURL(url);
 }
@@ -70,7 +70,7 @@ export function mountReport(host: HTMLElement, input: { calculator: string; titl
   wrap.dataset.cta = `rapport-${input.calculator}`;
   wrap.innerHTML = `
     <p class="font-semibold">Stuur mij het rapport</p>
-    <p class="text-sm">U ontvangt deze berekening per e-mail. Het is een scenario, geen offerte.</p>
+    <p class="text-sm">Als de mailserver aanstaat, sturen we deze berekening naar uw e-mailadres en naar ons. Het is een scenario, geen offerte. De pdf kunt u ook meteen downloaden.</p>
     <label>E-mail<input name="email" type="email" required autocomplete="email" /></label>
     <label class="flex items-start gap-2 text-sm"><input type="checkbox" name="toestemming" value="ja" required /> <span>Mail mij dit rapport. <a href="/privacy">Privacy</a></span></label>
     <input type="hidden" name="rapport" />

@@ -30,7 +30,7 @@ Reistijd binnen ongeveer 45 minuten van Uden zit in het tarief. Dit zijn richtpr
 - Medior+: €120, €115, €110.
 - Senior met specialisatie: €137,50, €131,50, €125.
 
-Pakket Basis is 10 uur per week. Premium is 20 uur, met kwartaalrapportage en een verzuimanalyse in jaar 1. Pro is 24 uur of meer; vanaf 30 uur met twee personen.
+Pakket Basis is 10 uur per week. Premium is 20 uur, met kwartaalrapportage en een verzuimanalyse in jaar 1. Pro is 24 uur of meer; vanaf 30 uur met twee personen. Een maandbedrag is uren × uurtarief × 52 / 12, zonder afronding naar een mooi getal. Het lagere uurtarief bij een groter blok is geen lagere maandfactuur. Premium is het blok dat als eerste wordt voorgelegd; het label heeft nog geen eigen klanten en noemt geen pakket het meest gekozen.
 
 ## Werkgebied
 

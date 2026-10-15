@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ClusterNav from "../../components/ClusterNav.astro";
+import InlineLead from "../../components/InlineLead.astro";
 import { crumbsLd } from "../../lib/schema";
 
 const posts = (await getCollection("blog")).sort((a, b) => +b.data.pubDate - +a.data.pubDate);
@@ -29,5 +30,8 @@ const crumbs = [
       </li>
     ))}
     </ul>
+  <div class="mx-auto max-w-3xl px-4">
+    <InlineLead source="blog-overzicht" title="Vraag over een artikel" />
+  </div>
   <ClusterNav />
 </Base>

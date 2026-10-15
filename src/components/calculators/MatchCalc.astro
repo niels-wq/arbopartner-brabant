@@ -95,8 +95,8 @@
 
 <script>
   import { headcountDefault, matchCasemanager, type MatchAnswers } from "../../lib/calc";
-  import { euro } from "../../lib/format";
-  import { blocks, levels } from "../../lib/rates";
+  import { euro, pct } from "../../lib/format";
+  import { blocks, hourlySavingPct, levels } from "../../lib/rates";
   import { mountReport } from "../../scripts/report";
   import { track } from "../../scripts/track";
 
@@ -144,7 +144,8 @@
         <div><dt class="text-sand-200">Richtprijs per uur</dt><dd class="text-lg font-semibold">${euro(result.hourly)}</dd></div>
         <div><dt class="text-sand-200">Per maand</dt><dd class="text-lg font-semibold">${euro(result.monthly)}</dd></div>
       </dl>
-      <p class="mt-3 text-sm text-sand-200">Exclusief btw. Reistijd binnen 45 minuten zit erin. ${result.twoPeople ? "Vanaf 30 uur werken twee casemanagers." : ""} Vuistregel: ongeveer 10 uur per 100 medewerkers, met een minimum van 10 uur.</p>
+      <p class="mt-3 text-sm text-sand-200">${result.billedHours} × ${euro(result.hourly)} × 52 / 12 = ${euro(result.monthly)} per maand. Exclusief btw. Reistijd binnen 45 minuten zit erin. ${result.twoPeople ? "Vanaf 30 uur werken twee casemanagers." : ""} Vuistregel: ongeveer 10 uur per 100 medewerkers, met een minimum van 10 uur.</p>
+      ${result.block === 10 ? "" : `<p class="mt-2 text-sm text-sand-200">Bespaar ${pct(hourlySavingPct(result.level, result.block))} t.o.v. 10 uur op het uurtarief: (${euro(levels[result.level].rates[10])} − ${euro(result.hourly)}) / ${euro(levels[result.level].rates[10])}. Het maandbedrag is daardoor niet lager, want u neemt meer uren af.</p>`}
       <div class="mt-5 flex flex-col gap-3 sm:flex-row">
         <a class="rounded-full bg-ochre-500 px-4 py-2 text-center font-semibold text-ink" data-cta="match-advies" href="/adviesgesprek">Plan een adviesgesprek</a>
         <a class="rounded-full border border-sand-200 px-4 py-2 text-center font-semibold" data-cta="match-offerte" href="/offerte">Vraag een offerte</a>

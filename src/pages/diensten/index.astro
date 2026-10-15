@@ -3,6 +3,7 @@ import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ClusterNav from "../../components/ClusterNav.astro";
 import CtaBand from "../../components/CtaBand.astro";
+import InlineLead from "../../components/InlineLead.astro";
 import { services } from "../../data/services";
 import { crumbsLd } from "../../lib/schema";
 
@@ -25,6 +26,9 @@ const crumbs = [
         <p class="mt-2 text-ink-soft">{service.lead}</p>
       </a>
     ))}
+  </div>
+  <div class="mx-auto max-w-3xl px-4">
+    <InlineLead source="diensten-overzicht" title="Welke dienst speelt er?" />
   </div>
   <ClusterNav />
   <CtaBand />

@@ -1,0 +1,84 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { checklistGroups } from "../lib/checklist";
+import { crumbsLd, faqLd } from "../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Verzuim-checklist", path: "/checklist-verzuim" },
+];
+const faq = [
+  {
+    q: "Is deze checklist juridisch advies?",
+    a: "Nee. Het is een geheugensteun van de ziekmelding tot week 104. Een cao kan het loon in het eerste en tweede ziektejaar anders regelen dan het wettelijk minimum van 70% gedurende 104 weken.",
+  },
+  {
+    q: "Moet ik mijn e-mail geven om de lijst te lezen?",
+    a: "Nee. De checklist staat op deze pagina en de pdf downloadt zonder formulier. Het formulier is er om dezelfde tekst ook naar uw e-mailadres te sturen.",
+  },
+];
+---
+
+<Base title="Verzuim-checklist voor werkgevers" description="Gratis geheugensteun van dag 1 tot week 104. De lijst staat op de pagina. Mailen mag, het is niet verplicht." jsonLd={[crumbsLd(crumbs), faqLd(faq)]}>
+  <Breadcrumbs crumbs={crumbs} />
+  <article class="mx-auto max-w-3xl px-4 pt-6">
+    <h1 class="font-serif text-5xl text-green-950">Verzuim-checklist</h1>
+    <p class="mt-4 text-lg">Een verzuim-checklist is een geheugensteun voor werkgevers: wie welke stap zet tussen de ziekmelding en week 104. Geen juridisch advies en geen oordeel over één dossier. Dezelfde stappen staan uitgewerkt op de <a class="underline" href="/tools/tijdlijn-ziekteverzuim">tijdlijn</a>.</p>
+    <p class="mt-4">
+      <button class="rounded-full bg-green-800 px-5 py-3 font-semibold" type="button" data-checklist-download>Download de pdf, zonder formulier</button>
+    </p>
+    <ol class="mt-8 space-y-4">
+      {checklistGroups.map((item) => (
+        <li class="rounded-3xl border border-line bg-white/80 p-5">
+          <h2 class="font-serif text-2xl text-green-950">{item.when}</h2>
+          <p class="mt-2">{item.text}</p>
+        </li>
+      ))}
+    </ol>
+    <h2 class="mt-10 font-serif text-3xl text-green-950">Wie betaalt</h2>
+    <ul class="mt-3 list-disc space-y-2 pl-5">
+      <li>De werkgever betaalt het loon tijdens de ziekteperiode, minstens 70% en vaak meer volgens contract of cao. Bron: <a class="underline" href="https://wetten.overheid.nl/BWBR0005290/">Burgerlijk Wetboek boek 7, artikel 629</a>.</li>
+      <li>UWV beoordeelt aan het einde of de inspanningen voldoende waren. Bron: <a class="underline" href="https://www.uwv.nl/nl/ziek/re-integratie/beoordeling-re-integratieverslag">UWV over de beoordeling van het re-integratieverslag</a>.</li>
+      <li>De bedrijfsarts betaalt u via uw arbocontract. Die zit niet in het uurtarief.</li>
+    </ul>
+    <form class="mt-10 space-y-3 rounded-[2rem] border border-line bg-white/80 p-5" data-endpoint="/api/checklist" data-kind="checklist" data-cta="checklist-mail">
+      <h2 class="font-serif text-3xl text-green-950">Stuur de checklist per mail</h2>
+      <p>Als de mailserver aanstaat, sturen we deze tekst naar uw e-mailadres en naar ons. De pdf downloadt daarna ook op dit apparaat. U hoeft het formulier niet in te vullen om de lijst te lezen.</p>
+      <label class="block">Naam<input class="ap-field" name="naam" required autocomplete="name" /></label>
+      <label class="block">E-mail<input class="ap-field" name="email" type="email" required autocomplete="email" /></label>
+      <input type="hidden" name="checklist" data-checklist-body />
+      <label class="flex items-start gap-2 text-sm">
+        <input name="toestemming" type="checkbox" value="ja" required />
+        <span>Mail mij deze checklist. <a class="underline" href="/privacy">Privacy</a></span>
+      </label>
+      <div class="absolute -left-[9999px]" aria-hidden="true">
+        <label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label>
+      </div>
+      <button class="rounded-full bg-ochre-500 px-5 py-3 font-semibold" type="submit">Mail mij de checklist</button>
+      <p data-status class="text-sm" role="status"></p>
+    </form>
+  </article>
+  <CtaBand />
+</Base>
+
+<script>
+  import { checklistText } from "../lib/checklist";
+  import { downloadPdf } from "../scripts/report";
+  import { track } from "../scripts/track";
+  import "../scripts/forms.ts";
+
+  const fileName = "arbopartner-verzuim-checklist.pdf";
+  const form = document.querySelector<HTMLFormElement>("[data-kind=checklist]");
+  const hidden = form?.querySelector<HTMLInputElement>("[data-checklist-body]");
+  if (hidden) hidden.value = checklistText;
+
+  function save(source: string) {
+    downloadPdf("Verzuim-checklist voor werkgevers", checklistText, fileName);
+    track("file_download", { form_id: "checklist", file_name: fileName, lead_source: source });
+  }
+
+  document.querySelector("[data-checklist-download]")?.addEventListener("click", () => save("direct"));
+  form?.addEventListener("ap-lead-ok", () => save("mail"));
+</script>

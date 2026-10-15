@@ -3,6 +3,7 @@ import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import FaqList from "../../components/FaqList.astro";
 import CtaBand from "../../components/CtaBand.astro";
+import InlineLead from "../../components/InlineLead.astro";
 import { site, phoneHref, mailHref } from "../../data/site";
 import { getPlace, places } from "../../data/places";
 import { crumbsLd, faqLd, organizationLd } from "../../lib/schema";
@@ -53,5 +54,8 @@ const nearby = place.nearby.map((slug) => places.find((item) => item.slug === sl
     <p class="mt-4"><a class="font-semibold underline" href="/welke-casemanager">Welke casemanager past bij uw dossiers?</a></p>
     <FaqList items={place.faq} />
   </article>
+  <div class="mx-auto max-w-3xl px-4">
+    <InlineLead source={`plaats-${place.slug}`} title={`Kort doorgeven voor ${place.name}`} text="Twee stappen. We bellen terug en zeggen ook of de rit binnen het gebied past. Dit formulier is nog geen offerte." />
+  </div>
   <CtaBand title={`Adviesgesprek voor ${place.name}`} text="We zeggen in dat gesprek ook of de rit echt binnen het gebied past." />
 </Base>

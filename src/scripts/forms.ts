@@ -36,6 +36,7 @@ export function bindForms() {
           return;
         }
         track("generate_lead", { form_id: form.dataset.kind || "bericht", lead_source: form.dataset.cta || "form" });
+        form.dispatchEvent(new CustomEvent("ap-lead-ok", { bubbles: true, detail: result }));
         if (result.delivered) {
           form.reset();
           if (status) status.textContent = "Verstuurd. We lezen uw bericht en nemen contact op.";

@@ -1,0 +1,123 @@
+---
+import { hourlySavingPct, levels, monthlyCost, type LevelId } from "../lib/rates";
+import { euro, pct } from "../lib/format";
+import { centerStage, monthLine, packages, riskReversal, savingLine } from "../lib/pricing";
+import { site } from "../data/site";
+import ReviewCard from "./ReviewCard.astro";
+import { reviews } from "../data/reviews";
+
+const levelIds = Object.keys(levels) as LevelId[];
+const anchorRate = levels.senior.rates[24];
+const anchorMonthly = monthlyCost(24, anchorRate);
+const review = reviews.find((item) => item.name === "Heidi Wichems") ?? reviews[0];
+---
+
+<section class="mx-auto max-w-6xl px-4">
+  <aside class="rounded-[2rem] border border-line bg-green-950 px-6 py-6 text-sand-50">
+    <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-200">Eerst het hoogste blok</p>
+    <p class="mt-2 font-serif text-3xl md:text-4xl">Pro, senior, 24 uur: {euro(anchorMonthly)} per maand</p>
+    <p class="mt-2 max-w-3xl text-sand-100">{monthLine(24, anchorRate)}. Exclusief btw. Dit is het hoogste maandbedrag in de tabel, bij het minimum van 24 uur. Meer uren rekenen met hetzelfde uurtarief, dus het maandbedrag stijgt mee.</p>
+    <p class="mt-3 max-w-3xl text-sm text-sand-100">Zelf iemand in dienst nemen vergelijken we niet met een verzonnen jaarsalaris. Die vergelijking maakt u met uw eigen cijfers op <a class="font-semibold text-ochre-200 underline" href="/detacheren-of-in-dienst">Detacheren of in dienst</a>.</p>
+  </aside>
+
+  <p class="mt-8 max-w-3xl">{centerStage}</p>
+
+  <div class="mt-6 grid items-stretch gap-4 md:grid-cols-3">
+    {packages.map((pack) => {
+      const hourly = levels.medior.rates[pack.hours];
+      const monthly = monthlyCost(pack.hours, hourly);
+      const save = pack.hours === 10 ? null : savingLine("medior", pack.hours);
+      return (
+        <article class:list={["flex h-full flex-col rounded-[2rem] bg-white p-6", pack.featured ? "order-1 border-2 border-ochre-700 shadow-md md:order-none md:py-8" : "order-2 border border-line md:order-none"]}>
+          {pack.featured && <p class="ap-badge mb-3 inline-flex w-fit rounded-full px-3 py-1 text-sm font-semibold">Richtadvies</p>}
+          <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">{pack.concrete}</p>
+          <h2 class="font-serif text-4xl text-green-950">{pack.name}</h2>
+          <p class="mt-2">{pack.summary}</p>
+          <p class="mt-4 text-sm text-ink-soft">Vanaf, niveau medior</p>
+          <p class="font-serif text-4xl text-green-950">{euro(monthly)} <span class="font-sans text-base font-semibold text-ink">per maand</span></p>
+          <p class="text-sm">{monthLine(pack.hours, hourly)}</p>
+          <p class="text-sm text-ink-soft">Uurtarief {euro(hourly)}</p>
+          {save && <p class="ap-save mt-3 rounded-2xl px-3 py-2 text-sm font-semibold">{save}</p>}
+          <ul class="mt-4 list-disc space-y-2 pl-5">
+            {pack.outcomes.map((item) => <li>{item}</li>)}
+          </ul>
+          <div class="mt-4 space-y-2 text-sm">
+            {levelIds.filter((id) => id !== "medior").map((id) => {
+              const rate = levels[id].rates[pack.hours];
+              const badge = pack.hours === 10 ? "referentietarief van dit niveau" : `bespaar ${pct(hourlySavingPct(id, pack.hours))} t.o.v. 10 uur`;
+              return (
+                <p>
+                  <span class="font-semibold">{levels[id].short}</span>
+                  {" "}{euro(monthlyCost(pack.hours, rate))} per maand · {euro(rate)} per uur · {badge}
+                </p>
+              );
+            })}
+          </div>
+          <div class="mt-auto flex flex-col gap-2 pt-5">
+            <a class:list={["rounded-full px-4 py-3 text-center font-semibold", pack.featured ? "bg-ochre-500" : "bg-green-800"]} data-cta={`pakket-${pack.slug}-offerte`} href={`/offerte?pakket=${encodeURIComponent(pack.offer)}`}>Offerte voor {pack.name}</a>
+            <a class="rounded-full border border-green-800 px-4 py-3 text-center font-semibold" data-cta={`pakket-${pack.slug}-advies`} href="/adviesgesprek">Vrijblijvend kennismaken</a>
+            <a class="text-center text-sm font-semibold underline" href={`/pakketten/${pack.slug}`}>Uitwerking van {pack.name}</a>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+
+  <p class="mt-4 max-w-3xl text-sm">{riskReversal}</p>
+  <p class="mt-2 max-w-3xl text-sm">Bij elk blok: arbeidsdeskundige via Matchvermogen met {site.discount.arbeidsdeskundige}% korting, tweede spoor via Best Match met {site.discount.tweedeSpoor}% korting. Dat zijn bestaande afspraken, geen extra korting op het uurtarief.</p>
+
+  <h2 class="mt-12 font-serif text-3xl text-green-950">Vergelijking</h2>
+  <p class="mt-2 max-w-3xl text-sm">Maandbedragen zijn uren × uurtarief × 52 / 12, exclusief btw. De badge is het verschil in uurtarief tegenover 10 uur van hetzelfde niveau.</p>
+  <div class="mt-4 overflow-x-auto">
+    <table class="w-full min-w-[40rem] text-left text-sm">
+      <caption class="sr-only">Basis, Premium en Pro naast elkaar</caption>
+      <thead>
+        <tr class="border-b border-line">
+          <th class="py-2 pr-3" scope="col">Onderdeel</th>
+          {packages.map((pack) => <th class="py-2 pr-3" scope="col">{pack.name}<span class="block font-normal">{pack.hours === 24 ? "24+ uur" : `${pack.hours} uur`}</span></th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {levelIds.map((id) => (
+          <tr class="border-b border-line align-top">
+            <th class="py-3 pr-3" scope="row">{levels[id].label}</th>
+            {packages.map((pack) => {
+              const rate = levels[id].rates[pack.hours];
+              return (
+                <td class="py-3 pr-3">
+                  <span class="block font-semibold">{euro(monthlyCost(pack.hours, rate))} per maand</span>
+                  <span class="block">Uurtarief {euro(rate)}</span>
+                  <span class="block text-ink-soft">{monthLine(pack.hours, rate)}</span>
+                  {pack.hours === 10 ? <span class="block">Referentie voor dit niveau</span> : <span class="mt-1 block font-semibold">Bespaar {pct(hourlySavingPct(id, pack.hours))} t.o.v. 10 uur</span>}
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+        <tr class="border-b border-line">
+          <th class="py-3 pr-3" scope="row">Kwartaalrapportage</th>
+          {packages.map((pack) => <td class="py-3 pr-3">{pack.report}</td>)}
+        </tr>
+        <tr class="border-b border-line">
+          <th class="py-3 pr-3" scope="row">Verzuimanalyse in jaar 1</th>
+          {packages.map((pack) => <td class="py-3 pr-3">{pack.analysis}</td>)}
+        </tr>
+        <tr class="border-b border-line">
+          <th class="py-3 pr-3" scope="row">Bezetting</th>
+          {packages.map((pack) => <td class="py-3 pr-3">{pack.people}</td>)}
+        </tr>
+        <tr class="border-b border-line">
+          <th class="py-3 pr-3" scope="row">Kennismaken</th>
+          {packages.map(() => <td class="py-3 pr-3">30 minuten, zonder verplichting</td>)}
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="mt-12 font-serif text-3xl text-green-950">Ervaring bij het moederbedrijf</h2>
+  <p class="mt-2 max-w-3xl text-sm">Dit citaat gaat over Matchvermogen, niet over een pakket van Arbopartner Brabant.</p>
+  <div class="mt-4 max-w-3xl">
+    <ReviewCard review={review} />
+  </div>
+  <p class="mt-3"><a class="font-semibold underline" href="/reviews">Alle citaten van Matchvermogen</a></p>
+</section>

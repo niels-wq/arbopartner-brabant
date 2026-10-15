@@ -1,0 +1,53 @@
+---
+interface Props {
+  source: string;
+  title?: string;
+  text?: string;
+}
+const {
+  source,
+  title = "Kort doorgeven",
+  text = "Twee stappen: eerst uw nummer, daarna naam en organisatie. We bellen terug. Dit formulier is nog geen offerte.",
+} = Astro.props;
+---
+
+<form class="mt-8 space-y-4 rounded-[2rem] border border-line bg-white/80 p-5" data-endpoint="/api/advies" data-kind="advies" data-cta={source} data-wizard>
+  <h2 class="font-serif text-3xl text-green-950">{title}</h2>
+  <p>{text}</p>
+  <p aria-live="polite">Stap <span data-step-label>1</span> van 2</p>
+  <fieldset data-step="1" class="space-y-3">
+    <legend class="font-semibold">Uw telefoonnummer</legend>
+    <label class="block">Telefoon<input class="ap-field" name="telefoon" type="tel" required autocomplete="tel" /></label>
+  </fieldset>
+  <fieldset data-step="2" class="space-y-3">
+    <legend class="font-semibold">Wie mogen we terugbellen?</legend>
+    <label class="block">Naam<input class="ap-field" name="naam" required autocomplete="name" /></label>
+    <label class="block">Organisatie<input class="ap-field" name="organisatie" required autocomplete="organization" /></label>
+    <label class="flex items-start gap-2 text-sm">
+      <input name="toestemming" type="checkbox" value="ja" required />
+      <span>Matchvermogen B.V. mag contact opnemen over dit bericht. <a class="underline" href="/privacy">Privacy</a></span>
+    </label>
+    <div class="absolute -left-[9999px]" aria-hidden="true">
+      <label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label>
+    </div>
+    <button class="rounded-full bg-green-800 px-5 py-3 font-semibold" type="submit">Verstuur</button>
+  </fieldset>
+  <input type="hidden" name="bron" value={source} />
+  <div class="flex flex-wrap gap-3" data-nav>
+    <button type="button" data-prev class="rounded-full border border-green-800 px-4 py-2 font-semibold">Vorige</button>
+    <button type="button" data-next class="rounded-full bg-ochre-500 px-4 py-2 font-semibold">Volgende</button>
+  </div>
+  <p data-status class="text-sm" role="status"></p>
+  <p class="text-sm">
+    <a class="underline" href="/contact#terugbel">Terugbelverzoek</a>
+    {" · "}
+    <a class="underline" href="/offerte">Offerte in 2 minuten</a>
+    {" · "}
+    <a class="underline" href="/checklist-verzuim">Verzuim-checklist</a>
+  </p>
+</form>
+
+<script>
+  import "../scripts/forms.ts";
+  import "../scripts/wizard.ts";
+</script>

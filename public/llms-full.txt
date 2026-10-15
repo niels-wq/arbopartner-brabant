@@ -40,6 +40,8 @@ Reistijd binnen het werkgebied zit in het tarief. Dit zijn richtprijzen, geen of
 - Medior+: €120, €115, €110.
 - Senior met specialisatie: €137,50, €131,50, €125.
 - Basis: 10 uur per week. Premium: 20 uur, met kwartaalrapportage en een verzuimanalyse in jaar 1. Pro: 24 uur of meer; vanaf 30 uur met twee personen.
+- Een maandbedrag is uren × uurtarief × 52 / 12, zonder afronding naar een mooi getal. Het lagere uurtarief bij 20 of 24+ uur is geen lagere maandfactuur.
+- Premium is het blok dat als eerste wordt voorgelegd. Het label noemt geen pakket het meest gekozen.
 - Pagina: https://www.arbopartnerbrabant.nl/tarieven
 - Pakketten: https://www.arbopartnerbrabant.nl/pakketten
 
@@ -56,6 +58,7 @@ Elke plaats heeft een eigen pagina, bijvoorbeeld https://www.arbopartnerbrabant.
 - Verzuimkosten: https://www.arbopartnerbrabant.nl/verzuimkosten-berekenen
 - Detacheren of in dienst: https://www.arbopartnerbrabant.nl/detacheren-of-in-dienst
 - Tijdlijn ziekteverzuim: https://www.arbopartnerbrabant.nl/tools/tijdlijn-ziekteverzuim
+- Verzuim-checklist, gratis en ook zonder formulier: https://www.arbopartnerbrabant.nl/checklist-verzuim
 - Loonsanctie-check: https://www.arbopartnerbrabant.nl/tools/loonsanctie-check
 - Verzuim vergelijken met CBS: https://www.arbopartnerbrabant.nl/tools/verzuim-vergelijken
 
@@ -79,7 +82,8 @@ De tools zijn scenario's. Ze voorspellen geen daling van verzuim en geen loonsan
 ## Contact en leads
 
 - Adviesgesprek van 30 minuten, zonder verplichting: https://www.arbopartnerbrabant.nl/adviesgesprek
-- Offerte: https://www.arbopartnerbrabant.nl/offerte
+- Offerte in drie korte stappen: https://www.arbopartnerbrabant.nl/offerte
+- Terugbelverzoek: https://www.arbopartnerbrabant.nl/contact#terugbel
 - Spoedhulp: https://www.arbopartnerbrabant.nl/spoedhulp
 - Contact: https://www.arbopartnerbrabant.nl/contact
 - Formulieren vragen naam, bedrijf en telefoon. E-mail is niet overal verplicht. Toestemming is wel verplicht.

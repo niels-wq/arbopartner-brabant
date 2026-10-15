@@ -41,6 +41,8 @@ const fields = {
   chat: ["naam", "organisatie", "telefoon", "vraag"],
   rapport: ["email", "rapport"],
   scan: ["naam", "telefoon"],
+  terugbel: ["naam", "telefoon"],
+  checklist: ["naam", "email"],
 };
 
 export function validate(kind, body) {
@@ -102,6 +104,24 @@ export async function processSubmission(kind, body, ip) {
       subject: `[Arbopartner Brabant] ${kind} — ${who || "nieuw bericht"}`,
       text: messageText(kind, body),
     });
+    if ((kind === "rapport" || kind === "checklist") && validEmail(oneLine(body.email))) {
+      const subject = kind === "checklist" ? "Uw verzuim-checklist" : "Uw berekening";
+      const intro = kind === "checklist"
+        ? "Hier is de verzuim-checklist die u aanvroeg. Het is een geheugensteun, geen advies over één dossier."
+        : "Hier is de berekening die u op de site maakte. Het is een scenario, geen offerte.";
+      const content = textBlock(body.checklist || body.rapport, 4000);
+      try {
+        await transport.sendMail({
+          from: process.env.SMTP_FROM || to,
+          to: oneLine(body.email),
+          replyTo: to,
+          subject: `[Arbopartner Brabant] ${subject}`,
+          text: `${intro}\n\n${content}\n\nArbopartner Brabant, een label van Matchvermogen B.V.\nLosplaats 16d, 5404 NJ Uden\n085-0870307\ninfo@matchvermogen.nl\n`,
+        });
+      } catch {
+        /* De interne mail is al weg. Een mislukte kopie naar de bezoeker blokkeert dat niet. */
+      }
+    }
     return { status: 200, payload: { ok: true, delivered: true } };
   } catch {
     return { status: 200, payload: { ok: true, delivered: false, reason: "verzenden-mislukt" } };

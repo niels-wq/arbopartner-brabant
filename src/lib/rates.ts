@@ -75,3 +75,10 @@ export function packageBlock(slug: "basis" | "premium" | "pro"): Block {
   if (slug === "premium") return 20;
   return 24;
 }
+
+/** Hoeveel procent het uurtarief lager ligt dan het 10-uurtarief van hetzelfde niveau. */
+export function hourlySavingPct(level: LevelId, block: Block): number {
+  const base = levels[level].rates[10];
+  const rate = levels[level].rates[block];
+  return ((base - rate) / base) * 100;
+}

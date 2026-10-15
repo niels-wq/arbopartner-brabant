@@ -2,6 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ClusterNav from "../../components/ClusterNav.astro";
+import InlineLead from "../../components/InlineLead.astro";
 import { places } from "../../data/places";
 import { crumbsLd } from "../../lib/schema";
 
@@ -28,5 +29,8 @@ const crumbs = [
       </li>
     ))}
   </ul>
+  <div class="mx-auto max-w-3xl px-4">
+    <InlineLead source="werkgebied-overzicht" title="Valt uw plaats erbinnen?" text="Twee stappen. We bellen terug en kijken of de rit ongeveer binnen 45 minuten van Uden past." />
+  </div>
   <ClusterNav />
 </Base>

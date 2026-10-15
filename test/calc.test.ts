@@ -1,11 +1,35 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { compareEmployment, dayCost, matchCasemanager, savings } from "../src/lib/calc.ts";
-import { monthlyCost } from "../src/lib/rates.ts";
+import { pct } from "../src/lib/format.ts";
+import { hourlySavingPct, monthlyCost } from "../src/lib/rates.ts";
 
 describe("tarief", () => {
-  it("rekent een maandbedrag uit het uurblok", () => {
+  it("rekent een maandbedrag als uren × tarief × 52 / 12", () => {
     assert.equal(monthlyCost(10, 112.5), 4875);
+    assert.equal(monthlyCost(20, 107.5), (20 * 107.5 * 52) / 12);
+    assert.equal(monthlyCost(24, 102.5), 10660);
+    assert.equal(monthlyCost(24, 125), 13000);
+    assert.equal(monthlyCost(20, 115), (20 * 115 * 52) / 12);
+    assert.equal(monthlyCost(24, 110), 11440);
+    assert.equal(monthlyCost(10, 137.5), (10 * 137.5 * 52) / 12);
+    assert.equal(monthlyCost(20, 131.5), (20 * 131.5 * 52) / 12);
+  });
+
+  it("zet de besparing op het uurtarief tegenover 10 uur van hetzelfde niveau", () => {
+    assert.equal(hourlySavingPct("medior", 10), 0);
+    assert.equal(hourlySavingPct("medior", 20), ((112.5 - 107.5) / 112.5) * 100);
+    assert.equal(hourlySavingPct("medior", 24), ((112.5 - 102.5) / 112.5) * 100);
+    assert.equal(hourlySavingPct("medior-plus", 20), ((120 - 115) / 120) * 100);
+    assert.equal(hourlySavingPct("medior-plus", 24), ((120 - 110) / 120) * 100);
+    assert.equal(hourlySavingPct("senior", 20), ((137.5 - 131.5) / 137.5) * 100);
+    assert.equal(hourlySavingPct("senior", 24), ((137.5 - 125) / 137.5) * 100);
+    assert.equal(pct(hourlySavingPct("medior", 20)), "4,4%");
+    assert.equal(pct(hourlySavingPct("medior", 24)), "8,9%");
+    assert.equal(pct(hourlySavingPct("medior-plus", 20)), "4,2%");
+    assert.equal(pct(hourlySavingPct("medior-plus", 24)), "8,3%");
+    assert.equal(pct(hourlySavingPct("senior", 20)), "4,4%");
+    assert.equal(pct(hourlySavingPct("senior", 24)), "9,1%");
   });
 });
 
