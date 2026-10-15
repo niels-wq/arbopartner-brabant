@@ -6,9 +6,11 @@ import AuthorBlock from "../../components/AuthorBlock.astro";
 import ClusterNav from "../../components/ClusterNav.astro";
 import FaqList from "../../components/FaqList.astro";
 import CtaBand from "../../components/CtaBand.astro";
-import Figure from "../../components/Figure.astro";
+import Photo from "../../components/Photo.astro";
+import BrabantPhoto from "../../components/BrabantPhoto.astro";
 import InlineLead from "../../components/InlineLead.astro";
-import { visualAlt } from "../../data/visuals";
+import { brabantFotos } from "../../data/brabant-fotos";
+import { blogStad, fotos, fotoVoorBlog } from "../../data/fotos";
 import { absoluteUrl } from "../../data/site";
 import { articleLd, crumbsLd, faqLd } from "../../lib/schema";
 
@@ -19,8 +21,10 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const imageId = `blog-${post.id}`;
-const image = absoluteUrl(`/beeld/${imageId}-1200.webp`);
+const stad = blogStad[post.id as keyof typeof blogStad];
+const fotoId = fotoVoorBlog(post.id);
+const image = stad ? absoluteUrl(`/brabant/${stad}.webp`) : absoluteUrl(`/fotos/${fotoId}.webp`);
+const imageAlt = stad ? brabantFotos[stad].alt : fotos[fotoId!].alt;
 const crumbs = [
   { name: "Home", path: "/" },
   { name: "Kennis", path: "/blog" },
@@ -33,7 +37,7 @@ const iso = (date: Date) => date.toISOString().slice(0, 10);
   title={post.data.title}
   description={post.data.description}
   image={image}
-  imageAlt={visualAlt(imageId)}
+  imageAlt={imageAlt}
   jsonLd={[
     crumbsLd(crumbs),
     faqLd(post.data.faq),
@@ -51,7 +55,7 @@ const iso = (date: Date) => date.toISOString().slice(0, 10);
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">{post.data.keyword}</p>
     <h1 class="mt-2 font-serif text-4xl text-green-950 md:text-5xl">{post.data.title}</h1>
-    <Figure id={imageId} eager class="mt-6" />
+    {stad ? <BrabantPhoto id={stad} eager class="mt-6" /> : <Photo id={fotoId!} eager class="mt-6" />}
     <p class="mt-3 flex items-center gap-3 text-sm text-ink-soft">
       <img class="h-10 w-10 rounded-full object-cover" src="/mensen/niels-alderding-avatar.webp" width="160" height="160" alt="" />
       <span>Niels Alderding, oprichter van Matchvermogen, namens Arbopartner Brabant. Gepubliceerd {iso(post.data.pubDate)}. Bijgewerkt {iso(post.data.updated)}. Dit is algemene informatie voor werkgevers, geen advies over één dossier.</span>

@@ -1,0 +1,37 @@
+---
+import { fotos, type FotoId } from "../data/fotos";
+
+interface Props {
+  id: FotoId;
+  eager?: boolean;
+  caption?: boolean;
+  plain?: boolean;
+  class?: string;
+  sizes?: string;
+}
+
+const { id, eager = false, caption = true, plain = false, class: className, sizes = "(min-width: 1024px) 42rem, 100vw" } = Astro.props;
+const foto = fotos[id];
+const base = `/fotos/${id}`;
+---
+
+<figure class:list={[plain ? "bg-white" : "overflow-hidden rounded-[1.5rem] bg-white ring-1 ring-line", className]}>
+  <picture>
+    <source type="image/avif" srcset={`${base}.avif`} sizes={sizes} />
+    <img
+      src={`${base}.webp`}
+      alt={foto.alt}
+      width={foto.width}
+      height={foto.height}
+      loading={eager ? "eager" : "lazy"}
+      decoding="async"
+      fetchpriority={eager ? "high" : "auto"}
+      class="aspect-[3/2] w-full object-cover"
+    />
+  </picture>
+  {caption && (
+    <figcaption class="px-3 py-2 text-xs leading-snug text-ink-soft">
+      {foto.caption} Foto: {foto.author}, <a class="underline" href={foto.licenseUrl} rel="license noopener">{foto.license}</a>. <a class="underline" href={foto.sourceUrl}>Bron</a>.
+    </figcaption>
+  )}
+</figure>

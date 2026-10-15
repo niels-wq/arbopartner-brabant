@@ -3,8 +3,10 @@ import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ClusterNav from "../../components/ClusterNav.astro";
-import Figure from "../../components/Figure.astro";
+import Photo from "../../components/Photo.astro";
+import BrabantPhoto from "../../components/BrabantPhoto.astro";
 import InlineLead from "../../components/InlineLead.astro";
+import { blogStad, fotoVoorBlog } from "../../data/fotos";
 import { crumbsLd } from "../../lib/schema";
 
 const posts = (await getCollection("blog")).sort((a, b) => +b.data.pubDate - +a.data.pubDate);
@@ -19,13 +21,17 @@ const crumbs = [
   <header class="mx-auto max-w-6xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Kennis</h1>
     <p class="mt-4 max-w-2xl">Kennis op deze site is algemene uitleg voor werkgevers over verzuim, re-integratie en de kosten daarvan. Geen juridisch advies en geen oordeel over één dossier. De wet die de re-integratiestappen voorschrijft, noemen we in het artikel zelf, niet als merk.</p>
-    <Figure id="pagina-blog" eager class="mt-6 max-w-3xl" />
+    <Photo id="unsplash-eindhoven" eager class="mt-6 max-w-3xl" />
   </header>
   <ul class="mx-auto grid max-w-6xl gap-4 px-4 py-8 md:grid-cols-2">
     {posts.map((post) => (
       <li>
         <a class="block h-full overflow-hidden rounded-[2rem] border border-line bg-white/80" href={`/blog/${post.id}`}>
-          <Figure id={`blog-${post.id}`} sizes="(min-width: 768px) 24rem, 100vw" />
+          {blogStad[post.id as keyof typeof blogStad] ? (
+            <BrabantPhoto id={blogStad[post.id as keyof typeof blogStad]} caption={false} plain sizes="(min-width: 768px) 24rem, 100vw" />
+          ) : (
+            <Photo id={fotoVoorBlog(post.id)!} plain caption={false} sizes="(min-width: 768px) 24rem, 100vw" />
+          )}
           <div class="p-5">
           <p class="text-sm text-ochre-800">{post.data.keyword}</p>
           <h2 class="mt-1 font-serif text-2xl text-green-950">{post.data.title}</h2>

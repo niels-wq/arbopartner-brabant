@@ -18,7 +18,7 @@ import BrabantPhoto from "../components/BrabantPhoto.astro";
 import VerzuimTijdlijn from "../components/VerzuimTijdlijn.astro";
 import Situaties from "../components/Situaties.astro";
 import Feiten from "../components/Feiten.astro";
-import Figure from "../components/Figure.astro";
+import Photo from "../components/Photo.astro";
 import { faqLd, teamPeopleLd } from "../lib/schema";
 
 const steden = ["den-bosch", "eindhoven", "tilburg"] as const;
@@ -74,17 +74,20 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
         <li><a class="inline-block rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line" data-cta="home-werkgebied" href="/werkgebied">Werkgebied: heel Noord-Brabant</a></li>
       </ul>
     </div>
-    <aside class="rounded-2xl border border-line bg-white p-6">
-      <img class="h-20 w-20 rounded-full object-cover" src={site.founder.avatar} width="160" height="160" alt="Niels Alderding" />
-      <p class="mt-4 text-lg font-semibold text-green-950">{site.founder.name}</p>
-      <p class="text-sm text-ink-soft">{site.founder.role}</p>
-      <blockquote class="mt-3 text-lg leading-snug text-green-950">
-        <p>{site.founder.quote}</p>
-      </blockquote>
-      <p class="mt-3 text-sm text-ink-soft">
-        Foto: <a class="underline" href={site.founder.photoSource}>matchvermogen.nl</a>.
-        Citaat: <a class="underline" href={site.founder.quoteUrl}>arbeidsdeskundig.com</a>.
-      </p>
+    <aside>
+      <Photo id="gesprek-bank" eager sizes="(min-width: 768px) 28rem, 100vw" />
+      <div class="mt-4 rounded-2xl border border-line bg-white p-6">
+        <img class="h-20 w-20 rounded-full object-cover" src={site.founder.avatar} width="160" height="160" alt="Niels Alderding" />
+        <p class="mt-4 text-lg font-semibold text-green-950">{site.founder.name}</p>
+        <p class="text-sm text-ink-soft">{site.founder.role}</p>
+        <blockquote class="mt-3 text-lg leading-snug text-green-950">
+          <p>{site.founder.quote}</p>
+        </blockquote>
+        <p class="mt-3 text-sm text-ink-soft">
+          Foto: <a class="underline" href={site.founder.photoSource}>matchvermogen.nl</a>.
+          Citaat: <a class="underline" href={site.founder.quoteUrl}>arbeidsdeskundig.com</a>.
+        </p>
+      </div>
     </aside>
   </section>
 
@@ -106,7 +109,7 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
 
   <section class="mx-auto grid max-w-6xl gap-6 px-4 pb-8 md:grid-cols-3" aria-label="Keuzehulp">
     <a class="overflow-hidden rounded-2xl border border-line bg-white" data-cta="home-kaart-spoed" href="/spoedhulp">
-      <Figure id="pagina-spoed" sizes="(min-width: 768px) 20rem, 100vw" />
+      <Photo id="gesprek-documenten" plain caption={false} sizes="(min-width: 768px) 20rem, 100vw" />
       <div class="p-6">
       <h2 class="font-serif text-2xl text-green-950">Ik heb nu een verzuimprobleem</h2>
       <p class="mt-2 text-ink-soft">Een zieke medewerker, een vastgelopen dossier of een sanctierisico. Bel, app of laat u terugbellen.</p>
@@ -114,7 +117,7 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
       </div>
     </a>
     <a class="overflow-hidden rounded-2xl border border-line bg-white" data-cta="home-kaart-pakket" href="/pakketten">
-      <Figure id="pagina-pakketten" sizes="(min-width: 768px) 20rem, 100vw" />
+      <Photo id="gesprek-drie" plain caption={false} sizes="(min-width: 768px) 20rem, 100vw" />
       <div class="p-6">
       <h2 class="font-serif text-2xl text-green-950">Ik wil verzuim structureel regelen</h2>
       <p class="mt-2 text-ink-soft">Basis, Premium of Pro. Eén niveau casemanager, een vast aantal uren, een vast gezicht.</p>
@@ -122,7 +125,7 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
       </div>
     </a>
     <a class="overflow-hidden rounded-2xl border border-line bg-white" data-cta="home-kaart-kosten" href="/verzuimkosten-berekenen">
-      <Figure id="pagina-verzuimkosten" sizes="(min-width: 768px) 20rem, 100vw" />
+      <Photo id="werkplek-notitie" plain caption={false} sizes="(min-width: 768px) 20rem, 100vw" />
       <div class="p-6">
       <h2 class="font-serif text-2xl text-green-950">Wat kost verzuim mij?</h2>
       <p class="mt-2 text-ink-soft">Reken met de TNO-dagkosten en kies zelf een scenario. Geen belofte, wel een bedrag.</p>
@@ -137,7 +140,7 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
 
   <section class="mx-auto max-w-6xl px-4 py-16">
     <h2 class="font-serif text-3xl text-green-950">Eén mens, met een zwaardere achtervang</h2>
-    <Figure id="dienst-casemanager-detachering" class="mt-6 max-w-3xl" />
+    <Photo id="gesprek-advies" class="mt-6 max-w-3xl" />
     <div class="mt-8 grid gap-4 md:grid-cols-2">
       <article class="rounded-2xl border border-line bg-white p-6">
         <h3 class="font-serif text-2xl text-green-950">Vaste casemanager</h3>

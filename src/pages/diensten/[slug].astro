@@ -4,9 +4,10 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import FaqList from "../../components/FaqList.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import HireBenefits from "../../components/HireBenefits.astro";
-import Figure from "../../components/Figure.astro";
+import Photo from "../../components/Photo.astro";
 import Mark from "../../components/Mark.astro";
 import InlineLead from "../../components/InlineLead.astro";
+import { fotoVoorDienst } from "../../data/fotos";
 import { serviceIcons, services } from "../../data/services";
 import { zzpFaq } from "../../data/site";
 import { crumbsLd, faqLd } from "../../lib/schema";
@@ -31,7 +32,7 @@ const crumbs = [
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">{service.title}</h1>
     <p class="mt-4 text-lg text-ink-soft">{service.lead}</p>
-    <Figure id={`dienst-${service.slug}`} eager class="mt-6" />
+    <Photo id={fotoVoorDienst(service.slug)} eager class="mt-6" />
     {service.sections.map((section) => (
       <section class="mt-8">
         <h2 class="font-serif text-3xl text-green-950"><Mark name={serviceIcons[service.slug]} />{section.heading}</h2>
@@ -49,7 +50,7 @@ const crumbs = [
       {related.map((item) => (
         <li>
           <a class="block overflow-hidden rounded-2xl border border-line bg-white" href={`/diensten/${item.slug}`}>
-            <Figure id={`dienst-${item.slug}`} sizes="(min-width: 640px) 16rem, 100vw" />
+            <Photo id={fotoVoorDienst(item.slug)} plain caption={false} sizes="(min-width: 640px) 16rem, 100vw" />
             <span class="block p-4 font-semibold text-green-950">{item.title}</span>
           </a>
         </li>

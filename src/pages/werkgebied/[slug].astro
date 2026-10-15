@@ -3,7 +3,6 @@ import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import FaqList from "../../components/FaqList.astro";
 import CtaBand from "../../components/CtaBand.astro";
-import Figure from "../../components/Figure.astro";
 import BrabantPhoto from "../../components/BrabantPhoto.astro";
 import Mark from "../../components/Mark.astro";
 import InlineLead from "../../components/InlineLead.astro";
@@ -40,7 +39,7 @@ const rit = place.reistijdInTarief === false
     <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">{place.municipality} · ongeveer {place.minutes} minuten van het kantoor</p>
     <h1 class="mt-2 font-serif text-5xl text-green-950">Casemanager {place.in}</h1>
     <p class="mt-4 text-lg">Een vaste casemanager {place.in}, {gebied}. De thuisbasis is het kantoor van {site.name} in Uden. De rit is ongeveer {place.minutes} minuten buiten de spits. {rit} {place.lead}</p>
-    {foto ? <BrabantPhoto id={foto} eager class="mt-6" /> : <Figure id={`plaats-${place.slug}`} eager class="mt-6" />}
+    {foto && <BrabantPhoto id={foto} eager class="mt-6" />}
     <address class="mt-4 rounded-3xl bg-sand-100 p-4 text-sm not-italic">
       <strong>{site.name}</strong>, label van {site.parent.legalName}<br />
       {site.parent.street}, {site.parent.postalCode} {site.parent.city}<br />
