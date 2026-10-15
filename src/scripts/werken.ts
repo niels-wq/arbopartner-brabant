@@ -45,6 +45,12 @@ function syncGroups(form: HTMLFormElement) {
   syncTraject(form);
 }
 
+function showStatus(status: HTMLElement | null, text: string) {
+  if (!status) return;
+  status.textContent = text;
+  status.scrollIntoView({ block: "center", behavior: "instant" });
+}
+
 function statusText(result: { delivered?: boolean; via?: string; cv?: string }) {
   if (!result.delivered) {
     return "Nog niet opgeslagen. De database en de mailserver zijn nog niet ingesteld. Mail uw CV naar info@matchvermogen.nl.";
@@ -81,14 +87,14 @@ export function bindWerken() {
       track("form_error", { form_id: "werken", step: 6 });
       return;
     }
-    if (status) status.textContent = "Versturen…";
+    showStatus(status, "Versturen…");
     const submit = form.querySelector<HTMLButtonElement>("button[type=submit]");
     if (submit) submit.disabled = true;
     try {
       const response = await fetch("/api/werken", { method: "POST", body: new FormData(form) });
       const result = await response.json();
       if (!response.ok || result.ok === false) {
-        if (status) status.textContent = (result.errors || ["Versturen lukte niet."]).join(" ");
+        showStatus(status, (result.errors || ["Versturen lukte niet."]).join(" "));
         track("form_error", { form_id: "werken", step: 6 });
         if (submit) submit.disabled = false;
         return;
@@ -98,13 +104,13 @@ export function bindWerken() {
         lead_source: form.dataset.cta || "werken",
         via: String(result.via || ""),
       });
-      if (status) status.textContent = statusText(result);
+      showStatus(status, statusText(result));
       if (result.delivered && result.cv !== "niet-opgeslagen") {
         form.reset();
         syncGroups(form);
       } else if (submit) submit.disabled = false;
     } catch {
-      if (status) status.textContent = "Versturen lukte niet. Mail uw CV naar info@matchvermogen.nl.";
+      showStatus(status, "Versturen lukte niet. Mail uw CV naar info@matchvermogen.nl.");
       track("form_error", { form_id: "werken", step: 6 });
       if (submit) submit.disabled = false;
     }
