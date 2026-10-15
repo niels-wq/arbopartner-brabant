@@ -1,3 +1,5 @@
+import { exitAbMode, exitMagnets, pickExitVariant, type ExitVariantId } from "../lib/exit-magnet";
+import { downloadPdf } from "./report";
 import { track } from "./track";
 
 const root = document.querySelector<HTMLElement>("#ap-engage");
@@ -10,7 +12,8 @@ if (root && !root.dataset.ready) {
   const chips = chat?.querySelector<HTMLElement>("[data-chips]");
   const lead = chat?.querySelector<HTMLFormElement>("[data-lead]");
   const exit = document.querySelector<HTMLElement>("#ap-exit");
-  const seenKey = "ap_exit_v1";
+  const seenKey = "ap_exit_v2";
+  const variantKey = "ap_exit_variant";
   function seen() {
     try {
       return sessionStorage.getItem(seenKey) === "1";
@@ -177,47 +180,69 @@ if (root && !root.dataset.ready) {
     else if (chat && !chat.hidden) closeChat();
   });
 
+  function currentVariant(): ExitVariantId {
+    const query = new URLSearchParams(window.location.search).get("exit");
+    let stored: string | null = null;
+    try {
+      stored = sessionStorage.getItem(variantKey);
+    } catch {
+      stored = null;
+    }
+    const variant = pickExitVariant({ mode: exitAbMode, query, stored });
+    try {
+      sessionStorage.setItem(variantKey, variant);
+    } catch {
+      /* privémodus */
+    }
+    return variant;
+  }
+  function applyVariant(variant: ExitVariantId) {
+    const copy = exitMagnets[variant];
+    const title = exit?.querySelector<HTMLElement>("#ap-exit-title");
+    const lede = exit?.querySelector<HTMLElement>("[data-exit-lede]");
+    const button = exit?.querySelector<HTMLButtonElement>("[data-exit-submit]");
+    const form = exit?.querySelector<HTMLFormElement>("[data-magnet]");
+    if (title) title.textContent = copy.title;
+    if (lede) lede.textContent = copy.lede;
+    if (button) button.textContent = copy.button;
+    const kind = form?.querySelector<HTMLInputElement>("[name=variant]");
+    const body = form?.querySelector<HTMLTextAreaElement>("[name=checklist]");
+    if (kind) kind.value = copy.id;
+    if (body) body.value = copy.body;
+    return copy;
+  }
   function openExit() {
     if (!exit || seen()) return;
+    const variant = currentVariant();
+    applyVariant(variant);
     markSeen();
     exit.hidden = false;
     exit.querySelector<HTMLElement>("h2")?.focus();
-    track("exit_intent_view");
+    track("exit_intent_view", { exit_variant: variant });
   }
-  function closeExit() {
-    if (!exit) return;
+  function closeExit(reason: "close" | "decline" = "close") {
+    if (!exit || exit.hidden) return;
     exit.hidden = true;
-    track("exit_intent_close");
+    const variant = exit.querySelector<HTMLInputElement>("[name=variant]")?.value || "kosten";
+    track(reason === "decline" ? "exit_intent_decline" : "exit_intent_close", { exit_variant: variant });
   }
   exit?.querySelectorAll<HTMLButtonElement>("[data-close]").forEach((button) => {
-    button.addEventListener("click", closeExit);
+    button.addEventListener("click", () => closeExit("close"));
   });
+  exit?.querySelector<HTMLButtonElement>("[data-decline]")?.addEventListener("click", () => closeExit("decline"));
   exit?.addEventListener("click", (event) => {
-    const booking = (event.target as HTMLElement).closest("[data-calendly]");
-    if (booking) {
-      closeExit();
-      return;
-    }
-    if (event.target === exit) closeExit();
+    if (event.target === exit) closeExit("close");
   });
-  exit?.querySelectorAll<HTMLButtonElement>("[data-choice]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const form = exit.querySelector<HTMLFormElement>("[data-scan]");
-      const kind = exit.querySelector<HTMLInputElement>("[name=soort]");
-      if (kind) kind.value = button.dataset.choice || "terugbel";
-      form?.removeAttribute("hidden");
-      form?.querySelector<HTMLInputElement>("input[name=naam]")?.focus();
-      track("exit_intent_choice", { choice: button.dataset.choice || "" });
-    });
-  });
-  exit?.querySelector<HTMLFormElement>("[data-scan]")?.addEventListener("submit", async (event) => {
+  exit?.querySelector<HTMLFormElement>("[data-magnet]")?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const form = event.currentTarget as HTMLFormElement;
     const status = form.querySelector<HTMLElement>("[data-status]");
     const payload = Object.fromEntries(new FormData(form).entries());
+    const variant = (payload.variant === "fouten" ? "fouten" : "kosten") as ExitVariantId;
+    const copy = exitMagnets[variant];
     if (status) status.textContent = "Versturen…";
     try {
-      const response = await fetch("/api/scan", {
+      const response = await fetch("/api/magnet", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(payload),
@@ -225,11 +250,19 @@ if (root && !root.dataset.ready) {
       const result = await response.json();
       if (!response.ok || result.ok === false) {
         if (status) status.textContent = (result.errors || ["Versturen lukte niet."]).join(" ");
+        track("form_error", { form_id: "magnet", exit_variant: variant });
         return;
       }
-      if (status) status.textContent = "Verstuurd. We bellen u op een werkdag.";
+      downloadPdf(copy.title, copy.body, copy.fileName);
+      track("file_download", { form_id: "magnet", file_name: copy.fileName, lead_source: "exit", exit_variant: variant });
+      track("generate_lead", { form_id: "magnet", lead_source: "exit", exit_variant: variant });
       form.reset();
-      track("generate_lead", { form_id: "scan", lead_source: "exit" });
+      applyVariant(variant);
+      if (status) {
+        status.textContent = result.delivered
+          ? "De check is naar uw e-mailadres gestuurd. Hij downloadt ook op dit apparaat."
+          : "De mailserver is nog niet ingesteld. De check downloadt wel op dit apparaat.";
+      }
     } catch {
       if (status) status.textContent = "Versturen lukte niet. Bel ons gerust.";
     }

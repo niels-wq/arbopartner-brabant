@@ -45,7 +45,36 @@ const fields = {
   scan: ["naam", "telefoon"],
   terugbel: ["naam", "telefoon"],
   checklist: ["naam", "email"],
+  magnet: ["email", "checklist"],
 };
+
+const visitorLetters = {
+  checklist: {
+    subject: "Uw verzuim-checklist",
+    intro: "Hier is de verzuim-checklist die u aanvroeg. Het is een geheugensteun, geen advies over één dossier.",
+  },
+  rapport: {
+    subject: "Uw berekening",
+    intro: "Hier is de berekening die u op de site maakte. Het is een scenario, geen offerte.",
+  },
+  magnet: {
+    kosten: {
+      subject: "Uw verzuimkosten-check",
+      intro: "Hier is de verzuimkosten-check voor Brabantse werkgevers. Het is een werkblad met de TNO- en CBS-bronnen, geen advies over uw dossiers en geen belofte dat verzuim daalt.",
+    },
+    fouten: {
+      subject: "Uw checklist bij een loonsanctie",
+      intro: "Hier is de korte checklist met zeven fouten in een re-integratiedossier. Het is algemene informatie, geen oordeel over een map en geen voorspelling van UWV.",
+    },
+  },
+};
+
+export function visitorLetter(kind, body) {
+  if (kind === "magnet") {
+    return oneLine(body?.variant) === "fouten" ? visitorLetters.magnet.fouten : visitorLetters.magnet.kosten;
+  }
+  return visitorLetters[kind] || null;
+}
 
 export function validate(kind, body) {
   const errors = [];
@@ -53,7 +82,8 @@ export function validate(kind, body) {
   if (body?.toestemming !== "ja") errors.push("Vink de toestemming aan om het bericht te versturen.");
   const required = fields[kind] || [];
   for (const key of required) {
-    const value = key === "rapport" || key === "vraag" || key === "wat" ? textBlock(body?.[key], 4000) : oneLine(body?.[key], 500);
+    const long = key === "rapport" || key === "vraag" || key === "wat" || key === "checklist";
+    const value = long ? textBlock(body?.[key], 4000) : oneLine(body?.[key], 500);
     if (!value) errors.push(`Veld ontbreekt: ${key}.`);
   }
   if ((kind === "rapport" || body?.email) && !validEmail(oneLine(body?.email))) {
@@ -106,11 +136,10 @@ export async function processSubmission(kind, body, ip) {
       subject: `[Arbopartner Brabant] ${kind} — ${who || "nieuw bericht"}`,
       text: messageText(kind, body),
     });
-    if ((kind === "rapport" || kind === "checklist") && validEmail(oneLine(body.email))) {
-      const subject = kind === "checklist" ? "Uw verzuim-checklist" : "Uw berekening";
-      const intro = kind === "checklist"
-        ? "Hier is de verzuim-checklist die u aanvroeg. Het is een geheugensteun, geen advies over één dossier."
-        : "Hier is de berekening die u op de site maakte. Het is een scenario, geen offerte.";
+    const letter = visitorLetter(kind, body);
+    if (letter && validEmail(oneLine(body.email))) {
+      const subject = letter.subject;
+      const intro = letter.intro;
       const content = textBlock(body.checklist || body.rapport, 4000);
       try {
         await transport.sendMail({

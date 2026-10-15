@@ -23,7 +23,7 @@ function pdfEscape(value: string) {
 }
 
 export function downloadPdf(title: string, body: string, fileName = "arbopartner-rapport.pdf") {
-  const lines = pdfSafe(`${title}\n\n${body}`).split(/\n/).slice(0, 42);
+  const lines = pdfSafe(`${title}\n\n${body}`).split(/\n/).slice(0, 54);
   const commands = ["BT", "/F1 11 Tf", "50 800 Td", "14 TL"];
   lines.forEach((line, index) => {
     if (index === 0) commands.push(`(${pdfEscape(line)}) Tj`);
