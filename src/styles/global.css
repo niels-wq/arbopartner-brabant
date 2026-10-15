@@ -411,6 +411,20 @@ summary.rounded-full.border-green-800:focus-visible,
   color: #1a140c;
   text-decoration: none;
 }
+.ap-contact-menu button {
+  color: #0c3b27;
+  font-weight: 700;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.7rem;
+}
+.ap-contact-menu button:hover,
+.ap-contact-menu button:focus-visible {
+  background: #f6e4c0;
+  color: #1a140c;
+}
 .ap-chat,
 .ap-exit {
   position: fixed;

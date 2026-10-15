@@ -99,7 +99,7 @@ if (root && !root.dataset.ready) {
   chat?.querySelector<HTMLButtonElement>("[data-close]")?.addEventListener("click", closeChat);
   chips?.addEventListener("click", (event) => {
     const button = (event.target as HTMLElement).closest("button");
-    if (!button) return;
+    if (!button || button.dataset.calendly) return;
     const label = button.textContent || "";
     say(label, "user");
     if (button.dataset.lead === "1") {
@@ -193,6 +193,11 @@ if (root && !root.dataset.ready) {
     button.addEventListener("click", closeExit);
   });
   exit?.addEventListener("click", (event) => {
+    const booking = (event.target as HTMLElement).closest("[data-calendly]");
+    if (booking) {
+      closeExit();
+      return;
+    }
     if (event.target === exit) closeExit();
   });
   exit?.querySelectorAll<HTMLButtonElement>("[data-choice]").forEach((button) => {

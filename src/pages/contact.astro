@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import CallbackForm from "../components/CallbackForm.astro";
+import CalendlyEmbed from "../components/CalendlyEmbed.astro";
 import Figure from "../components/Figure.astro";
 import OfficeVisit from "../components/OfficeVisit.astro";
 import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
@@ -49,6 +50,9 @@ const crumbs = [
     </form>
   </article>
   <div class="mx-auto max-w-6xl px-4 py-8">
+    <CalendlyEmbed />
+  </div>
+  <div class="mx-auto max-w-6xl px-4 pb-8">
     <OfficeVisit />
   </div>
   <div class="mx-auto max-w-6xl px-4 pb-4">

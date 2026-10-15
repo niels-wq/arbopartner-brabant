@@ -1,4 +1,5 @@
 ---
+import CalendlyButton from "../../components/CalendlyButton.astro";
 import Figure from "../../components/Figure.astro";
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
@@ -70,6 +71,7 @@ const review = reviewsAboutNiels()[0];
     <div class="mt-6 flex flex-col gap-3 sm:flex-row">
       <a class="rounded-full bg-green-800 px-5 py-3 text-center font-semibold" data-cta={`pakket-${pack.slug}-offerte`} href={`/offerte?pakket=${encodeURIComponent(pack.offer)}`}>Offerte voor {pack.name}</a>
       <a class="rounded-full border border-green-800 px-5 py-3 text-center font-semibold" data-cta={`pakket-${pack.slug}-advies`} href="/adviesgesprek">Vrijblijvend kennismaken</a>
+      <CalendlyButton cta={`pakket-${pack.slug}-pagina-calendly`} />
     </div>
     <h2 class="mt-12 font-serif text-3xl text-green-950">Wat een opdrachtgever over Niels schreef</h2>
     <p class="mt-2 text-sm">Dit citaat noemt Niels en gaat over Matchvermogen, niet over pakket {pack.name}.</p>

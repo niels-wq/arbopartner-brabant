@@ -1,4 +1,6 @@
 ---
+import CalendlyButton from "./CalendlyButton.astro";
+import { calendlyKennismaking } from "../data/calendly";
 import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
 ---
 
@@ -25,6 +27,7 @@ import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
       <a data-cta="fab-bel" data-channel="phone" href={phoneHref}>Bel {site.parent.phoneDisplay}</a>
       <a data-cta="fab-whatsapp" data-channel="whatsapp" href={whatsappHref} rel="noopener">WhatsApp {site.parent.whatsappDisplay}</a>
       <a data-cta="fab-mail" data-channel="email" href={mailHref}>Mail {site.parent.email}</a>
+      <CalendlyButton class="" cta="fab-calendly" />
     </div>
   </details>
 </div>
@@ -43,6 +46,7 @@ import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
     <button type="button">Wat kost een casemanager?</button>
     <button type="button">Zijn jullie een arbodienst?</button>
     <button type="button">Waar werken jullie?</button>
+    <button type="button" data-calendly={calendlyKennismaking.id} data-calendly-url={calendlyKennismaking.url} data-cta="chat-calendly">{calendlyKennismaking.label}</button>
     <button type="button" data-lead="1">Ik wil teruggebeld worden</button>
   </div>
   <form class="ap-chat-form" data-ask>
@@ -71,6 +75,7 @@ import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
     <p class="mt-2">Een gratis gesprek over uw verzuimcijfers, of een terugbelverzoek. Een keer per bezoek, zonder teller en zonder verplichting.</p>
     <div class="ap-actions">
       <button class="btn" type="button" data-choice="verzuimscan">Gratis verzuimscan</button>
+      <CalendlyButton class="btn" cta="exit-calendly" />
       <button class="btn btn-ghost" type="button" data-choice="terugbel">Terugbelverzoek</button>
     </div>
     <form class="ap-lead mt-3" data-scan hidden>

@@ -74,7 +74,8 @@ export const site = {
       "PLACEHOLDER: een eigen mailbox voor Arbopartner Brabant is nog niet ingesteld. Mail gaat naar info@matchvermogen.nl.",
     btw: "PLACEHOLDER: het btw-identificatienummer staat niet op matchvermogen.nl.",
     team: "Directe nummers van casemanagers staan niet op de teampagina van matchvermogen.nl. Die verzinnen we niet.",
-    agenda: "PLACEHOLDER: er is nog geen online agendalink voor het adviesgesprek.",
+    agenda:
+      "De online agenda is de belafspraak van 15 minuten op calendly.com/matchvermogen/call-15-min. Die link staat op arbeidsdeskundig.com. Een eventtype voor een kantoorgesprek stond niet in de bron van matchvermogen.nl, arbeidsdeskundig.com of werkhervattingskas.nl.",
     bewaartermijn:
       "PLACEHOLDER: de bewaartermijn van formuliergegevens is nog niet vastgesteld.",
     opzegtermijn:
