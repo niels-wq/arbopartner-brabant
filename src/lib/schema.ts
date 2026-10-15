@@ -1,5 +1,6 @@
 import { site, absoluteUrl } from "../data/site";
 import { places } from "../data/places";
+import { team, type TeamMember } from "../data/team";
 
 export type Crumb = { name: string; path: string };
 export type FaqItem = { q: string; a: string };
@@ -111,19 +112,36 @@ export function articleLd(input: {
   };
 }
 
-export function personLd() {
+function personNode(member: TeamMember) {
+  const largest = member.widths[member.widths.length - 1];
+  const niels = member.slug === "niels-alderding";
   return {
     "@type": "Person",
-    "@id": `${site.domain}/#niels-alderding`,
-    name: site.founder.name,
-    jobTitle: site.founder.role,
-    description:
-      "Oprichter van Matchvermogen B.V. en verantwoordelijk voor de kennisartikelen van het label Arbopartner Brabant. Algemene informatie voor werkgevers, geen advies over één dossier.",
-    image: absoluteUrl("/mensen/niels-alderding-800.webp"),
-    url: absoluteUrl("/over-ons"),
-    worksFor: { "@id": `${site.domain}/#organisatie` },
-    sameAs: [site.parent.url, site.founder.quoteUrl],
+    "@id": niels ? `${site.domain}/#niels-alderding` : `${site.domain}/#${member.slug}`,
+    name: member.name,
+    jobTitle: member.role,
+    description: niels
+      ? `${member.bio} Hij is verantwoordelijk voor de kennisartikelen van het label Arbopartner Brabant. Algemene informatie voor werkgevers, geen advies over één dossier.`
+      : `${member.name} staat op de teampagina van matchvermogen.nl als ${member.role}. Een langere bio publiceert die pagina niet.`,
+    image: absoluteUrl(`/mensen/${member.slug}-${largest}.webp`),
+    url: absoluteUrl(niels ? "/over-ons" : "/team"),
+    worksFor: niels
+      ? { "@id": `${site.domain}/#organisatie` }
+      : member.group === "matchvermogen"
+        ? { "@type": "Organization", name: site.parent.legalName, url: site.parent.url }
+        : { "@type": "Organization", name: "Best Match Re-integratie", url: "https://bestmatchbv.nl" },
+    ...(niels ? { sameAs: [site.parent.url, site.founder.quoteUrl, "https://matchvermogen.nl/over-matchvermogen/"] } : {}),
   };
+}
+
+export function personLd() {
+  const niels = team.find((member) => member.slug === "niels-alderding");
+  if (!niels) throw new Error("Niels ontbreekt in het team");
+  return personNode(niels);
+}
+
+export function teamPeopleLd() {
+  return team.filter((member) => member.slug !== "niels-alderding").map((member) => personNode(member));
 }
 
 export function graph(nodes: Record<string, unknown>[]) {

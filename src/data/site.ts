@@ -58,7 +58,7 @@ export const site = {
   adviesMinuten: 30,
   founder: {
     name: "Niels Alderding",
-    role: "Oprichter van Matchvermogen",
+    role: "Directeur, arbeidsdeskundige",
     quote:
       "Geen zin om eerst een heel formulier in te vullen? Plan gewoon een gratis kop koffie in — ik denk graag vrijblijvend met je mee.",
     quoteUrl: "https://www.arbeidsdeskundig.com/over-ons",
@@ -73,7 +73,7 @@ export const site = {
     eigenEmail:
       "PLACEHOLDER: een eigen mailbox voor Arbopartner Brabant is nog niet ingesteld. Mail gaat naar info@matchvermogen.nl.",
     btw: "PLACEHOLDER: het btw-identificatienummer staat niet op matchvermogen.nl.",
-    team: "PLACEHOLDER: namen, foto’s en directe nummers van casemanagers publiceren we pas na hun akkoord.",
+    team: "Directe nummers van casemanagers staan niet op de teampagina van matchvermogen.nl. Die verzinnen we niet.",
     agenda: "PLACEHOLDER: er is nog geen online agendalink voor het adviesgesprek.",
     bewaartermijn:
       "PLACEHOLDER: de bewaartermijn van formuliergegevens is nog niet vastgesteld.",
@@ -93,6 +93,11 @@ export const officeConversation = {
     "Voor de werkgever is het voordeel de kans op minder en korter verzuim. We hangen daar geen cijfer aan.",
   care:
     "Het is een uitnodiging om in beweging te blijven, geen straf. Wie echt niet kan reizen, spreken we op het bedrijf of online.",
+} as const;
+
+export const zzpFaq = {
+  q: "Werken jullie met zzp-casemanagers?",
+  a: "Ja. Naast een vaste kern werken we met een netwerk van gecertificeerde zzp-professionals. Daardoor kunnen we snel opschalen, per casus de juiste specialist inzetten en wisselen als de klik ontbreekt. De namen, functies en foto’s op de teampagina zijn overgenomen van matchvermogen.nl. Die pagina vermeldt niet wie in loondienst is en wie als zzp’er meewerkt. Dat, en de certificering van de ingezette professional, staat in de offerte. Een zzp’er presenteren we niet als medewerker in loondienst.",
 } as const;
 
 export const phoneHref = `tel:${site.parent.phoneTel}`;

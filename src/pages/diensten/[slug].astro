@@ -8,6 +8,7 @@ import Figure from "../../components/Figure.astro";
 import Mark from "../../components/Mark.astro";
 import InlineLead from "../../components/InlineLead.astro";
 import { services } from "../../data/services";
+import { zzpFaq } from "../../data/site";
 
 const icon: Record<string, "calendar" | "chart" | "document" | "balance" | "route" | "shield"> = {
   "casemanager-detachering": "calendar",
@@ -24,6 +25,7 @@ export function getStaticPaths() {
 }
 
 const { service } = Astro.props;
+const faq = [...service.faq, zzpFaq];
 const crumbs = [
   { name: "Home", path: "/" },
   { name: "Diensten", path: "/diensten" },
@@ -31,7 +33,7 @@ const crumbs = [
 ];
 ---
 
-<Base title={service.title} description={service.description} jsonLd={[crumbsLd(crumbs), faqLd(service.faq)]}>
+<Base title={service.title} description={service.description} jsonLd={[crumbsLd(crumbs), faqLd(faq)]}>
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">{service.title}</h1>
@@ -49,7 +51,7 @@ const crumbs = [
       </p>
     )}
     <HireBenefits />
-    <FaqList items={service.faq} />
+    <FaqList items={faq} />
   </article>
   <div class="mx-auto max-w-3xl px-4">
     <InlineLead source={`dienst-${service.slug}`} title="Kort doorgeven over deze dienst" text="Twee stappen: eerst uw nummer, daarna naam en organisatie. We bellen terug. Dit formulier is nog geen offerte." />

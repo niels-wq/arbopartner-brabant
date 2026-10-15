@@ -3,7 +3,7 @@ import Figure from "../components/Figure.astro";
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import ReviewCard from "../components/ReviewCard.astro";
-import { reviews, reviewNotice } from "../data/reviews";
+import { reviews, reviewNotice, reviewsAboutNiels } from "../data/reviews";
 import { crumbsLd } from "../lib/schema";
 
 const crumbs = [
@@ -15,7 +15,8 @@ const reviewLd = reviews.map((review) => ({
   "@type": "Review",
   reviewBody: review.quote,
   datePublished: review.dateIso,
-  author: { "@type": "Person", name: review.name },
+  author: { "@type": "Person", name: review.author },
+  reviewRating: { "@type": "Rating", ratingValue: review.rating, bestRating: 5 },
   itemReviewed: {
     "@type": "Organization",
     name: "Matchvermogen",
@@ -30,10 +31,20 @@ const reviewLd = reviews.map((review) => ({
   <header class="mx-auto max-w-6xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Reviews</h1>
     <Figure id="pagina-reviews" eager class="mt-6" />
-    <p class="mt-4 max-w-3xl">{reviewNotice} Matchvermogen schrijft op de eigen site dat opdrachtgevers het bureau 5/5 sterren op Google geven. Dat getal nemen we niet over als score van Arbopartner Brabant, en het staat niet in een samengestelde beoordeling op deze site.</p>
+    <p class="mt-4 max-w-3xl">{reviewNotice}</p>
+    <p class="mt-3 max-w-3xl">De paginabron van matchvermogen.nl zet bij deze 25 citaten een totaalscore van 5 uit 5. In diezelfde bron heeft één citaat een 4. Op arbeidsdeskundig.com staat 4,9 uit 5 op basis van 21 of meer Google-reviews, zonder exact aantal. Een Trustoo-profiel van Matchvermogen is niet gevonden. Daarom staat hier geen samengestelde score in de schema-code.</p>
     <p class="mt-3"><a class="font-semibold underline" href="https://matchvermogen.nl/referenties/">Alle referenties op matchvermogen.nl</a></p>
   </header>
-  <div class="mx-auto grid max-w-6xl gap-4 px-4 py-8 md:grid-cols-2">
-    {reviews.map((review) => <ReviewCard review={review} />)}
-  </div>
+  <section class="mx-auto max-w-6xl px-4 pt-8">
+    <h2 class="font-serif text-3xl text-green-950">Citaten waarin Niels wordt genoemd</h2>
+    <div class="mt-4 grid gap-4 md:grid-cols-2">
+      {reviewsAboutNiels().map((review) => <ReviewCard review={review} />)}
+    </div>
+  </section>
+  <section class="mx-auto max-w-6xl px-4 py-8">
+    <h2 class="font-serif text-3xl text-green-950">Overige citaten</h2>
+    <div class="mt-4 grid gap-4 md:grid-cols-2">
+      {reviews.filter((review) => !review.mentionsNiels).map((review) => <ReviewCard review={review} />)}
+    </div>
+  </section>
 </Base>

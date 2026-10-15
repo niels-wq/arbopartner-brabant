@@ -2,43 +2,65 @@
 import Figure from "../components/Figure.astro";
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
-import { site } from "../data/site";
-import { crumbsLd } from "../lib/schema";
+import FaqList from "../components/FaqList.astro";
+import ReviewCard from "../components/ReviewCard.astro";
+import TeamPhoto from "../components/TeamPhoto.astro";
+import { bestMatchTeam, groupTitle, matchvermogenTeam, teamSource } from "../data/team";
+import { zzpFaq } from "../data/site";
+import { reviewsAboutNiels } from "../data/reviews";
+import { crumbsLd, faqLd, teamPeopleLd } from "../lib/schema";
 
 const crumbs = [
   { name: "Home", path: "/" },
   { name: "Team", path: "/team" },
 ];
+const faq = [
+  zzpFaq,
+  {
+    q: "Waarom heeft niet iedereen een bio?",
+    a: "Matchvermogen publiceert op de teampagina naam, functie en foto. Een langere tekst staat daar alleen bij Niels Alderding, in het stuk over de oprichting. Die tekst nemen we over. Voor de anderen verzinnen we geen bio.",
+  },
+];
+const groups = [
+  { title: groupTitle("matchvermogen"), people: matchvermogenTeam },
+  { title: groupTitle("best-match"), people: bestMatchTeam },
+];
+const nielsReviews = reviewsAboutNiels().slice(0, 2);
 ---
 
-<Base title="Team" description="De casemanagers van Arbopartner Brabant stellen we persoonlijk voor. Namen en foto’s volgen na hun akkoord." jsonLd={[crumbsLd(crumbs)]}>
+<Base
+  title="Team"
+  description="Het team van Matchvermogen en Best Match Re-integratie, met de namen, functies en foto’s van matchvermogen.nl. Arbopartner werkt met een vaste kern en gecertificeerde zzp-casemanagers."
+  jsonLd={[crumbsLd(crumbs), faqLd(faq), ...teamPeopleLd()]}
+>
   <Breadcrumbs crumbs={crumbs} />
-  <article class="mx-auto max-w-3xl px-4 pt-6">
-    <h1 class="font-serif text-5xl text-green-950">Uw vaste gezicht</h1>
-    <Figure id="pagina-team" eager class="mt-6" />
-    <figure class="mt-6 flex items-center gap-4">
-      <img class="h-24 w-20 rounded-2xl object-cover object-[center_20%]" src="/mensen/niels-alderding-240.webp" width="240" height="300" alt="Niels Alderding, oprichter van Matchvermogen" />
-      <figcaption>
-        <p class="font-serif text-2xl text-green-950">Niels Alderding</p>
-        <p>Oprichter van Matchvermogen, het moederbedrijf. Hij is niet de wekelijkse casemanager van dit label. <a class="underline" href="/over-ons">Over hem</a></p>
-      </figcaption>
-    </figure>
-    <p class="mt-4 text-lg">Elke klant krijgt één casemanager, met naam, regio en een rechtstreeks nummer. Die gegevens zetten we hier pas als de persoon zelf akkoord is. Tot die tijd verzinnen we geen portretten van casemanagers.</p>
-    <p class="mt-4 rounded-3xl bg-ochre-200 px-5 py-4">{site.placeholders.team}</p>
-    <div class="mt-6 grid gap-4 sm:grid-cols-2">
-      <div class="rounded-[2rem] border border-dashed border-ochre-700 bg-white/60 p-6">
-        <p class="text-sm font-semibold uppercase tracking-wide text-ochre-800">Placeholder</p>
-        <h2 class="mt-2 font-serif text-2xl">Casemanager, regio Meierij</h2>
-        <p class="mt-2 text-sm">Naam, foto en telefoon volgen.</p>
-      </div>
-      <div class="rounded-[2rem] border border-dashed border-ochre-700 bg-white/60 p-6">
-        <p class="text-sm font-semibold uppercase tracking-wide text-ochre-800">Placeholder</p>
-        <h2 class="mt-2 font-serif text-2xl">Casemanager, regio Zuidoost-Brabant</h2>
-        <p class="mt-2 text-sm">Naam, foto en telefoon volgen.</p>
-      </div>
+  <article class="mx-auto max-w-6xl px-4 pt-6">
+    <h1 class="font-serif text-5xl text-green-950">Het team</h1>
+    <Figure id="pagina-team" eager class="mt-6 max-w-3xl" />
+    <p class="mt-4 max-w-3xl text-lg">Dit zijn de mensen die Matchvermogen op de <a class="underline" href={teamSource}>teampagina</a> publiceert, in dezelfde volgorde, met dezelfde functie. De foto’s komen van die pagina. Een gezicht dat daar niet staat, zetten we hier niet bij.</p>
+    <p class="mt-4 max-w-3xl">{zzpFaq.a}</p>
+    {groups.map((group) => (
+      <section class="mt-10">
+        <h2 class="font-serif text-3xl text-green-950">{group.title}</h2>
+        <ul class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {group.people.map((person) => (
+            <li class="rounded-3xl bg-white p-4 ring-1 ring-line">
+              <TeamPhoto member={person} sizes="(min-width: 1024px) 18rem, (min-width: 640px) 40vw, 100vw" class="max-h-80 w-full rounded-2xl bg-sand-100 object-contain" />
+              <h3 class="mt-3 font-serif text-2xl text-green-950">{person.name}</h3>
+              <p class="text-ink-soft">{person.role}</p>
+              {person.bio && <p class="mt-3 text-sm">{person.bio}</p>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+    <p class="mt-6 max-w-3xl text-sm text-ink-soft">Best Match Re-integratie staat op dezelfde teampagina, onder een eigen kop. De functie bij elke naam is de functie die Matchvermogen daar publiceert.</p>
+    <h2 class="mt-10 font-serif text-3xl text-green-950">Wat opdrachtgevers over Niels schreven</h2>
+    <p class="mt-2 max-w-3xl text-sm">Letterlijke citaten van matchvermogen.nl waarin Niels wordt genoemd. Ze gaan over Matchvermogen, niet over dit label.</p>
+    <div class="mt-4 grid gap-4 md:grid-cols-2">
+      {nielsReviews.map((review) => <ReviewCard review={review} />)}
     </div>
-    <h2 class="mt-8 font-serif text-3xl">Hoe de match werkt</h2>
-    <p class="mt-3">In het adviesgesprek kijken we naar omvang, type verzuim en of er een conflict of een WIA-dossier speelt. Daarna stellen we een medior, medior+ of senior voor. U spreekt die persoon voordat de uren ingaan. Past het niet, dan zoeken we iemand anders. U zit niet vast aan een naam die u nooit heeft gezien.</p>
-    <p class="mt-3">De arbeidsdeskundige is een andere rol, bij Matchvermogen. Die komt erbij als het dossier een oordeel over passend werk nodig heeft, niet als vervanger van het wekelijkse contact.</p>
+    <p class="mt-3"><a class="font-semibold underline" href="/reviews">Alle citaten</a></p>
+    <FaqList items={faq} />
   </article>
 </Base>
