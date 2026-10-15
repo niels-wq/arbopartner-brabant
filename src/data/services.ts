@@ -31,7 +31,7 @@ export const services: Service[] = [
         heading: "Waarom detacheren in plaats van een loket",
         paragraphs: [
           "Een vast gezicht betekent dat een medewerker niet telkens opnieuw zijn verhaal doet. De casemanager weet welk werk er op de afdeling ligt en welke leidinggevende terughoudend is met aangepaste taken. Dat scheelt weken in een dossier dat anders blijft liggen.",
-          "Detacheren geeft u zekerheid die een dienstverband niet vanzelf heeft. Wordt de casemanager ziek, dan regelen wij vervanging. U bouwt geen transitievergoeding op, u werft niet, en u schaalt de uren mee met het aantal dossiers. We claimen niet dat dit goedkoper is dan iemand in dienst. De vergelijking per productief uur maakt u zelf.",
+          "Detacheren geeft u zekerheid die een dienstverband niet vanzelf heeft. Wordt de casemanager ziek of gaat die met vakantie, dan neemt een collega het dossier over. U werft niet, u bouwt geen transitievergoeding op, en u schaalt de uren mee met het aantal dossiers. De wijzigingstermijn staat in de offerte. Zolang u geen volle werkweek nodig heeft, is inhuren meestal voordeliger dan een fulltime kracht: u betaalt alleen de afgenomen uren. De vergelijking met bronnen staat op de pagina Casemanager inhuren of in dienst nemen. Bij een hoge caseload kan een dienstverband in euro's lager zijn. Dan blijven continuïteit en onafhankelijkheid staan.",
         ],
       },
       {

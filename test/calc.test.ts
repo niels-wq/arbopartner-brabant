@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { compareEmployment, dayCost, matchCasemanager, savings } from "../src/lib/calc.ts";
+import { compareEmployment, dayCost, defaultCompareInput, grossMonthlyFromCbs, matchCasemanager, savings } from "../src/lib/calc.ts";
+import { savingHeadline } from "../src/lib/compare-view.ts";
 import { pct } from "../src/lib/format.ts";
 import { hourlySavingPct, monthlyCost } from "../src/lib/rates.ts";
 
@@ -105,34 +106,40 @@ describe("besparing", () => {
 });
 
 describe("vergelijking", () => {
-  it("zet detachering naast een productief uur in dienst", () => {
-    const result = compareEmployment({
-      level: "medior",
-      weeklyHours: 10,
-      grossMonthly: 4000,
-      contractHours: 40,
-      largeEmployer: true,
-      temporaryContract: false,
-      pensionPct: 0,
-      absencePct: 5.4,
-      sickPayPct: 100,
-      replaceAbsence: true,
-      replacementRate: 102.5,
-      recruitmentCost: 5000,
-      tenureYears: 3,
-      vacancyCalendarDays: 60,
-      coverVacancy: true,
-      onboardingWeeks: 4,
-      onboardingProductivity: 0.5,
-      idlePct: 0.15,
-      publicHolidays: 7,
-    });
+  it("betaalt bij tien uur een volledig contract en niet een fractie fte", () => {
+    const input = defaultCompareInput();
+    assert.equal(input.grossMonthly, grossMonthlyFromCbs(40));
+    const result = compareEmployment(input);
     assert.equal(result.detachedHourly, 112.5);
     assert.equal(result.detachedYear, 58500);
-    assert.ok(result.employed.productiveHours > 1400);
-    assert.ok(result.employed.productiveHours < 1600);
-    assert.ok(result.employed.costPerProductiveHour < result.detachedHourly);
-    assert.ok(result.employed.fteNeeded < 0.5);
+    assert.equal(result.billedHours, 10);
+    assert.equal(result.people, 1);
+    assert.equal(result.employmentYear, result.employed.annualPerPerson);
+    assert.ok(result.saving > 50000);
+    assert.equal(savingHeadline(result).positive, true);
+    assert.match(savingHeadline(result).text, /^U bespaart circa /);
     assert.equal(Math.round(result.employed.premiumPct * 10000), 1849);
+    const lineSum = result.lines.reduce((sum, line) => sum + line.amount, 0);
+    assert.equal(Math.round(lineSum), Math.round(result.employed.annualPerPerson));
+  });
+
+  it("houdt een hoge caseload eerlijk", () => {
+    const senior = compareEmployment(defaultCompareInput({ level: "senior", neededHours: 24 }));
+    assert.equal(senior.detachedHourly, 125);
+    assert.equal(senior.detachedYear, 156000);
+    assert.ok(senior.saving < 0);
+    assert.equal(savingHeadline(senior).positive, false);
+    assert.match(savingHeadline(senior).text, /dienstverband circa/);
+    const full = compareEmployment(defaultCompareInput({ neededHours: 40 }));
+    assert.equal(full.people, 2);
+  });
+
+  it("laat een eindejaarsuitkering en de transitievergoeding de jaarkosten bewegen", () => {
+    const base = compareEmployment(defaultCompareInput());
+    const withBonus = compareEmployment(defaultCompareInput({ yearEndPct: 6.5 }));
+    assert.ok(withBonus.employmentYear > base.employmentYear);
+    const withoutTransition = compareEmployment(defaultCompareInput({ includeTransition: false }));
+    assert.ok(withoutTransition.employmentYear < base.employmentYear);
+    assert.equal(withoutTransition.employed.transitionAnnual, 0);
   });
 });

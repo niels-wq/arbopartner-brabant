@@ -3,6 +3,7 @@ import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import FaqList from "../../components/FaqList.astro";
 import CtaBand from "../../components/CtaBand.astro";
+import HireBenefits from "../../components/HireBenefits.astro";
 import InlineLead from "../../components/InlineLead.astro";
 import { services } from "../../data/services";
 import { crumbsLd, faqLd } from "../../lib/schema";
@@ -35,6 +36,7 @@ const crumbs = [
         Zustermerk {service.sister.name}: <a class="font-semibold underline" href={service.sister.url}>{service.sister.text}</a>
       </p>
     )}
+    <HireBenefits />
     <FaqList items={service.faq} />
   </article>
   <div class="mx-auto max-w-3xl px-4">

@@ -1,0 +1,63 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CompareCalc from "../components/calculators/CompareCalc.astro";
+import CtaBand from "../components/CtaBand.astro";
+import FaqList from "../components/FaqList.astro";
+import HireBenefits from "../components/HireBenefits.astro";
+import { defaultScenario, scenarioNote } from "../lib/compare-view";
+import { euro } from "../lib/format";
+import { crumbsLd, faqLd } from "../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Casemanager inhuren of in dienst nemen?", path: "/casemanager-inhuren-of-in-dienst" },
+];
+const scenario = defaultScenario();
+const faq = [
+  {
+    q: "Is een casemanager inhuren goedkoper dan iemand in dienst nemen?",
+    a: "Niet bij elke caseload. Heeft u duidelijk minder uren nodig dan een fulltime contract, dan betaalt u bij een dienstverband het volle salaris en bij inhuren alleen de afgenomen uren. In het standaardscenario van de tool, medior en tien uur per week, is inhuren daardoor lager. Bij een bijna volle werkweek kan een dienstverband in euro's lager zijn. De tool laat dat zien en zet dan de andere voordelen ernaast.",
+  },
+  {
+    q: "Welke kosten zitten er in het dienstverband?",
+    a: "Bruto loon, vakantiegeld, eindejaarsuitkering als u die invult, werkgeverspremies, pensioen als u dat invult, verzuim en vervanging, verlof en feestdagen, werving, inwerktijd als u die invult, opleiding, registratie, laptop, lease en reiskosten als u die invult, en de jaarlijkse opbouw van de transitievergoeding. Leegloop bij een lage caseload zit in het volle contract. Een jaar volledige uitval tonen we ernaast, omdat het CBS-gemiddelde lange gevallen al bevat.",
+  },
+  {
+    q: "Waar komt het standaard maandloon vandaan?",
+    a: "Uit het mediaan bruto uurloon van CBS StatLine 86355NED, beroepsgroep specialisten personeels- en loopbaanontwikkeling, 2025 voorlopig. Het maandloon is uurloon maal contracturen maal 52 gedeeld door 12. Dat is een afleiding, geen CBS-maandloon. De groep is breder dan alleen casemanagers verzuim. U kunt het loon vervangen door het bedrag dat u zelf zou bieden.",
+  },
+  {
+    q: "Wat als we wel een volle caseload hebben?",
+    a: "Dan blijft de tool rekenen. Ligt het dienstverband lager, dan zegt de uitkomst dat ook. Het voordeel is dan kwalitatief: een vaste casemanager met vervanging bij ziekte of vakantie, onafhankelijkheid, wisselen zonder ontslag, geen werkgeversrisico en uren die u meeschaalt. De wijzigingstermijn staat in de offerte.",
+  },
+];
+const jsonLd = [crumbsLd(crumbs), faqLd(faq)];
+---
+
+<Base
+  title="Casemanager inhuren of in dienst nemen?"
+  description="Vergelijk de jaarkosten van een casemanager in dienst met inhuren. Bronnen van CBS, cao en werkgeverslasten, aannames die u aanpast, en een eerlijke uitkomst bij een hoge caseload."
+  jsonLd={jsonLd}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <header class="mx-auto max-w-6xl px-4 pt-6">
+    <h1 class="max-w-4xl font-serif text-5xl text-green-950">Casemanager inhuren of in dienst nemen?</h1>
+    <p class="mt-4 max-w-3xl text-lg">Een casemanager inhuren betekent dat u de uren afneemt die de dossiers vragen. Een casemanager in dienst is een volledig contract: salaris, premies en werkplek lopen door, ook in een maand met weinig nieuwe gevallen. De vergelijking hieronder is een total cost of ownership. Elke aanname heeft een bron en is aan te passen. De uitkomst is een indicatie, geen offerte.</p>
+    {scenario.headline.positive && (
+      <p class="mt-4 max-w-3xl text-lg font-semibold text-green-950">{scenario.headline.text}. {scenarioNote()}</p>
+    )}
+  </header>
+  <HireBenefits />
+  <div class="mx-auto max-w-6xl px-4 pb-4">
+    <h2 class="font-serif text-4xl text-green-950">De vergelijking</h2>
+    <p class="mt-3 max-w-3xl">Het grote bedrag bovenaan is het verschil in jaarkosten. De grafiek zet het dienstverband naast inhuren. Daaronder staat waarom het verschil zo uitvalt. In het standaardscenario is het verschil {euro(scenario.result.saving, true)} per jaar.</p>
+  </div>
+  <div class="mx-auto max-w-6xl px-4 pb-8">
+    <CompareCalc />
+  </div>
+  <div class="mx-auto max-w-6xl px-4">
+    <FaqList items={faq} title="Vragen over inhuren of in dienst" />
+  </div>
+  <CtaBand title="Uw uren omzetten in een offerte" text="De vergelijking is een scenario. De offerte bevestigt het tarief en de wijzigingstermijn. Het gesprek van 30 minuten verplicht u tot niets." />
+</Base>

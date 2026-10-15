@@ -55,6 +55,11 @@ const server = createServer(async (req, res) => {
   try {
     if (await handleApi(req, res)) return;
     const url = new URL(req.url || "/", "http://localhost");
+    if (url.pathname === "/detacheren-of-in-dienst") {
+      res.writeHead(301, { location: "/casemanager-inhuren-of-in-dienst" + url.search });
+      res.end();
+      return;
+    }
     if (url.pathname === "/sitemap.xml") {
       res.writeHead(301, { location: "/sitemap-index.xml" });
       res.end();

@@ -37,6 +37,10 @@ if (root && !root.dataset.ready) {
 
   const answers: { test: RegExp; text: string }[] = [
     {
+      test: /dienstverband|in dienst|goedkoper|inhuren/,
+      text: "Zolang u geen volle werkweek nodig heeft, is inhuren vaak voordeliger dan een fulltime casemanager in dienst. U betaalt de uren die u afneemt. Een dienstverband betaalt u ook bij een lage caseload. De vergelijking met bronnen staat op de pagina Casemanager inhuren of in dienst nemen. Bij een hoge caseload kan een dienstverband in euro's lager zijn. Dan blijven continuïteit, onafhankelijkheid en het ontbreken van werkgeversrisico staan.",
+    },
+    {
       test: /kost|tarief|prijs|uur|premium|basis/,
       text: "Richtprijzen, exclusief btw: medior vanaf €102,50 per uur bij 24 uur of meer, tot €137,50 voor een senior bij 10 uur. Reistijd binnen 45 minuten van Uden zit erin. De tarievenpagina zet de blokken naast elkaar. Dit is geen offerte.",
     },
@@ -47,10 +51,6 @@ if (root && !root.dataset.ready) {
     {
       test: /werkgebied|uden|brabant|reistijd|waar werken/,
       text: "Het werkgebied is ongeveer 45 minuten rijden van Uden: onder meer Veghel, Oss, Den Bosch, Eindhoven en Helmond. De reistijd zit in het tarief.",
-    },
-    {
-      test: /dienstverband|in dienst|detach|goedkoper/,
-      text: "Detacheren scheelt werving, ziekterisico op deze persoon en een transitievergoeding. We zeggen niet dat het goedkoper is. De vergelijking per productief uur staat op de pagina Detacheren of in dienst.",
     },
     {
       test: /spoed|ziek|vandaag|terugbel/,

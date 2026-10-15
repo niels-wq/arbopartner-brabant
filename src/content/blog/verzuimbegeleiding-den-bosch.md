@@ -46,7 +46,7 @@ Rosmalen hoort bij de gemeente. We maken er geen aparte verkooppagina van. De do
 
 In september 2026 circuleerden vacatures voor een casemanager in ’s-Hertogenbosch rond €3.500 tot €4.500 bruto per maand bij een volle werkweek. Dat is dezelfde band die STAVV voor een medior noemt. De stad heeft dus een arbeidsmarkt voor deze functie. Waarom dan detacheren?
 
-Omdat veertig uur per week meer is dan veel mkb-bedrijven nodig hebben, en omdat een parttime vacature van twaalf uur lastig vervulbaar is. Omdat een zieke eigen casemanager het dossier stillegt op het moment dat u juist iemand nodig heeft. En omdat een dienstverband een transitievergoeding opbouwt op de dag dat u afscheid neemt. Geen van die zinnen is een prijsclaim. De [vergelijking per productief uur](/detacheren-of-in-dienst) kan zelfs laten zien dat een volle fte in dienst goedkoper is per uur dat er echt wordt gewerkt. Voor een bedrijf dat tien uur per week nodig heeft, is die fte geen reële vorm. Dan koopt u een blok.
+Omdat veertig uur per week meer is dan veel mkb-bedrijven nodig hebben, en omdat een parttime vacature van twaalf uur lastig vervulbaar is. Omdat een zieke eigen casemanager het dossier stillegt op het moment dat u juist iemand nodig heeft. En omdat een dienstverband een transitievergoeding opbouwt op de dag dat u afscheid neemt. De [vergelijking inhuren of in dienst](/casemanager-inhuren-of-in-dienst) zet een fulltime contract naast de uren die u afneemt. Bij tien uur per week betaalt u die fulltime kracht ook als de caseload laag is. Bij een bijna volle werkweek kan een dienstverband in euro’s lager uitvallen. De tool zegt dat dan, en laat de andere voordelen staan.
 
 ## Hoe een blok in Den Bosch eruitziet
 

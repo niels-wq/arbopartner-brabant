@@ -60,7 +60,7 @@ Nixpacks kan ook, als u de Dockerfile niet gebruikt: startcommando `npm run buil
 
 - `/welke-casemanager` — medior, medior+ of senior, plus uurblok.
 - `/verzuimkosten-berekenen` — TNO-dagkosten. Daling is een scenario, geen belofte.
-- `/detacheren-of-in-dienst` — kosten per productief uur. Indicatie, geen offerte. Geen claim dat detacheren goedkoper is.
+- `/casemanager-inhuren-of-in-dienst` — jaarkosten van inhuren naast een dienstverband. Bronnen en aanpasbare aannames. Bij een hoge caseload blijft de som eerlijk. `/detacheren-of-in-dienst` verwijst door.
 
 ## Placeholders
 

@@ -195,14 +195,40 @@ export function savings(input: SavingsInput): SavingsResult {
   };
 }
 
+export const CBS_WAGE = {
+  hourly: 32.8,
+  year: 2025,
+  provisional: true,
+  group: "Specialisten personeels- en loopbaanontwikkeling",
+  key: "A000198",
+  source: "https://opendata.cbs.nl/statline/#/CBS/nl/dataset/86355NED/table",
+  sourceLabel: "CBS StatLine 86355NED, bruto uurloon naar beroep",
+} as const;
+
+export const TCO = {
+  holidayAllowance: 0.08,
+  statutoryLeaveWeeks: 4,
+  publicHolidays2026: 6,
+  transitionMax: 102_000,
+  rnvcYear: 380,
+  crovExample: 4290,
+  kmRate: 0.25,
+} as const;
+
+export function grossMonthlyFromCbs(contractHours: number): number {
+  return (CBS_WAGE.hourly * Math.max(0, contractHours) * 52) / 12;
+}
+
 export type CompareInput = {
   level: LevelId;
-  weeklyHours: number;
+  neededHours: number;
   grossMonthly: number;
   contractHours: number;
   largeEmployer: boolean;
   temporaryContract: boolean;
+  whkPct: number;
   pensionPct: number;
+  yearEndPct: number;
   absencePct: number;
   sickPayPct: number;
   replaceAbsence: boolean;
@@ -213,9 +239,18 @@ export type CompareInput = {
   coverVacancy: boolean;
   onboardingWeeks: number;
   onboardingProductivity: number;
-  idlePct: number;
+  trainingOnce: number;
+  registrationYear: number;
+  softwareYear: number;
+  leaseYear: number;
+  kmPerWeek: number;
+  kmRate: number;
+  includeTransition: boolean;
   publicHolidays: number;
+  nonProductivePct: number;
 };
+
+export type CostLine = { label: string; amount: number; note: string };
 
 export type CompareResult = {
   detachedHourly: number;
@@ -223,9 +258,15 @@ export type CompareResult = {
   detachedMonth: number;
   block: Block;
   billedHours: number;
+  neededHours: number;
+  people: number;
+  employmentYear: number;
+  saving: number;
+  lines: CostLine[];
   employed: {
     grossYear: number;
     holiday: number;
+    yearEnd: number;
     premiumBase: number;
     premiumPct: number;
     premiums: number;
@@ -237,78 +278,165 @@ export type CompareResult = {
     holidayHours: number;
     availableHours: number;
     absenceHours: number;
-    idleHours: number;
+    nonProductiveHours: number;
     productiveHours: number;
     productiveHoursWeek: number;
+    unusedHoursWeek: number;
     replacementCost: number;
     recruitmentAnnual: number;
     vacancyHours: number;
     vacancyAnnual: number;
-    onboardingLostHours: number;
     onboardingAnnual: number;
+    trainingAnnual: number;
+    registrationYear: number;
+    workplaceYear: number;
+    travelYear: number;
+    transitionAnnual: number;
     annualPerPerson: number;
-    costPerProductiveHour: number;
-    fteNeeded: number;
-    annualForSameHours: number;
-    transitionAfter3Years: number;
+    longAbsenceYear: number;
   };
 };
 
-export function defaultGrossMonthly(level: LevelId): number {
-  if (level === "medior") return 4000;
-  if (level === "medior-plus") return 4500;
-  return 5000;
+export function defaultGrossMonthly(_level?: LevelId, contractHours = 40): number {
+  return grossMonthlyFromCbs(contractHours);
+}
+
+export function defaultCompareInput(overrides: Partial<CompareInput> = {}): CompareInput {
+  const level = overrides.level ?? "medior";
+  const contractHours = overrides.contractHours ?? 40;
+  const neededHours = overrides.neededHours ?? 10;
+  const base: CompareInput = {
+    level,
+    neededHours,
+    grossMonthly: grossMonthlyFromCbs(contractHours),
+    contractHours,
+    largeEmployer: true,
+    temporaryContract: false,
+    whkPct: PREMIA_2026.whkAverage * 100,
+    pensionPct: 0,
+    yearEndPct: 0,
+    absencePct: CBS.nl2025,
+    sickPayPct: 100,
+    replaceAbsence: true,
+    replacementRate: rateFor(level, Math.max(10, neededHours)),
+    recruitmentCost: 5000,
+    tenureYears: 3,
+    vacancyCalendarDays: 60,
+    coverVacancy: true,
+    onboardingWeeks: 0,
+    onboardingProductivity: 0.5,
+    trainingOnce: TCO.crovExample,
+    registrationYear: TCO.rnvcYear,
+    softwareYear: 0,
+    leaseYear: 0,
+    kmPerWeek: 0,
+    kmRate: TCO.kmRate,
+    includeTransition: true,
+    publicHolidays: TCO.publicHolidays2026,
+    nonProductivePct: 0,
+  };
+  return { ...base, ...overrides };
 }
 
 export function compareEmployment(input: CompareInput): CompareResult {
-  const billedHours = Math.max(10, input.weeklyHours);
+  const neededHours = Math.max(0, input.neededHours);
+  const billedHours = Math.max(10, neededHours);
   const block = tierForHours(billedHours);
   const detachedHourly = levels[input.level].rates[block];
   const contractHours = Math.max(1, input.contractHours);
   const grossYear = Math.max(0, input.grossMonthly) * 12;
-  const holiday = grossYear * PREMIA_2026.holidayAllowance;
-  const premiumBase = Math.min(grossYear + holiday, PREMIA_2026.maxPremieLoon);
+  const holiday = grossYear * TCO.holidayAllowance;
+  const yearEnd = (grossYear + holiday) * (Math.max(0, input.yearEndPct) / 100);
+  const premiumBase = Math.min(grossYear + holiday + yearEnd, PREMIA_2026.maxPremieLoon);
   const awf = input.temporaryContract ? PREMIA_2026.awfHigh : PREMIA_2026.awfLow;
   const aof = input.largeEmployer ? PREMIA_2026.aofHigh : PREMIA_2026.aofLow;
-  const premiumPct = awf + aof + PREMIA_2026.wko + PREMIA_2026.zvw + PREMIA_2026.whkAverage;
+  const whk = Math.max(0, input.whkPct) / 100;
+  const premiumPct = awf + aof + PREMIA_2026.wko + PREMIA_2026.zvw + whk;
   const premiums = premiumBase * premiumPct;
   const pension = grossYear * (Math.max(0, input.pensionPct) / 100);
-  const wageBeforeSick = grossYear + holiday + premiums + pension;
+  const wageBeforeSick = grossYear + holiday + yearEnd + premiums + pension;
   const contractHoursYear = contractHours * 52;
-  const leaveHours = PREMIA_2026.statutoryLeaveWeeks * contractHours;
+  const leaveHours = TCO.statutoryLeaveWeeks * contractHours;
   const holidayHours = Math.max(0, input.publicHolidays) * (contractHours / 5);
   const availableHours = Math.max(0, contractHoursYear - leaveHours - holidayHours);
   const absenceHours = availableHours * (Math.max(0, input.absencePct) / 100);
   const afterAbsence = Math.max(0, availableHours - absenceHours);
-  const idleHours = afterAbsence * Math.min(0.8, Math.max(0, input.idlePct));
-  const productiveHours = Math.max(0, afterAbsence - idleHours);
+  const nonProductiveHours = afterAbsence * Math.min(0.8, Math.max(0, input.nonProductivePct) / 100);
+  const productiveHours = Math.max(0, afterAbsence - nonProductiveHours);
+  const productiveHoursWeek = productiveHours / 52;
   const sickFraction = contractHoursYear > 0 ? absenceHours / contractHoursYear : 0;
-  const sickPaySaving = (grossYear + holiday) * sickFraction * Math.max(0, 1 - input.sickPayPct / 100);
+  const sickPaySaving =
+    (grossYear + holiday + yearEnd) * sickFraction * Math.max(0, 1 - input.sickPayPct / 100);
   const wageCost = wageBeforeSick - sickPaySaving;
-  const replacementCost = input.replaceAbsence ? absenceHours * Math.max(0, input.replacementRate) : 0;
+  const replacementRate = Math.max(0, input.replacementRate);
+  const replacementCost = input.replaceAbsence ? absenceHours * replacementRate : 0;
   const tenure = Math.max(1, input.tenureYears);
   const recruitmentAnnual = Math.max(0, input.recruitmentCost) / tenure;
   const vacancyWorkdays = Math.max(0, input.vacancyCalendarDays) * (5 / 7);
   const vacancyHours = input.coverVacancy ? vacancyWorkdays * (contractHours / 5) : 0;
-  const vacancyAnnual = (vacancyHours * Math.max(0, input.replacementRate)) / tenure;
+  const vacancyAnnual = (vacancyHours * replacementRate) / tenure;
   const onboardingLostHours =
     Math.max(0, input.onboardingWeeks) * contractHours * Math.max(0, 1 - input.onboardingProductivity);
   const hourOfWage = contractHoursYear > 0 ? wageCost / contractHoursYear : 0;
   const onboardingAnnual = (onboardingLostHours * hourOfWage) / tenure;
-  const annualPerPerson = wageCost + replacementCost + recruitmentAnnual + vacancyAnnual + onboardingAnnual;
-  const costPerProductiveHour = productiveHours > 0 ? annualPerPerson / productiveHours : Number.POSITIVE_INFINITY;
-  const productiveHoursWeek = productiveHours / 52;
-  const fteNeeded = productiveHoursWeek > 0 ? billedHours / productiveHoursWeek : Number.POSITIVE_INFINITY;
-  const monthlyWageForTransition = (grossYear + holiday) / 12;
+  const trainingAnnual = Math.max(0, input.trainingOnce) / tenure;
+  const registrationYear = Math.max(0, input.registrationYear);
+  const workplaceYear = Math.max(0, input.softwareYear) + Math.max(0, input.leaseYear);
+  const travelYear = Math.max(0, input.kmPerWeek) * Math.max(0, input.kmRate) * 52;
+  const monthlyForTransition = (grossYear + holiday + yearEnd) / 12;
+  const uncappedAccrual = monthlyForTransition / 3;
+  const annualPay = grossYear + holiday + yearEnd;
+  const transitionCap = Math.max(TCO.transitionMax, annualPay);
+  const transitionAnnual = input.includeTransition ? Math.min(uncappedAccrual, transitionCap / tenure) : 0;
+  const annualPerPerson =
+    wageCost +
+    replacementCost +
+    recruitmentAnnual +
+    vacancyAnnual +
+    onboardingAnnual +
+    trainingAnnual +
+    registrationYear +
+    workplaceYear +
+    travelYear +
+    transitionAnnual;
+  const people =
+    neededHours <= 0 ? 0 : productiveHoursWeek > 0 ? Math.max(1, Math.ceil(neededHours / productiveHoursWeek)) : 1;
+  const unusedHoursWeek =
+    people > 0 ? Math.max(0, people * productiveHoursWeek - neededHours) : 0;
+  const longAbsenceYear = wageCost + contractHoursYear * replacementRate;
+  const lines: CostLine[] = [
+    { label: "Bruto jaarloon", amount: grossYear, note: "12 × het maandloon dat u invult." },
+    { label: "Vakantiegeld 8%", amount: holiday, note: "Wettelijk minimum, over het bruto jaarloon." },
+    { label: "Eindejaarsuitkering", amount: yearEnd, note: "Percentage over bruto jaarloon plus vakantiegeld. Standaard 0: er is geen landelijke cao." },
+    { label: "Werkgeverspremies", amount: premiums, note: "AWf, Aof, Wko, Zvw en Whk, tot het maximumpremieloon." },
+    { label: "Pensioen werkgever", amount: pension, note: "Percentage van het bruto jaarloon. Standaard 0: vul uw regeling in." },
+    { label: "Lagere loondoorbetaling bij ziekte", amount: -sickPaySaving, note: "Alleen als u minder dan 100% doorbetaalt." },
+    { label: "Vervanging tijdens ziekte", amount: replacementCost, note: "Verzuimuren × het vervangingstarief." },
+    { label: "Werving, per jaar", amount: recruitmentAnnual, note: "Eenmalige fee gedeeld door de dienstjaren." },
+    { label: "Vacature opvangen, per jaar", amount: vacancyAnnual, note: "Ingekochte uren tijdens de vacature, gedeeld door de dienstjaren." },
+    { label: "Inwerken, per jaar", amount: onboardingAnnual, note: "Uren onder de volle productiviteit, gedeeld door de dienstjaren." },
+    { label: "Opleiding, per jaar", amount: trainingAnnual, note: "Eenmalig cursusbedrag gedeeld door de dienstjaren." },
+    { label: "Registratie", amount: registrationYear, note: "Jaarlijkse contributie van het register." },
+    { label: "Laptop en software", amount: Math.max(0, input.softwareYear), note: "Bedrag dat u zelf invult. Er is geen landelijke prijs." },
+    { label: "Lease of auto", amount: Math.max(0, input.leaseYear), note: "Leasebudget dat u zelf invult. Er is geen landelijke prijs." },
+    { label: "Reiskosten", amount: travelYear, note: "Kilometers per week × tarief × 52." },
+    { label: "Opbouw transitievergoeding", amount: transitionAnnual, note: "Een derde maandsalaris per dienstjaar. U betaalt dit pas als het contract op uw initiatief eindigt." },
+  ];
   return {
     detachedHourly,
     detachedYear: yearlyCost(billedHours, detachedHourly),
     detachedMonth: monthlyCost(billedHours, detachedHourly),
     block,
     billedHours,
+    neededHours,
+    people,
+    employmentYear: annualPerPerson * people,
+    saving: annualPerPerson * people - yearlyCost(billedHours, detachedHourly),
+    lines,
     employed: {
       grossYear,
       holiday,
+      yearEnd,
       premiumBase,
       premiumPct,
       premiums,
@@ -320,29 +448,31 @@ export function compareEmployment(input: CompareInput): CompareResult {
       holidayHours,
       availableHours,
       absenceHours,
-      idleHours,
+      nonProductiveHours,
       productiveHours,
       productiveHoursWeek,
+      unusedHoursWeek,
       replacementCost,
       recruitmentAnnual,
       vacancyHours,
       vacancyAnnual,
-      onboardingLostHours,
       onboardingAnnual,
+      trainingAnnual,
+      registrationYear,
+      workplaceYear,
+      travelYear,
+      transitionAnnual,
       annualPerPerson,
-      costPerProductiveHour,
-      fteNeeded,
-      annualForSameHours: annualPerPerson * fteNeeded,
-      transitionAfter3Years: monthlyWageForTransition,
+      longAbsenceYear,
     },
   };
 }
 
 export const compareSources = [
   {
-    title: "Salarisband casemanager verzuim",
-    url: "https://www.stavv.nl/casemanager-verzuim/",
-    note: "STAVV: medior €3.500–€4.500 en senior €4.500–€5.500 bruto per maand. Het standaard maandloon in de calculator is het midden van die band. Medior+ gebruikt €4.500, de bovenkant van de mediorband. Dat is een aanname.",
+    title: "CBS, bruto uurloon naar beroep",
+    url: CBS_WAGE.source,
+    note: "StatLine 86355NED, 2025 voorlopig. Mediaan €32,80 voor beroepsgroep 0415 Specialisten personeels- en loopbaanontwikkeling (sleutel A000198). Die groep is breder dan casemanagers verzuim: ook HR-adviseurs en arbeidsdeskundigen. Het uurloon is exclusief vakantiegeld, eindejaarsuitkering en verlofuren. Het standaard maandloon is uurloon × contracturen × 52 / 12. Dat is een afleiding, geen CBS-maandloon.",
   },
   {
     title: "Vakantiebijslag minimaal 8%",
@@ -355,44 +485,74 @@ export const compareSources = [
     note: "Burgerlijk Wetboek boek 7, artikel 634. Veel cao’s geven meer. Er is geen landelijke cao voor casemanagers.",
   },
   {
+    title: "Feestdagen op een werkdag in 2026",
+    url: "https://www.rijksoverheid.nl/themas/werk/arbeidsovereenkomst-en-cao/vraag-en-antwoord/arbeidsovereenkomst-en-cao/officiele-feestdagen",
+    note: "Standaard 6: 1 januari, tweede paasdag (6 april), Koningsdag (27 april), Hemelvaart (14 mei), tweede pinksterdag (25 mei) en eerste kerstdag (25 december). Tweede kerstdag valt in 2026 op zaterdag. Goede Vrijdag en 5 mei zijn niet overal vrij. Het aantal is aanpasbaar.",
+  },
+  {
+    title: "Eindejaarsuitkering, standaard 0",
+    url: "https://www.rijksoverheid.nl/onderwerpen/arbeidsovereenkomst-en-cao",
+    note: "Een eindejaarsuitkering is geen wettelijk percentage. Die staat in een cao of in de arbeidsovereenkomst. Standaard 0. Vul het percentage in dat bij u geldt, gerekend over bruto jaarloon plus vakantiegeld.",
+  },
+  {
     title: "Loondoorbetaling bij ziekte, minimaal 70%",
     url: "https://wetten.overheid.nl/BWBR0005290/",
-    note: "Burgerlijk Wetboek boek 7, artikel 629. De calculator staat standaard op 100% doorbetaling in het eerste jaar. Dat is een aanname.",
+    note: "Burgerlijk Wetboek boek 7, artikel 629. De tool staat standaard op 100% doorbetaling. Dat is een aanname: veel werkgevers betalen in het eerste jaar meer dan het wettelijk minimum.",
   },
   {
     title: "Premiepercentages werknemersverzekeringen 2026",
     url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/personeel-en-loon/content/premiedifferentiatie-ww-lage-en-hoge-ww-premie",
-    note: "AWf laag 2,74% en hoog 7,74% (Belastingdienst, 2026). Aof laag 6,27% en hoog 7,63%, opslag Wko 0,50%, werkgeversheffing Zvw 6,10% en maximumpremieloon €79.409 volgens het overzicht van IJK, januari 2026.",
+    note: "AWf laag 2,74% en hoog 7,74%. Aof laag 6,27% en hoog 7,63%, Wko 0,50%, werkgeversheffing Zvw 6,10% en maximumpremieloon €79.409 volgens IJK, januari 2026. De premiegrondslag is het loon tot dat maximum, inclusief vakantiegeld en de ingevulde eindejaarsuitkering.",
   },
   {
     title: "IJK, meest gebruikte bedragen en percentages 2026",
     url: "https://www.ijk.nl/sites/default/files/media/documenten/2026/01/IJK%20-%20Meest%20gebruikte%20bedragen%20en%20percentages%202026_0.pdf",
-    note: "Whk is werkgever-specifiek. De calculator gebruikt het landelijk gemiddelde van 1,52% (WGA en Ziektewet) als aanname, niet uw eigen beschikking.",
+    note: "Whk is werkgever-specifiek. Standaard is het landelijk gemiddelde van 1,52%, niet uw eigen beschikking. Kleine werkgever: premieloonsom tot €1.082.500 (Aof laag). Middelgroot loopt tot €4.330.000. De tool kent alleen de knop groot of niet-groot, omdat de middelgrote mix per werkgever verschilt.",
   },
   {
     title: "Ziekteverzuim Nederland",
     url: CBS.source,
-    note: "Standaard 5,4% (CBS, 2025, totaal). Uw percentage kan afwijken.",
+    note: "Standaard 5,4% (CBS, 2025, totaal). Dat gemiddelde bevat ook lange verzuimgevallen. Een extra jaar volledige uitval telt daarom niet nog eens mee in het jaartotaal. De tool toont dat scenario ernaast.",
   },
   {
-    title: "Interim-uurtarief als vervangingstarief",
+    title: "Vervangingstarief",
     url: "https://recruitmentcenter.nl/kennisbank/interim-casemanager-verzuim-inschakelen/",
-    note: "Interim-casemanager €85–€120 per uur. Standaard gebruiken we €102,50, het midden van die band. Aanname.",
+    note: "Standaard is ons eigen uurtarief voor het gekozen niveau en de benodigde uren. Recruitmentcenter noemt interimtarieven van €85 tot €120 als context. Dat midden gebruiken we niet als standaard.",
   },
   {
     title: "Directe wervingskosten en vacatureduur",
     url: "https://www.ad.nl/economie/openstaande-vacature-kost-duizenden-euros-bijna-helft-van-werkgevers-wil-langere-opzegtermijn~a6c049c5/",
-    note: "Intelligence Group, aangehaald door het AD: directe wervingskosten al snel boven €5.000 en vacatures gemiddeld zestig dagen open. De €500 per dag uit dat artikel gebruiken we niet: dat is een brede opportuniteitskost, geen kostprijs van een casemanager.",
+    note: "Intelligence Group, aangehaald door het AD: directe wervingskosten al snel boven €5.000 en vacatures gemiddeld zestig dagen open. De €500 per dag uit dat artikel gebruiken we niet: dat is een brede opportuniteitskost, geen kostprijs van een casemanager. We schrijven het bedrag af over de ingevulde dienstjaren, standaard drie.",
   },
   {
     title: "Time to hire, aanvullende context",
     url: "https://recruitingroundtable.nl/recruitment-kengetallen-onderzoek/",
-    note: "Recruiting Roundtable noemt voor corporate recruiters een time to hire van gemiddeld 65 dagen (benchmark 2021) en een cost per hire van €3.818. Onze standaard van €5.000 en 60 dagen ligt in die buurt en blijft een aanname.",
+    note: "Recruiting Roundtable noemt voor corporate recruiters een time to hire van gemiddeld 65 dagen (benchmark 2021) en een cost per hire van €3.818. Onze standaard van €5.000 en 60 dagen ligt in die buurt.",
+  },
+  {
+    title: "Opleiding casemanager, één aanbieder",
+    url: "https://cs-opleidingen.nl/opleidingen/casemanager-regie-op-verzuim-crov",
+    note: "CS Opleidingen, Casemanager Regie op Verzuim (CROV): zakelijke lijstprijs €4.290 exclusief btw. Dat is één aanbieder, geen marktgemiddelde. Afgeschreven over de dienstjaren. Inwerktijd staat standaard op nul weken: er is geen landelijk cijfer.",
+  },
+  {
+    title: "Registratie RNVC 2026",
+    url: "https://rnvc.nl/faq/",
+    note: "Contributie Register Netwerk Verzuim Coördinatie €380 per jaar in 2026. Aanpasbaar, want niet elke casemanager staat in dit register.",
+  },
+  {
+    title: "Laptop, software en lease",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/personeel-en-loon/content/werkkostenregeling",
+    note: "Een noodzakelijke computer kan onder een gerichte vrijstelling van de werkkostenregeling vallen. Er is geen landelijke prijs voor laptop, software of een leaseauto. Standaard €0. Vul uw bedrag in.",
+  },
+  {
+    title: "Onbelaste kilometervergoeding 2026",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/berichten/nieuws/verhoging-onbelaste-kilometervergoeding-hoe-verwerkt-u-dit-in-de-loonaangifte",
+    note: "De onbelaste kilometervergoeding is €0,25 per kilometer, met terugwerkende kracht vanaf 1 januari 2026. Standaard 0 kilometer per week: niet elke casemanager declareert woon-werkverkeer.",
   },
   {
     title: "Transitievergoeding",
-    url: "https://wetten.overheid.nl/BWBR0005290/",
-    note: "Burgerlijk Wetboek boek 7, artikel 673: een derde maandsalaris per dienstjaar, met een jaarlijks geïndexeerd maximum. De illustratie telt niet mee in het uurtarief.",
+    url: "https://www.rijksoverheid.nl/themas/werk/ontslag/vraag-en-antwoord/ontslag/hoe-hoog-is-de-transitievergoeding-als-ik-word-ontslagen",
+    note: "Een derde maandsalaris per dienstjaar (BW 7:673). Per 1 januari 2026 is het maximum €102.000 bruto, of een bruto jaarsalaris als dat hoger is. De tool telt de jaarlijkse opbouw mee. U betaalt de vergoeding pas als het contract op uw initiatief eindigt. De knop staat standaard aan en is uit te zetten.",
   },
   {
     title: "Krapte op de arbeidsmarkt",

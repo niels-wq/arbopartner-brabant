@@ -1,180 +1,225 @@
-<div data-compare>
-  <form class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+---
+import { compareSources, defaultCompareInput } from "../../lib/calc";
+import { compareReportHtml } from "../../lib/compare-view";
+import { compareEmployment } from "../../lib/calc";
+
+const defaults = defaultCompareInput();
+const initialHtml = compareReportHtml(defaults, compareEmployment(defaults));
+---
+
+<div data-compare id="vergelijking">
+  <div data-out class="rounded-[2rem] border border-line bg-white/80 p-6 md:p-8" aria-live="polite" set:html={initialHtml} />
+  <form class="mt-6 grid gap-6 lg:grid-cols-2">
     <div class="space-y-4 rounded-[2rem] border border-line bg-white/80 p-5 md:p-7">
-      <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">Indicatie, geen offerte</p>
+      <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">Uw situatie</p>
       <label class="block text-sm font-semibold">Niveau
-        <select class="field" name="level">
-          <option value="medior">Medior</option>
+        <select class="ap-field" name="level">
+          <option value="medior" selected>Medior</option>
           <option value="medior-plus">Medior+</option>
           <option value="senior">Senior met specialisatie</option>
         </select>
       </label>
-      <label class="block text-sm font-semibold">Productieve uren per week die u nodig heeft
-        <input class="field" name="hours" type="number" min="10" max="40" value="10" />
+      <label class="block text-sm font-semibold">Uren per week die u echt nodig heeft
+        <input class="ap-field" name="hours" type="number" min="1" max="80" step="1" value={defaults.neededHours} />
       </label>
-      <p class="text-sm text-ink-soft">Bij detachering rekenen we elk ingekocht uur als inzetbaar uur. Reistijd binnen 45 minuten zit in het tarief. Bij ziekte regelen wij vervanging.</p>
+      <p class="text-sm text-ink-soft">Bij inhuren rekenen we die uren, met een minimum van tien. Bij een dienstverband betaalt u het volle contract, ook als u minder uren nodig heeft.</p>
       <label class="block text-sm font-semibold">Bruto maandloon bij een dienstverband
-        <input class="field" name="gross" type="number" min="2500" step="50" value="4000" />
+        <input class="ap-field" name="gross" type="number" min="0" step="0.01" value={defaults.grossMonthly.toFixed(2)} />
       </label>
-      <p class="text-xs text-ink-soft" data-salary-note></p>
-      <label class="block text-sm font-semibold">Contracturen per week
-        <input class="field" name="contract" type="number" min="16" max="40" value="40" />
+      <p class="text-xs text-ink-soft" data-salary-note>Afgeleid van het CBS-mediaan uurloon. Geen CBS-maandloon. Pas het aan naar het loon dat u echt zou bieden.</p>
+      <label class="block text-sm font-semibold">Contracturen per week in dienst
+        <input class="ap-field" name="contract" type="number" min="8" max="40" value={defaults.contractHours} />
       </label>
+      <button class="rounded-full bg-green-800 px-5 py-3 font-semibold text-sand-50" type="submit">Reken opnieuw</button>
     </div>
     <fieldset class="space-y-3 rounded-[2rem] bg-sand-100 p-5 md:p-7">
-      <legend class="font-semibold text-green-950">Aannames bij iemand in dienst</legend>
-      <p class="text-sm">Elke aanname is aan te passen. De bron staat onder de uitkomst.</p>
-      <label class="check"><input type="checkbox" name="large" checked /> Grote werkgever (Aof hoog, 7,63%). Uitvinken = kleine werkgever, Aof 6,27%.</label>
+      <legend class="font-semibold text-green-950">Aannames, met bron en aanpasbaar</legend>
+      <label class="check"><input type="checkbox" name="large" checked /> Grote werkgever (Aof hoog, 7,63%). Uitvinken = niet-groot, Aof 6,27%. Middelgroot vult u zelf, die mix verschilt per werkgever.</label>
       <label class="check"><input type="checkbox" name="temporary" /> Tijdelijk contract (AWf hoog, 7,74% in plaats van 2,74%).</label>
-      <label class="block text-sm">Pensioenpremie werkgever, % van bruto. Standaard 0, want er is geen landelijke cao.
-        <input class="field" name="pension" type="number" min="0" max="30" step="0.5" value="0" />
+      <label class="block text-sm">Whk, %. Standaard 1,52, het landelijk gemiddelde. Niet uw eigen beschikking.
+        <input class="ap-field" name="whk" type="number" min="0" max="10" step="0.01" value={defaults.whkPct} />
+      </label>
+      <label class="block text-sm">Pensioen werkgever, % van bruto jaarloon. Standaard 0: er is geen landelijk percentage.
+        <input class="ap-field" name="pension" type="number" min="0" max="40" step="0.1" value={defaults.pensionPct} />
+      </label>
+      <label class="block text-sm">Eindejaarsuitkering, % van bruto jaarloon plus vakantiegeld. Standaard 0: er is geen wettelijk percentage.
+        <input class="ap-field" name="yearend" type="number" min="0" max="20" step="0.1" value={defaults.yearEndPct} />
       </label>
       <label class="block text-sm">Verzuim van de casemanager zelf, %. Standaard CBS 5,4.
-        <input class="field" name="absence" type="number" min="0" max="20" step="0.1" value="5.4" />
+        <input class="ap-field" name="absence" type="number" min="0" max="100" step="0.1" value={defaults.absencePct} />
       </label>
-      <label class="block text-sm">Loondoorbetaling tijdens ziekte, %. Wettelijk minimum is 70. Standaard 100, aanname.
-        <input class="field" name="sickpay" type="number" min="70" max="100" value="100" />
+      <label class="block text-sm">Loondoorbetaling tijdens ziekte, %. Wettelijk minimum is 70. Standaard 100.
+        <input class="ap-field" name="sickpay" type="number" min="70" max="100" value={defaults.sickPayPct} />
       </label>
-      <label class="check"><input type="checkbox" name="replace" checked /> Ziekte laten vervangen tegen het interimtarief.</label>
-      <label class="block text-sm">Interimtarief vervanging. Midden van €85–€120.
-        <input class="field" name="replacement" type="number" min="60" max="180" step="0.5" value="102.5" />
+      <label class="check"><input type="checkbox" name="replace" checked /> Ziekte laten vervangen.</label>
+      <label class="block text-sm">Vervangingstarief per uur. Standaard ons tarief voor dit niveau en deze uren.
+        <input class="ap-field" name="replacement" type="number" min="0" max="250" step="0.5" value={defaults.replacementRate} />
       </label>
-      <label class="block text-sm">Directe wervingskosten, eenmalig. Standaard €5.000.
-        <input class="field" name="recruitment" type="number" min="0" step="100" value="5000" />
+      <label class="block text-sm">Directe wervingskosten, eenmalig. Standaard 5000.
+        <input class="ap-field" name="recruitment" type="number" min="0" step="100" value={defaults.recruitmentCost} />
       </label>
       <label class="block text-sm">Vacature in kalenderdagen. Standaard 60.
-        <input class="field" name="vacancy" type="number" min="0" max="180" value="60" />
+        <input class="ap-field" name="vacancy" type="number" min="0" max="365" value={defaults.vacancyCalendarDays} />
       </label>
       <label class="check"><input type="checkbox" name="coverVacancy" checked /> Tijdens de vacature vervanging inkopen.</label>
-      <label class="block text-sm">Verwachte dienstjaren om werving en vacature over af te schrijven.
-        <input class="field" name="tenure" type="number" min="1" max="15" value="3" />
+      <label class="block text-sm">Dienstjaren om eenmalige kosten over af te schrijven.
+        <input class="ap-field" name="tenure" type="number" min="1" max="40" value={defaults.tenureYears} />
       </label>
-      <label class="block text-sm">Inwerkweken op halve productiviteit. Aanname, geen landelijk cijfer.
-        <input class="field" name="onboarding" type="number" min="0" max="16" value="4" />
+      <label class="block text-sm">Inwerkweken. Standaard 0: er is geen landelijk cijfer.
+        <input class="ap-field" name="onboarding" type="number" min="0" max="26" value={defaults.onboardingWeeks} />
       </label>
-      <label class="block text-sm">Leegloop na verlof en verzuim: overleg, reizen, scholing, administratie. Aanname 15%.
-        <input class="field" name="idle" type="number" min="0" max="50" value="15" />
+      <label class="block text-sm">Productiviteit tijdens het inwerken, %.
+        <input class="ap-field" name="onboardingProductivity" type="number" min="0" max="100" value={defaults.onboardingProductivity * 100} />
       </label>
-      <button class="rounded-full bg-green-800 px-5 py-3 font-semibold text-sand-50" type="submit">Zet de uren naast elkaar</button>
+      <label class="block text-sm">Niet-productieve uren na verlof en verzuim, %. Standaard 0. Leegloop bij een lage caseload zit al in het volle contract.
+        <input class="ap-field" name="nonproductive" type="number" min="0" max="80" step="1" value={defaults.nonProductivePct} />
+      </label>
+      <label class="block text-sm">Feestdagen op een werkdag. Standaard 6 in 2026.
+        <input class="ap-field" name="holidays" type="number" min="0" max="15" value={defaults.publicHolidays} />
+      </label>
+      <label class="block text-sm">Opleiding, eenmalig, exclusief btw. Standaard 4290, de lijstprijs van één CROV-aanbieder.
+        <input class="ap-field" name="training" type="number" min="0" step="10" value={defaults.trainingOnce} />
+      </label>
+      <label class="block text-sm">Registratie per jaar. Standaard 380, RNVC 2026.
+        <input class="ap-field" name="registration" type="number" min="0" step="10" value={defaults.registrationYear} />
+      </label>
+      <label class="block text-sm">Laptop en software per jaar. Standaard 0.
+        <input class="ap-field" name="software" type="number" min="0" step="50" value={defaults.softwareYear} />
+      </label>
+      <label class="block text-sm">Lease of auto per jaar. Standaard 0.
+        <input class="ap-field" name="lease" type="number" min="0" step="50" value={defaults.leaseYear} />
+      </label>
+      <label class="block text-sm">Zakelijke kilometers per week. Standaard 0.
+        <input class="ap-field" name="km" type="number" min="0" step="1" value={defaults.kmPerWeek} />
+      </label>
+      <label class="block text-sm">Kilometertarief. Standaard 0,25, de onbelaste vergoeding 2026.
+        <input class="ap-field" name="kmrate" type="number" min="0" max="1" step="0.01" value={defaults.kmRate} />
+      </label>
+      <label class="check"><input type="checkbox" name="transition" checked /> Jaarlijkse opbouw van de transitievergoeding meetellen. U betaalt die pas als het contract op uw initiatief eindigt.</label>
     </fieldset>
   </form>
-  <div data-out class="mt-6 rounded-[2rem] border border-line bg-white/80 p-6" aria-live="polite">
-    <p class="font-serif text-2xl text-green-950">De vergelijking gaat over zekerheid en flexibiliteit. Een lager bedrag is geen reden om te kiezen en geen belofte.</p>
-  </div>
   <details class="mt-4 rounded-3xl bg-sand-100 p-4 text-sm" open>
-    <summary class="cursor-pointer font-semibold">Bronnen en aannames</summary>
-    <ul class="mt-3 space-y-2" data-sources></ul>
+    <summary class="cursor-pointer font-semibold">Bronnen</summary>
+    <ul class="mt-3 space-y-2">
+      {compareSources.map((item) => (
+        <li>
+          <a class="font-semibold text-green-800 underline decoration-ochre-500" href={item.url}>{item.title}</a>
+          <span> — {item.note}</span>
+        </li>
+      ))}
+    </ul>
   </details>
 </div>
 
 <style>
-  .field { display: block; margin-top: 0.25rem; width: 100%; max-width: 16rem; border: 1px solid var(--color-line); border-radius: 0.8rem; padding: 0.45rem 0.7rem; background: white; }
   .check { display: flex; gap: 0.5rem; align-items: flex-start; font-size: 0.95rem; }
 </style>
 
 <script>
-  import { compareEmployment, compareSources, defaultGrossMonthly, type CompareInput } from "../../lib/calc";
-  import { euro, num, pct } from "../../lib/format";
+  import { compareEmployment, grossMonthlyFromCbs, type CompareInput } from "../../lib/calc";
+  import { compareReportHtml } from "../../lib/compare-view";
+  import { rateFor } from "../../lib/rates";
   import { mountReport } from "../../scripts/report";
   import { track } from "../../scripts/track";
 
   const root = document.querySelector<HTMLElement>("[data-compare]");
   const form = root?.querySelector("form");
   const out = root?.querySelector<HTMLElement>("[data-out]");
-  const sources = root?.querySelector("[data-sources]");
-  const note = root?.querySelector("[data-salary-note]");
-  const level = form?.querySelector<HTMLSelectElement>("[name=level]");
   const gross = form?.querySelector<HTMLInputElement>("[name=gross]");
+  const replacement = form?.querySelector<HTMLInputElement>("[name=replacement]");
+  const contract = form?.querySelector<HTMLInputElement>("[name=contract]");
+  const level = form?.querySelector<HTMLSelectElement>("[name=level]");
+  const hours = form?.querySelector<HTMLInputElement>("[name=hours]");
   let grossTouched = false;
+  let replacementTouched = false;
+
+  function field(data: FormData, name: string, fallback = 0) {
+    const value = Number(data.get(name));
+    return Number.isFinite(value) ? value : fallback;
+  }
+
+  function render(shouldTrack: boolean) {
+    if (!form || !out) return;
+    const data = new FormData(form);
+    const chosen = String(data.get("level")) as CompareInput["level"];
+    const neededHours = field(data, "hours", 10);
+    const contractHours = field(data, "contract", 40);
+    const input: CompareInput = {
+      level: chosen,
+      neededHours,
+      grossMonthly: grossTouched ? field(data, "gross") : grossMonthlyFromCbs(contractHours),
+      contractHours,
+      largeEmployer: data.get("large") === "on",
+      temporaryContract: data.get("temporary") === "on",
+      whkPct: field(data, "whk", 1.52),
+      pensionPct: field(data, "pension"),
+      yearEndPct: field(data, "yearend"),
+      absencePct: field(data, "absence", 5.4),
+      sickPayPct: field(data, "sickpay", 100),
+      replaceAbsence: data.get("replace") === "on",
+      replacementRate: replacementTouched ? field(data, "replacement") : rateFor(chosen, Math.max(10, neededHours)),
+      recruitmentCost: field(data, "recruitment"),
+      tenureYears: field(data, "tenure", 3),
+      vacancyCalendarDays: field(data, "vacancy"),
+      coverVacancy: data.get("coverVacancy") === "on",
+      onboardingWeeks: field(data, "onboarding"),
+      onboardingProductivity: field(data, "onboardingProductivity", 50) / 100,
+      trainingOnce: field(data, "training"),
+      registrationYear: field(data, "registration"),
+      softwareYear: field(data, "software"),
+      leaseYear: field(data, "lease"),
+      kmPerWeek: field(data, "km"),
+      kmRate: field(data, "kmrate", 0.25),
+      includeTransition: data.get("transition") === "on",
+      publicHolidays: field(data, "holidays", 6),
+      nonProductivePct: field(data, "nonproductive"),
+    };
+    const result = compareEmployment(input);
+    out.innerHTML = compareReportHtml(input, result);
+    mountReport(out, {
+      calculator: "casemanager-inhuren-of-in-dienst",
+      title: "Casemanager inhuren of in dienst nemen",
+      body: out.innerText.trim(),
+    });
+    if (shouldTrack) track("calculator_result", { calculator: "casemanager-inhuren-of-in-dienst" });
+  }
+
   gross?.addEventListener("input", () => {
     grossTouched = true;
   });
-  level?.addEventListener("change", () => {
-    if (!grossTouched && gross && level) gross.value = String(defaultGrossMonthly(level.value as CompareInput["level"]));
-    if (note && level) {
-      note.textContent =
-        level.value === "medior-plus"
-          ? "Standaard €4.500: de bovenkant van de STAVV-mediorband. Voor medior+ is dat een aanname."
-          : "Standaard is het midden van de STAVV-band voor dit niveau.";
-    }
+  replacement?.addEventListener("input", () => {
+    replacementTouched = true;
   });
-  if (sources) {
-    sources.innerHTML = compareSources
-      .map((item) => `<li><a class="font-semibold text-green-800 underline decoration-ochre-500" href="${item.url}">${item.title}</a> — ${item.note}</li>`)
-      .join("");
+  function syncDerived() {
+    if (!grossTouched && gross && contract) {
+      const next = grossMonthlyFromCbs(Number(contract.value) || 40);
+      gross.value = next.toFixed(2);
+    }
+    if (!replacementTouched && replacement && level && hours) {
+      replacement.value = String(rateFor(level.value as CompareInput["level"], Math.max(10, Number(hours.value) || 10)));
+    }
   }
-
+  level?.addEventListener("change", () => {
+    syncDerived();
+    render(false);
+  });
+  hours?.addEventListener("change", () => {
+    syncDerived();
+    render(false);
+  });
+  contract?.addEventListener("change", () => {
+    syncDerived();
+    render(false);
+  });
+  form?.addEventListener("input", (event) => {
+    const target = event.target as HTMLElement | null;
+    if (target === level || target === hours || target === contract) return;
+    render(false);
+  });
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
-    if (!form || !out) return;
-    const data = new FormData(form);
-    const input: CompareInput = {
-      level: String(data.get("level")) as CompareInput["level"],
-      weeklyHours: Number(data.get("hours")),
-      grossMonthly: Number(data.get("gross")),
-      contractHours: Number(data.get("contract")),
-      largeEmployer: data.get("large") === "on",
-      temporaryContract: data.get("temporary") === "on",
-      pensionPct: Number(data.get("pension")),
-      absencePct: Number(data.get("absence")),
-      sickPayPct: Number(data.get("sickpay")),
-      replaceAbsence: data.get("replace") === "on",
-      replacementRate: Number(data.get("replacement")),
-      recruitmentCost: Number(data.get("recruitment")),
-      tenureYears: Number(data.get("tenure")),
-      vacancyCalendarDays: Number(data.get("vacancy")),
-      coverVacancy: data.get("coverVacancy") === "on",
-      onboardingWeeks: Number(data.get("onboarding")),
-      onboardingProductivity: 0.5,
-      idlePct: Number(data.get("idle")) / 100,
-      publicHolidays: 7,
-    };
-    const result = compareEmployment(input);
-    const employed = result.employed;
-    out.innerHTML = `
-      <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">Indicatie, geen offerte</p>
-      <h2 class="mt-2 font-serif text-3xl text-green-950">Hetzelfde werk, twee afspraken</h2>
-      <p class="mt-2 max-w-3xl">Detacheren koopt u voor de uren die u nodig heeft. Iemand in dienst levert minder productieve uren dan er op het contract staan: verlof, feestdagen, verzuim en leegloop gaan eraf. We claimen niet dat de ene route goedkoper is. De bedragen hieronder zijn een indicatie.</p>
-      <div class="mt-4 grid gap-3 md:grid-cols-2">
-        <article class="rounded-3xl bg-green-900 p-4 text-sand-50">
-          <h3 class="font-serif text-2xl">Gedetacheerd</h3>
-          <p class="mt-2 font-serif text-3xl">${euro(result.detachedHourly)} <span class="text-base">per inzetbaar uur</span></p>
-          <p>${result.billedHours} uur per week · ${euro(result.detachedMonth)} per maand · ${euro(result.detachedYear, true)} per jaar</p>
-          <ul class="mt-3 list-disc space-y-1 pl-5 text-sm text-sand-100">
-            <li>Geen ziekterisico voor u: bij ziekte regelen wij vervanging.</li>
-            <li>Direct inzetbaar, zonder wervingsmaand.</li>
-            <li>Maandelijks op- of afschalen.</li>
-            <li>Geen transitievergoeding.</li>
-            <li>Senior of arbeidsdeskundige als achtervang, met korting via de zustermerken.</li>
-          </ul>
-        </article>
-        <article class="rounded-3xl bg-sand-100 p-4">
-          <h3 class="font-serif text-2xl text-green-950">In dienst</h3>
-          <p class="mt-2 font-serif text-3xl text-green-950">${euro(employed.costPerProductiveHour)} <span class="text-base">per productief uur</span></p>
-          <p>Eén fte levert ongeveer ${num(employed.productiveHoursWeek)} productieve uren per week. Voor ${result.billedHours} uur heeft u ongeveer ${num(employed.fteNeeded, 2)} fte nodig: ${euro(employed.annualForSameHours, true)} per jaar.</p>
-          <p class="mt-2 text-sm">Een deeltijd-casemanager van een fractie fte is op een krappe markt vaak lastig te vinden. Die moeite zit niet als meerprijs in het bedrag. UWV zag in het najaar van 2025 dat 45% van de vacatures moeilijk vervulbaar was.</p>
-        </article>
-      </div>
-      <h3 class="mt-6 font-serif text-2xl text-green-950">Opbouw van één fte in dienst</h3>
-      <table class="mt-2 w-full text-left text-sm">
-        <tbody>
-          <tr><th class="py-1 pr-3 font-semibold">Bruto jaarloon</th><td>${euro(employed.grossYear, true)}</td></tr>
-          <tr><th class="py-1 pr-3 font-semibold">Vakantiegeld 8%</th><td>${euro(employed.holiday, true)}</td></tr>
-          <tr><th class="py-1 pr-3 font-semibold">Werkgeverspremies ${pct(employed.premiumPct * 100)}</th><td>${euro(employed.premiums, true)} over ${euro(employed.premiumBase, true)} premieloon</td></tr>
-          <tr><th class="py-1 pr-3 font-semibold">Pensioen</th><td>${euro(employed.pension, true)}</td></tr>
-          <tr><th class="py-1 pr-3 font-semibold">Minder loon door lagere doorbetaling</th><td>− ${euro(employed.sickPaySaving, true)}</td></tr>
-          <tr><th class="py-1 pr-3 font-semibold">Vervanging tijdens ziekte</th><td>${euro(employed.replacementCost, true)}</td></tr>
-          <tr><th class="py-1 pr-3 font-semibold">Werving, afgeschreven</th><td>${euro(employed.recruitmentAnnual, true)} per jaar</td></tr>
-          <tr><th class="py-1 pr-3 font-semibold">Vacature-vervanging, afgeschreven</th><td>${euro(employed.vacancyAnnual, true)} per jaar (${num(employed.vacancyHours, 0)} uur eenmalig)</td></tr>
-          <tr><th class="py-1 pr-3 font-semibold">Inwerken, afgeschreven</th><td>${euro(employed.onboardingAnnual, true)} per jaar</td></tr>
-          <tr><th class="py-1 pr-3 font-semibold">Totaal per fte</th><td>${euro(employed.annualPerPerson, true)}</td></tr>
-          <tr><th class="py-1 pr-3 font-semibold">Productieve uren per fte</th><td>${num(employed.productiveHours, 0)} per jaar, na ${num(employed.leaveHours, 0)} verlofuren, ${num(employed.holidayHours, 0)} feestdaguren, ${num(employed.absenceHours, 0)} verzuimuren en ${num(employed.idleHours, 0)} uur leegloop</td></tr>
-        </tbody>
-      </table>
-      <p class="mt-4 text-sm">Transitievergoeding hoort niet in het uurtarief. Die ontstaat pas als het dienstverband eindigt. Na drie jaar is de illustratie één maandsalaris inclusief vakantiegeld: <strong>${euro(employed.transitionAfter3Years)}</strong>. Het wettelijk maximum kan dit begrenzen en wordt jaarlijks geïndexeerd. Bij detachering betaalt u die vergoeding niet.</p>
-      <p class="mt-2 text-sm">Feestdagen: 7 werkdagen, aanname. Inwerken: 4 weken op 50% productiviteit, aanname. Whk is het landelijk gemiddelde van 1,52%, niet uw eigen beschikking.</p>
-    `;
-    track("calculator_result", { calculator: "detacheren-of-in-dienst" });
-    mountReport(out, { calculator: "detacheren-of-in-dienst", title: "Detacheren of in dienst", body: out.innerText.trim() });
+    syncDerived();
+    render(true);
   });
+  render(false);
 </script>

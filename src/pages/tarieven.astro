@@ -4,6 +4,7 @@ import Breadcrumbs from "../components/Breadcrumbs.astro";
 import ClusterNav from "../components/ClusterNav.astro";
 import CtaBand from "../components/CtaBand.astro";
 import FaqList from "../components/FaqList.astro";
+import CostTeaser from "../components/CostTeaser.astro";
 import PackageGrid from "../components/PackageGrid.astro";
 import CallbackForm from "../components/CallbackForm.astro";
 import { levels, type Block } from "../lib/rates";
@@ -26,6 +27,9 @@ const faq = priceFaq();
     <h1 class="font-serif text-5xl text-green-950">Tarieven</h1>
     <p class="mt-4 max-w-3xl text-lg">Een tarief van Arbopartner Brabant is een richtprijs per uur voor een gedetacheerde casemanager, exclusief btw. Het maandbedrag is dat uur, maal de uren per week, maal 52, gedeeld door 12. Hoe groter het blok, hoe lager het uur. Het maandbedrag stijgt wel, want u neemt meer uren af. Dit is geen offerte.</p>
   </header>
+  <div class="pt-8">
+    <CostTeaser />
+  </div>
   <div class="pt-8">
     <PackageGrid />
   </div>

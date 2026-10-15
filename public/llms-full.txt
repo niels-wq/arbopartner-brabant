@@ -21,7 +21,7 @@ De site is nog niet live op dat domein. Deze tekst beschrijft het label.
 
 Een casemanager van dit label begeleidt zieke medewerkers van de eerste week tot terugkeer of een nette afronding. Dezelfde persoon komt wekelijks op locatie. De bedrijfsarts blijft van de werkgever. Een arbeidsdeskundige van Matchvermogen is de achtervang, met 8% korting. Tweede spoor loopt via Best Match, met 10% korting.
 
-Detacheren is hier geen prijsclaim. Het scheelt werving, ziekterisico op deze persoon, een vacaturemaand en een transitievergoeding. Of het goedkoper is dan een dienstverband, rekent de werkgever zelf na per productief uur.
+Inhuren is een total-cost-vergelijking, geen los uurtarief naast een maandsalaris. De werkgever betaalt de afgenomen uren. Een casemanager in dienst is een volledig contract, ook bij een lage caseload. In het standaardscenario (medior, tien uur per week, CBS-uurloon van de beroepsgroep specialisten personeels- en loopbaanontwikkeling) is inhuren lager. Bij een bijna volle werkweek kan een dienstverband in euro's lager zijn. Dan blijven continuïteit, onafhankelijkheid en het ontbreken van werkgeversrisico staan. Aannames zijn aanpasbaar en hebben een bron. Pagina: https://www.arbopartnerbrabant.nl/casemanager-inhuren-of-in-dienst
 
 ## Diensten
 
@@ -56,7 +56,7 @@ Elke plaats heeft een eigen pagina, bijvoorbeeld https://www.arbopartnerbrabant.
 
 - Welke casemanager: https://www.arbopartnerbrabant.nl/welke-casemanager
 - Verzuimkosten: https://www.arbopartnerbrabant.nl/verzuimkosten-berekenen
-- Detacheren of in dienst: https://www.arbopartnerbrabant.nl/detacheren-of-in-dienst
+- Casemanager inhuren of in dienst nemen: https://www.arbopartnerbrabant.nl/casemanager-inhuren-of-in-dienst
 - Tijdlijn ziekteverzuim: https://www.arbopartnerbrabant.nl/tools/tijdlijn-ziekteverzuim
 - Verzuim-checklist, gratis en ook zonder formulier: https://www.arbopartnerbrabant.nl/checklist-verzuim
 - Loonsanctie-check: https://www.arbopartnerbrabant.nl/tools/loonsanctie-check
@@ -74,7 +74,7 @@ De tools zijn scenario's. Ze voorspellen geen daling van verzuim en geen loonsan
 ## Wat het label niet doet
 
 - Geen bedrijfsarts, geen arbodienst, geen medisch oordeel.
-- Geen claim dat detacheren goedkoper is dan een casemanager in dienst.
+- Geen claim dat inhuren bij een volle caseload altijd goedkoper is. De tool blijft dan rekenen en toont het kwalitatieve voordeel.
 - Geen belofte dat verzuim met een bepaald percentage daalt.
 - Geen eigen reviews. Citaten zijn letterlijk van https://matchvermogen.nl en gaan over Matchvermogen.
 - Geen verzonnen terugbeltermijn, teamnamen of btw-nummer.

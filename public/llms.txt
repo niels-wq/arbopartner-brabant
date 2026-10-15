@@ -18,7 +18,7 @@ Uitgebreide versie: https://www.arbopartnerbrabant.nl/llms-full.txt
 ## Wat het label niet doet
 
 - Geen bedrijfsarts, geen arbodienst, geen medisch oordeel.
-- Geen claim dat detacheren goedkoper is dan een casemanager in dienst.
+- Geen claim dat inhuren bij een volle caseload altijd goedkoper is. De vergelijking rekent de jaarkosten eerlijk: bij weinig uren is inhuren meestal lager, bij een bijna volle werkweek kan een dienstverband in euro's lager zijn.
 - Geen belofte dat verzuim met een bepaald percentage daalt.
 - Geen eigen Google-reviews. Citaten op de site zijn letterlijk van matchvermogen.nl/referenties/ en gaan over Matchvermogen.
 
@@ -56,6 +56,6 @@ Uden, Veghel, Oss, 's-Hertogenbosch, Eindhoven, Helmond, Boxmeer, Cuijk, Schijnd
 - https://www.arbopartnerbrabant.nl/tarieven
 - https://www.arbopartnerbrabant.nl/welke-casemanager
 - https://www.arbopartnerbrabant.nl/verzuimkosten-berekenen
-- https://www.arbopartnerbrabant.nl/detacheren-of-in-dienst
+- https://www.arbopartnerbrabant.nl/casemanager-inhuren-of-in-dienst
 - https://www.arbopartnerbrabant.nl/spoedhulp
 - https://www.arbopartnerbrabant.nl/over-ons
