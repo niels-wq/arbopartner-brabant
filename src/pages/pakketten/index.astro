@@ -1,0 +1,36 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { levels, monthlyCost } from "../../lib/rates";
+import { euro } from "../../lib/format";
+import { crumbsLd } from "../../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Pakketten", path: "/pakketten" },
+];
+const cards = [
+  { slug: "basis", name: "Basis", hours: 10 as const, text: "Tien uur per week. Een vast gezicht voor de lopende dossiers." },
+  { slug: "premium", name: "Premium", hours: 20 as const, text: "Twintig uur, kwartaalrapportage en in jaar 1 een verzuimanalyse." },
+  { slug: "pro", name: "Pro", hours: 24 as const, text: "Vanaf 24 uur. Vanaf 30 uur met twee casemanagers." },
+];
+---
+
+<Base title="Pakketten" description="Basis, Premium en Pro. Per pakket kiest u medior, medior+ of senior. Richtprijzen exclusief btw." jsonLd={[crumbsLd(crumbs)]}>
+  <Breadcrumbs crumbs={crumbs} />
+  <header class="mx-auto max-w-6xl px-4 pt-6">
+    <h1 class="font-serif text-5xl text-green-950">Pakketten</h1>
+    <p class="mt-4 max-w-2xl text-lg">Het pakket bepaalt de uren. Het niveau bepaalt wie er komt. Alle pakketten hebben een arbeidsdeskundige als achtervang, met korting via de zustermerken.</p>
+  </header>
+  <div class="mx-auto grid max-w-6xl gap-4 px-4 py-8 md:grid-cols-3">
+    {cards.map((card) => (
+      <a class="rounded-[2rem] border border-line bg-white/80 p-6" href={`/pakketten/${card.slug}`}>
+        <h2 class="font-serif text-3xl text-green-950">{card.name}</h2>
+        <p class="mt-2">{card.text}</p>
+        <p class="mt-4 text-sm text-ink-soft">Medior vanaf {euro(monthlyCost(card.hours, levels.medior.rates[card.hours]))} per maand</p>
+      </a>
+    ))}
+  </div>
+  <CtaBand />
+</Base>

@@ -1,0 +1,86 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { levels, monthlyCost, verzuimanalysePrijs, type Block } from "../lib/rates";
+import { euro } from "../lib/format";
+import { crumbsLd, faqLd } from "../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Tarieven", path: "/tarieven" },
+];
+const hours: Block[] = [10, 20, 24];
+const faq = [
+  {
+    q: "Zit reistijd in het tarief?",
+    a: "Ja, binnen ongeveer 45 minuten rijden van Uden. We rekenen kilometers niet na.",
+  },
+  {
+    q: "Zijn dit vaste offertes?",
+    a: "Nee. Dit zijn richtprijzen exclusief btw. De offerte bevestigt het tarief voor uw situatie.",
+  },
+  {
+    q: "Wat kost een verzuimanalyse los?",
+    a: `€${verzuimanalysePrijs} exclusief btw. In pakket Premium zit de analyse het eerste jaar inbegrepen.`,
+  },
+];
+---
+
+<Base title="Tarieven" description="Richtprijzen voor een gedetacheerde casemanager: medior, medior+ en senior, bij 10, 20 of 24+ uur per week." jsonLd={[crumbsLd(crumbs), faqLd(faq)]}>
+  <Breadcrumbs crumbs={crumbs} />
+  <article class="mx-auto max-w-3xl px-4 pt-6">
+    <h1 class="font-serif text-5xl text-green-950">Tarieven</h1>
+    <p class="mt-4 text-lg">Richtprijzen exclusief btw, per uur. Hoe groter het blok, hoe lager het uur. U kiest daarnaast het niveau.</p>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full min-w-[32rem] text-left">
+        <thead>
+          <tr class="border-b border-line">
+            <th class="py-2">Niveau</th>
+            {hours.map((hour) => <th>{hour === 24 ? "24+ uur" : `${hour} uur`}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {Object.values(levels).map((level) => (
+            <tr class="border-b border-line">
+              <th class="py-3 font-semibold">{level.label}</th>
+              {hours.map((hour) => <td>{euro(level.rates[hour])}</td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <h2 class="mt-8 font-serif text-3xl text-green-950">Per maand, bij een vol blok</h2>
+    <p class="mt-2 text-sm">Uren × tarief × 52 weken / 12. Geen afronding naar een mooi bedrag.</p>
+    <div class="mt-3 overflow-x-auto">
+      <table class="w-full min-w-[32rem] text-left">
+        <thead>
+          <tr class="border-b border-line"><th class="py-2">Niveau</th><th>10 uur</th><th>20 uur</th><th>24 uur</th></tr>
+        </thead>
+        <tbody>
+          {Object.values(levels).map((level) => (
+            <tr class="border-b border-line">
+              <th class="py-3">{level.label}</th>
+              {hours.map((hour) => <td>{euro(monthlyCost(hour, level.rates[hour]))}</td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <h2 class="mt-8 font-serif text-3xl">Wat erin zit</h2>
+    <ul class="mt-3 list-disc pl-5">
+      <li>De uren van de casemanager, op locatie of online.</li>
+      <li>Reistijd binnen het werkgebied.</li>
+      <li>Vervanging als de casemanager zelf uitvalt.</li>
+      <li>Afstemming met de arbeidsdeskundige. Het onderzoek zelf offreert Matchvermogen, met 8% korting.</li>
+    </ul>
+    <h2 class="mt-8 font-serif text-3xl">Wat er niet in zit</h2>
+    <ul class="mt-3 list-disc pl-5">
+      <li>De bedrijfsarts of een arbodienstcontract.</li>
+      <li>Een tweede-spoortraject. Dat loopt via Best Match, met 10% korting.</li>
+      <li>Juridische procedures en het opstellen van een vaststellingsovereenkomst.</li>
+    </ul>
+    <p class="mt-6 text-sm">Losse verzuimanalyse: {euro(verzuimanalysePrijs, true)} exclusief btw.</p>
+  </article>
+  <CtaBand />
+</Base>

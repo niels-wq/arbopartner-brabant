@@ -1,0 +1,16 @@
+---
+interface Props { items: { q: string; a: string }[]; title?: string }
+const { items, title = "Veelgestelde vragen" } = Astro.props;
+---
+
+<section class="mt-12">
+  <h2 class="font-serif text-3xl text-green-950">{title}</h2>
+  <div class="mt-4 divide-y divide-line rounded-3xl border border-line bg-white/70">
+    {items.map((item) => (
+      <details class="group px-5 py-4">
+        <summary class="cursor-pointer list-none font-semibold text-green-950">{item.q}</summary>
+        <p class="mt-2 max-w-3xl text-ink-soft">{item.a}</p>
+      </details>
+    ))}
+  </div>
+</section>

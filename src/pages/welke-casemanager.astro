@@ -1,0 +1,32 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import MatchCalc from "../components/calculators/MatchCalc.astro";
+import { crumbsLd, faqLd } from "../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Welke casemanager", path: "/welke-casemanager" },
+];
+const faq = [
+  {
+    q: "Is de uitkomst een offerte?",
+    a: "Nee. U ziet een niveau, een uurblok en een richtprijs per maand. De offerte maakt dat concreet voor uw dossiers.",
+  },
+  {
+    q: "Waarom soms toch een senior bij een lage score?",
+    a: "Als er een loonsanctierisico, een conflict of een arbeidsrechtelijke component speelt én het verzuim vooral psychisch is, adviseren we altijd een senior. Dat is een harde regel.",
+  },
+];
+---
+
+<Base title="Welke casemanager past bij u?" description="Acht vragen om te zien of u een medior, medior+ of senior nodig heeft, met een richtprijs per maand." jsonLd={[crumbsLd(crumbs), faqLd(faq)]}>
+  <Breadcrumbs crumbs={crumbs} />
+  <header class="mx-auto max-w-6xl px-4 pt-6">
+    <h1 class="font-serif text-5xl text-green-950">Welke casemanager past bij u?</h1>
+    <p class="mt-4 max-w-2xl text-lg">Acht vragen. De score wijst naar medior, medior+ of senior. Daarnaast adviseren we een uurblok: ongeveer tien uur per honderd medewerkers, een stap hoger als de situatie zwaar is.</p>
+  </header>
+  <div class="mx-auto max-w-6xl px-4 py-8">
+    <MatchCalc />
+  </div>
+</Base>

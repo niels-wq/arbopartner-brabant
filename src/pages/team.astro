@@ -1,0 +1,35 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { site } from "../data/site";
+import { crumbsLd } from "../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Team", path: "/team" },
+];
+---
+
+<Base title="Team" description="De casemanagers van Arbopartner Brabant stellen we persoonlijk voor. Namen en foto’s volgen na hun akkoord." jsonLd={[crumbsLd(crumbs)]}>
+  <Breadcrumbs crumbs={crumbs} />
+  <article class="mx-auto max-w-3xl px-4 pt-6">
+    <h1 class="font-serif text-5xl text-green-950">Uw vaste gezicht</h1>
+    <p class="mt-4 text-lg">Elke klant krijgt één casemanager, met naam, regio en een rechtstreeks nummer. Die gegevens zetten we hier pas als de persoon zelf akkoord is. Tot die tijd verzinnen we geen portretten.</p>
+    <p class="mt-4 rounded-3xl bg-ochre-200 px-5 py-4">{site.placeholders.team}</p>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      <div class="rounded-[2rem] border border-dashed border-ochre-700 bg-white/60 p-6">
+        <p class="text-sm font-semibold uppercase tracking-wide text-ochre-800">Placeholder</p>
+        <h2 class="mt-2 font-serif text-2xl">Casemanager, regio Meierij</h2>
+        <p class="mt-2 text-sm">Naam, foto en telefoon volgen.</p>
+      </div>
+      <div class="rounded-[2rem] border border-dashed border-ochre-700 bg-white/60 p-6">
+        <p class="text-sm font-semibold uppercase tracking-wide text-ochre-800">Placeholder</p>
+        <h2 class="mt-2 font-serif text-2xl">Casemanager, regio Zuidoost-Brabant</h2>
+        <p class="mt-2 text-sm">Naam, foto en telefoon volgen.</p>
+      </div>
+    </div>
+    <h2 class="mt-8 font-serif text-3xl">Hoe de match werkt</h2>
+    <p class="mt-3">In het adviesgesprek kijken we naar omvang, type verzuim en of er een conflict of een WIA-dossier speelt. Daarna stellen we een medior, medior+ of senior voor. U spreekt die persoon voordat de uren ingaan. Past het niet, dan zoeken we iemand anders. U zit niet vast aan een naam die u nooit heeft gezien.</p>
+    <p class="mt-3">De arbeidsdeskundige is een andere rol, bij Matchvermogen. Die komt erbij als het dossier een oordeel over passend werk nodig heeft, niet als vervanger van het wekelijkse contact.</p>
+  </article>
+</Base>

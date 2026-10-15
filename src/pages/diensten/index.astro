@@ -1,0 +1,29 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { services } from "../../data/services";
+import { crumbsLd } from "../../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Diensten", path: "/diensten" },
+];
+---
+
+<Base title="Diensten" description="Casemanager detacheren, verzuimanalyse, protocol, dossier bij een vertrek, tweede spoor en arbeidsdeskundig onderzoek." jsonLd={[crumbsLd(crumbs)]}>
+  <Breadcrumbs crumbs={crumbs} />
+  <header class="mx-auto max-w-6xl px-4 pt-6">
+    <h1 class="font-serif text-5xl text-green-950">Diensten</h1>
+    <p class="mt-4 max-w-2xl text-lg text-ink-soft">De kern is een vaste casemanager. De andere diensten zijn er voor het moment dat een dossier meer vraagt dan begeleiding. We zijn geen arbodienst.</p>
+  </header>
+  <div class="mx-auto grid max-w-6xl gap-4 px-4 py-8 md:grid-cols-2">
+    {services.map((service) => (
+      <a class="rounded-[2rem] border border-line bg-white/80 p-6" href={`/diensten/${service.slug}`}>
+        <h2 class="font-serif text-3xl text-green-950">{service.title}</h2>
+        <p class="mt-2 text-ink-soft">{service.lead}</p>
+      </a>
+    ))}
+  </div>
+  <CtaBand />
+</Base>

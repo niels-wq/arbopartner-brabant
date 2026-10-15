@@ -1,0 +1,59 @@
+---
+import { site, phoneHref, mailHref } from "../data/site";
+import { places } from "../data/places";
+---
+
+<footer class="mt-16 bg-green-950 text-sand-100">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-4">
+    <div>
+      <p class="font-serif text-2xl text-sand-50">Arbopartner Brabant</p>
+      <p class="mt-2 text-sm">{site.labelStatement}.</p>
+      <p class="mt-4 text-sm">
+        {site.parent.legalName}<br />
+        {site.parent.street}<br />
+        {site.parent.postalCode} {site.parent.city}<br />
+        KvK {site.parent.kvk}
+      </p>
+      <p class="mt-3 text-xs text-sand-200">{site.placeholders.btw}</p>
+      <p class="mt-3 text-xs text-sand-200">{site.placeholders.adresLabel}</p>
+    </div>
+    <div>
+      <p class="font-semibold text-ochre-200">Contact</p>
+      <p class="mt-2 text-sm">
+        <a href={phoneHref}>{site.parent.phoneDisplay}</a><br />
+        <a href={mailHref}>{site.parent.email}</a>
+      </p>
+      <p class="mt-3 text-xs text-sand-200">{site.placeholders.eigenEmail}</p>
+      <a class="mt-4 inline-block text-sm font-semibold text-ochre-200" href="/contact">Contactpagina</a>
+    </div>
+    <div>
+      <p class="font-semibold text-ochre-200">Zustermerken</p>
+      <ul class="mt-2 space-y-2 text-sm">
+        {site.sisters.map((sister) => (
+          <li>
+            <a href={sister.url} rel="noopener">{sister.name}</a>
+            <span class="block text-xs text-sand-200">{sister.role}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <p class="font-semibold text-ochre-200">Werkgebied</p>
+      <ul class="mt-2 columns-2 text-sm">
+        {places.map((place) => (
+          <li class="mb-1"><a href={`/werkgebied/${place.slug}`}>{place.name}</a></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-4 text-xs text-sand-200 sm:flex-row sm:justify-between">
+      <p class="m-0">© {new Date().getFullYear()} {site.parent.legalName}. {site.labelStatement}.</p>
+      <p class="m-0 flex gap-4">
+        <a href="/privacy">Privacy</a>
+        <a href="/voorwaarden">Voorwaarden</a>
+        <a href="/reviews">Reviews</a>
+      </p>
+    </div>
+  </div>
+</footer>

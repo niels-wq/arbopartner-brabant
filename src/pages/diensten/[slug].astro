@@ -1,0 +1,40 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import FaqList from "../../components/FaqList.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { services } from "../../data/services";
+import { crumbsLd, faqLd } from "../../lib/schema";
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const { service } = Astro.props;
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Diensten", path: "/diensten" },
+  { name: service.title, path: `/diensten/${service.slug}` },
+];
+---
+
+<Base title={service.title} description={service.description} jsonLd={[crumbsLd(crumbs), faqLd(service.faq)]}>
+  <Breadcrumbs crumbs={crumbs} />
+  <article class="mx-auto max-w-3xl px-4 pt-6">
+    <h1 class="font-serif text-5xl text-green-950">{service.title}</h1>
+    <p class="mt-4 text-lg text-ink-soft">{service.lead}</p>
+    {service.sections.map((section) => (
+      <section class="mt-8">
+        <h2 class="font-serif text-3xl text-green-950">{section.heading}</h2>
+        {section.paragraphs.map((paragraph) => <p class="mt-3">{paragraph}</p>)}
+      </section>
+    ))}
+    {service.sister && (
+      <p class="mt-8 rounded-3xl bg-ochre-200 px-5 py-4">
+        Zustermerk {service.sister.name}: <a class="font-semibold underline" href={service.sister.url}>{service.sister.text}</a>
+      </p>
+    )}
+    <FaqList items={service.faq} />
+  </article>
+  <CtaBand />
+</Base>

@@ -1,0 +1,49 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { crumbsLd } from "../../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Tools", path: "/tools" },
+  { name: "Verzuim vergelijken", path: "/tools/verzuim-vergelijken" },
+];
+---
+
+<Base title="Verzuimpercentage vergelijken met CBS" description="Zet uw verzuimpercentage naast de CBS-cijfers van 2025: 4,7% bij 10 tot 100 werknemers, 6,0% bij 100 of meer, 5,4% landelijk." jsonLd={[crumbsLd(crumbs)]}>
+  <Breadcrumbs crumbs={crumbs} />
+  <article class="mx-auto max-w-3xl px-4 pt-6">
+    <h1 class="font-serif text-5xl text-green-950">Uw verzuim naast CBS</h1>
+    <p class="mt-4">Cijfers 2025 uit CBS StatLine 80072ned: Nederland 5,4%, bedrijven met 10 tot 100 werknemers 4,7%, 100 of meer werknemers 6,0%. Een branchecijfer is dit niet.</p>
+    <form data-cbs class="mt-6 space-y-4 rounded-[2rem] border border-line bg-white/80 p-5">
+      <label class="block font-semibold">Aantal medewerkers
+        <input class="mt-1 w-40 rounded-xl border border-line px-3 py-2" name="n" type="number" min="1" value="80" />
+      </label>
+      <label class="block font-semibold">Uw verzuimpercentage
+        <input class="mt-1 w-40 rounded-xl border border-line px-3 py-2" name="pct" type="number" min="0" max="40" step="0.1" value="5.4" />
+      </label>
+      <button class="rounded-full bg-green-800 px-5 py-3 font-semibold text-sand-50" type="submit">Vergelijk</button>
+    </form>
+    <div data-out class="mt-6" aria-live="polite"></div>
+    <p class="mt-4 text-sm">Bron: <a class="underline" href="https://opendata.cbs.nl/statline/#/CBS/nl/dataset/80072ned/table">CBS StatLine 80072ned</a>. Voor de kosten per dag: <a class="underline" href="/verzuimkosten-berekenen">de verzuimkostencalculator</a>.</p>
+  </article>
+</Base>
+
+<script>
+  import { defaultAbsencePct, CBS } from "../../lib/calc";
+  import { num } from "../../lib/format";
+
+  const form = document.querySelector<HTMLFormElement>("[data-cbs]");
+  const out = document.querySelector<HTMLElement>("[data-out]");
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form || !out) return;
+    const data = new FormData(form);
+    const n = Number(data.get("n"));
+    const own = Number(data.get("pct"));
+    const bench = defaultAbsencePct(n);
+    const diff = own - bench;
+    const direction = diff > 0.05 ? "boven" : diff < -0.05 ? "onder" : "ongeveer op";
+    out.innerHTML = `<p class="font-serif text-3xl text-green-950">U zit ${direction} de benchmark van ${num(bench)}%</p><p class="mt-2">Verschil: ${num(Math.abs(diff))} procentpunt. Landelijk was het ${num(CBS.nl2025)}%. Dit zegt niets over de oorzaak.</p>`;
+  });
+</script>

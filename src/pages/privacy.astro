@@ -1,0 +1,32 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { site } from "../data/site";
+import { crumbsLd } from "../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Privacy", path: "/privacy" },
+];
+---
+
+<Base title="Privacyverklaring" description="Privacyverklaring van Arbopartner Brabant, een label van Matchvermogen B.V." jsonLd={[crumbsLd(crumbs)]}>
+  <Breadcrumbs crumbs={crumbs} />
+  <article class="prose-ap mx-auto max-w-3xl px-4 pt-6">
+    <h1>Privacyverklaring</h1>
+    <p>Arbopartner Brabant is een label van Matchvermogen B.V., {site.parent.street}, {site.parent.postalCode} {site.parent.city}, KvK {site.parent.kvk}. Matchvermogen B.V. is verwerkingsverantwoordelijke voor de formulieren op deze site. Contact: {site.parent.email} en {site.parent.phoneDisplay}.</p>
+    <h2>Welke gegevens</h2>
+    <p>Via offerte, adviesgesprek, contact en spoedhulp vragen we naam, organisatie, e-mail, telefoon en de inhoud van uw vraag. Vul geen bijzondere persoonsgegevens in, zoals een diagnose. Dat hebben we voor een eerste contact niet nodig.</p>
+    <h2>Waarom</h2>
+    <p>We gebruiken de gegevens om te reageren op uw verzoek en, als u daarom vraagt, een offerte te maken. De grondslag is artikel 6 lid 1 onder b van de AVG: stappen vóór een overeenkomst. Stuurt u een algemene vraag, dan is het gerechtvaardigd belang om die vraag te beantwoorden.</p>
+    <h2>Bewaartermijn</h2>
+    <p>{site.placeholders.bewaartermijn} Tot die termijn vaststaat, bewaren we berichten niet langer dan nodig is om uw vraag af te handelen.</p>
+    <h2>Delen</h2>
+    <p>We verkopen geen gegevens. Een mailprovider verwerkt het bericht als SMTP is ingesteld. Zonder SMTP blijft het bericht in uw eigen mailprogramma via de mailto-fallback en komt het niet op onze server binnen.</p>
+    <h2>Cookies</h2>
+    <p>Deze site zet geen trackingcookies en gebruikt geen analyseplatform. Het formulier bewaart niets in uw browser.</p>
+    <h2>Uw rechten</h2>
+    <p>U kunt inzage, correctie of verwijdering vragen via {site.parent.email}. U kunt ook een klacht indienen bij de <a href="https://www.autoriteitpersoonsgegevens.nl/">Autoriteit Persoonsgegevens</a>.</p>
+    <p>{site.placeholders.btw}</p>
+  </article>
+</Base>

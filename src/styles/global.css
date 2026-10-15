@@ -1,0 +1,113 @@
+@import "tailwindcss";
+@import "@fontsource/source-sans-3/latin-400.css";
+@import "@fontsource/source-sans-3/latin-600.css";
+@import "@fontsource/source-sans-3/latin-700.css";
+@import "@fontsource/fraunces/latin-600.css";
+@import "@fontsource/fraunces/latin-700.css";
+
+@theme {
+  --font-sans: "Source Sans 3", "Segoe UI", sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --color-ink: #1c1915;
+  --color-ink-soft: #4a433a;
+  --color-sand-50: #fbf7f0;
+  --color-sand-100: #f4ecdf;
+  --color-sand-200: #e6d7bc;
+  --color-green-950: #12261c;
+  --color-green-900: #1a3326;
+  --color-green-800: #234833;
+  --color-green-700: #2c5c40;
+  --color-green-600: #3d7a56;
+  --color-ochre-800: #6d4d1c;
+  --color-ochre-700: #8a6124;
+  --color-ochre-500: #c4923a;
+  --color-ochre-200: #f3e2bc;
+  --color-clay-700: #8c3d2a;
+  --color-clay-600: #a34b36;
+  --color-line: #e5d6bf;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(900px 420px at 110% -10%, rgb(196 146 58 / 18%), transparent 55%),
+    radial-gradient(700px 380px at -15% 8%, rgb(44 92 64 / 12%), transparent 50%),
+    var(--color-sand-50);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+.font-serif {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-ochre-500);
+  outline-offset: 3px;
+}
+
+.prose-ap {
+  max-width: 68ch;
+}
+
+.prose-ap p,
+.prose-ap ul,
+.prose-ap ol {
+  margin: 0 0 1rem;
+}
+
+.prose-ap h2 {
+  font-size: 1.7rem;
+  line-height: 1.25;
+  margin: 2.2rem 0 0.7rem;
+  color: var(--color-green-950);
+}
+
+.prose-ap h3 {
+  font-size: 1.25rem;
+  margin: 1.6rem 0 0.4rem;
+}
+
+.prose-ap ul,
+.prose-ap ol {
+  padding-left: 1.2rem;
+}
+
+.prose-ap a {
+  color: var(--color-green-800);
+  text-decoration: underline;
+  text-decoration-color: var(--color-ochre-500);
+  text-underline-offset: 3px;
+}
+
+.prose-ap strong {
+  font-weight: 700;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  background: white;
+  padding: 0.5rem 0.8rem;
+  z-index: 80;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+}

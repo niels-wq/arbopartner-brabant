@@ -1,0 +1,176 @@
+<div data-compare>
+  <form class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+    <div class="space-y-4 rounded-[2rem] border border-line bg-white/80 p-5 md:p-7">
+      <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">Indicatie, geen offerte</p>
+      <label class="block text-sm font-semibold">Niveau
+        <select class="field" name="level">
+          <option value="medior">Medior</option>
+          <option value="medior-plus">Medior+</option>
+          <option value="senior">Senior met specialisatie</option>
+        </select>
+      </label>
+      <label class="block text-sm font-semibold">Productieve uren per week die u nodig heeft
+        <input class="field" name="hours" type="number" min="10" max="40" value="10" />
+      </label>
+      <p class="text-sm text-ink-soft">Bij detachering rekenen we elk ingekocht uur als inzetbaar uur. Reistijd binnen 45 minuten zit in het tarief. Bij ziekte regelen wij vervanging.</p>
+      <label class="block text-sm font-semibold">Bruto maandloon bij een dienstverband
+        <input class="field" name="gross" type="number" min="2500" step="50" value="4000" />
+      </label>
+      <p class="text-xs text-ink-soft" data-salary-note></p>
+      <label class="block text-sm font-semibold">Contracturen per week
+        <input class="field" name="contract" type="number" min="16" max="40" value="40" />
+      </label>
+    </div>
+    <fieldset class="space-y-3 rounded-[2rem] bg-sand-100 p-5 md:p-7">
+      <legend class="font-semibold text-green-950">Aannames bij iemand in dienst</legend>
+      <p class="text-sm">Elke aanname is aan te passen. De bron staat onder de uitkomst.</p>
+      <label class="check"><input type="checkbox" name="large" checked /> Grote werkgever (Aof hoog, 7,63%). Uitvinken = kleine werkgever, Aof 6,27%.</label>
+      <label class="check"><input type="checkbox" name="temporary" /> Tijdelijk contract (AWf hoog, 7,74% in plaats van 2,74%).</label>
+      <label class="block text-sm">Pensioenpremie werkgever, % van bruto. Standaard 0, want er is geen landelijke cao.
+        <input class="field" name="pension" type="number" min="0" max="30" step="0.5" value="0" />
+      </label>
+      <label class="block text-sm">Verzuim van de casemanager zelf, %. Standaard CBS 5,4.
+        <input class="field" name="absence" type="number" min="0" max="20" step="0.1" value="5.4" />
+      </label>
+      <label class="block text-sm">Loondoorbetaling tijdens ziekte, %. Wettelijk minimum is 70. Standaard 100, aanname.
+        <input class="field" name="sickpay" type="number" min="70" max="100" value="100" />
+      </label>
+      <label class="check"><input type="checkbox" name="replace" checked /> Ziekte laten vervangen tegen het interimtarief.</label>
+      <label class="block text-sm">Interimtarief vervanging. Midden van €85–€120.
+        <input class="field" name="replacement" type="number" min="60" max="180" step="0.5" value="102.5" />
+      </label>
+      <label class="block text-sm">Directe wervingskosten, eenmalig. Standaard €5.000.
+        <input class="field" name="recruitment" type="number" min="0" step="100" value="5000" />
+      </label>
+      <label class="block text-sm">Vacature in kalenderdagen. Standaard 60.
+        <input class="field" name="vacancy" type="number" min="0" max="180" value="60" />
+      </label>
+      <label class="check"><input type="checkbox" name="coverVacancy" checked /> Tijdens de vacature vervanging inkopen.</label>
+      <label class="block text-sm">Verwachte dienstjaren om werving en vacature over af te schrijven.
+        <input class="field" name="tenure" type="number" min="1" max="15" value="3" />
+      </label>
+      <label class="block text-sm">Inwerkweken op halve productiviteit. Aanname, geen landelijk cijfer.
+        <input class="field" name="onboarding" type="number" min="0" max="16" value="4" />
+      </label>
+      <label class="block text-sm">Leegloop na verlof en verzuim: overleg, reizen, scholing, administratie. Aanname 15%.
+        <input class="field" name="idle" type="number" min="0" max="50" value="15" />
+      </label>
+      <button class="rounded-full bg-green-800 px-5 py-3 font-semibold text-sand-50" type="submit">Zet de uren naast elkaar</button>
+    </fieldset>
+  </form>
+  <div data-out class="mt-6 rounded-[2rem] border border-line bg-white/80 p-6" aria-live="polite">
+    <p class="font-serif text-2xl text-green-950">De vergelijking gaat over zekerheid en flexibiliteit. Een lager bedrag is geen reden om te kiezen en geen belofte.</p>
+  </div>
+  <details class="mt-4 rounded-3xl bg-sand-100 p-4 text-sm" open>
+    <summary class="cursor-pointer font-semibold">Bronnen en aannames</summary>
+    <ul class="mt-3 space-y-2" data-sources></ul>
+  </details>
+</div>
+
+<style>
+  .field { display: block; margin-top: 0.25rem; width: 100%; max-width: 16rem; border: 1px solid var(--color-line); border-radius: 0.8rem; padding: 0.45rem 0.7rem; background: white; }
+  .check { display: flex; gap: 0.5rem; align-items: flex-start; font-size: 0.95rem; }
+</style>
+
+<script>
+  import { compareEmployment, compareSources, defaultGrossMonthly, type CompareInput } from "../../lib/calc";
+  import { euro, num, pct } from "../../lib/format";
+
+  const root = document.querySelector<HTMLElement>("[data-compare]");
+  const form = root?.querySelector("form");
+  const out = root?.querySelector<HTMLElement>("[data-out]");
+  const sources = root?.querySelector("[data-sources]");
+  const note = root?.querySelector("[data-salary-note]");
+  const level = form?.querySelector<HTMLSelectElement>("[name=level]");
+  const gross = form?.querySelector<HTMLInputElement>("[name=gross]");
+  let grossTouched = false;
+  gross?.addEventListener("input", () => {
+    grossTouched = true;
+  });
+  level?.addEventListener("change", () => {
+    if (!grossTouched && gross && level) gross.value = String(defaultGrossMonthly(level.value as CompareInput["level"]));
+    if (note && level) {
+      note.textContent =
+        level.value === "medior-plus"
+          ? "Standaard €4.500: de bovenkant van de STAVV-mediorband. Voor medior+ is dat een aanname."
+          : "Standaard is het midden van de STAVV-band voor dit niveau.";
+    }
+  });
+  if (sources) {
+    sources.innerHTML = compareSources
+      .map((item) => `<li><a class="font-semibold text-green-800 underline decoration-ochre-500" href="${item.url}">${item.title}</a> — ${item.note}</li>`)
+      .join("");
+  }
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form || !out) return;
+    const data = new FormData(form);
+    const input: CompareInput = {
+      level: String(data.get("level")) as CompareInput["level"],
+      weeklyHours: Number(data.get("hours")),
+      grossMonthly: Number(data.get("gross")),
+      contractHours: Number(data.get("contract")),
+      largeEmployer: data.get("large") === "on",
+      temporaryContract: data.get("temporary") === "on",
+      pensionPct: Number(data.get("pension")),
+      absencePct: Number(data.get("absence")),
+      sickPayPct: Number(data.get("sickpay")),
+      replaceAbsence: data.get("replace") === "on",
+      replacementRate: Number(data.get("replacement")),
+      recruitmentCost: Number(data.get("recruitment")),
+      tenureYears: Number(data.get("tenure")),
+      vacancyCalendarDays: Number(data.get("vacancy")),
+      coverVacancy: data.get("coverVacancy") === "on",
+      onboardingWeeks: Number(data.get("onboarding")),
+      onboardingProductivity: 0.5,
+      idlePct: Number(data.get("idle")) / 100,
+      publicHolidays: 7,
+    };
+    const result = compareEmployment(input);
+    const employed = result.employed;
+    out.innerHTML = `
+      <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">Indicatie, geen offerte</p>
+      <h2 class="mt-2 font-serif text-3xl text-green-950">Hetzelfde werk, twee afspraken</h2>
+      <p class="mt-2 max-w-3xl">Detacheren koopt u voor de uren die u nodig heeft. Iemand in dienst levert minder productieve uren dan er op het contract staan: verlof, feestdagen, verzuim en leegloop gaan eraf. We claimen niet dat de ene route goedkoper is. De bedragen hieronder zijn een indicatie.</p>
+      <div class="mt-4 grid gap-3 md:grid-cols-2">
+        <article class="rounded-3xl bg-green-900 p-4 text-sand-50">
+          <h3 class="font-serif text-2xl">Gedetacheerd</h3>
+          <p class="mt-2 font-serif text-3xl">${euro(result.detachedHourly)} <span class="text-base">per inzetbaar uur</span></p>
+          <p>${result.billedHours} uur per week · ${euro(result.detachedMonth)} per maand · ${euro(result.detachedYear, true)} per jaar</p>
+          <ul class="mt-3 list-disc space-y-1 pl-5 text-sm text-sand-100">
+            <li>Geen ziekterisico voor u: bij ziekte regelen wij vervanging.</li>
+            <li>Direct inzetbaar, zonder wervingsmaand.</li>
+            <li>Maandelijks op- of afschalen.</li>
+            <li>Geen transitievergoeding.</li>
+            <li>Senior of arbeidsdeskundige als achtervang, met korting via de zustermerken.</li>
+          </ul>
+        </article>
+        <article class="rounded-3xl bg-sand-100 p-4">
+          <h3 class="font-serif text-2xl text-green-950">In dienst</h3>
+          <p class="mt-2 font-serif text-3xl text-green-950">${euro(employed.costPerProductiveHour)} <span class="text-base">per productief uur</span></p>
+          <p>Eén fte levert ongeveer ${num(employed.productiveHoursWeek)} productieve uren per week. Voor ${result.billedHours} uur heeft u ongeveer ${num(employed.fteNeeded, 2)} fte nodig: ${euro(employed.annualForSameHours, true)} per jaar.</p>
+          <p class="mt-2 text-sm">Een deeltijd-casemanager van een fractie fte is op een krappe markt vaak lastig te vinden. Die moeite zit niet als meerprijs in het bedrag. UWV zag in het najaar van 2025 dat 45% van de vacatures moeilijk vervulbaar was.</p>
+        </article>
+      </div>
+      <h3 class="mt-6 font-serif text-2xl text-green-950">Opbouw van één fte in dienst</h3>
+      <table class="mt-2 w-full text-left text-sm">
+        <tbody>
+          <tr><th class="py-1 pr-3 font-semibold">Bruto jaarloon</th><td>${euro(employed.grossYear, true)}</td></tr>
+          <tr><th class="py-1 pr-3 font-semibold">Vakantiegeld 8%</th><td>${euro(employed.holiday, true)}</td></tr>
+          <tr><th class="py-1 pr-3 font-semibold">Werkgeverspremies ${pct(employed.premiumPct * 100)}</th><td>${euro(employed.premiums, true)} over ${euro(employed.premiumBase, true)} premieloon</td></tr>
+          <tr><th class="py-1 pr-3 font-semibold">Pensioen</th><td>${euro(employed.pension, true)}</td></tr>
+          <tr><th class="py-1 pr-3 font-semibold">Minder loon door lagere doorbetaling</th><td>− ${euro(employed.sickPaySaving, true)}</td></tr>
+          <tr><th class="py-1 pr-3 font-semibold">Vervanging tijdens ziekte</th><td>${euro(employed.replacementCost, true)}</td></tr>
+          <tr><th class="py-1 pr-3 font-semibold">Werving, afgeschreven</th><td>${euro(employed.recruitmentAnnual, true)} per jaar</td></tr>
+          <tr><th class="py-1 pr-3 font-semibold">Vacature-vervanging, afgeschreven</th><td>${euro(employed.vacancyAnnual, true)} per jaar (${num(employed.vacancyHours, 0)} uur eenmalig)</td></tr>
+          <tr><th class="py-1 pr-3 font-semibold">Inwerken, afgeschreven</th><td>${euro(employed.onboardingAnnual, true)} per jaar</td></tr>
+          <tr><th class="py-1 pr-3 font-semibold">Totaal per fte</th><td>${euro(employed.annualPerPerson, true)}</td></tr>
+          <tr><th class="py-1 pr-3 font-semibold">Productieve uren per fte</th><td>${num(employed.productiveHours, 0)} per jaar, na ${num(employed.leaveHours, 0)} verlofuren, ${num(employed.holidayHours, 0)} feestdaguren, ${num(employed.absenceHours, 0)} verzuimuren en ${num(employed.idleHours, 0)} uur leegloop</td></tr>
+        </tbody>
+      </table>
+      <p class="mt-4 text-sm">Transitievergoeding hoort niet in het uurtarief. Die ontstaat pas als het dienstverband eindigt. Na drie jaar is de illustratie één maandsalaris inclusief vakantiegeld: <strong>${euro(employed.transitionAfter3Years)}</strong>. Het wettelijk maximum kan dit begrenzen en wordt jaarlijks geïndexeerd. Bij detachering betaalt u die vergoeding niet.</p>
+      <p class="mt-2 text-sm">Feestdagen: 7 werkdagen, aanname. Inwerken: 4 weken op 50% productiviteit, aanname. Whk is het landelijk gemiddelde van 1,52%, niet uw eigen beschikking.</p>
+    `;
+  });
+</script>

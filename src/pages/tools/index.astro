@@ -1,0 +1,34 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { crumbsLd } from "../../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Tools", path: "/tools" },
+];
+const tools = [
+  { href: "/welke-casemanager", title: "Welke casemanager", text: "Acht vragen naar niveau en uurblok." },
+  { href: "/verzuimkosten-berekenen", title: "Verzuimkosten", text: "TNO-dagkosten en een scenario dat u zelf kiest." },
+  { href: "/detacheren-of-in-dienst", title: "Detacheren of in dienst", text: "Kosten per productief uur. Indicatie, geen offerte." },
+  { href: "/tools/tijdlijn-ziekteverzuim", title: "Tijdlijn ziekteverzuim", text: "Wie doet wat, van dag 1 tot week 104." },
+  { href: "/tools/loonsanctie-check", title: "Loonsanctie-check", text: "Zeven vragen over gaten in het dossier. Geen oordeel van UWV." },
+  { href: "/tools/verzuim-vergelijken", title: "Verzuim vergelijken", text: "Uw percentage naast de CBS-cijfers van 2025." },
+];
+---
+
+<Base title="Tools" description="Calculators en checks voor verzuim: casemanager-match, verzuimkosten, detacheren versus dienstverband, tijdlijn, loonsanctie en CBS-vergelijking." jsonLd={[crumbsLd(crumbs)]}>
+  <Breadcrumbs crumbs={crumbs} />
+  <header class="mx-auto max-w-6xl px-4 pt-6">
+    <h1 class="font-serif text-5xl text-green-950">Tools</h1>
+    <p class="mt-4 max-w-2xl">Rekenhulpen met bronnen. Geen van deze tools is een offerte, een medisch oordeel of een uitspraak van UWV.</p>
+  </header>
+  <div class="mx-auto grid max-w-6xl gap-4 px-4 py-8 md:grid-cols-2">
+    {tools.map((tool) => (
+      <a class="rounded-[2rem] border border-line bg-white/80 p-6" href={tool.href}>
+        <h2 class="font-serif text-3xl text-green-950">{tool.title}</h2>
+        <p class="mt-2">{tool.text}</p>
+      </a>
+    ))}
+  </div>
+</Base>

@@ -1,0 +1,121 @@
+---
+import Base from "../layouts/Base.astro";
+import CtaBand from "../components/CtaBand.astro";
+import FaqList from "../components/FaqList.astro";
+import ReviewCard from "../components/ReviewCard.astro";
+import { site } from "../data/site";
+import { reviews } from "../data/reviews";
+import { places } from "../data/places";
+import { faqLd, crumbsLd } from "../lib/schema";
+
+const faq = [
+  {
+    q: "Voor wie is Arbopartner Brabant?",
+    a: "Voor werkgevers met 35 of meer medewerkers, binnen ongeveer 45 minuten rijden van Uden. Kleinere organisaties en particulieren verwijzen we door naar een gerichte opdracht bij Matchvermogen, niet naar een wekelijks blok.",
+  },
+  {
+    q: "Zijn jullie een arbodienst?",
+    a: "Nee. We detacheren een casemanager en schakelen waar nodig een arbeidsdeskundige in. De verplichte bedrijfsarts blijft u zelf organiseren.",
+  },
+  {
+    q: "Wat is het verschil met iemand in dienst nemen?",
+    a: "U heeft geen werving, geen ziekterisico op deze persoon, vervanging als die uitvalt, geen transitievergoeding en u schaalt maandelijks. We zeggen niet dat dit goedkoper is. Reken het zelf na per productief uur.",
+  },
+  {
+    q: "Van wie zijn de reviews?",
+    a: "Van Matchvermogen, ons moederbedrijf. Ze staan letterlijk op matchvermogen.nl en gaan niet over dit nieuwe label. We hebben nog geen eigen reviews.",
+  },
+];
+
+const jsonLd = [faqLd(faq)];
+---
+
+<Base
+  home
+  title="Arbopartner Brabant — een vast gezicht voor verzuim"
+  description={site.description}
+  jsonLd={jsonLd}
+>
+  <section class="mx-auto grid max-w-6xl items-end gap-8 px-4 pb-6 pt-10 md:grid-cols-[1.3fr_0.7fr] md:pt-16">
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-ochre-800">{site.labelStatement}</p>
+      <h1 class="mt-3 max-w-xl font-serif text-5xl leading-[1.05] text-green-950 md:text-6xl">Uw casemanager kent de namen op de werkvloer.</h1>
+      <p class="mt-5 max-w-xl text-lg text-ink-soft">Een vaste gedetacheerde casemanager voor werkgevers in Brabant met 35 of meer medewerkers. Binnen 45 minuten van Uden. Een arbeidsdeskundige staat als achtervang klaar, met korting.</p>
+      <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+        <a class="rounded-full bg-green-800 px-5 py-3 text-center font-semibold text-sand-50" href="/adviesgesprek">Plan een adviesgesprek</a>
+        <a class="rounded-full border border-green-800 px-5 py-3 text-center font-semibold text-green-900" href="/spoedhulp">Ik heb nu een probleem</a>
+      </div>
+    </div>
+    <aside class="rounded-[2rem] bg-ochre-200 p-6">
+      <p class="font-serif text-2xl text-green-950">Wat u niet krijgt</p>
+      <ul class="mt-3 space-y-2 text-ink">
+        <li>Geen wisselend loket.</li>
+        <li>Geen nacalculatie voor reistijd in het gebied.</li>
+        <li>Geen belofte dat uw verzuim met een vast percentage daalt.</li>
+        <li>Geen claim dat we goedkoper zijn dan een dienstverband.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <section class="mx-auto grid max-w-6xl gap-4 px-4 py-8 md:grid-cols-3" aria-label="Keuzehulp">
+    <a class="rounded-[2rem] bg-green-900 p-6 text-sand-50" href="/spoedhulp">
+      <h2 class="font-serif text-3xl">Ik heb nu een verzuimprobleem</h2>
+      <p class="mt-2 text-sand-100">Een zieke medewerker, een vastgelopen dossier of een sanctierisico. Bel, app of laat u terugbellen.</p>
+    </a>
+    <a class="rounded-[2rem] border border-line bg-white/80 p-6" href="/pakketten">
+      <h2 class="font-serif text-3xl text-green-950">Ik wil verzuim structureel regelen</h2>
+      <p class="mt-2 text-ink-soft">Basis, Premium of Pro. Eén niveau casemanager, een vast aantal uren, een vast gezicht.</p>
+    </a>
+    <a class="rounded-[2rem] bg-sand-200 p-6" href="/verzuimkosten-berekenen">
+      <h2 class="font-serif text-3xl text-green-950">Wat kost verzuim mij?</h2>
+      <p class="mt-2 text-ink-soft">Reken met de TNO-dagkosten en kies zelf een scenario. Geen belofte, wel een bedrag.</p>
+    </a>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-8">
+    <h2 class="font-serif text-4xl text-green-950">Eén mens, met een zwaardere achtervang</h2>
+    <div class="mt-6 grid gap-4 md:grid-cols-3">
+      <article class="rounded-3xl border border-line bg-white/70 p-5">
+        <h3 class="font-serif text-2xl">Vaste casemanager</h3>
+        <p class="mt-2">Medior, medior+ of senior. Dezelfde persoon elke week, op uw locatie. Uren schalen mee met de dossiers.</p>
+      </article>
+      <article class="rounded-3xl border border-line bg-white/70 p-5">
+        <h3 class="font-serif text-2xl">Arbeidsdeskundige erachter</h3>
+        <p class="mt-2">Via Matchvermogen, met {site.discount.arbeidsdeskundige}% korting. De onderzoeker is niet dezelfde persoon als de begeleider.</p>
+      </article>
+      <article class="rounded-3xl border border-line bg-white/70 p-5">
+        <h3 class="font-serif text-2xl">Tweede spoor als het moet</h3>
+        <p class="mt-2">Via Best Match, met {site.discount.tweedeSpoor}% korting. Op tijd, niet in de laatste maand van het tweede jaar.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-6">
+    <div class="flex items-end justify-between gap-4">
+      <h2 class="font-serif text-4xl text-green-950">Wat opdrachtgevers van Matchvermogen schreven</h2>
+      <a class="hidden font-semibold text-green-800 sm:inline" href="/reviews">Alle citaten</a>
+    </div>
+    <div class="mt-5 grid gap-4 md:grid-cols-3">
+      {reviews.slice(0, 3).map((review) => <ReviewCard review={review} />)}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-8">
+    <h2 class="font-serif text-4xl text-green-950">Binnen 45 minuten van Uden</h2>
+    <p class="mt-2 max-w-2xl text-ink-soft">Reistijden zijn een indicatie per auto, buiten de spits. De reistijd zit in het tarief.</p>
+    <ul class="mt-4 flex flex-wrap gap-2">
+      {places.map((place) => (
+        <li>
+          <a class="inline-block rounded-full bg-white px-3 py-1 text-sm font-semibold text-green-900 ring-1 ring-line" href={`/werkgebied/${place.slug}`}>
+            {place.name} · {place.minutes} min
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <div class="mx-auto max-w-6xl px-4">
+    <FaqList items={faq} />
+  </div>
+  <CtaBand />
+</Base>

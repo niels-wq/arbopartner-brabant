@@ -1,0 +1,120 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { site } from "../data/site";
+import { places } from "../data/places";
+import { crumbsLd } from "../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Offerte", path: "/offerte" },
+];
+---
+
+<Base title="Offerte aanvragen" description="Vraag in drie stappen een offerte voor een gedetacheerde casemanager. Omvang, situatie en pakket." jsonLd={[crumbsLd(crumbs)]}>
+  <Breadcrumbs crumbs={crumbs} />
+  <article class="mx-auto max-w-3xl px-4 pt-6">
+    <h1 class="font-serif text-5xl text-green-950">Offerte in drie stappen</h1>
+    <p class="mt-4">U beschrijft de organisatie, de dossiers en het pakket. {site.placeholders.offerteDagen}</p>
+    <form class="mt-6 space-y-8" data-endpoint="/api/offerte" data-kind="offerte" data-wizard>
+      <fieldset data-step="1" class="space-y-3 rounded-[2rem] border border-line bg-white/80 p-5">
+        <legend class="font-serif text-2xl">1. Uw organisatie</legend>
+        <label class="block">Naam<input class="field" name="naam" required /></label>
+        <label class="block">Organisatie<input class="field" name="organisatie" required /></label>
+        <label class="block">E-mail<input class="field" name="email" type="email" required /></label>
+        <label class="block">Telefoon<input class="field" name="telefoon" type="tel" required /></label>
+        <label class="block">Plaats
+          <select class="field" name="plaats" required>
+            {places.map((place) => <option value={place.name}>{place.name}</option>)}
+            <option value="Anders, binnen 45 minuten">Anders, binnen 45 minuten</option>
+          </select>
+        </label>
+        <label class="block">Aantal medewerkers<input class="field" name="medewerkers" type="number" min="35" required /></label>
+        <label class="block">Sector<input class="field" name="sector" /></label>
+      </fieldset>
+      <fieldset data-step="2" class="space-y-3 rounded-[2rem] border border-line bg-white/80 p-5">
+        <legend class="font-serif text-2xl">2. De situatie</legend>
+        <label class="block">Verzuimpercentage, als u het weet<input class="field" name="verzuim" /></label>
+        <label class="block">Aantal dossiers langer dan 6 weken<input class="field" name="dossiers" /></label>
+        <label class="block">Wat speelt er?
+          <select class="field" name="situatie" required>
+            <option value="Nu een probleem">Nu een probleem</option>
+            <option value="Structureel regelen">Structureel regelen</option>
+            <option value="Allebei">Allebei</option>
+          </select>
+        </label>
+        <label class="block">Toelichting<textarea class="field min-h-28" name="toelichting"></textarea></label>
+      </fieldset>
+      <fieldset data-step="3" class="space-y-3 rounded-[2rem] border border-line bg-white/80 p-5">
+        <legend class="font-serif text-2xl">3. Pakket</legend>
+        <label class="block">Pakket
+          <select class="field" name="pakket" required>
+            <option value="Basis, 10 uur">Basis, 10 uur</option>
+            <option value="Premium, 20 uur">Premium, 20 uur</option>
+            <option value="Pro, 24+ uur">Pro, 24 uur of meer</option>
+            <option value="Nog niet zeker">Nog niet zeker</option>
+          </select>
+        </label>
+        <label class="block">Niveau
+          <select class="field" name="niveau" required>
+            <option value="Medior">Medior</option>
+            <option value="Medior+">Medior+</option>
+            <option value="Senior">Senior met specialisatie</option>
+            <option value="Nog niet zeker">Nog niet zeker</option>
+          </select>
+        </label>
+        <label class="block">Gewenste start<input class="field" name="start" type="text" placeholder="bijvoorbeeld 1 november" /></label>
+        <label class="flex items-start gap-2 text-sm">
+          <input name="toestemming" type="checkbox" value="ja" required />
+          <span>Matchvermogen B.V. mag deze gegevens gebruiken om een offerte te maken. Zie de <a class="underline" href="/privacy">privacyverklaring</a>.</span>
+        </label>
+        <div class="absolute -left-[9999px]" aria-hidden="true">
+          <label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label>
+        </div>
+        <button class="rounded-full bg-green-800 px-5 py-3 font-semibold text-sand-50" type="submit">Verstuur de aanvraag</button>
+        <p data-status class="text-sm" role="status"></p>
+        <p class="text-sm text-ink-soft">Lukt het formulier niet, mail dan {site.parent.email}. {site.placeholders.eigenEmail}</p>
+      </fieldset>
+      <div class="flex gap-3" data-nav>
+        <button type="button" data-prev class="rounded-full border border-green-800 px-4 py-2 font-semibold">Vorige</button>
+        <button type="button" data-next class="rounded-full bg-ochre-500 px-4 py-2 font-semibold">Volgende stap</button>
+      </div>
+    </form>
+  </article>
+</Base>
+
+<style>
+  .field { display: block; margin-top: 0.25rem; width: 100%; border: 1px solid var(--color-line); border-radius: 0.9rem; padding: 0.55rem 0.75rem; background: white; }
+</style>
+
+<script>
+  import "../scripts/forms.ts";
+  const form = document.querySelector<HTMLFormElement>("[data-wizard]");
+  const steps = Array.from(form?.querySelectorAll<HTMLFieldSetElement>("[data-step]") || []);
+  const nav = form?.querySelector<HTMLElement>("[data-nav]");
+  let index = 0;
+  function show() {
+    steps.forEach((step, stepIndex) => {
+      step.hidden = stepIndex !== index;
+    });
+    const prev = nav?.querySelector<HTMLButtonElement>("[data-prev]");
+    const next = nav?.querySelector<HTMLButtonElement>("[data-next]");
+    if (prev) prev.hidden = index === 0;
+    if (next) next.hidden = index === steps.length - 1;
+  }
+  nav?.querySelector("[data-next]")?.addEventListener("click", () => {
+    const fields = steps[index]?.querySelectorAll<HTMLInputElement | HTMLSelectElement>("input, select, textarea");
+    const invalid = Array.from(fields || []).find((field) => !field.checkValidity());
+    if (invalid) {
+      invalid.reportValidity();
+      return;
+    }
+    index = Math.min(steps.length - 1, index + 1);
+    show();
+  });
+  nav?.querySelector("[data-prev]")?.addEventListener("click", () => {
+    index = Math.max(0, index - 1);
+    show();
+  });
+  show();
+</script>

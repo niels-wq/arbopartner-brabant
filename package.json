@@ -1,0 +1,25 @@
+{
+  "name": "arbopartner-brabant",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0 --port 4327",
+    "build": "astro build",
+    "start": "node server/index.mjs",
+    "preview": "node server/index.mjs",
+    "test": "node --experimental-strip-types --test test/**/*.test.ts"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.6.0",
+    "@tailwindcss/vite": "^4.1.14",
+    "astro": "^5.14.4",
+    "nodemailer": "^7.0.6",
+    "tailwindcss": "^4.1.14"
+  },
+  "devDependencies": {
+    "@fontsource/fraunces": "^5.2.9",
+    "@fontsource/source-sans-3": "^5.2.8",
+    "typescript": "^5.9.3"
+  }
+}

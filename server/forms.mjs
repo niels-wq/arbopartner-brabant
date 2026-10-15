@@ -1,0 +1,140 @@
+const WINDOW_MS = 10 * 60 * 1000;
+const MAX_HITS = 8;
+const hits = new Map();
+
+function clientIp(req) {
+  const forwarded = req.headers["x-forwarded-for"];
+  if (typeof forwarded === "string" && forwarded.length) return forwarded.split(",")[0].trim();
+  return req.socket?.remoteAddress || "unknown";
+}
+
+function limited(ip) {
+  const now = Date.now();
+  const recent = (hits.get(ip) || []).filter((stamp) => now - stamp < WINDOW_MS);
+  recent.push(now);
+  hits.set(ip, recent);
+  return recent.length > MAX_HITS;
+}
+
+function oneLine(value, max = 180) {
+  return String(value ?? "")
+    .replace(/[\r\n\t]+/g, " ")
+    .trim()
+    .slice(0, max);
+}
+
+function textBlock(value, max = 4000) {
+  return String(value ?? "")
+    .replace(/\r/g, "")
+    .trim()
+    .slice(0, max);
+}
+
+function validEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+const fields = {
+  offerte: ["naam", "email", "telefoon", "organisatie", "plaats", "medewerkers", "pakket", "niveau", "situatie"],
+  advies: ["naam", "email", "telefoon", "organisatie", "voorkeur", "vraag"],
+  spoed: ["naam", "telefoon", "organisatie", "wat"],
+};
+
+export function validate(kind, body) {
+  const errors = [];
+  if (!fields[kind]) errors.push("Onbekend formulier.");
+  if (body?.toestemming !== "ja") errors.push("Vink de toestemming aan om het bericht te versturen.");
+  const required = fields[kind] || [];
+  for (const key of required) {
+    if (!oneLine(body?.[key], 500)) errors.push(`Veld ontbreekt: ${key}.`);
+  }
+  if (body?.email && !validEmail(oneLine(body.email))) errors.push("Het e-mailadres klopt niet.");
+  return errors;
+}
+
+function messageText(kind, body) {
+  const lines = [`Formulier: ${kind}`, `Tijdstip: ${new Date().toISOString()}`, ""];
+  for (const [key, value] of Object.entries(body || {})) {
+    if (key === "company_website" || key === "toestemming") continue;
+    lines.push(`${key}: ${textBlock(value, 2000)}`);
+  }
+  return lines.join("\n").slice(0, 12000);
+}
+
+export async function processSubmission(kind, body, ip) {
+  if (limited(ip)) {
+    return { status: 429, payload: { ok: false, errors: ["Te veel berichten. Bel ons gerust even."] } };
+  }
+  if (oneLine(body?.company_website, 200)) {
+    return { status: 200, payload: { ok: true, delivered: true } };
+  }
+  const errors = validate(kind, body);
+  if (errors.length) return { status: 400, payload: { ok: false, errors } };
+
+  const to = process.env.FORM_TO_EMAIL;
+  const host = process.env.SMTP_HOST;
+  if (!to || !host) {
+    return { status: 200, payload: { ok: true, delivered: false, reason: "smtp-niet-geconfigureerd" } };
+  }
+
+  try {
+    const nodemailer = await import("nodemailer");
+    const port = Number(process.env.SMTP_PORT || 587);
+    const transport = nodemailer.default.createTransport({
+      host,
+      port,
+      secure: process.env.SMTP_SECURE === "true" || port === 465,
+      auth: process.env.SMTP_USER
+        ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS || "" }
+        : undefined,
+    });
+    const who = oneLine(body.organisatie || body.naam, 80);
+    await transport.sendMail({
+      from: process.env.SMTP_FROM || to,
+      to,
+      replyTo: body.email ? oneLine(body.email) : undefined,
+      subject: `[Arbopartner Brabant] ${kind} — ${who || "nieuw bericht"}`,
+      text: messageText(kind, body),
+    });
+    return { status: 200, payload: { ok: true, delivered: true } };
+  } catch {
+    return { status: 200, payload: { ok: true, delivered: false, reason: "verzenden-mislukt" } };
+  }
+}
+
+export async function readJson(req) {
+  const chunks = [];
+  let size = 0;
+  for await (const chunk of req) {
+    size += chunk.length;
+    if (size > 100_000) throw new Error("body te groot");
+    chunks.push(chunk);
+  }
+  const raw = Buffer.concat(chunks).toString("utf8");
+  if (!raw) return {};
+  return JSON.parse(raw);
+}
+
+export async function handleApi(req, res) {
+  const host = req.headers.host || "localhost";
+  const url = new URL(req.url || "/", `http://${host}`);
+  if (!url.pathname.startsWith("/api/")) return false;
+
+  if (req.method !== "POST") {
+    res.writeHead(405, { "content-type": "application/json; charset=utf-8" });
+    res.end(JSON.stringify({ ok: false, errors: ["Alleen POST."] }));
+    return true;
+  }
+
+  const kind = url.pathname.split("/")[2];
+  try {
+    const body = await readJson(req);
+    const result = await processSubmission(kind, body, clientIp(req));
+    res.writeHead(result.status, { "content-type": "application/json; charset=utf-8" });
+    res.end(JSON.stringify(result.payload));
+  } catch {
+    res.writeHead(400, { "content-type": "application/json; charset=utf-8" });
+    res.end(JSON.stringify({ ok: false, errors: ["Het bericht kon niet worden gelezen."] }));
+  }
+  return true;
+}

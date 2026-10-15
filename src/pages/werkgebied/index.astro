@@ -1,0 +1,30 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { places } from "../../data/places";
+import { crumbsLd } from "../../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Werkgebied", path: "/werkgebied" },
+];
+---
+
+<Base title="Werkgebied" description="Arbopartner Brabant werkt binnen ongeveer 45 minuten van Uden, voor werkgevers met 35 of meer medewerkers." jsonLd={[crumbsLd(crumbs)]}>
+  <Breadcrumbs crumbs={crumbs} />
+  <header class="mx-auto max-w-6xl px-4 pt-6">
+    <h1 class="font-serif text-5xl text-green-950">Werkgebied</h1>
+    <p class="mt-4 max-w-2xl">Zestien plaatsen, één uitvalsbasis. De minuten zijn een indicatie per auto buiten de spits, geen navigatie.</p>
+  </header>
+  <ul class="mx-auto grid max-w-6xl gap-4 px-4 py-8 sm:grid-cols-2 lg:grid-cols-3">
+    {places.map((place) => (
+      <li>
+        <a class="block h-full rounded-[2rem] border border-line bg-white/80 p-5" href={`/werkgebied/${place.slug}`}>
+          <h2 class="font-serif text-2xl text-green-950">{place.name}</h2>
+          <p class="text-sm text-ochre-800">{place.minutes} minuten vanuit Uden · {place.municipality}</p>
+          <p class="mt-2 text-sm">{place.sectors.join(", ")}</p>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Base>

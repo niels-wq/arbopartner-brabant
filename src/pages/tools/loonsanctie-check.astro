@@ -1,0 +1,53 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { crumbsLd } from "../../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Tools", path: "/tools" },
+  { name: "Loonsanctie-check", path: "/tools/loonsanctie-check" },
+];
+const items = [
+  { name: "analyse", label: "Er is op tijd een probleemanalyse van de bedrijfsarts." },
+  { name: "plan", label: "Er is een plan van aanpak, getekend door werkgever en werknemer." },
+  { name: "evaluatie", label: "De eerstejaarsevaluatie is gedaan, of het dossier is nog geen jaar oud." },
+  { name: "spoor", label: "Als terugkeer intern niet lukte, is op tijd naar ander werk gekeken." },
+  { name: "arts", label: "De bedrijfsarts is betrokken, niet alleen de leidinggevende." },
+  { name: "verslag", label: "Gesprekken en afspraken staan op papier." },
+  { name: "mens", label: "De medewerker is betrokken bij het plan en niet alleen geïnformeerd." },
+];
+---
+
+<Base title="Loonsanctie-check" description="Zeven vragen over gaten in een verzuimdossier. Een indicatie om het gesprek te starten, geen oordeel van UWV." jsonLd={[crumbsLd(crumbs)]}>
+  <Breadcrumbs crumbs={crumbs} />
+  <article class="mx-auto max-w-3xl px-4 pt-6">
+    <h1 class="font-serif text-5xl text-green-950">Zitten er gaten in het dossier?</h1>
+    <p class="mt-4 text-lg">UWV kan na 104 weken nog maximaal 52 weken loon opleggen als de re-integratie onvoldoende was. Deze check voorspelt dat niet. Hij laat zien waar een dossier vaak rammelt.</p>
+    <form data-sanction class="mt-6 space-y-3">
+      {items.map((item) => (
+        <label class="flex gap-3 rounded-2xl border border-line bg-white/80 p-4">
+          <input type="checkbox" name={item.name} />
+          <span>{item.label}</span>
+        </label>
+      ))}
+      <button class="rounded-full bg-green-800 px-5 py-3 font-semibold text-sand-50" type="submit">Bekijk de gaten</button>
+    </form>
+    <div data-out class="mt-6 rounded-3xl bg-sand-100 p-5" aria-live="polite"></div>
+    <p class="mt-4 text-sm">Bron: <a class="underline" href="https://www.uwv.nl/nl/publicaties/kennis/2018/toetsing-van-het-re-integratieverslag-riv">UWV, toetsing van het re-integratieverslag</a>. In dat overzicht had 85% van de opgelegde verlengingen als reden dat re-integratie niet, te laat of verkeerd was opgepakt.</p>
+  </article>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-sanction]");
+  const out = document.querySelector<HTMLElement>("[data-out]");
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form || !out) return;
+    const total = form.querySelectorAll('input[type="checkbox"]').length;
+    const checked = form.querySelectorAll('input[type="checkbox"]:checked').length;
+    const gaps = total - checked;
+    const tone = gaps === 0 ? "U vinkt alles aan. Dat is een begin, geen vrijbrief." : gaps <= 2 ? "Er zijn een paar gaten. Die zijn meestal nog te repareren." : "Er ontbreekt veel. Wacht niet tot de WIA-aanvraag.";
+    out.innerHTML = `<p class="font-semibold uppercase tracking-wide text-ochre-800">Geen UWV-oordeel</p><p class="mt-2 font-serif text-3xl text-green-950">${gaps} van ${total} punten ontbreken</p><p class="mt-2">${tone}</p>${gaps >= 3 ? '<p class="mt-3"><a class="font-semibold underline" href="/spoedhulp">Naar spoedhulp</a></p>' : ""}`;
+  });
+</script>

@@ -1,0 +1,49 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import FaqList from "../../components/FaqList.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { getPlace, places } from "../../data/places";
+import { crumbsLd, faqLd, organizationLd } from "../../lib/schema";
+
+export function getStaticPaths() {
+  return places.map((place) => ({ params: { slug: place.slug } }));
+}
+
+const place = getPlace(Astro.params.slug)!;
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Werkgebied", path: "/werkgebied" },
+  { name: place.name, path: `/werkgebied/${place.slug}` },
+];
+const nearby = place.nearby.map((slug) => places.find((item) => item.slug === slug)).filter(Boolean);
+---
+
+<Base
+  title={`Verzuimbegeleiding ${place.in}`}
+  description={`Vaste casemanager ${place.in}. Ongeveer ${place.minutes} minuten vanuit Uden. Voor werkgevers met 35 of meer medewerkers.`}
+  jsonLd={[crumbsLd(crumbs), faqLd(place.faq), organizationLd(place.name)]}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <article class="mx-auto max-w-3xl px-4 pt-6">
+    <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">{place.municipality} · ongeveer {place.minutes} minuten</p>
+    <h1 class="mt-2 font-serif text-5xl text-green-950">Verzuimbegeleiding {place.in}</h1>
+    <p class="mt-4 text-lg">{place.lead}</p>
+    {place.body.map((paragraph) => <p class="mt-4">{paragraph}</p>)}
+    <h2 class="mt-8 font-serif text-3xl">Sectoren die we hier tegenkomen</h2>
+    <ul class="mt-3 flex flex-wrap gap-2">
+      {place.sectors.map((sector) => <li class="rounded-full bg-sand-200 px-3 py-1 text-sm font-semibold">{sector}</li>)}
+    </ul>
+    <p class="mt-6">In de buurt:
+      {nearby.map((item, index) => (
+        <span>
+          {index > 0 && ", "}
+          <a class="underline" href={`/werkgebied/${item!.slug}`}>{item!.name}</a>
+        </span>
+      ))}
+    </p>
+    <p class="mt-4"><a class="font-semibold underline" href="/welke-casemanager">Welke casemanager past bij uw dossiers?</a></p>
+    <FaqList items={place.faq} />
+  </article>
+  <CtaBand title={`Adviesgesprek voor ${place.name}`} text="We zeggen in dat gesprek ook of de rit echt binnen het gebied past." />
+</Base>

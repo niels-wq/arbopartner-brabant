@@ -1,0 +1,20 @@
+---
+interface Props { title?: string; text?: string }
+const {
+  title = "Bespreek uw dossiers met een mens",
+  text = "Een adviesgesprek duurt 30 minuten. U krijgt geen verkooppraatje, wel een oordeel of detachering past.",
+} = Astro.props;
+---
+
+<section class="mx-auto mt-14 max-w-6xl px-4">
+  <div class="flex flex-col gap-4 rounded-[2rem] bg-green-900 px-6 py-8 text-sand-50 md:flex-row md:items-center md:justify-between md:px-10">
+    <div>
+      <h2 class="font-serif text-3xl">{title}</h2>
+      <p class="mt-2 max-w-xl text-sand-100">{text}</p>
+    </div>
+    <div class="flex flex-col gap-3 sm:flex-row">
+      <a class="rounded-full bg-ochre-500 px-5 py-3 text-center font-semibold text-ink" href="/adviesgesprek">Plan een adviesgesprek</a>
+      <a class="rounded-full border border-sand-200 px-5 py-3 text-center font-semibold" href="/offerte">Vraag een offerte</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,20 @@
+---
+import type { Crumb } from "../lib/schema";
+interface Props { crumbs: Crumb[] }
+const { crumbs } = Astro.props;
+---
+
+<nav aria-label="Kruimelpad" class="mx-auto max-w-6xl px-4 pt-6 text-sm text-ink-soft">
+  <ol class="flex flex-wrap gap-2">
+    {crumbs.map((crumb, index) => (
+      <li class="flex gap-2">
+        {index > 0 && <span aria-hidden="true">/</span>}
+        {index === crumbs.length - 1 ? (
+          <span aria-current="page">{crumb.name}</span>
+        ) : (
+          <a class="underline decoration-ochre-500 underline-offset-2" href={crumb.path}>{crumb.name}</a>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>

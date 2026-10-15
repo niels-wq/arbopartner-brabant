@@ -1,0 +1,32 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import SavingsCalc from "../components/calculators/SavingsCalc.astro";
+import { crumbsLd, faqLd } from "../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Verzuimkosten", path: "/verzuimkosten-berekenen" },
+];
+const faq = [
+  {
+    q: "Waar komt €410 per dag vandaan?",
+    a: "Uit TNO, Verzuimkosten 2026, bij een jaarloon van €36.500. Het bedrag bestaat uit loondoorbetaling, vervanging, productieverlies, arbo en begeleiding. Bij een ander loon schaalt alleen het loongerelateerde deel.",
+  },
+  {
+    q: "Dalend verzuim is toch het doel?",
+    a: "Ja, maar we hebben geen bron die een vaste daling door een casemanager hard maakt. Daarom kiest u zelf 0,5, 1,0 of 1,5 procentpunt. Dat is een scenario, geen belofte.",
+  },
+];
+---
+
+<Base title="Verzuimkosten berekenen" description="Bereken verzuimkosten met de TNO-dagkosten en CBS-benchmarks. Scenario’s zijn geen belofte." jsonLd={[crumbsLd(crumbs), faqLd(faq)]}>
+  <Breadcrumbs crumbs={crumbs} />
+  <header class="mx-auto max-w-6xl px-4 pt-6">
+    <h1 class="font-serif text-5xl text-green-950">Wat kost verzuim u per jaar?</h1>
+    <p class="mt-4 max-w-2xl text-lg">De som is medewerkers × verzuimpercentage × 220 werkdagen × dagkosten. De bronnen staan onder de calculator. Een daling vult u zelf in.</p>
+  </header>
+  <div class="mx-auto max-w-6xl px-4 py-8">
+    <SavingsCalc />
+  </div>
+</Base>
