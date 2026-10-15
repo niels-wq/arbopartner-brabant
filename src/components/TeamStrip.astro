@@ -1,16 +1,13 @@
 ---
 import TeamPhoto from "./TeamPhoto.astro";
-import { bestMatchTeam, matchvermogenTeam, teamSource } from "../data/team";
+import { matchvermogenTeam, teamSource } from "../data/team";
 
-const groups = [
-  { title: "Matchvermogen", people: matchvermogenTeam },
-  { title: "Best Match Re-integratie", people: bestMatchTeam },
-];
+const groups = [{ title: "Matchvermogen", people: matchvermogenTeam }];
 ---
 
-<section class="mx-auto max-w-6xl px-4 py-8" aria-labelledby="teamstrook">
+<section class="mx-auto max-w-6xl px-4 py-16" aria-labelledby="teamstrook">
   <div class="flex items-end justify-between gap-4">
-    <h2 id="teamstrook" class="font-serif text-4xl text-green-950">De mensen van Matchvermogen</h2>
+    <h2 id="teamstrook" class="font-serif text-3xl text-green-950">De mensen van Matchvermogen</h2>
     <a class="hidden font-semibold text-green-800 sm:inline" href="/team">Het hele team</a>
   </div>
   <p class="mt-2 max-w-3xl text-sm text-ink-soft">Namen, functies en foto’s staan op de <a class="underline" href={teamSource}>teampagina van matchvermogen.nl</a>. Naast deze vaste kern werken we met een netwerk van gecertificeerde zzp-professionals: snel op te schalen, de juiste specialist per casus, en wisselen als de klik ontbreekt. Wie in loondienst is en wie als zzp’er meewerkt, staat in de offerte.</p>

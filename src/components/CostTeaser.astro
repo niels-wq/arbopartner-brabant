@@ -10,10 +10,10 @@ const chart = barChart("Jaarkosten in het standaardscenario: casemanager in dien
 ]);
 ---
 
-<section class="mx-auto max-w-6xl px-4">
-  <div class="rounded-[2rem] bg-ochre-200 px-6 py-8">
-    <p class="text-sm font-semibold uppercase tracking-[0.14em] text-green-950">Inhuren of een casemanager in dienst</p>
-    <h2 class="mt-2 max-w-4xl font-serif text-4xl leading-tight text-green-950 md:text-5xl">{headline.text}</h2>
+<section class="mx-auto max-w-3xl px-4 py-16">
+  <div>
+    <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">Inhuren of een casemanager in dienst</p>
+    <h2 class="mt-2 font-serif text-3xl leading-tight text-green-950">{headline.text}</h2>
     <p class="mt-4 max-w-3xl">
       Zolang u geen volle werkweek aan casemanagement nodig heeft, is inhuren meestal voordeliger dan een fulltime kracht in dienst. U betaalt bij ons de uren die u afneemt. Een dienstverband betaalt u ook als de caseload laag is.
       {headline.positive && <span> In dit standaardscenario is het verschil {euro(result.saving, true)} per jaar.</span>}

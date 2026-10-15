@@ -1,6 +1,5 @@
 ---
 import Base from "../layouts/Base.astro";
-import Mark from "../components/Mark.astro";
 import CostTeaser from "../components/CostTeaser.astro";
 import CtaBand from "../components/CtaBand.astro";
 import ClusterNav from "../components/ClusterNav.astro";
@@ -20,7 +19,7 @@ import BrabantPhoto from "../components/BrabantPhoto.astro";
 import VerzuimTijdlijn from "../components/VerzuimTijdlijn.astro";
 import { faqLd, teamPeopleLd } from "../lib/schema";
 
-const steden = ["den-bosch", "eindhoven", "tilburg", "breda", "duinen", "biesbosch"] as const;
+const steden = ["den-bosch", "eindhoven", "tilburg"] as const;
 
 const faq = [
   {
@@ -52,32 +51,31 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
   description={site.description}
   jsonLd={jsonLd}
 >
-  <section class="mx-auto grid max-w-6xl items-start gap-8 px-4 pb-6 pt-10 md:grid-cols-[1.3fr_0.7fr] md:pt-16">
-    <div>
-      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-ochre-800">{site.labelStatement}</p>
-      <h1 class="mt-3 max-w-xl font-serif text-5xl leading-[1.05] text-green-950 md:text-6xl">Casemanager en arbo in Brabant.</h1>
-      <p class="mt-5 max-w-xl text-lg text-ink-soft">Nuchter, dichtbij, Brabants. Arbopartner Brabant is een label van Matchvermogen B.V. en detacheert een vaste casemanager bij werkgevers met 35 of meer medewerkers in heel Noord-Brabant. Het kantoor staat in Uden, aan de Losplaats 16d. Het label is geen arbodienst. Een arbeidsdeskundige van Matchvermogen staat als achtervang klaar, met korting.</p>
-      <ul class="mt-5 flex flex-wrap gap-2 text-sm font-semibold" aria-label="Vertrouwen">
-        <li class="rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line">Label van Matchvermogen</li>
-        <li class="rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line">KvK {site.parent.kvk}</li>
-        <li><a class="inline-block rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line" data-cta="home-reviews" href="/reviews">Reviews van Matchvermogen</a></li>
-        <li><a class="inline-block rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line" data-cta="home-werkgebied" href="/werkgebied">Werkgebied: heel Noord-Brabant</a></li>
-      </ul>
-      <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-        <a class="rounded-full bg-green-800 px-5 py-3 text-center font-semibold text-sand-50" data-cta="home-advies" href="/adviesgesprek">Plan een adviesgesprek</a>
-        <CalendlyButton cta="home-calendly" />
-        <a class="rounded-full border border-green-800 px-5 py-3 text-center font-semibold text-green-900" data-cta="home-spoed" href="/spoedhulp">Ik heb nu een probleem</a>
-      </div>
+  <section class="mx-auto max-w-3xl px-4 pb-4 pt-12 md:pt-20">
+    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-ochre-800">{site.labelStatement}</p>
+    <h1 class="mt-3 font-serif text-4xl leading-[1.1] text-green-950 md:text-6xl">Casemanager en arbo in Brabant.</h1>
+    <p class="mt-5 text-lg text-ink-soft">Nuchter, dichtbij, Brabants. Arbopartner Brabant is een label van Matchvermogen B.V. en detacheert een vaste casemanager bij werkgevers met 35 of meer medewerkers in heel Noord-Brabant. Het kantoor staat in Uden, aan de Losplaats 16d. Het label is geen arbodienst. Een arbeidsdeskundige van Matchvermogen staat als achtervang klaar, met korting.</p>
+    <ul class="mt-5 flex flex-wrap gap-2 text-sm font-semibold" aria-label="Vertrouwen">
+      <li class="rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line">Label van Matchvermogen</li>
+      <li class="rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line">KvK {site.parent.kvk}</li>
+      <li><a class="inline-block rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line" data-cta="home-reviews" href="/reviews">Reviews van Matchvermogen</a></li>
+      <li><a class="inline-block rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line" data-cta="home-werkgebied" href="/werkgebied">Werkgebied: heel Noord-Brabant</a></li>
+    </ul>
+    <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+      <a class="rounded-full bg-green-800 px-5 py-3 text-center font-semibold text-sand-50" data-cta="home-advies" href="/adviesgesprek">Plan een adviesgesprek</a>
+      <CalendlyButton cta="home-calendly" />
+      <a class="rounded-full border border-green-800 px-5 py-3 text-center font-semibold text-green-900" data-cta="home-spoed" href="/spoedhulp">Ik heb nu een probleem</a>
     </div>
-    <figure class="overflow-hidden rounded-[2rem] bg-white ring-1 ring-line">
-      <NielsPhoto eager sizes="(min-width: 768px) 22rem, 92vw" class="aspect-[4/5] w-full object-cover" />
-      <figcaption class="p-5">
-        <blockquote class="font-serif text-2xl leading-snug text-green-950">
+    <figure class="mt-10 flex items-center gap-4">
+      <NielsPhoto eager sizes="8rem" class="h-24 w-28 rounded-2xl" />
+      <figcaption>
+        <blockquote class="font-serif text-xl leading-snug text-green-950">
           <p>{site.founder.quote}</p>
         </blockquote>
-        <p class="mt-3 text-sm text-ink-soft">
+        <p class="mt-2 text-sm text-ink-soft">
           {site.founder.name}, {site.founder.role.toLowerCase()}.
-          <a class="font-semibold text-green-900 underline" href={site.founder.quoteUrl}>Bron: arbeidsdeskundig.com</a>
+          Foto: <a class="underline" href={site.founder.photoSource}>matchvermogen.nl</a>.
+          Citaat: <a class="underline" href={site.founder.quoteUrl}>arbeidsdeskundig.com</a>.
         </p>
       </figcaption>
     </figure>
@@ -89,64 +87,62 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
     <CostTeaser />
   </div>
 
-  <section class="mx-auto max-w-6xl px-4 pt-6">
-    <aside class="rounded-[2rem] bg-white p-6 ring-1 ring-line">
-      <p class="font-serif text-2xl text-green-950"><Mark name="shield" />Wat u niet krijgt</p>
-      <ul class="mt-3 space-y-2 text-ink">
-        <li>Geen wisselend loket.</li>
-        <li>Geen nacalculatie voor reistijd in het gebied.</li>
-        <li>Geen vast percentage vooraf. Na een analyse laten we zien hoe het verzuim kan dalen.</li>
-        <li>Geen verzonnen besparing als u bijna een volle werkweek nodig heeft.</li>
-      </ul>
-    </aside>
+  <section class="mx-auto max-w-3xl px-4 py-16">
+    <h2 class="font-serif text-3xl text-green-950">Wat u niet krijgt</h2>
+    <ul class="mt-4 space-y-2 text-ink-soft">
+      <li>Geen wisselend loket.</li>
+      <li>Geen nacalculatie voor reistijd binnen ongeveer 45 minuten van Uden.</li>
+      <li>Geen vast percentage vooraf. Na een analyse laten we zien hoe het verzuim kan dalen.</li>
+      <li>Geen verzonnen besparing als u bijna een volle werkweek nodig heeft.</li>
+    </ul>
   </section>
 
-  <section class="mx-auto grid max-w-6xl gap-4 px-4 py-8 md:grid-cols-3" aria-label="Keuzehulp">
-    <a class="rounded-[2rem] bg-green-900 p-6 text-sand-50" data-cta="home-kaart-spoed" href="/spoedhulp">
-      <h2 class="font-serif text-3xl"><Mark name="alert" />Ik heb nu een verzuimprobleem</h2>
-      <p class="mt-2 text-sand-100">Een zieke medewerker, een vastgelopen dossier of een sanctierisico. Bel, app of laat u terugbellen.</p>
+  <section class="mx-auto grid max-w-6xl gap-6 px-4 pb-8 md:grid-cols-3" aria-label="Keuzehulp">
+    <a class="rounded-2xl border border-line bg-white p-6" data-cta="home-kaart-spoed" href="/spoedhulp">
+      <h2 class="font-serif text-2xl text-green-950">Ik heb nu een verzuimprobleem</h2>
+      <p class="mt-2 text-ink-soft">Een zieke medewerker, een vastgelopen dossier of een sanctierisico. Bel, app of laat u terugbellen.</p>
     </a>
-    <a class="rounded-[2rem] border border-line bg-white/80 p-6" data-cta="home-kaart-pakket" href="/pakketten">
-      <h2 class="font-serif text-3xl text-green-950"><Mark name="calendar" />Ik wil verzuim structureel regelen</h2>
+    <a class="rounded-2xl border border-line bg-white p-6" data-cta="home-kaart-pakket" href="/pakketten">
+      <h2 class="font-serif text-2xl text-green-950">Ik wil verzuim structureel regelen</h2>
       <p class="mt-2 text-ink-soft">Basis, Premium of Pro. Eén niveau casemanager, een vast aantal uren, een vast gezicht.</p>
     </a>
-    <a class="rounded-[2rem] bg-sand-200 p-6" data-cta="home-kaart-kosten" href="/verzuimkosten-berekenen">
-      <h2 class="font-serif text-3xl text-green-950"><Mark name="chart" />Wat kost verzuim mij?</h2>
+    <a class="rounded-2xl border border-line bg-white p-6" data-cta="home-kaart-kosten" href="/verzuimkosten-berekenen">
+      <h2 class="font-serif text-2xl text-green-950">Wat kost verzuim mij?</h2>
       <p class="mt-2 text-ink-soft">Reken met de TNO-dagkosten en kies zelf een scenario. Geen belofte, wel een bedrag.</p>
     </a>
   </section>
 
-  <section class="mx-auto max-w-6xl px-4 py-8">
-    <h2 class="font-serif text-4xl text-green-950"><Mark name="building" />Eén mens, met een zwaardere achtervang</h2>
-    <div class="mt-6 grid gap-4 md:grid-cols-2">
-      <article class="rounded-3xl border border-line bg-white/70 p-5">
-        <h3 class="font-serif text-2xl"><Mark name="calendar" />Vaste casemanager</h3>
-        <p class="mt-2">Medior, medior+ of senior. Dezelfde persoon elke week, op uw locatie of op het kantoor in Uden. Uren schalen mee met de dossiers.</p>
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <h2 class="font-serif text-3xl text-green-950">Eén mens, met een zwaardere achtervang</h2>
+    <div class="mt-8 grid gap-8 md:grid-cols-2">
+      <article>
+        <h3 class="font-serif text-2xl text-green-950">Vaste casemanager</h3>
+        <p class="mt-2 text-ink-soft">Medior, medior+ of senior. Dezelfde persoon elke week, op uw locatie of op het kantoor in Uden. Uren schalen mee met de dossiers.</p>
       </article>
-      <article class="rounded-3xl border border-line bg-white/70 p-5">
-        <h3 class="font-serif text-2xl"><Mark name="shield" />Arbeidsdeskundige erachter</h3>
-        <p class="mt-2">Via Matchvermogen, tegen een lager tarief dan los inkopen. De onderzoeker is niet dezelfde persoon als de begeleider. Het percentage bevestigen we in de offerte.</p>
+      <article>
+        <h3 class="font-serif text-2xl text-green-950">Arbeidsdeskundige erachter</h3>
+        <p class="mt-2 text-ink-soft">Via Matchvermogen, tegen een lager tarief dan los inkopen. De onderzoeker is niet dezelfde persoon als de begeleider. Het percentage bevestigen we in de offerte.</p>
       </article>
-      <article class="rounded-3xl border border-line bg-white/70 p-5">
-        <h3 class="font-serif text-2xl"><Mark name="route" />Tweede spoor als het moet</h3>
-        <p class="mt-2">Via Best Match, op tijd, niet in de laatste maand van het tweede jaar. De korting via het netwerk bevestigen we in de offerte.</p>
+      <article>
+        <h3 class="font-serif text-2xl text-green-950">Tweede spoor als het moet</h3>
+        <p class="mt-2 text-ink-soft">Via Best Match, op tijd, niet in de laatste maand van het tweede jaar. De korting via het netwerk bevestigen we in de offerte.</p>
       </article>
-      <article class="rounded-3xl border border-line bg-white/70 p-5">
-        <h3 class="font-serif text-2xl"><Mark name="chairs" />Gesprek op ons kantoor</h3>
-        <p class="mt-2">Werknemer en werkgever komen naar Losplaats 16d in Uden. {officeConversation.place} {officeConversation.threshold} {officeConversation.employer} {officeConversation.care}</p>
+      <article>
+        <h3 class="font-serif text-2xl text-green-950">Gesprek op ons kantoor</h3>
+        <p class="mt-2 text-ink-soft">Werknemer en werkgever komen naar Losplaats 16d in Uden. {officeConversation.place} {officeConversation.threshold} {officeConversation.employer} {officeConversation.care}</p>
         <a class="mt-3 inline-block font-semibold text-green-900 underline decoration-ochre-500" data-cta="home-kantoor" href="/adviesgesprek?plek=kantoor#afspraak">Plan een gesprek op ons kantoor</a>
       </article>
     </div>
-    <p class="mt-5"><a class="font-semibold text-green-900 underline decoration-ochre-500" data-cta="home-diensten" href="/diensten">Bekijk de diensten</a> of <a class="font-semibold text-green-900 underline decoration-ochre-500" data-cta="home-advies-sectie" href="/adviesgesprek">plan een adviesgesprek van 30 minuten</a>. Dat gesprek verplicht u tot niets.</p>
+    <p class="mt-8"><a class="font-semibold text-green-900 underline decoration-ochre-500" data-cta="home-diensten" href="/diensten">Bekijk de diensten</a> of <a class="font-semibold text-green-900 underline decoration-ochre-500" data-cta="home-advies-sectie" href="/adviesgesprek">plan een adviesgesprek van 30 minuten</a>. Dat gesprek verplicht u tot niets.</p>
   </section>
 
   <HireBenefits />
 
   <TeamStrip />
 
-  <section class="mx-auto max-w-6xl px-4 py-6">
+  <section class="mx-auto max-w-6xl px-4 py-16">
     <div class="flex items-end justify-between gap-4">
-      <h2 class="font-serif text-4xl text-green-950"><Mark name="document" />Wat opdrachtgevers over Niels schreven</h2>
+      <h2 class="font-serif text-3xl text-green-950">Wat opdrachtgevers over Niels schreven</h2>
       <a class="hidden font-semibold text-green-800 sm:inline" data-cta="home-reviews-kop" href="/reviews">Alle citaten</a>
     </div>
     <p class="mt-2 max-w-2xl text-sm text-ink-soft">Deze citaten noemen Niels en staan letterlijk op matchvermogen.nl. Ze gaan over het moederbedrijf, niet over dit label.</p>
@@ -155,11 +151,11 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
     </div>
   </section>
 
-  <section class="mx-auto max-w-6xl px-4 py-8">
-    <h2 class="font-serif text-4xl text-green-950"><Mark name="pin" />Heel Noord-Brabant</h2>
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <h2 class="font-serif text-3xl text-green-950">Heel Noord-Brabant</h2>
     <p class="mt-2 max-w-2xl text-ink-soft">Den Bosch, Eindhoven, Tilburg, Breda, Helmond, Oss, Uden, Veghel, Roosendaal, Bergen op Zoom en de gemeenten eromheen. Het kantoor staat in Uden. Reistijd binnen ongeveer 45 minuten van dat kantoor zit in het tarief. Verder in Brabant staat de rit in de offerte.</p>
     <BrabantMap class="mt-6" />
-    <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <ul class="mt-8 grid gap-6 sm:grid-cols-3">
       {steden.map((id) => (
         <li><BrabantPhoto id={id} /></li>
       ))}

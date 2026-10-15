@@ -62,8 +62,11 @@ export const site = {
     quote:
       "Geen zin om eerst een heel formulier in te vullen? Plan gewoon een gratis kop koffie in — ik denk graag vrijblijvend met je mee.",
     quoteUrl: "https://www.arbeidsdeskundig.com/over-ons",
-    photo: "/mensen/niels-alderding-800.webp",
+    photo: "/mensen/niels-koffie-400.webp",
+    photoWidth: 400,
+    photoHeight: 336,
     avatar: "/mensen/niels-alderding-avatar.webp",
+    photoSource: "https://matchvermogen.nl/wp-content/uploads/2026/09/niels-footer-cta-400.jpg",
   },
   placeholders: {
     callback:

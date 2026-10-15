@@ -1,17 +1,14 @@
 ---
-import Figure from "../components/Figure.astro";
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import ClusterNav from "../components/ClusterNav.astro";
 import CtaBand from "../components/CtaBand.astro";
 import FaqList from "../components/FaqList.astro";
-import CostTeaser from "../components/CostTeaser.astro";
-import PackageGrid from "../components/PackageGrid.astro";
 import CallbackForm from "../components/CallbackForm.astro";
-import { levels, type Block } from "../lib/rates";
+import { arbodienstUurtarieven } from "../data/arbodienst-tarieven";
+import { CBS_WAGE, compareEmployment, costPerNeededHour, defaultCompareInput } from "../lib/calc";
 import { euro } from "../lib/format";
-import { priceFaq } from "../lib/pricing";
-import { verzuimanalysePrijs } from "../lib/rates";
+import { levels, verzuimanalysePrijs, type Block } from "../lib/rates";
 import { crumbsLd, faqLd } from "../lib/schema";
 
 const crumbs = [
@@ -19,61 +16,125 @@ const crumbs = [
   { name: "Tarieven", path: "/tarieven" },
 ];
 const hours: Block[] = [10, 20, 24];
-const faq = priceFaq();
+const scenario = compareEmployment(defaultCompareInput());
+const perNeededHour = costPerNeededHour(scenario);
+const mediorTien = levels.medior.rates[10];
+
+const faq = [
+  {
+    q: "Zijn dit de definitieve prijzen?",
+    a: "Nee. De tabel is een richtprijs per uur, exclusief btw. De offerte bevestigt het tarief voor uw dossiers. Dit is geen offerte.",
+  },
+  {
+    q: "Hoe vergelijkt dit met iemand in dienst?",
+    a: "De vergelijking deelt de jaarkost van een fulltime contract door de uren casemanagement die u nodig heeft. In het standaardscenario is dat tien uur per week tegenover één contract van veertig uur. Heeft u bijna een volle werkweek nodig, dan kan een dienstverband lager uitvallen. De tool laat dat zien.",
+  },
+];
 ---
 
-<Base title="Tarieven" description="Richtprijzen voor een gedetacheerde casemanager: drie blokken, per maand en per uur. Medior, medior+ en senior bij 10, 20 of 24+ uur." jsonLd={[crumbsLd(crumbs), faqLd(faq)]}>
+<Base
+  title="Tarieven"
+  description="Uurtarieven voor een gedetacheerde casemanager: medior, medior+ en senior bij 10, 20 en 24+ uur. Exclusief btw. Dit is geen offerte."
+  jsonLd={[crumbsLd(crumbs), faqLd(faq)]}
+>
   <Breadcrumbs crumbs={crumbs} />
-  <header class="mx-auto max-w-6xl px-4 pt-6">
-    <h1 class="font-serif text-5xl text-green-950">Tarieven</h1>
-    <Figure id="pagina-tarieven" eager class="mt-6 max-w-3xl" />
-    <p class="mt-4 max-w-3xl text-lg">Een tarief van Arbopartner Brabant is een richtprijs per uur voor een gedetacheerde casemanager, exclusief btw. Het maandbedrag is dat uur, maal de uren per week, maal 52, gedeeld door 12. Hoe groter het blok, hoe lager het uur. Het maandbedrag stijgt wel, want u neemt meer uren af. Dit is geen offerte.</p>
-  </header>
-  <div class="pt-8">
-    <CostTeaser />
-  </div>
-  <div class="pt-8">
-    <PackageGrid />
-  </div>
-  <article class="mx-auto max-w-3xl px-4">
-    <h2 class="mt-12 font-serif text-3xl text-green-950">Uurtarieven waar de bedragen uit komen</h2>
+  <article class="mx-auto max-w-3xl px-4 pb-4 pt-10">
+    <h1 class="font-serif text-4xl text-green-950 md:text-5xl">Tarieven</h1>
+    <p class="mt-4 text-lg">Een tarief van Arbopartner Brabant is een richtprijs per uur voor een gedetacheerde casemanager, exclusief btw. Hoe groter het blok, hoe lager het uur. Dit is geen offerte.</p>
+
+    <h2 class="mt-12 font-serif text-3xl text-green-950">Uurtarieven</h2>
     <div class="mt-4 overflow-x-auto">
-      <table class="w-full min-w-[32rem] text-left">
+      <table class="w-full text-left">
+        <caption class="sr-only">Uurtarief exclusief btw voor medior, medior+ en senior bij 10, 20 en 24 of meer uur per week</caption>
         <thead>
-          <tr class="border-b border-line">
-            <th class="py-2" scope="col">Niveau</th>
-            {hours.map((hour) => <th scope="col">{hour === 24 ? "24+ uur" : `${hour} uur`}</th>)}
+          <tr class="border-b border-line text-sm">
+            <th class="py-2 pr-4 font-semibold" scope="col">Niveau</th>
+            {hours.map((hour) => (
+              <th class="py-2 pr-4 font-semibold" scope="col">{hour === 24 ? "24+ uur" : `${hour} uur`}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
           {Object.values(levels).map((level) => (
             <tr class="border-b border-line">
-              <th class="py-3 font-semibold" scope="row">{level.label}</th>
-              {hours.map((hour) => <td>{euro(level.rates[hour])}</td>)}
+              <th class="py-3 pr-4 font-semibold" scope="row">{level.short}</th>
+              {hours.map((hour) => <td class="py-3 pr-4">{euro(level.rates[hour])}</td>)}
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-    <h2 class="mt-8 font-serif text-3xl text-green-950">Wat erin zit</h2>
-    <ul class="mt-3 list-disc pl-5">
-      <li>De uren van de casemanager, op locatie of online.</li>
-      <li>Reistijd binnen het werkgebied.</li>
-      <li>Vervanging als de casemanager zelf uitvalt.</li>
-      <li>Afstemming met de arbeidsdeskundige. Het onderzoek zelf offreert Matchvermogen, met 8% korting.</li>
-    </ul>
-    <h2 class="mt-8 font-serif text-3xl text-green-950">Wat er niet in zit</h2>
-    <ul class="mt-3 list-disc pl-5">
-      <li>De bedrijfsarts of een arbodienstcontract.</li>
-      <li>Een tweede-spoortraject. Dat loopt via Best Match, met 10% korting.</li>
-      <li>Juridische procedures en het opstellen van een vaststellingsovereenkomst.</li>
-    </ul>
+    <p class="mt-3 text-sm text-ink-soft">Per uur, exclusief btw. Het blok volgt de uren per week: 10, 20 of 24 en meer.</p>
+
+    <h2 class="mt-12 font-serif text-3xl text-green-950">Tegenover iemand in dienst</h2>
+    <p class="mt-4">
+      In het standaardscenario heeft u {scenario.neededHours} uur casemanagement per week nodig. Een fulltime contract van {scenario.employed.contractHoursYear / 52} uur kost in dit model {euro(perNeededHour, true)} per uur van die {scenario.neededHours} uur.
+      Ons medior-tarief bij 10 uur is {euro(mediorTien)} per uur.
+    </p>
+    <p class="mt-3">
+      Het verschil zit in de uren die een contract wel betaalt en die u niet nodig heeft. Heeft u bijna een volle werkweek nodig, dan kan een dienstverband lager uitvallen. De vergelijking rekent dat eerlijk.
+    </p>
+    <p class="mt-3 text-sm text-ink-soft">
+      Het model start bij het CBS-mediaan uurloon van {euro(CBS_WAGE.hourly)} ({CBS_WAGE.group}, {CBS_WAGE.year}, voorlopig) en telt vakantiegeld, werkgeverspremies, verlof, verzuim, werving en de opbouw van de transitievergoeding mee.
+      <a class="underline" href={CBS_WAGE.source}>Bron: CBS StatLine 86355NED</a>.
+    </p>
+    <p class="mt-4">
+      <a class="font-semibold text-green-900 underline decoration-ochre-500" data-cta="tarieven-vergelijking" href="/casemanager-inhuren-of-in-dienst#vergelijking">Open de vergelijkingscalculator</a>
+    </p>
+
+    <h2 class="mt-12 font-serif text-3xl text-green-950">Tegenover andere arbodiensten</h2>
+    <p class="mt-4">Dit zijn gepubliceerde uurtarieven van andere organisaties, exclusief btw. Geen gemiddelde en niet ons tarief. De rol in de bron staat erbij. Een bedrijfsarts is een andere functie en staat hier niet.</p>
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full min-w-[36rem] text-left text-sm">
+        <caption class="sr-only">Gepubliceerde uurtarieven van andere arbodiensten, met bron</caption>
+        <thead>
+          <tr class="border-b border-line">
+            <th class="py-2 pr-3 font-semibold" scope="col">Organisatie</th>
+            <th class="py-2 pr-3 font-semibold" scope="col">Rol in de bron</th>
+            <th class="py-2 pr-3 font-semibold" scope="col">Jaar</th>
+            <th class="py-2 pr-3 font-semibold" scope="col">Per uur</th>
+            <th class="py-2 font-semibold" scope="col">Bron</th>
+          </tr>
+        </thead>
+        <tbody>
+          {arbodienstUurtarieven.map((row) => (
+            <tr class="border-b border-line align-top">
+              <th class="py-3 pr-3 font-semibold" scope="row">{row.name}</th>
+              <td class="py-3 pr-3">{row.role}</td>
+              <td class="py-3 pr-3">{row.year}</td>
+              <td class="py-3 pr-3 whitespace-nowrap">{euro(row.rate)}</td>
+              <td class="py-3"><a class="underline" href={row.url}>{row.note}</a></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="mt-12 font-serif text-3xl text-green-950">Wat erin zit, en wat niet</h2>
+    <div class="mt-4 grid gap-8 sm:grid-cols-2">
+      <div>
+        <h3 class="font-semibold text-green-950">Erin</h3>
+        <ul class="mt-2 list-disc space-y-1 pl-5">
+          <li>De uren van de casemanager, op locatie of online.</li>
+          <li>Reistijd binnen ongeveer 45 minuten van het kantoor in Uden.</li>
+          <li>Vervanging als de casemanager zelf uitvalt.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold text-green-950">Niet erin</h3>
+        <ul class="mt-2 list-disc space-y-1 pl-5">
+          <li>De rit als het adres verder in Brabant ligt. Die staat in de offerte.</li>
+          <li>De bedrijfsarts of een arbodienstcontract.</li>
+          <li>Een tweede-spoortraject of een arbeidsdeskundig onderzoek. Die offreert het netwerk, met de korting uit de offerte.</li>
+        </ul>
+      </div>
+    </div>
     <p class="mt-6 text-sm">Losse verzuimanalyse: {euro(verzuimanalysePrijs, true)} exclusief btw.</p>
-    <FaqList items={faq} title="Vragen over prijzen" />
+    <FaqList items={faq} title="Vragen over de uurtarieven" />
     <div class="mt-10">
       <CallbackForm />
     </div>
   </article>
   <ClusterNav />
-  <CtaBand title="Richtprijs omzetten in een offerte" text="Drie korte stappen, in een paar minuten. De offerte bevestigt het tarief. Het gesprek van 30 minuten verplicht u tot niets." />
+  <CtaBand title="Richtprijs omzetten in een offerte" text="De offerte bevestigt het uurtarief. Het gesprek van 30 minuten verplicht u tot niets." />
 </Base>

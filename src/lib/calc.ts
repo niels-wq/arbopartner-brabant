@@ -468,6 +468,12 @@ export function compareEmployment(input: CompareInput): CompareResult {
   };
 }
 
+/** Jaarkost van het dienstverband, gedeeld door de uren casemanagement die nodig zijn. */
+export function costPerNeededHour(result: CompareResult): number {
+  const hours = result.neededHours * 52;
+  return hours > 0 ? result.employmentYear / hours : 0;
+}
+
 export const compareSources = [
   {
     title: "CBS, bruto uurloon naar beroep",

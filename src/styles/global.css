@@ -33,10 +33,7 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(900px 420px at 110% -10%, rgb(196 146 58 / 18%), transparent 55%),
-    radial-gradient(700px 380px at -15% 8%, rgb(44 92 64 / 12%), transparent 50%),
-    var(--color-sand-50);
+  background: var(--color-sand-50);
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: 1.0625rem;
@@ -307,16 +304,16 @@ summary.rounded-full.border-green-800:focus-visible,
 }
 .site-logo {
   display: block;
-  height: 2.25rem;
+  height: 2.75rem;
   width: auto;
 }
 @media (min-width: 640px) {
   .site-logo {
-    height: 3rem;
+    height: 3.25rem;
   }
 }
 .site-logo-footer {
-  height: 3.4rem;
+  height: 3.5rem;
 }
 .ap-icon {
   width: 3.25rem;
@@ -331,10 +328,9 @@ summary.rounded-full.border-green-800:focus-visible,
   box-shadow: 0 8px 20px rgb(18 38 28 / 18%);
 }
 .ap-icon img,
-.ap-avatar,
-.ap-contact summary img {
+.ap-avatar {
   object-fit: cover;
-  object-position: center 18%;
+  object-position: center;
 }
 .ap-icon img {
   width: 100%;
@@ -364,17 +360,12 @@ summary.rounded-full.border-green-800:focus-visible,
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.25rem 0.85rem 0.25rem 0.25rem;
+  padding: 0.7rem 1rem;
   background: #0c3b27;
   color: #ffffff;
   cursor: pointer;
   font-size: 0.8rem;
   font-weight: 700;
-}
-.ap-contact summary img {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 999px;
 }
 .ap-contact summary::-webkit-details-marker {
   display: none;

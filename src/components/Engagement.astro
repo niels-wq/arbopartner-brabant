@@ -22,7 +22,7 @@ import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
     <img src={site.founder.avatar} width="160" height="160" alt="" />
   </button>
   <details class="ap-contact">
-    <summary><img src={site.founder.avatar} width="160" height="160" alt="" /> Contact</summary>
+    <summary>Contact</summary>
     <div class="ap-contact-menu">
       <a data-cta="fab-bel" data-channel="phone" href={phoneHref}>Bel {site.parent.phoneDisplay}</a>
       <a data-cta="fab-whatsapp" data-channel="whatsapp" href={whatsappHref} rel="noopener">WhatsApp {site.parent.whatsappDisplay}</a>
@@ -34,10 +34,9 @@ import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
 
 <section id="ap-chat" class="ap-chat" hidden role="dialog" aria-modal="false" aria-labelledby="ap-chat-title">
   <div class="ap-chat-head">
-    <img class="ap-avatar" src={site.founder.avatar} width="160" height="160" alt="" />
     <div>
       <p id="ap-chat-title" class="font-semibold">Arbopartner Brabant</p>
-      <p class="text-sm">Korte antwoorden. Foto: {site.founder.name}</p>
+      <p class="text-sm">Korte antwoorden van {site.founder.name}</p>
     </div>
     <button type="button" data-close aria-label="Chat sluiten">×</button>
   </div>

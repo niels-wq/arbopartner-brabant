@@ -5,21 +5,26 @@ interface Props {
   eager?: boolean;
   alt?: string;
 }
-const { sizes, class: className = "", eager = false, alt = "Niels Alderding, directeur en arbeidsdeskundige bij Matchvermogen in Uden" } = Astro.props;
-const webp = "/mensen/niels-alderding-240.webp 240w, /mensen/niels-alderding-480.webp 480w, /mensen/niels-alderding-800.webp 800w, /mensen/niels-alderding-1200.webp 1200w";
-const avif = "/mensen/niels-alderding-240.avif 240w, /mensen/niels-alderding-480.avif 480w, /mensen/niels-alderding-800.avif 800w, /mensen/niels-alderding-1200.avif 1200w";
+const {
+  sizes,
+  class: className = "",
+  eager = false,
+  alt = "Niels Alderding met een kop koffie, arbeidsdeskundige en eigenaar van Matchvermogen",
+} = Astro.props;
+const webp = "/mensen/niels-koffie-240.webp 240w, /mensen/niels-koffie-400.webp 400w";
+const avif = "/mensen/niels-koffie-240.avif 240w, /mensen/niels-koffie-400.avif 400w";
 ---
 
-<picture>
+<picture class:list={["inline-block shrink-0 overflow-hidden", className]}>
   <source type="image/avif" srcset={avif} sizes={sizes} />
   <img
-    src="/mensen/niels-alderding-800.webp"
+    src="/mensen/niels-koffie-400.webp"
     srcset={webp}
     sizes={sizes}
-    width="800"
-    height="1000"
+    width="400"
+    height="336"
     alt={alt}
-    class={className}
+    class="h-full w-full object-cover"
     loading={eager ? "eager" : "lazy"}
     decoding="async"
     fetchpriority={eager ? "high" : "auto"}

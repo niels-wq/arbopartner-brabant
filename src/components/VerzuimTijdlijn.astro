@@ -1,6 +1,4 @@
 ---
-import Mark from "./Mark.astro";
-
 const stappen = [
   { when: "Dag 1", text: "Ziekmelding. Vraag naar het werk, niet naar de diagnose." },
   { when: "Week 6", text: "Probleemanalyse van de bedrijfsarts: wat iemand nog kan." },
@@ -11,8 +9,8 @@ const stappen = [
 ];
 ---
 
-<section class="mx-auto max-w-6xl px-4 py-8" aria-labelledby="tijdlijn-kop">
-  <h2 id="tijdlijn-kop" class="font-serif text-4xl text-green-950"><Mark name="clock" />Tijdlijn bij ziekte</h2>
+<section class="mx-auto max-w-6xl px-4 py-16" aria-labelledby="tijdlijn-kop">
+  <h2 id="tijdlijn-kop" class="font-serif text-3xl text-green-950">Tijdlijn bij ziekte</h2>
   <p class="mt-2 max-w-2xl text-ink-soft">Van de eerste dag tot week 104. Een geheugensteun, geen juridisch advies. Cao’s wijken af.</p>
   <ol class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
     {stappen.map((stap, index) => (
