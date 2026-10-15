@@ -2,29 +2,27 @@
 @import "@fontsource/source-sans-3/latin-400.css";
 @import "@fontsource/source-sans-3/latin-600.css";
 @import "@fontsource/source-sans-3/latin-700.css";
-@import "@fontsource/fraunces/latin-600.css";
-@import "@fontsource/fraunces/latin-700.css";
 
 @theme {
   --font-sans: "Source Sans 3", "Segoe UI", sans-serif;
-  --font-serif: "Fraunces", Georgia, serif;
-  --color-ink: #1c1915;
-  --color-ink-soft: #4a433a;
-  --color-sand-50: #fbf7f0;
-  --color-sand-100: #f4ecdf;
-  --color-sand-200: #e6d7bc;
-  --color-green-950: #12261c;
-  --color-green-900: #1a3326;
-  --color-green-800: #234833;
-  --color-green-700: #2c5c40;
-  --color-green-600: #3d7a56;
-  --color-ochre-800: #6d4d1c;
-  --color-ochre-700: #8a6124;
-  --color-ochre-500: #c4923a;
-  --color-ochre-200: #f3e2bc;
-  --color-clay-700: #8c3d2a;
-  --color-clay-600: #a34b36;
-  --color-line: #e5d6bf;
+  --font-serif: "Source Sans 3", "Segoe UI", sans-serif;
+  --color-ink: #14261c;
+  --color-ink-soft: #3a463f;
+  --color-sand-50: #f3f2ec;
+  --color-sand-100: #f7f6f2;
+  --color-sand-200: #e4e2da;
+  --color-green-950: #12382c;
+  --color-green-900: #163f32;
+  --color-green-800: #145c45;
+  --color-green-700: #1f6f5c;
+  --color-green-600: #2a7d66;
+  --color-ochre-800: #7a4e12;
+  --color-ochre-700: #8a5a12;
+  --color-ochre-500: #d8a03d;
+  --color-ochre-200: #f8e7c4;
+  --color-clay-700: #d8a03d;
+  --color-clay-600: #c4923a;
+  --color-line: #d9ddd6;
 }
 
 html {
@@ -44,9 +42,15 @@ h1,
 h2,
 h3,
 .font-serif {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+::selection {
+  background: #f8e7c4;
+  color: #14261c;
 }
 
 a {
@@ -109,63 +113,45 @@ a {
   top: 0.5rem;
 }
 
-/* Knoppen, badges en tekst op kleur. Kleuren zijn vastgezet zodat een
-   geërfde tekstkleur een donkere knop niet onleesbaar maakt. Hover en focus
-   blijven boven WCAG AA (4,5:1 voor tekst, 3:1 voor de focusring). */
+/* Eén gevulde CTA-kleur: oker met donkere tekst. Ghost blijft een lijn.
+   Kleuren zijn vastgezet zodat een geërfde tekstkleur de knop niet
+   onleesbaar maakt. Hover en focus blijven boven WCAG AA. */
 a.rounded-full.bg-green-800,
 button.rounded-full.bg-green-800,
-.btn {
-  background-color: #0c3b27;
-  color: #ffffff;
-  border: 2px solid #0c3b27;
+a.rounded-full.bg-ochre-500,
+button.rounded-full.bg-ochre-500,
+a.rounded-full.bg-clay-700,
+button.rounded-full.bg-clay-700,
+.btn,
+.btn-accent,
+.btn-urgent {
+  background-color: #d8a03d;
+  color: #14261c;
+  border: 2px solid #d8a03d;
+  border-radius: 8px;
   text-decoration: none;
 }
 a.rounded-full.bg-green-800:hover,
 a.rounded-full.bg-green-800:focus-visible,
 button.rounded-full.bg-green-800:hover,
 button.rounded-full.bg-green-800:focus-visible,
-.btn:hover,
-.btn:focus-visible {
-  background-color: #145536;
-  color: #ffffff;
-  border-color: #145536;
-  text-decoration: none;
-}
-a.rounded-full.bg-clay-700,
-button.rounded-full.bg-clay-700,
-.btn-urgent {
-  background-color: #5a2418;
-  color: #ffffff;
-  border: 2px solid #5a2418;
-  text-decoration: none;
-}
-a.rounded-full.bg-clay-700:hover,
-a.rounded-full.bg-clay-700:focus-visible,
-button.rounded-full.bg-clay-700:hover,
-button.rounded-full.bg-clay-700:focus-visible,
-.btn-urgent:hover,
-.btn-urgent:focus-visible {
-  background-color: #3e1810;
-  color: #ffffff;
-  border-color: #3e1810;
-}
-a.rounded-full.bg-ochre-500,
-button.rounded-full.bg-ochre-500,
-.btn-accent {
-  background-color: #f6e4c0;
-  color: #1a140c;
-  border: 2px solid #1a140c;
-  text-decoration: none;
-}
 a.rounded-full.bg-ochre-500:hover,
 a.rounded-full.bg-ochre-500:focus-visible,
 button.rounded-full.bg-ochre-500:hover,
 button.rounded-full.bg-ochre-500:focus-visible,
+a.rounded-full.bg-clay-700:hover,
+a.rounded-full.bg-clay-700:focus-visible,
+button.rounded-full.bg-clay-700:hover,
+button.rounded-full.bg-clay-700:focus-visible,
+.btn:hover,
+.btn:focus-visible,
 .btn-accent:hover,
-.btn-accent:focus-visible {
-  background-color: #edd3a0;
-  color: #1a140c;
-  border-color: #1a140c;
+.btn-accent:focus-visible,
+.btn-urgent:hover,
+.btn-urgent:focus-visible {
+  background-color: #c4923a;
+  color: #14261c;
+  border-color: #c4923a;
   text-decoration: none;
 }
 a.rounded-full.border-green-800,
@@ -173,8 +159,9 @@ button.rounded-full.border-green-800,
 summary.rounded-full.border-green-800,
 .btn-ghost {
   background-color: #ffffff;
-  color: #12261c;
-  border: 2px solid #12261c;
+  color: #14261c;
+  border: 2px solid #14261c;
+  border-radius: 8px;
 }
 a.rounded-full.border-green-800:hover,
 a.rounded-full.border-green-800:focus-visible,
@@ -184,8 +171,8 @@ summary.rounded-full.border-green-800:hover,
 summary.rounded-full.border-green-800:focus-visible,
 .btn-ghost:hover,
 .btn-ghost:focus-visible {
-  background-color: #12261c;
-  color: #ffffff;
+  background-color: #12382c;
+  color: #f4f1e8;
 }
 .bg-green-900 a.rounded-full.border,
 .bg-green-950 a.rounded-full.border,
@@ -194,6 +181,7 @@ summary.rounded-full.border-green-800:focus-visible,
   background-color: transparent;
   color: #ffffff;
   border: 2px solid #ffffff;
+  border-radius: 8px;
 }
 .bg-green-900 a.rounded-full.border:hover,
 .bg-green-900 a.rounded-full.border:focus-visible,
@@ -204,15 +192,15 @@ summary.rounded-full.border-green-800:focus-visible,
 .btn-ghost-light:hover,
 .btn-ghost-light:focus-visible {
   background-color: #ffffff;
-  color: #12261c;
+  color: #14261c;
 }
 .bg-green-900,
 .bg-green-950 {
-  color: #ffffff;
+  color: #f4f1e8;
 }
 .bg-green-900 :where(h2, h3, p, li, dd, dt, span),
 .bg-green-950 :where(h2, h3, p, li, dd, dt, span) {
-  color: #f4efe6;
+  color: #f4f1e8;
 }
 .bg-green-950 a,
 .bg-green-900 a {
@@ -226,35 +214,44 @@ summary.rounded-full.border-green-800:focus-visible,
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.bg-clay-700 {
-  background-color: #5a2418;
-  color: #ffffff;
+.bg-green-950 .bg-sand-50,
+.bg-green-950 .bg-sand-50 :where(h2, h3, p, li, a, span, summary),
+.bg-green-900 .bg-sand-50,
+.bg-green-900 .bg-sand-50 :where(h2, h3, p, li, a, span, summary) {
+  color: #14261c;
 }
-.bg-clay-700 a {
-  color: #ffffff;
-}
-.bg-clay-700 a:hover,
-.bg-clay-700 a:focus-visible {
-  color: #ffffff;
+.bg-green-950 .bg-sand-50 a:hover,
+.bg-green-950 .bg-sand-50 a:focus-visible,
+.bg-green-900 .bg-sand-50 a:hover,
+.bg-green-900 .bg-sand-50 a:focus-visible {
+  color: #145c45;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+.bg-clay-700 {
+  background-color: #d8a03d;
+  color: #14261c;
+}
+.bg-clay-700 a,
+.bg-clay-700 :where(h2, h3, p, li, span) {
+  color: #14261c;
+}
 .bg-ochre-200,
 .bg-sand-200 {
-  color: #1a140c;
+  color: #14261c;
 }
 .bg-ochre-200 a,
 .bg-sand-200 a {
-  color: #0c3b27;
+  color: #145c45;
 }
 :focus-visible {
-  outline: 3px solid #5c3d12;
+  outline: 3px solid #8a5a12;
   outline-offset: 3px;
 }
 .bg-green-900 :focus-visible,
 .bg-green-950 :focus-visible,
 .bg-clay-700 :focus-visible {
-  outline-color: #f6e4c0;
+  outline-color: #f4e2b0;
 }
 
 .btn,
@@ -266,7 +263,7 @@ summary.rounded-full.border-green-800:focus-visible,
   align-items: center;
   justify-content: center;
   min-height: 44px;
-  border-radius: 999px;
+  border-radius: 8px;
   padding: 0.65rem 1.15rem;
   font-weight: 700;
   text-align: center;
@@ -319,8 +316,8 @@ summary.rounded-full.border-green-800:focus-visible,
   width: 3.25rem;
   height: 3.25rem;
   border-radius: 999px;
-  border: 2px solid #f6e4c0;
-  background: #0c3b27;
+  border: 2px solid #f4e2b0;
+  background: #12382c;
   color: #ffffff;
   font-weight: 700;
   padding: 0;
@@ -342,11 +339,11 @@ summary.rounded-full.border-green-800:focus-visible,
   height: 2.5rem;
   border-radius: 999px;
   flex: none;
-  box-shadow: 0 0 0 2px #f6e4c0;
+  box-shadow: 0 0 0 2px #f4e2b0;
 }
 .ap-icon:hover,
 .ap-icon:focus-visible {
-  background: #145536;
+  background: #163f32;
   color: #ffffff;
 }
 .ap-contact {
@@ -361,7 +358,7 @@ summary.rounded-full.border-green-800:focus-visible,
   align-items: center;
   gap: 0.45rem;
   padding: 0.7rem 1rem;
-  background: #0c3b27;
+  background: #12382c;
   color: #ffffff;
   cursor: pointer;
   font-size: 0.8rem;
@@ -372,7 +369,7 @@ summary.rounded-full.border-green-800:focus-visible,
 }
 .ap-contact summary:hover,
 .ap-contact summary:focus-visible {
-  background: #145536;
+  background: #163f32;
   color: #ffffff;
 }
 .ap-contact-menu {
@@ -386,11 +383,11 @@ summary.rounded-full.border-green-800:focus-visible,
   padding: 0.5rem;
   border-radius: 1rem;
   background: #ffffff;
-  color: #1a140c;
-  border: 1px solid #e5d6bf;
+  color: #14261c;
+  border: 1px solid #d9ddd6;
 }
 .ap-contact-menu a {
-  color: #0c3b27;
+  color: #12382c;
   font-weight: 700;
   text-decoration: none;
   padding: 0.45rem 0.6rem;
@@ -398,12 +395,12 @@ summary.rounded-full.border-green-800:focus-visible,
 }
 .ap-contact-menu a:hover,
 .ap-contact-menu a:focus-visible {
-  background: #f6e4c0;
-  color: #1a140c;
+  background: #f4e2b0;
+  color: #14261c;
   text-decoration: none;
 }
 .ap-contact-menu button {
-  color: #0c3b27;
+  color: #12382c;
   font-weight: 700;
   text-align: left;
   background: transparent;
@@ -413,8 +410,8 @@ summary.rounded-full.border-green-800:focus-visible,
 }
 .ap-contact-menu button:hover,
 .ap-contact-menu button:focus-visible {
-  background: #f6e4c0;
-  color: #1a140c;
+  background: #f4e2b0;
+  color: #14261c;
 }
 .ap-chat,
 .ap-exit {
@@ -429,8 +426,8 @@ summary.rounded-full.border-green-800:focus-visible,
   display: flex;
   flex-direction: column;
   background: #ffffff;
-  color: #1a140c;
-  border: 1px solid #e5d6bf;
+  color: #14261c;
+  border: 1px solid #d9ddd6;
   border-radius: 1.25rem;
   box-shadow: 0 16px 40px rgb(18 38 28 / 18%);
 }
@@ -448,7 +445,7 @@ summary.rounded-full.border-green-800:focus-visible,
   gap: 0.5rem;
   align-items: center;
   padding: 0.8rem 0.9rem;
-  background: #0c3b27;
+  background: #12382c;
   color: #ffffff;
   border-radius: 1.2rem 1.2rem 0 0;
 }
@@ -467,8 +464,8 @@ summary.rounded-full.border-green-800:focus-visible,
   font-weight: 700;
 }
 .ap-exit-card .ap-close {
-  color: #1a140c;
-  border-color: #1a140c;
+  color: #14261c;
+  border-color: #14261c;
   background: #ffffff;
 }
 .ap-log {
@@ -484,12 +481,12 @@ summary.rounded-full.border-green-800:focus-visible,
   max-width: 95%;
   padding: 0.45rem 0.65rem;
   border-radius: 0.8rem;
-  background: #f4ecdf;
-  color: #1a140c;
+  background: #f7f6f2;
+  color: #14261c;
 }
 .ap-msg-user {
   align-self: flex-end;
-  background: #0c3b27;
+  background: #12382c;
   color: #ffffff;
 }
 .ap-chips,
@@ -503,8 +500,8 @@ summary.rounded-full.border-green-800:focus-visible,
 .ap-chips button,
 .ap-chat-form button {
   background: #ffffff;
-  color: #0c3b27;
-  border: 2px solid #0c3b27;
+  color: #12382c;
+  border: 2px solid #12382c;
   border-radius: 999px;
   padding: 0.35rem 0.7rem;
   font-weight: 700;
@@ -513,7 +510,7 @@ summary.rounded-full.border-green-800:focus-visible,
 .ap-chips button:focus-visible,
 .ap-chat-form button:hover,
 .ap-chat-form button:focus-visible {
-  background: #0c3b27;
+  background: #12382c;
   color: #ffffff;
 }
 .ap-chat-form {
@@ -524,10 +521,10 @@ summary.rounded-full.border-green-800:focus-visible,
 .ap-lead textarea,
 .ap-report input {
   width: 100%;
-  border: 1px solid #cbbda6;
+  border: 1px solid #d9ddd6;
   border-radius: 0.7rem;
   padding: 0.45rem 0.6rem;
-  color: #1a140c;
+  color: #14261c;
   background: #ffffff;
 }
 .ap-lead,
@@ -540,17 +537,17 @@ summary.rounded-full.border-green-800:focus-visible,
   padding: 0.9rem;
   border-radius: 1rem;
   background: #ffffff;
-  color: #1a140c;
+  color: #14261c;
 }
 .ap-report p,
 .ap-report label,
 .ap-lead label {
-  color: #1a140c;
+  color: #14261c;
 }
 .ap-report a,
 .ap-lead a,
 .ap-exit-card a {
-  color: #0c3b27;
+  color: #12382c;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -563,14 +560,14 @@ summary.rounded-full.border-green-800:focus-visible,
 }
 .ap-exit-card {
   width: min(28rem, 100%);
-  background: #fbf7f0;
-  color: #1a140c;
+  background: #f3f2ec;
+  color: #14261c;
   border-radius: 1.25rem;
   padding: 1.1rem;
 }
 .ap-exit-card p,
 .ap-exit-card label {
-  color: #1a140c;
+  color: #14261c;
 }
 .ap-actions {
   display: flex;
@@ -592,7 +589,7 @@ summary.rounded-full.border-green-800:focus-visible,
     gap: 0.5rem;
     padding: 0.55rem 0.75rem calc(0.55rem + env(safe-area-inset-bottom));
     background: #ffffff;
-    border-top: 1px solid #e5d6bf;
+    border-top: 1px solid #d9ddd6;
   }
   .ap-sticky .btn,
   .ap-sticky .btn-urgent {
@@ -634,8 +631,8 @@ summary.rounded-full.border-green-800:focus-visible,
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 1.5rem;
-  background: #f4ecdf;
+  border-radius: 0.75rem;
+  background: #f7f6f2;
 }
 
 a > .ap-figure img {
@@ -648,7 +645,7 @@ a > .ap-figure img {
   height: auto;
   margin-top: 1rem;
   border-radius: 1rem;
-  background: #fffaf3;
+  background: #f7f6f2;
 }
 
 .ap-field {
@@ -659,15 +656,56 @@ a > .ap-figure img {
   border-radius: 0.9rem;
   padding: 0.55rem 0.75rem;
   background: #ffffff;
-  color: #1c1915;
+  color: #14261c;
 }
 
 .ap-badge {
-  background-color: #0c3b27;
+  background-color: #12382c;
   color: #ffffff;
 }
 
 .ap-save {
-  background-color: #f6e4c0;
-  color: #1a140c;
+  background-color: #f4e2b0;
+  color: #14261c;
+}
+
+/* Kaarten: één radius en een lichte schaduw. Ronde foto's en iconen blijven rond. */
+:where(.rounded-2xl, .rounded-3xl, .rounded-\[2rem\], .rounded-\[1\.5rem\]) {
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgb(20 38 28 / 4%), 0 12px 32px rgb(20 38 28 / 6%);
+}
+
+a.ap-calc.btn {
+  background: #ffffff;
+  color: #14261c;
+  border: 1.5px solid #d9ddd6;
+  box-shadow: 0 8px 24px rgb(20 38 28 / 8%);
+}
+a.ap-calc.btn:hover,
+a.ap-calc.btn:focus-visible {
+  background: #f7f6f2;
+  color: #14261c;
+  border-color: #145c45;
+}
+
+.field,
+.ap-field,
+input.field,
+textarea.field,
+select.field {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  border: 1.5px solid #d9ddd6;
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+  background: #ffffff;
+  color: #14261c;
+  font: inherit;
+  min-height: 44px;
+}
+
+main a.underline {
+  text-decoration-color: #d8a03d;
+  text-underline-offset: 3px;
 }

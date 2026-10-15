@@ -42,13 +42,13 @@ const nielsReviews = reviewsAboutNiels().slice(0, 2);
     {groups.map((group) => (
       <section class="mt-10">
         <h2 class="font-serif text-3xl text-green-950">{group.title}</h2>
-        <ul class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul class="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {group.people.map((person) => (
-            <li class="rounded-3xl bg-white p-4 ring-1 ring-line">
-              <TeamPhoto member={person} sizes="(min-width: 1024px) 18rem, (min-width: 640px) 40vw, 100vw" class="max-h-80 w-full rounded-2xl bg-sand-100 object-contain" />
-              <h3 class="mt-3 font-serif text-2xl text-green-950">{person.name}</h3>
-              <p class="text-ink-soft">{person.role}</p>
-              {person.bio && <p class="mt-3 text-sm">{person.bio}</p>}
+            <li class="rounded-2xl border border-line bg-white p-5 text-center">
+              <TeamPhoto member={person} sizes="5rem" class="mx-auto h-20 w-20 rounded-full object-cover object-top" />
+              <h3 class="mt-3 text-base font-semibold text-green-950">{person.name}</h3>
+              <p class="text-sm text-ink-soft">{person.role}</p>
+              {person.bio && <p class="mt-3 text-left text-sm">{person.bio}</p>}
             </li>
           ))}
         </ul>

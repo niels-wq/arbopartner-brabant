@@ -13,21 +13,22 @@ function contrast(foreground: string, background: string) {
 }
 
 const pairs: [string, string, number, string][] = [
-  ["#ffffff", "#0c3b27", 4.5, "primaire knop"],
-  ["#ffffff", "#145536", 4.5, "primaire knop hover"],
-  ["#ffffff", "#5a2418", 4.5, "urgente knop"],
-  ["#ffffff", "#3e1810", 4.5, "urgente knop hover"],
-  ["#1a140c", "#f6e4c0", 4.5, "accentknop"],
-  ["#1a140c", "#edd3a0", 4.5, "accentknop hover"],
-  ["#12261c", "#ffffff", 4.5, "ghostknop"],
-  ["#ffffff", "#12261c", 4.5, "ghostknop hover"],
-  ["#ffffff", "#1a3326", 4.5, "tekst op groen vlak"],
-  ["#f4efe6", "#1a3326", 4.5, "lopende tekst op groen"],
-  ["#12261c", "#ffffff", 4.5, "balk bovenin"],
-  ["#5c3d12", "#fbf7f0", 3, "focusring op zand"],
-  ["#f6e4c0", "#12261c", 3, "focusring op donker"],
-  ["#0c3b27", "#f6e4c0", 4.5, "link op oker"],
-  ["#1a140c", "#e6d7bc", 4.5, "badge op zand"],
+  ["#14261c", "#d8a03d", 4.5, "primaire knop"],
+  ["#14261c", "#c4923a", 4.5, "primaire knop hover"],
+  ["#14261c", "#ffffff", 4.5, "ghostknop"],
+  ["#f4f1e8", "#12382c", 4.5, "ghostknop hover"],
+  ["#ffffff", "#12382c", 4.5, "tekst op groen vlak"],
+  ["#f4f1e8", "#12382c", 4.5, "lopende tekst op groen"],
+  ["#f4f1e8", "#163f32", 4.5, "tekst op groen-900"],
+  ["#f4f1e8", "#12382c", 4.5, "balk bovenin"],
+  ["#8a5a12", "#f3f2ec", 3, "focusring op papier"],
+  ["#f4e2b0", "#12382c", 3, "focusring op donker"],
+  ["#145c45", "#ffffff", 4.5, "link op wit"],
+  ["#145c45", "#f3f2ec", 4.5, "link op papier"],
+  ["#3a463f", "#ffffff", 4.5, "lopende tekst op wit"],
+  ["#3a463f", "#f3f2ec", 4.5, "lopende tekst op papier"],
+  ["#7a4e12", "#f3f2ec", 4.5, "eyebrow"],
+  ["#14261c", "#f8e7c4", 4.5, "tekst op oker"],
 ];
 
 describe("contrast", () => {

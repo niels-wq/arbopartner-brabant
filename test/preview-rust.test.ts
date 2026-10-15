@@ -33,7 +33,10 @@ test("koffiefoto blijft klein en contact toont één portret", () => {
   const photo = readFileSync("src/components/NielsPhoto.astro", "utf8");
   const engage = readFileSync("src/components/Engagement.astro", "utf8");
   assert.equal(home.includes("aspect-[4/5]"), false);
-  assert.match(home, /h-24/);
+  assert.match(home, /site\.founder\.avatar/);
+  assert.match(home, /rounded-full/);
+  assert.match(readFileSync("src/data/site.ts", "utf8"), /niels-alderding-avatar/);
+  assert.match(readFileSync("src/components/Header.astro", "utf8"), /logo-light\.png/);
   assert.match(photo, /niels-koffie-400\.webp/);
   assert.equal(photo.includes("1200"), false);
   assert.match(engage, /<summary>Contact<\/summary>/);
