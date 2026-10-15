@@ -1,0 +1,43 @@
+{
+  "specialisaties": [
+    "Psychisch en burn-out",
+    "Bewegingsapparaat",
+    "Oncologie",
+    "Conflicten en arbeidsverhoudingen",
+    "WIA-trajecten",
+    "Spoor 2",
+    "Langdurig verzuim",
+    "MKB",
+    "Zorg",
+    "Bouw en techniek",
+    "Overheid",
+    "Engelstalig"
+  ],
+  "registraties": ["RCM", "SKO", "BIG", "Geen"],
+  "vog": ["Ja", "Nee", "Aangevraagd"],
+  "verzekering": ["Ja", "Nee"],
+  "regios": [
+    "Uden",
+    "Veghel",
+    "Oss",
+    "'s-Hertogenbosch",
+    "Eindhoven",
+    "Helmond",
+    "Boxmeer",
+    "Cuijk",
+    "Schijndel",
+    "Boxtel",
+    "Veldhoven",
+    "Best",
+    "Grave",
+    "Gemert",
+    "Deurne",
+    "Breda",
+    "Tilburg",
+    "Waalwijk",
+    "Roosendaal",
+    "Bergen op Zoom",
+    "Oosterhout",
+    "Elders in Noord-Brabant"
+  ]
+}
