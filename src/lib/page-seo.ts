@@ -6,7 +6,7 @@ import type { FaqItem } from "./schema";
 const shared: FaqItem[] = [
   {
     q: "Wat is Arbopartner Brabant?",
-    a: "Arbopartner Brabant is een label van Matchvermogen B.V. Het detacheert een vaste casemanager bij werkgevers met 35 of meer medewerkers, binnen ongeveer 45 minuten van Uden. Het label is geen arbodienst.",
+    a: "Arbopartner Brabant is een label van Matchvermogen B.V. Het detacheert een vaste casemanager bij werkgevers met 35 of meer medewerkers in Noord-Brabant. Nuchter, dichtbij, Brabants. Het kantoor staat in Uden. Het label is geen arbodienst.",
   },
   {
     q: "Hoe neemt u contact op?",
@@ -73,7 +73,7 @@ const byPath: Record<string, FaqItem[]> = {
   "/werkgebied": [
     {
       q: "Waar werken jullie?",
-      a: "Binnen ongeveer 45 minuten rijden van Uden, in Noord-Brabant en de rand daarvan. De reistijd zit in het tarief.",
+      a: "In heel Noord-Brabant. Het kantoor en de thuisbasis staan in Uden, Losplaats 16d. Reistijd binnen ongeveer 45 minuten van dat kantoor zit in het tarief. Verder in Brabant staat de rit in de offerte. Nijmegen ligt net over de grens en is randgebied.",
     },
     shared[0],
   ],

@@ -1,0 +1,66 @@
+---
+import { brabantKaart, kaartSteden } from "../data/brabant-kaart";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<figure class:list={["rounded-[2rem] bg-white p-4 ring-1 ring-line sm:p-6", className]}>
+  <svg
+    viewBox={`0 0 ${brabantKaart.width} ${brabantKaart.height}`}
+    role="img"
+    aria-labelledby="brabant-kaart-titel brabant-kaart-uitleg"
+    class="h-auto w-full"
+  >
+    <title id="brabant-kaart-titel">Kaart van Noord-Brabant</title>
+    <desc id="brabant-kaart-uitleg">
+      Werkgebied in Noord-Brabant. Het kantoor staat in Uden. Gemarkeerd zijn onder meer Den Bosch, Eindhoven, Tilburg, Breda, Helmond, Oss, Veghel, Roosendaal en Bergen op Zoom. Nijmegen ligt net buiten de provincie.
+    </desc>
+    <rect width={brabantKaart.width} height={brabantKaart.height} fill="#f7f3ea" />
+    <path d={brabantKaart.path} fill="#d7e6d4" stroke="#0c3b27" stroke-width="3" stroke-linejoin="round" />
+    {kaartSteden.filter((stad) => stad.kind === "klein").map((stad) => (
+      <circle cx={stad.x} cy={stad.y} r="4" fill="#234833">
+        <title>{stad.name}</title>
+      </circle>
+    ))}
+    {kaartSteden.filter((stad) => stad.kind === "stad").map((stad) => (
+      <g>
+        <circle cx={stad.x} cy={stad.y} r="6" fill="#0c3b27" />
+        {stad.label && (
+          <text
+            x={stad.x + stad.label.dx}
+            y={stad.y + stad.label.dy}
+            text-anchor={stad.label.anchor}
+            fill="#12261c"
+            font-size={stad.name.length > 12 ? 13 : 15}
+            font-weight="700"
+            font-family="Georgia, serif"
+          >{stad.name}</text>
+        )}
+      </g>
+    ))}
+    {kaartSteden.filter((stad) => stad.kind === "rand").map((stad) => (
+      <g>
+        <circle cx={stad.x} cy={stad.y} r="6" fill="#f7f3ea" stroke="#8c3d2a" stroke-width="2" />
+        {stad.label && (
+          <text x={stad.x + stad.label.dx} y={stad.y + stad.label.dy} text-anchor={stad.label.anchor} fill="#8c3d2a" font-size="13" font-weight="700" font-family="Georgia, serif">{stad.name}</text>
+        )}
+      </g>
+    ))}
+    {kaartSteden.filter((stad) => stad.kind === "kantoor").map((stad) => (
+      <g>
+        <circle cx={stad.x} cy={stad.y} r="11" fill="none" stroke="#c4923a" stroke-width="3" />
+        <circle cx={stad.x} cy={stad.y} r="5" fill="#c4923a" />
+        {stad.label && (
+          <text x={stad.x + stad.label.dx} y={stad.y + stad.label.dy} text-anchor={stad.label.anchor} fill="#12261c" font-size="15" font-weight="700" font-family="Georgia, serif">Uden, kantoor</text>
+        )}
+      </g>
+    ))}
+  </svg>
+  <figcaption class="mt-3 text-xs leading-relaxed text-ink-soft">
+    {brabantKaart.bron} De okeren stip is het kantoor in Uden. De open stip is Nijmegen, net over de grens in Gelderland.
+  </figcaption>
+</figure>

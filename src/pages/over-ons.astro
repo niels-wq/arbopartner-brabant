@@ -22,7 +22,7 @@ const faq = [
   },
   {
     q: "Werken jullie in heel Nederland?",
-    a: "De casemanager van dit label werkt binnen ongeveer 45 minuten van Uden. Arbeidsdeskundig onderzoek doet Matchvermogen landelijk.",
+    a: "De casemanager van dit label werkt in Noord-Brabant. Het kantoor staat in Uden. Arbeidsdeskundig onderzoek doet Matchvermogen landelijk.",
   },
   zzpFaq,
 ];
@@ -30,12 +30,12 @@ const niels = team.find((person) => person.slug === "niels-alderding");
 const nielsReviews = reviewsAboutNiels().slice(0, 2);
 ---
 
-<Base title="Over ons" description="Arbopartner Brabant is een label van Matchvermogen B.V. in Uden, voor verzuimbegeleiding bij Brabantse werkgevers." jsonLd={[crumbsLd(crumbs), faqLd(faq)]}>
+  <Base title="Over ons" description="Arbopartner Brabant is een label van Matchvermogen B.V. Casemanager en arbo in Noord-Brabant, met het kantoor in Uden." jsonLd={[crumbsLd(crumbs), faqLd(faq)]}>
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Een label, geen loket</h1>
     <Figure id="pagina-over-ons" eager class="mt-6" />
-    <p class="mt-4 text-lg">{site.name} is een label van {site.parent.legalName}, KvK {site.parent.kvk}, {site.parent.street}, {site.parent.postalCode} {site.parent.city}. Het moederbedrijf werkt als register-arbeidsdeskundig bureau. Dit label doet iets anders: een vaste casemanager op locatie, voor werkgevers met {site.minEmployees} of meer medewerkers, binnen ongeveer {site.travelMinutes} minuten van Uden.</p>
+    <p class="mt-4 text-lg">{site.name} is een label van {site.parent.legalName}, KvK {site.parent.kvk}, {site.parent.street}, {site.parent.postalCode} {site.parent.city}. Het moederbedrijf werkt als register-arbeidsdeskundig bureau. Dit label doet iets anders: een vaste casemanager op locatie, nuchter en dichtbij, voor werkgevers met {site.minEmployees} of meer medewerkers in Noord-Brabant. Het kantoor in Uden is de thuisbasis. Reistijd binnen ongeveer {site.travelMinutes} minuten van dat kantoor zit in het tarief.</p>
     <figure class="mt-6 grid items-start gap-5 sm:grid-cols-[12rem_1fr]">
       <NielsPhoto sizes="12rem" class="aspect-[4/5] w-full rounded-[1.5rem] object-cover" />
       <figcaption>

@@ -2,9 +2,9 @@ export const site = {
   name: "Arbopartner Brabant",
   domain: "https://www.arbopartnerbrabant.nl",
   locale: "nl_NL",
-  tagline: "Een vast gezicht voor verzuim in Brabant",
+  tagline: "Casemanager en arbo in Brabant",
   description:
-    "Arbopartner Brabant is een label van Matchvermogen. Wij detacheren een vaste casemanager bij werkgevers met 35 of meer medewerkers, binnen ongeveer 45 minuten van Uden.",
+    "Casemanager en arbo in Noord-Brabant. Arbopartner Brabant detacheert een vaste casemanager bij werkgevers met 35 of meer medewerkers. Nuchter, dichtbij, Brabants. Het kantoor en de thuisbasis staan in Uden, Losplaats 16d.",
   labelStatement: "Arbopartner Brabant is een label van Matchvermogen",
   minEmployees: 35,
   travelMinutes: 45,

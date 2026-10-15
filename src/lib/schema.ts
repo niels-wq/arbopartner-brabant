@@ -1,5 +1,5 @@
 import { site, absoluteUrl } from "../data/site";
-import { places } from "../data/places";
+import { gemeenten } from "../data/gemeenten";
 import { team, type TeamMember } from "../data/team";
 
 export type Crumb = { name: string; path: string };
@@ -82,12 +82,13 @@ export function organizationLd(areaName?: string) {
       identifier: `KvK ${site.parent.kvk}`,
       taxID: site.parent.btw ?? undefined,
     },
-    areaServed: areaName
-      ? { "@type": "City", name: areaName }
-      : [
-          { "@type": "AdministrativeArea", name: "Noord-Brabant" },
-          ...places.map((place) => ({ "@type": "City", name: place.name })),
-        ],
+    areaServed: [
+      { "@type": "AdministrativeArea", name: "Noord-Brabant" },
+      ...gemeenten.map((name) => ({ "@type": "AdministrativeArea", name })),
+      ...(areaName && !gemeenten.includes(areaName as (typeof gemeenten)[number])
+        ? [{ "@type": "City", name: areaName }]
+        : []),
+    ],
     knowsLanguage: "nl",
     slogan: site.tagline,
   };
@@ -156,7 +157,7 @@ export function jobPostingLd() {
     "@type": "JobPosting",
     title: "Casemanager verzuim, in dienst",
     description:
-      "Casemanager in loondienst bij Matchvermogen B.V. in Uden, voor verzuimbegeleiding bij werkgevers rond Uden. Het werk kan op het kantoor aan de Losplaats 16d, bij de werkgever of online. Salaris en uren per week staan niet in deze vacature. Die spreken we af in de procedure. Solliciteren kan direct op de pagina Werken bij.",
+      "Casemanager in loondienst bij Matchvermogen B.V. voor verzuimbegeleiding bij werkgevers in Noord-Brabant. Het kantoor en de thuisbasis staan aan de Losplaats 16d in Uden. Het werk kan daar, bij de werkgever of online. Salaris en uren per week staan niet in deze vacature. Die spreken we af in de procedure. Solliciteren kan direct op de pagina Werken bij.",
     datePosted: "2026-10-15",
     directApply: true,
     hiringOrganization: {

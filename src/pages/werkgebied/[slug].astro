@@ -4,9 +4,11 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import FaqList from "../../components/FaqList.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import Figure from "../../components/Figure.astro";
+import BrabantPhoto from "../../components/BrabantPhoto.astro";
 import Mark from "../../components/Mark.astro";
 import InlineLead from "../../components/InlineLead.astro";
 import { site, phoneHref, mailHref } from "../../data/site";
+import { fotoVoorPlaats } from "../../data/brabant-fotos";
 import { getPlace, places } from "../../data/places";
 import { crumbsLd, faqLd, organizationLd } from "../../lib/schema";
 
@@ -21,25 +23,30 @@ const crumbs = [
   { name: place.name, path: `/werkgebied/${place.slug}` },
 ];
 const nearby = place.nearby.map((slug) => places.find((item) => item.slug === slug)).filter(Boolean);
+const foto = fotoVoorPlaats(place.slug);
+const gebied = place.buitenBrabant ? "aan de rand van Brabant, in Gelderland" : "in Noord-Brabant";
+const rit = place.reistijdInTarief === false
+  ? "Of de reistijd in het tarief zit, toetsen we op uw adres. Binnen ongeveer 45 minuten van het kantoor in Uden is dat zo. Ligt het adres verder weg, dan staat de rit in de offerte."
+  : "Binnen ongeveer 45 minuten van het kantoor in Uden zit die reistijd in het tarief.";
 ---
 
 <Base
-  title={`Verzuimbegeleiding ${place.in}`}
-  description={`Vaste casemanager ${place.in}. Ongeveer ${place.minutes} minuten vanuit Uden. Voor werkgevers met 35 of meer medewerkers.`}
+  title={`Casemanager ${place.in}`}
+  description={`Casemanager en verzuimbegeleiding ${place.in}, ${place.buitenBrabant ? "aan de rand van Brabant" : "Noord-Brabant"}. Nuchter en dichtbij. Kantoor in Uden, ${site.parent.street}. Voor werkgevers met 35 of meer medewerkers.`}
   jsonLd={[crumbsLd(crumbs), faqLd(place.faq), organizationLd(place.name)]}
 >
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto max-w-3xl px-4 pt-6">
-    <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">{place.municipality} · ongeveer {place.minutes} minuten</p>
-    <h1 class="mt-2 font-serif text-5xl text-green-950">Verzuimbegeleiding {place.in}</h1>
-    <p class="mt-4 text-lg">Verzuimbegeleiding {place.in} betekent een vaste gedetacheerde casemanager van {site.name}, ongeveer {place.minutes} minuten vanuit Uden. {place.lead}</p>
-    <Figure id={`plaats-${place.slug}`} eager class="mt-6" />
+    <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">{place.municipality} · ongeveer {place.minutes} minuten van het kantoor</p>
+    <h1 class="mt-2 font-serif text-5xl text-green-950">Casemanager {place.in}</h1>
+    <p class="mt-4 text-lg">Een vaste casemanager {place.in}, {gebied}. De thuisbasis is het kantoor van {site.name} in Uden. De rit is ongeveer {place.minutes} minuten buiten de spits. {rit} {place.lead}</p>
+    {foto ? <BrabantPhoto id={foto} eager class="mt-6" /> : <Figure id={`plaats-${place.slug}`} eager class="mt-6" />}
     <address class="mt-4 rounded-3xl bg-sand-100 p-4 text-sm not-italic">
       <strong>{site.name}</strong>, label van {site.parent.legalName}<br />
       {site.parent.street}, {site.parent.postalCode} {site.parent.city}<br />
       <a class="font-semibold underline" data-channel="phone" href={phoneHref}>{site.parent.phoneDisplay}</a>
       · <a class="font-semibold underline" data-channel="email" href={mailHref}>{site.parent.email}</a><br />
-      Werkgebied: {place.name} ({place.municipality}), Noord-Brabant.
+      Werkgebied: {place.name} ({place.municipality}), {place.buitenBrabant ? "Gelderland, aan de rand van Brabant" : "Noord-Brabant"}.
     </address>
     {place.body.map((paragraph) => <p class="mt-4">{paragraph}</p>)}
     <h2 class="mt-8 font-serif text-3xl"><Mark name="building" />Sectoren die we hier tegenkomen</h2>

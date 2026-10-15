@@ -17,7 +17,7 @@ export const services: Service[] = [
     title: "Casemanager detacheren",
     menu: "Casemanager detacheren",
     description:
-      "Een vaste gedetacheerde casemanager voor werkgevers in Brabant met 35 of meer medewerkers. Reistijd binnen 45 minuten van Uden zit in het tarief.",
+      "Een vaste gedetacheerde casemanager voor werkgevers in Noord-Brabant, vanaf 35 medewerkers. Nuchter en dichtbij. Reistijd binnen 45 minuten van het kantoor in Uden zit in het tarief.",
     lead: "U krijgt één casemanager die de namen op de werkvloer kent. Geen loket, geen andere stem bij elk telefoontje.",
     sections: [
       {
@@ -44,7 +44,7 @@ export const services: Service[] = [
     faq: [
       {
         q: "Vanaf hoeveel medewerkers kan ik detacheren?",
-        a: "We werken voor werkgevers met 35 of meer medewerkers, binnen ongeveer 45 minuten rijden van Uden.",
+        a: "We werken voor werkgevers met 35 of meer medewerkers in Noord-Brabant. Het kantoor staat in Uden.",
       },
       {
         q: "Zit reistijd in het tarief?",

@@ -15,12 +15,17 @@ import CalendlyButton from "../components/CalendlyButton.astro";
 import Guarantees from "../components/Guarantees.astro";
 import { qualityFaq } from "../data/garanties";
 import TeamStrip from "../components/TeamStrip.astro";
+import BrabantMap from "../components/BrabantMap.astro";
+import BrabantPhoto from "../components/BrabantPhoto.astro";
+import VerzuimTijdlijn from "../components/VerzuimTijdlijn.astro";
 import { faqLd, teamPeopleLd } from "../lib/schema";
+
+const steden = ["den-bosch", "eindhoven", "tilburg", "breda", "duinen", "biesbosch"] as const;
 
 const faq = [
   {
     q: "Voor wie is Arbopartner Brabant?",
-    a: "Voor werkgevers met 35 of meer medewerkers, binnen ongeveer 45 minuten rijden van Uden. Kleinere organisaties en particulieren verwijzen we door naar een gerichte opdracht bij Matchvermogen, niet naar een wekelijks blok.",
+    a: "Voor werkgevers met 35 of meer medewerkers in Noord-Brabant. De thuisbasis en het kantoor staan in Uden, aan de Losplaats 16d. Reistijd binnen ongeveer 45 minuten van dat kantoor zit in het tarief. Ligt het adres verder in Brabant, dan staat de rit in de offerte. Kleinere organisaties en particulieren verwijzen we door naar een gerichte opdracht bij Matchvermogen, niet naar een wekelijks blok.",
   },
   {
     q: "Zijn jullie een arbodienst?",
@@ -43,20 +48,20 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
 
 <Base
   home
-  title="Arbopartner Brabant — een vast gezicht voor verzuim"
+  title="Casemanager en arbo in Brabant | Arbopartner Brabant"
   description={site.description}
   jsonLd={jsonLd}
 >
   <section class="mx-auto grid max-w-6xl items-start gap-8 px-4 pb-6 pt-10 md:grid-cols-[1.3fr_0.7fr] md:pt-16">
     <div>
       <p class="text-sm font-semibold uppercase tracking-[0.16em] text-ochre-800">{site.labelStatement}</p>
-      <h1 class="mt-3 max-w-xl font-serif text-5xl leading-[1.05] text-green-950 md:text-6xl">Uw casemanager kent de namen op de werkvloer.</h1>
-      <p class="mt-5 max-w-xl text-lg text-ink-soft">Arbopartner Brabant is een label van Matchvermogen B.V. Het detacheert een vaste casemanager bij werkgevers met 35 of meer medewerkers, binnen ongeveer 45 minuten van Uden. Het label is geen arbodienst. Een arbeidsdeskundige van Matchvermogen staat als achtervang klaar, met korting.</p>
+      <h1 class="mt-3 max-w-xl font-serif text-5xl leading-[1.05] text-green-950 md:text-6xl">Casemanager en arbo in Brabant.</h1>
+      <p class="mt-5 max-w-xl text-lg text-ink-soft">Nuchter, dichtbij, Brabants. Arbopartner Brabant is een label van Matchvermogen B.V. en detacheert een vaste casemanager bij werkgevers met 35 of meer medewerkers in heel Noord-Brabant. Het kantoor staat in Uden, aan de Losplaats 16d. Het label is geen arbodienst. Een arbeidsdeskundige van Matchvermogen staat als achtervang klaar, met korting.</p>
       <ul class="mt-5 flex flex-wrap gap-2 text-sm font-semibold" aria-label="Vertrouwen">
         <li class="rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line">Label van Matchvermogen</li>
         <li class="rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line">KvK {site.parent.kvk}</li>
         <li><a class="inline-block rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line" data-cta="home-reviews" href="/reviews">Reviews van Matchvermogen</a></li>
-        <li><a class="inline-block rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line" data-cta="home-werkgebied" href="/werkgebied">Werkgebied: 45 minuten rond Uden</a></li>
+        <li><a class="inline-block rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line" data-cta="home-werkgebied" href="/werkgebied">Werkgebied: heel Noord-Brabant</a></li>
       </ul>
       <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         <a class="rounded-full bg-green-800 px-5 py-3 text-center font-semibold text-sand-50" data-cta="home-advies" href="/adviesgesprek">Plan een adviesgesprek</a>
@@ -98,15 +103,15 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
 
   <section class="mx-auto grid max-w-6xl gap-4 px-4 py-8 md:grid-cols-3" aria-label="Keuzehulp">
     <a class="rounded-[2rem] bg-green-900 p-6 text-sand-50" data-cta="home-kaart-spoed" href="/spoedhulp">
-      <h2 class="font-serif text-3xl">Ik heb nu een verzuimprobleem</h2>
+      <h2 class="font-serif text-3xl"><Mark name="alert" />Ik heb nu een verzuimprobleem</h2>
       <p class="mt-2 text-sand-100">Een zieke medewerker, een vastgelopen dossier of een sanctierisico. Bel, app of laat u terugbellen.</p>
     </a>
     <a class="rounded-[2rem] border border-line bg-white/80 p-6" data-cta="home-kaart-pakket" href="/pakketten">
-      <h2 class="font-serif text-3xl text-green-950">Ik wil verzuim structureel regelen</h2>
+      <h2 class="font-serif text-3xl text-green-950"><Mark name="calendar" />Ik wil verzuim structureel regelen</h2>
       <p class="mt-2 text-ink-soft">Basis, Premium of Pro. Eén niveau casemanager, een vast aantal uren, een vast gezicht.</p>
     </a>
     <a class="rounded-[2rem] bg-sand-200 p-6" data-cta="home-kaart-kosten" href="/verzuimkosten-berekenen">
-      <h2 class="font-serif text-3xl text-green-950">Wat kost verzuim mij?</h2>
+      <h2 class="font-serif text-3xl text-green-950"><Mark name="chart" />Wat kost verzuim mij?</h2>
       <p class="mt-2 text-ink-soft">Reken met de TNO-dagkosten en kies zelf een scenario. Geen belofte, wel een bedrag.</p>
     </a>
   </section>
@@ -151,19 +156,27 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
   </section>
 
   <section class="mx-auto max-w-6xl px-4 py-8">
-    <h2 class="font-serif text-4xl text-green-950"><Mark name="pin" />Binnen 45 minuten van Uden</h2>
-    <p class="mt-2 max-w-2xl text-ink-soft">Reistijden zijn een indicatie per auto, buiten de spits. De reistijd zit in het tarief.</p>
-    <ul class="mt-4 flex flex-wrap gap-2">
+    <h2 class="font-serif text-4xl text-green-950"><Mark name="pin" />Heel Noord-Brabant</h2>
+    <p class="mt-2 max-w-2xl text-ink-soft">Den Bosch, Eindhoven, Tilburg, Breda, Helmond, Oss, Uden, Veghel, Roosendaal, Bergen op Zoom en de gemeenten eromheen. Het kantoor staat in Uden. Reistijd binnen ongeveer 45 minuten van dat kantoor zit in het tarief. Verder in Brabant staat de rit in de offerte.</p>
+    <BrabantMap class="mt-6" />
+    <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {steden.map((id) => (
+        <li><BrabantPhoto id={id} /></li>
+      ))}
+    </ul>
+    <ul class="mt-6 flex flex-wrap gap-2">
       {places.map((place) => (
         <li>
           <a class="inline-block rounded-full bg-white px-3 py-1 text-sm font-semibold text-green-900 ring-1 ring-line" href={`/werkgebied/${place.slug}`}>
-            {place.name} · {place.minutes} min
+            {place.name}{place.buitenBrabant ? " (rand)" : ""}
           </a>
         </li>
       ))}
     </ul>
-    <p class="mt-4"><a class="font-semibold text-green-900 underline decoration-ochre-500" data-cta="home-plaatsen" href="/werkgebied">Alle plaatsen in het werkgebied</a></p>
+    <p class="mt-4"><a class="font-semibold text-green-900 underline decoration-ochre-500" data-cta="home-plaatsen" href="/werkgebied">Alle plaatsen en de kaart</a></p>
   </section>
+
+  <VerzuimTijdlijn />
 
   <ClusterNav />
 
