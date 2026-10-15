@@ -1,4 +1,5 @@
 ---
+import Figure from "../components/Figure.astro";
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import { crumbsLd } from "../lib/schema";
@@ -13,6 +14,7 @@ const crumbs = [
   <Breadcrumbs crumbs={crumbs} />
   <section class="mx-auto max-w-3xl px-4 py-16">
     <h1 class="font-serif text-5xl text-green-950">Deze pagina is er niet</h1>
+    <Figure id="pagina-niet-gevonden" eager class="mt-6" />
     <p class="mt-4">Het adres klopt niet, of de pagina is verplaatst. Ga naar de <a class="underline" href="/">homepage</a>, de <a class="underline" href="/diensten">diensten</a> of <a class="underline" href="/spoedhulp">spoedhulp</a>.</p>
   </section>
 </Base>

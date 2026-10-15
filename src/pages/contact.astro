@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import CallbackForm from "../components/CallbackForm.astro";
+import Figure from "../components/Figure.astro";
 import OfficeVisit from "../components/OfficeVisit.astro";
 import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
 import { crumbsLd } from "../lib/schema";
@@ -17,6 +18,7 @@ const crumbs = [
   <article class="mx-auto grid max-w-6xl gap-8 px-4 pt-6 lg:grid-cols-2">
     <div>
       <h1 class="font-serif text-5xl text-green-950">Contact</h1>
+      <Figure id="pagina-contact" eager class="mt-6" />
       <p class="mt-4">Contact met Arbopartner Brabant loopt via {site.parent.legalName} in {site.parent.city}: telefoon {site.parent.phoneDisplay}, WhatsApp {site.parent.whatsappDisplay} en {site.parent.email}. {site.labelStatement}.</p>
       <address class="mt-4 not-italic">
         {site.parent.legalName}<br />

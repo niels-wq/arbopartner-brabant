@@ -1,10 +1,11 @@
 ---
+import Mark from "./Mark.astro";
 interface Props { items: { q: string; a: string }[]; title?: string }
 const { items, title = "Veelgestelde vragen" } = Astro.props;
 ---
 
 <section class="mt-12">
-  <h2 class="font-serif text-3xl text-green-950">{title}</h2>
+  <h2 class="font-serif text-3xl text-green-950"><Mark name="document" />{title}</h2>
   <div class="mt-4 divide-y divide-line rounded-3xl border border-line bg-white/70">
     {items.map((item) => (
       <details class="group px-5 py-4">

@@ -1,0 +1,85 @@
+---
+interface Props {
+  name: "chart" | "document" | "route" | "shield" | "clock" | "building" | "chairs" | "pin" | "balance" | "swap" | "calendar" | "alert";
+  label?: string;
+  class?: string;
+}
+const { name, label, class: className } = Astro.props;
+---
+
+<svg
+  class:list={["ap-mark", className]}
+  viewBox="0 0 48 48"
+  width="32"
+  height="32"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden={label ? undefined : "true"}
+  role={label ? "img" : undefined}
+  aria-label={label}
+>
+  {name === "chart" && (
+    <>
+      <path d="M8 36V22M18 36V14M28 36V26M38 36V10" />
+      <path d="M6 40h36" />
+    </>
+  )}
+  {name === "document" && (
+    <>
+      <path d="M14 8h14l8 8v24H14z" />
+      <path d="M28 8v8h8M18 24h12M18 30h12M18 36h8" />
+    </>
+  )}
+  {name === "route" && (
+    <>
+      <circle cx="12" cy="36" r="4" />
+      <circle cx="36" cy="12" r="4" />
+      <path d="M16 34c8-2 8-16 16-18" />
+    </>
+  )}
+  {name === "shield" && <path d="M24 6 40 12v12c0 10-7 16-16 18C15 40 8 34 8 24V12z" />}
+  {name === "clock" && (
+    <>
+      <circle cx="24" cy="24" r="14" />
+      <path d="M24 16v9l6 3" />
+    </>
+  )}
+  {name === "building" && (
+    <>
+      <path d="M10 40V16l14-8 14 8v24" />
+      <path d="M20 40v-8h8v8M18 22h4M26 22h4M18 28h4M26 28h4" />
+    </>
+  )}
+  {name === "chairs" && (
+    <>
+      <path d="M8 30h12M14 18v12M10 18h8M28 30h12M34 18v12M30 18h8M16 34h16" />
+    </>
+  )}
+  {name === "pin" && (
+    <>
+      <path d="M24 42s12-12 12-20a12 12 0 0 0-24 0c0 8 12 20 12 20z" />
+      <circle cx="24" cy="22" r="4" />
+    </>
+  )}
+  {name === "balance" && (
+    <>
+      <path d="M24 8v28M10 36h28M24 14H12l-4 8h16zm0 0h12l4 8H24" />
+    </>
+  )}
+  {name === "swap" && <path d="M10 18h22l-6-6M38 30H16l6 6" />}
+  {name === "calendar" && (
+    <>
+      <rect x="8" y="12" width="32" height="26" rx="3" />
+      <path d="M8 20h32M16 8v8M32 8v8" />
+    </>
+  )}
+  {name === "alert" && (
+    <>
+      <path d="M24 8 42 38H6z" />
+      <path d="M24 20v8M24 34h.1" />
+    </>
+  )}
+</svg>

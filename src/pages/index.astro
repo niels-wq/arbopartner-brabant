@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import Mark from "../components/Mark.astro";
 import CostTeaser from "../components/CostTeaser.astro";
 import CtaBand from "../components/CtaBand.astro";
 import ClusterNav from "../components/ClusterNav.astro";
@@ -76,7 +77,7 @@ const jsonLd = [faqLd(faq)];
 
   <section class="mx-auto max-w-6xl px-4 pt-6">
     <aside class="rounded-[2rem] bg-white p-6 ring-1 ring-line">
-      <p class="font-serif text-2xl text-green-950">Wat u niet krijgt</p>
+      <p class="font-serif text-2xl text-green-950"><Mark name="shield" />Wat u niet krijgt</p>
       <ul class="mt-3 space-y-2 text-ink">
         <li>Geen wisselend loket.</li>
         <li>Geen nacalculatie voor reistijd in het gebied.</li>
@@ -102,22 +103,22 @@ const jsonLd = [faqLd(faq)];
   </section>
 
   <section class="mx-auto max-w-6xl px-4 py-8">
-    <h2 class="font-serif text-4xl text-green-950">Eén mens, met een zwaardere achtervang</h2>
+    <h2 class="font-serif text-4xl text-green-950"><Mark name="building" />Eén mens, met een zwaardere achtervang</h2>
     <div class="mt-6 grid gap-4 md:grid-cols-2">
       <article class="rounded-3xl border border-line bg-white/70 p-5">
-        <h3 class="font-serif text-2xl">Vaste casemanager</h3>
+        <h3 class="font-serif text-2xl"><Mark name="calendar" />Vaste casemanager</h3>
         <p class="mt-2">Medior, medior+ of senior. Dezelfde persoon elke week, op uw locatie of op het kantoor in Uden. Uren schalen mee met de dossiers.</p>
       </article>
       <article class="rounded-3xl border border-line bg-white/70 p-5">
-        <h3 class="font-serif text-2xl">Arbeidsdeskundige erachter</h3>
+        <h3 class="font-serif text-2xl"><Mark name="shield" />Arbeidsdeskundige erachter</h3>
         <p class="mt-2">Via Matchvermogen, tegen een lager tarief dan los inkopen. De onderzoeker is niet dezelfde persoon als de begeleider. Het percentage bevestigen we in de offerte.</p>
       </article>
       <article class="rounded-3xl border border-line bg-white/70 p-5">
-        <h3 class="font-serif text-2xl">Tweede spoor als het moet</h3>
+        <h3 class="font-serif text-2xl"><Mark name="route" />Tweede spoor als het moet</h3>
         <p class="mt-2">Via Best Match, op tijd, niet in de laatste maand van het tweede jaar. De korting via het netwerk bevestigen we in de offerte.</p>
       </article>
       <article class="rounded-3xl border border-line bg-white/70 p-5">
-        <h3 class="font-serif text-2xl">Gesprek op ons kantoor</h3>
+        <h3 class="font-serif text-2xl"><Mark name="chairs" />Gesprek op ons kantoor</h3>
         <p class="mt-2">Werknemer en werkgever komen naar Losplaats 16d in Uden. {officeConversation.place} {officeConversation.threshold} {officeConversation.employer} {officeConversation.care}</p>
         <a class="mt-3 inline-block font-semibold text-green-900 underline decoration-ochre-500" data-cta="home-kantoor" href="/adviesgesprek?plek=kantoor#afspraak">Plan een gesprek op ons kantoor</a>
       </article>
@@ -129,7 +130,7 @@ const jsonLd = [faqLd(faq)];
 
   <section class="mx-auto max-w-6xl px-4 py-6">
     <div class="flex items-end justify-between gap-4">
-      <h2 class="font-serif text-4xl text-green-950">Wat opdrachtgevers van Matchvermogen schreven</h2>
+      <h2 class="font-serif text-4xl text-green-950"><Mark name="document" />Wat opdrachtgevers van Matchvermogen schreven</h2>
       <a class="hidden font-semibold text-green-800 sm:inline" data-cta="home-reviews-kop" href="/reviews">Alle citaten</a>
     </div>
     <p class="mt-2 max-w-2xl text-sm text-ink-soft">Deze citaten staan letterlijk op matchvermogen.nl. Ze gaan over het moederbedrijf, niet over dit label. Eigen reviews volgen als die er zijn.</p>
@@ -139,7 +140,7 @@ const jsonLd = [faqLd(faq)];
   </section>
 
   <section class="mx-auto max-w-6xl px-4 py-8">
-    <h2 class="font-serif text-4xl text-green-950">Binnen 45 minuten van Uden</h2>
+    <h2 class="font-serif text-4xl text-green-950"><Mark name="pin" />Binnen 45 minuten van Uden</h2>
     <p class="mt-2 max-w-2xl text-ink-soft">Reistijden zijn een indicatie per auto, buiten de spits. De reistijd zit in het tarief.</p>
     <ul class="mt-4 flex flex-wrap gap-2">
       {places.map((place) => (

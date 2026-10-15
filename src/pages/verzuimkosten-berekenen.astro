@@ -1,4 +1,5 @@
 ---
+import Figure from "../components/Figure.astro";
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import SavingsCalc from "../components/calculators/SavingsCalc.astro";
@@ -24,6 +25,7 @@ const faq = [
   <Breadcrumbs crumbs={crumbs} />
   <header class="mx-auto max-w-6xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Wat kost verzuim u per jaar?</h1>
+    <Figure id="pagina-verzuimkosten" eager class="mt-6" />
     <p class="mt-4 max-w-2xl text-lg">Verzuimkosten zijn hier het bedrag dat een werkgever per jaar kwijt is aan loon, vervanging en begeleiding bij ziekte. De som is medewerkers × verzuimpercentage × 220 werkdagen × dagkosten. De bronnen staan onder de calculator. Een daling vult u zelf in. De uitkomst is een scenario, geen belofte.</p>
   </header>
   <div class="mx-auto max-w-6xl px-4 py-8">

@@ -1,4 +1,5 @@
 ---
+import Figure from "../components/Figure.astro";
 import Base from "../layouts/Base.astro";
 import AuthorBlock from "../components/AuthorBlock.astro";
 import NielsPhoto from "../components/NielsPhoto.astro";
@@ -27,6 +28,7 @@ const faq = [
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Een label, geen loket</h1>
+    <Figure id="pagina-over-ons" eager class="mt-6" />
     <p class="mt-4 text-lg">{site.name} is een label van {site.parent.legalName}, KvK {site.parent.kvk}, {site.parent.street}, {site.parent.postalCode} {site.parent.city}. Het moederbedrijf werkt als register-arbeidsdeskundig bureau. Dit label doet iets anders: een vaste casemanager op locatie, voor werkgevers met {site.minEmployees} of meer medewerkers, binnen ongeveer {site.travelMinutes} minuten van Uden.</p>
     <figure class="mt-6 grid items-start gap-5 sm:grid-cols-[12rem_1fr]">
       <NielsPhoto sizes="12rem" class="aspect-[4/5] w-full rounded-[1.5rem] object-cover" />
@@ -35,6 +37,7 @@ const faq = [
           <p>{site.founder.quote}</p>
         </blockquote>
         <p class="mt-3">{site.founder.name} is oprichter en directeur van Matchvermogen, en arbeidsdeskundige. De foto staat op de teampagina van <a class="underline" href="https://matchvermogen.nl/over-matchvermogen/">matchvermogen.nl</a>. Een aparte biografie voor dit label verzinnen we niet. Achtergrond en de regel hierboven staan ook op <a class="underline" href={site.founder.quoteUrl}>arbeidsdeskundig.com</a>.</p>
+        <p class="mt-3">De overige beelden op deze site zijn eigen illustraties in de huisstijl. Er is geen rechtenvrije foto van het kantoor aan de Losplaats gevonden, en er zijn geen gezichten verzonnen.</p>
       </figcaption>
     </figure>
     <h2 class="mt-8 font-serif text-3xl">Waarom een eigen gezicht</h2>

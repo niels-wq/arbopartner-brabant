@@ -1,4 +1,5 @@
 ---
+import Figure from "../components/Figure.astro";
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import { site } from "../data/site";
@@ -16,6 +17,7 @@ const pakketKeuze = Astro.url.searchParams.get("pakket") ?? "";
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Offerte in 2 minuten</h1>
+    <Figure id="pagina-offerte" eager class="mt-6" />
     <p class="mt-4">Drie korte stappen, zonder bijlage. Eerst wie we bellen, daarna de situatie, daarna het blok. {site.placeholders.offerteDagen}</p>
     <form class="mt-6 space-y-4" data-endpoint="/api/offerte" data-kind="offerte" data-cta="offerte" data-wizard>
       <p aria-live="polite">Stap <span data-step-label>1</span> van 3</p>

@@ -1,4 +1,6 @@
 ---
+import Figure from "../../components/Figure.astro";
+import TimelineFigure from "../../components/TimelineFigure.astro";
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import CtaBand from "../../components/CtaBand.astro";
@@ -26,6 +28,8 @@ const steps = [
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Tijdlijn bij ziekte</h1>
+    <Figure id="pagina-tijdlijn" eager class="mt-6" />
+    <TimelineFigure />
     <p class="mt-4 text-lg">De tijdlijn bij ziekte is een geheugensteun van de ziekmelding tot week 104: wie welke stap zet, en wanneer loon, UWV en re-integratie elkaar raken. Geen juridisch advies. Cao’s wijken af, vooral bij de hoogte van het loon in het eerste en tweede jaar. Het wettelijk minimum is 70% gedurende 104 weken.</p>
     <ol class="mt-8 space-y-4">
       {steps.map((step) => (

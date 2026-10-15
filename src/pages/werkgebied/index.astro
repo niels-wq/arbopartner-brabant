@@ -2,6 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ClusterNav from "../../components/ClusterNav.astro";
+import Figure from "../../components/Figure.astro";
 import InlineLead from "../../components/InlineLead.astro";
 import { places } from "../../data/places";
 import { crumbsLd } from "../../lib/schema";
@@ -17,14 +18,18 @@ const crumbs = [
   <header class="mx-auto max-w-6xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Werkgebied</h1>
     <p class="mt-4 max-w-2xl">Het werkgebied van Arbopartner Brabant is ongeveer 45 minuten rijden van Uden, voor werkgevers met 35 of meer medewerkers. Zestien plaatsen, één uitvalsbasis. De minuten zijn een indicatie per auto buiten de spits, geen navigatie.</p>
+    <Figure id="pagina-werkgebied" eager class="mt-6 max-w-3xl" />
   </header>
   <ul class="mx-auto grid max-w-6xl gap-4 px-4 py-8 sm:grid-cols-2 lg:grid-cols-3">
     {places.map((place) => (
       <li>
-        <a class="block h-full rounded-[2rem] border border-line bg-white/80 p-5" href={`/werkgebied/${place.slug}`}>
+        <a class="block h-full overflow-hidden rounded-[2rem] border border-line bg-white/80" href={`/werkgebied/${place.slug}`}>
+          <Figure id={`plaats-${place.slug}`} sizes="(min-width: 1024px) 18rem, (min-width: 640px) 50vw, 100vw" />
+          <div class="p-5">
           <h2 class="font-serif text-2xl text-green-950">{place.name}</h2>
           <p class="text-sm text-ochre-800">{place.minutes} minuten vanuit Uden · {place.municipality}</p>
           <p class="mt-2 text-sm">{place.sectors.join(", ")}</p>
+          </div>
         </a>
       </li>
     ))}

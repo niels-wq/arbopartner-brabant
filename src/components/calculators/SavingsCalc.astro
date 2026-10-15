@@ -51,6 +51,7 @@
 </style>
 
 <script>
+  import { barChart } from "../../lib/chart-svg";
   import { defaultAbsencePct, savings, savingsSources, type SavingsInput } from "../../lib/calc";
   import { euro, num, pct } from "../../lib/format";
   import { levels } from "../../lib/rates";
@@ -103,6 +104,11 @@
     out.innerHTML = `
       <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">Scenario, geen belofte</p>
       <h2 class="mt-2 font-serif text-3xl text-green-950">Verzuim kost nu ${euro(result.costNow, true)} per jaar</h2>
+      ${barChart("Verzuimkosten nu, in het gekozen scenario, en de jaarkosten van begeleiding.", [
+        { label: "Nu", value: result.costNow, tone: "clay" },
+        { label: "Scenario", value: result.costScenario, tone: "ochre" },
+        { label: "Begeleiding", value: result.guidanceCost, tone: "green" },
+      ])}
       <p class="mt-2">Dat is ${euro(result.day)} per verzuimdag, bij ${num(input.employees, 0)} medewerkers, ${pct(input.absencePct)} verzuim en een jaarloon van ${euro(input.annualWage, true)}. Alleen het loongerelateerde deel van de TNO-dagkosten schaalt mee met het loon. Arbo (€60) en begeleiding (€7,50) blijven vast.</p>
       <dl class="mt-4 grid gap-3 sm:grid-cols-2">
         <div class="rounded-2xl bg-sand-100 p-3"><dt>Scenario ${pct(input.scenarioPoints)} punt lager</dt><dd class="font-serif text-2xl">${euro(result.costScenario, true)}</dd></div>

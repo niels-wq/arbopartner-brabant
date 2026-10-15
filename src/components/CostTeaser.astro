@@ -1,8 +1,13 @@
 ---
+import { barChart } from "../lib/chart-svg";
 import { euro } from "../lib/format";
 import { defaultScenario, scenarioNote } from "../lib/compare-view";
 
 const { headline, result } = defaultScenario();
+const chart = barChart("Jaarkosten in het standaardscenario: casemanager in dienst tegenover inhuren bij Arbopartner Brabant.", [
+  { label: "In dienst", value: result.employmentYear, tone: "clay" },
+  { label: "Inhuren", value: result.detachedYear, tone: "green" },
+]);
 ---
 
 <section class="mx-auto max-w-6xl px-4">
@@ -14,6 +19,7 @@ const { headline, result } = defaultScenario();
       {headline.positive && <span> In dit standaardscenario is het verschil {euro(result.saving, true)} per jaar.</span>}
     </p>
     <p class="mt-3 max-w-3xl text-sm">{scenarioNote()}</p>
+    <div class="mt-4 max-w-3xl" set:html={chart} />
     <a class="mt-5 inline-block rounded-full bg-green-800 px-5 py-3 font-semibold text-sand-50" data-cta="tco-vergelijking" href="/casemanager-inhuren-of-in-dienst#vergelijking">Zet uw uren in de vergelijking</a>
   </div>
 </section>
