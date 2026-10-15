@@ -30,8 +30,8 @@ export function compareReportHtml(input: CompareInput, result: CompareResult): s
       ? ` Voor ${num(result.neededHours, 0)} uur per week zijn ${result.people} mensen in dienst nodig, omdat één persoon na verlof, feestdagen en verzuim ongeveer ${num(employed.productiveHoursWeek)} productieve uren per week levert.`
       : "";
   const qualitative = headline.positive
-    ? "Ook dan blijven de andere verschillen staan: geen werkgeversrisico, continuïteit bij ziekte of vakantie, en uren die u meeschaalt met de dossiers."
-    : "Het bedrag valt in dit scenario niet in het voordeel van inhuren uit. Wat blijft: geen loonlijst en geen transitievergoeding voor deze persoon, vervanging als de casemanager zelf uitvalt, direct starten zonder vacature, en een andere casemanager als de klik er niet is. De wijzigingstermijn van de uren staat in de offerte.";
+    ? "Ook dan blijven de andere verschillen staan: geen werkgeversrisico, continuïteit bij ziekte of vakantie, uren die u meeschaalt met de dossiers, en een gesprek op het kantoor in Uden, buiten de werkvloer."
+    : "Het bedrag valt in dit scenario niet in het voordeel van inhuren uit. Wat blijft: geen loonlijst en geen transitievergoeding voor deze persoon, vervanging als de casemanager zelf uitvalt, direct starten zonder vacature, een andere casemanager als de klik er niet is, en een gesprek op het kantoor in Uden buiten de werkvloer. De wijzigingstermijn van de uren staat in de offerte.";
   const rows = result.lines
     .map(
       (line) =>

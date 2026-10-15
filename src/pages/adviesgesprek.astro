@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
+import OfficeVisit from "../components/OfficeVisit.astro";
 import { site, phoneHref } from "../data/site";
 import { crumbsLd } from "../lib/schema";
 
@@ -10,16 +11,26 @@ const crumbs = [
 ];
 ---
 
-<Base title="Adviesgesprek" description="Gratis adviesgesprek van 30 minuten over uw verzuimdossiers. Geen verkooppraatje." jsonLd={[crumbsLd(crumbs)]}>
+<Base title="Adviesgesprek" description="Gratis adviesgesprek van 30 minuten, op het kantoor in Uden, bij u op het bedrijf of online. Geen verkooppraatje." jsonLd={[crumbsLd(crumbs)]}>
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto grid max-w-6xl gap-8 px-4 pt-6 lg:grid-cols-2">
     <div>
       <h1 class="font-serif text-5xl text-green-950">Dertig minuten, zonder verplichting</h1>
-      <p class="mt-4 text-lg">Een adviesgesprek is een gratis gesprek van 30 minuten over uw verzuimdossiers. We kijken of een vaste casemanager past, welk niveau, en of u eerst een analyse nodig heeft. U hoeft niets af te nemen.</p>
+      <p class="mt-4 text-lg">Een adviesgesprek is een gratis gesprek van 30 minuten over uw verzuimdossiers. We kijken of een vaste casemanager past, welk niveau, en of u eerst een analyse nodig heeft. U hoeft niets af te nemen. Het gesprek kan op het kantoor in Uden, bij u op het bedrijf of online.</p>
+      <p class="mt-4">Op kantoor is het een neutrale, rustige plek buiten de werkvloer, met privacy en zonder de druk van de werkgever. Het adres is {site.parent.street}, {site.parent.postalCode} {site.parent.city}.</p>
+      <a class="mt-5 inline-block rounded-full bg-green-800 px-5 py-3 font-semibold text-sand-50" data-cta="advies-kantoor" href="#afspraak">Plan een gesprek op ons kantoor</a>
       <p class="mt-4 rounded-3xl bg-ochre-200 px-4 py-3 text-sm">{site.placeholders.agenda}</p>
       <p class="mt-4">Liever bellen: <a class="font-semibold underline" href={phoneHref}>{site.parent.phoneDisplay}</a>.</p>
     </div>
-    <form class="space-y-3 rounded-[2rem] border border-line bg-white/80 p-5" data-endpoint="/api/advies" data-kind="advies" data-cta="adviesgesprek">
+    <form id="afspraak" class="scroll-mt-24 space-y-3 rounded-[2rem] border border-line bg-white/80 p-5" data-endpoint="/api/advies" data-kind="advies" data-cta="adviesgesprek">
+      <h2 class="font-serif text-3xl text-green-950">Plan een gesprek op ons kantoor</h2>
+      <label class="block">Waar wilt u het gesprek?
+        <select class="field" name="plek">
+          <option value="Op het kantoor in Uden, Losplaats 16d">Op het kantoor in Uden</option>
+          <option value="Bij de werkgever">Bij de werkgever</option>
+          <option value="Online">Online</option>
+        </select>
+      </label>
       <label class="block">Naam<input class="field" name="naam" required autocomplete="name" /></label>
       <label class="block">Bedrijf<input class="field" name="organisatie" required autocomplete="organization" /></label>
       <label class="block">Telefoon<input class="field" name="telefoon" type="tel" required autocomplete="tel" /></label>
@@ -34,6 +45,9 @@ const crumbs = [
       <p data-status class="text-sm" role="status"></p>
     </form>
   </article>
+  <div class="mx-auto max-w-6xl px-4 py-8">
+    <OfficeVisit cta={false} />
+  </div>
 </Base>
 
 <style>
@@ -42,4 +56,13 @@ const crumbs = [
 
 <script>
   import "../scripts/forms.ts";
+
+  const plek = new URLSearchParams(window.location.search).get("plek");
+  const select = document.querySelector<HTMLSelectElement>("#afspraak [name=plek]");
+  const choice: Record<string, string> = {
+    kantoor: "Op het kantoor in Uden, Losplaats 16d",
+    werkgever: "Bij de werkgever",
+    online: "Online",
+  };
+  if (select && plek && choice[plek]) select.value = choice[plek];
 </script>

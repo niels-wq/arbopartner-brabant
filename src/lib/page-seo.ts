@@ -9,7 +9,7 @@ const shared: FaqItem[] = [
   },
   {
     q: "Hoe neemt u contact op?",
-    a: `Bel ${site.parent.phoneDisplay}, app ${site.parent.whatsappDisplay} of mail ${site.parent.email}. Een adviesgesprek duurt 30 minuten en verplicht u tot niets.`,
+    a: `Bel ${site.parent.phoneDisplay}, app ${site.parent.whatsappDisplay} of mail ${site.parent.email}. Een adviesgesprek duurt 30 minuten en verplicht u tot niets. Werknemer en werkgever kunnen ook op het kantoor komen: ${site.parent.street}, ${site.parent.postalCode} ${site.parent.city}.`,
   },
 ];
 
@@ -17,7 +17,7 @@ const byPath: Record<string, FaqItem[]> = {
   "/adviesgesprek": [
     {
       q: "Is het adviesgesprek gratis?",
-      a: "Ja. Het gesprek duurt 30 minuten. U hoeft geen pakket af te nemen.",
+      a: "Ja. Het gesprek duurt 30 minuten. U hoeft geen pakket af te nemen. Het kan op het kantoor aan de Losplaats 16d in Uden, bij u op het bedrijf of online.",
     },
     ...shared,
   ],

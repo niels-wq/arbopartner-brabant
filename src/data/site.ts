@@ -24,6 +24,10 @@ export const site = {
     city: "Uden",
     region: "Noord-Brabant",
     country: "NL",
+    geo: {
+      lat: 51.655562,
+      lon: 5.6240986,
+    },
   },
   sisters: [
     {
@@ -83,6 +87,16 @@ export const site = {
 export const phoneHref = `tel:${site.parent.phoneTel}`;
 export const mailHref = `mailto:${site.parent.email}`;
 export const whatsappHref = `https://wa.me/${site.parent.whatsappE164}`;
+
+export const officeQuery = `${site.parent.street}, ${site.parent.postalCode} ${site.parent.city}`;
+export const mapsDirectionsHref = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(officeQuery)}`;
+export const osmHref = `https://www.openstreetmap.org/?mlat=${site.parent.geo.lat}&mlon=${site.parent.geo.lon}#map=17/${site.parent.geo.lat}/${site.parent.geo.lon}`;
+
+export function osmEmbedSrc(): string {
+  const { lat, lon } = site.parent.geo;
+  const bbox = [lon - 0.008, lat - 0.005, lon + 0.008, lat + 0.005].join("%2C");
+  return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat}%2C${lon}`;
+}
 
 export function absoluteUrl(path: string): string {
   if (path.startsWith("http")) return path;

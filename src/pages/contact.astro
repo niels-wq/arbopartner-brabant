@@ -1,15 +1,15 @@
 ---
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CallbackForm from "../components/CallbackForm.astro";
+import OfficeVisit from "../components/OfficeVisit.astro";
 import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
 import { crumbsLd } from "../lib/schema";
-import CallbackForm from "../components/CallbackForm.astro";
 
 const crumbs = [
   { name: "Home", path: "/" },
   { name: "Contact", path: "/contact" },
 ];
-const map = `https://maps.google.com/?q=${encodeURIComponent(`${site.parent.street}, ${site.parent.postalCode} ${site.parent.city}`)}`;
 ---
 
 <Base title="Contact" description="Bel, mail of schrijf Arbopartner Brabant, een label van Matchvermogen B.V. in Uden." jsonLd={[crumbsLd(crumbs)]}>
@@ -32,7 +32,6 @@ const map = `https://maps.google.com/?q=${encodeURIComponent(`${site.parent.stre
         <a class="font-semibold underline" href={whatsappHref}>WhatsApp {site.parent.whatsappDisplay}</a>
       </p>
       <p class="mt-2 text-sm">{site.placeholders.eigenEmail}</p>
-      <p class="mt-4"><a class="underline" href={map}>Route naar het kantoor in Uden</a></p>
     </div>
     <form class="space-y-3 rounded-[2rem] border border-line bg-white/80 p-5" data-endpoint="/api/advies" data-kind="advies" data-cta="contact">
       <h2 class="font-serif text-3xl">Stuur een bericht</h2>
@@ -47,6 +46,9 @@ const map = `https://maps.google.com/?q=${encodeURIComponent(`${site.parent.stre
       <p data-status class="text-sm" role="status"></p>
     </form>
   </article>
+  <div class="mx-auto max-w-6xl px-4 py-8">
+    <OfficeVisit />
+  </div>
   <div class="mx-auto max-w-6xl px-4 pb-4">
     <CallbackForm />
   </div>

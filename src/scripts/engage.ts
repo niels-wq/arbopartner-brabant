@@ -37,6 +37,10 @@ if (root && !root.dataset.ready) {
 
   const answers: { test: RegExp; text: string }[] = [
     {
+      test: /kantoor|losplaats|op bezoek|neutrale plek/,
+      text: "Werknemers en werkgevers kunnen gesprekken voeren op het kantoor van Matchvermogen B.V., Losplaats 16d, 5404 NJ Uden. Dat is een neutrale plek buiten de werkvloer. Plan een gesprek op ons kantoor via de pagina Adviesgesprek.",
+    },
+    {
       test: /dienstverband|in dienst|goedkoper|inhuren/,
       text: "Zolang u geen volle werkweek nodig heeft, is inhuren vaak voordeliger dan een fulltime casemanager in dienst. U betaalt de uren die u afneemt. Een dienstverband betaalt u ook bij een lage caseload. De vergelijking met bronnen staat op de pagina Casemanager inhuren of in dienst nemen. Bij een hoge caseload kan een dienstverband in euro's lager zijn. Dan blijven continuïteit, onafhankelijkheid en het ontbreken van werkgeversrisico staan.",
     },

@@ -29,7 +29,7 @@ const faq = [
   },
   {
     q: "Wat als we wel een volle caseload hebben?",
-    a: "Dan blijft de tool rekenen. Ligt het dienstverband lager, dan zegt de uitkomst dat ook. Het voordeel is dan kwalitatief: een vaste casemanager met vervanging bij ziekte of vakantie, onafhankelijkheid, wisselen zonder ontslag, geen werkgeversrisico en uren die u meeschaalt. De wijzigingstermijn staat in de offerte.",
+    a: "Dan blijft de tool rekenen. Ligt het dienstverband lager, dan zegt de uitkomst dat ook. Het voordeel is dan kwalitatief: een vaste casemanager met vervanging bij ziekte of vakantie, onafhankelijkheid, wisselen zonder ontslag, geen werkgeversrisico, uren die u meeschaalt, en een gesprek op het kantoor in Uden buiten de werkvloer. De wijzigingstermijn staat in de offerte.",
   },
 ];
 const jsonLd = [crumbsLd(crumbs), faqLd(faq)];
@@ -43,7 +43,7 @@ const jsonLd = [crumbsLd(crumbs), faqLd(faq)];
   <Breadcrumbs crumbs={crumbs} />
   <header class="mx-auto max-w-6xl px-4 pt-6">
     <h1 class="max-w-4xl font-serif text-5xl text-green-950">Casemanager inhuren of in dienst nemen?</h1>
-    <p class="mt-4 max-w-3xl text-lg">Een casemanager inhuren betekent dat u de uren afneemt die de dossiers vragen. Een casemanager in dienst is een volledig contract: salaris, premies en werkplek lopen door, ook in een maand met weinig nieuwe gevallen. De vergelijking hieronder is een total cost of ownership. Elke aanname heeft een bron en is aan te passen. De uitkomst is een indicatie, geen offerte.</p>
+    <p class="mt-4 max-w-3xl text-lg">Een casemanager inhuren betekent dat u de uren afneemt die de dossiers vragen. Een casemanager in dienst is een volledig contract: salaris, premies en werkplek lopen door, ook in een maand met weinig nieuwe gevallen. Een eigen casemanager spreekt meestal op de werkvloer, tussen collega's. Bij ons kunnen werknemer en werkgever naar het kantoor in Uden komen: Losplaats 16d, een neutrale en rustige plek, met privacy en zonder de druk van de werkgever. De vergelijking hieronder is een total cost of ownership. Elke aanname heeft een bron en is aan te passen. De uitkomst is een indicatie, geen offerte.</p>
     {scenario.headline.positive && (
       <p class="mt-4 max-w-3xl text-lg font-semibold text-green-950">{scenario.headline.text}. {scenarioNote()}</p>
     )}

@@ -1,0 +1,36 @@
+---
+import { site, mapsDirectionsHref, osmEmbedSrc, osmHref } from "../data/site";
+
+interface Props {
+  cta?: boolean;
+  heading?: string;
+}
+const { cta = true, heading = "Gesprek op ons kantoor" } = Astro.props;
+---
+
+<section id="kantoor" class="scroll-mt-24" aria-labelledby="kantoor-kop">
+  <h2 id="kantoor-kop" class="font-serif text-3xl text-green-950">{heading}</h2>
+  <p class="mt-3 max-w-3xl">Werknemers en werkgevers kunnen bij ons op kantoor komen voor gesprekken. Dat is een neutrale, rustige plek, buiten de werkvloer, met privacy en zonder de druk van de werkgever.</p>
+  <address class="mt-4 not-italic">
+    {site.parent.legalName}<br />
+    {site.parent.street}<br />
+    {site.parent.postalCode} {site.parent.city}
+  </address>
+  <p class="mt-3 max-w-3xl text-sm">{site.placeholders.adresLabel} De route plant u vanaf uw eigen vertrekpunt naar dit adres. De kaart markeert het gebouw Losplaats 16 in postcode {site.parent.postalCode}, volgens OpenStreetMap. Nummer 16d is het kantoor van Matchvermogen B.V. in dat gebouw.</p>
+  <div class="mt-4 overflow-hidden rounded-3xl border border-line bg-white">
+    <iframe
+      title={`Kaart van ${site.parent.street}, ${site.parent.postalCode} ${site.parent.city}`}
+      src={osmEmbedSrc()}
+      class="h-72 w-full"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+  </div>
+  <p class="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm font-semibold">
+    <a class="text-green-900 underline decoration-ochre-500" href={mapsDirectionsHref} rel="noopener">Open de route in Google Maps</a>
+    <a class="text-green-900 underline decoration-ochre-500" href={osmHref} rel="noopener">Bekijk het adres op OpenStreetMap</a>
+  </p>
+  {cta && (
+    <a class="mt-5 inline-block rounded-full bg-green-800 px-5 py-3 font-semibold text-sand-50" data-cta="kantoor-gesprek" href="/adviesgesprek?plek=kantoor#afspraak">Plan een gesprek op ons kantoor</a>
+  )}
+</section>
