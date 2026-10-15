@@ -26,7 +26,7 @@ sources:
     note: "Een arbeidsdeskundige kan helpen als de discussie over passend werk vastzit."
 related:
   - burn-out-medewerker-werkgever
-  - vso-en-ontslagdossier
+  - vragen-aan-zieke-medewerker-avg
   - loonsanctie-uwv-voorkomen
 ---
 
