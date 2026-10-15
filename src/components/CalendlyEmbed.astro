@@ -1,0 +1,24 @@
+---
+import { calendlyKennismaking } from "../data/calendly";
+
+interface Props {
+  heading?: string;
+}
+
+const { heading = "Belafspraak van 15 minuten" } = Astro.props;
+const headingId = "calendly-kop";
+---
+
+<section class="scroll-mt-24" aria-labelledby={headingId}>
+  <h2 id={headingId} class="font-serif text-3xl text-green-950">{heading}</h2>
+  <p class="mt-2 max-w-3xl text-sm">{calendlyKennismaking.note}</p>
+  <div
+    class="calendly-inline-widget mt-4 overflow-hidden rounded-3xl border border-line bg-white"
+    data-url={calendlyKennismaking.url}
+    style="min-width:320px;height:700px;"
+  >
+  </div>
+  <p class="mt-3 text-sm">
+    <a class="font-semibold text-green-900 underline decoration-ochre-500" href={calendlyKennismaking.url} rel="noopener" target="_blank">Open de agenda in een nieuw tabblad</a>
+  </p>
+</section>

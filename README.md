@@ -72,7 +72,7 @@ Deze punten zijn bewust open gelaten:
 - Btw-identificatienummer (staat niet op matchvermogen.nl).
 - Apart vestigingsadres (nu het kantoor van Matchvermogen B.V., Losplaats 16d, 5404 NJ Uden, KvK 85849618).
 - Namen, foto’s en directe nummers van casemanagers.
-- Online agendalink voor het adviesgesprek.
+- Online agendalink voor een kantoorgesprek. De kennismaking is de belafspraak van 15 minuten op https://calendly.com/matchvermogen/call-15-min (bron: arbeidsdeskundig.com). matchvermogen.nl en werkhervattingskas.nl publiceren geen eventlink.
 - Bewaartermijn van formuliergegevens.
 - Standaard opzegtermijn van een urenblok.
 - Juridische toets van de conceptvoorwaarden, inclusief Wtta/DBA.

@@ -11,6 +11,7 @@ import ReviewCard from "../components/ReviewCard.astro";
 import { officeConversation, site, zzpFaq } from "../data/site";
 import { reviewsAboutNiels } from "../data/reviews";
 import { places } from "../data/places";
+import CalendlyButton from "../components/CalendlyButton.astro";
 import TeamStrip from "../components/TeamStrip.astro";
 import { faqLd, teamPeopleLd } from "../lib/schema";
 
@@ -54,8 +55,9 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
         <li><a class="inline-block rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line" data-cta="home-reviews" href="/reviews">Reviews van Matchvermogen</a></li>
         <li><a class="inline-block rounded-full bg-white px-3 py-1 text-green-950 ring-1 ring-line" data-cta="home-werkgebied" href="/werkgebied">Werkgebied: 45 minuten rond Uden</a></li>
       </ul>
-      <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+      <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         <a class="rounded-full bg-green-800 px-5 py-3 text-center font-semibold text-sand-50" data-cta="home-advies" href="/adviesgesprek">Plan een adviesgesprek</a>
+        <CalendlyButton cta="home-calendly" />
         <a class="rounded-full border border-green-800 px-5 py-3 text-center font-semibold text-green-900" data-cta="home-spoed" href="/spoedhulp">Ik heb nu een probleem</a>
       </div>
     </div>

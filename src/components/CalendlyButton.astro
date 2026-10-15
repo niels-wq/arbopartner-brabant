@@ -1,0 +1,23 @@
+---
+import { calendlyKennismaking } from "../data/calendly";
+
+interface Props {
+  class?: string;
+  cta?: string;
+}
+
+const {
+  class: className = "rounded-full border border-green-800 px-5 py-3 text-center font-semibold",
+  cta = "calendly-kennismaking",
+} = Astro.props;
+---
+
+<button
+  type="button"
+  class={className || undefined}
+  data-calendly={calendlyKennismaking.id}
+  data-calendly-url={calendlyKennismaking.url}
+  data-cta={cta}
+>
+  {calendlyKennismaking.label}
+</button>

@@ -3,6 +3,7 @@ import { hourlySavingPct, levels, monthlyCost, type LevelId } from "../lib/rates
 import { euro, pct } from "../lib/format";
 import { centerStage, monthLine, packages, riskReversal, savingLine } from "../lib/pricing";
 import { site } from "../data/site";
+import CalendlyButton from "./CalendlyButton.astro";
 import Mark from "./Mark.astro";
 import ReviewCard from "./ReviewCard.astro";
 import { reviewsAboutNiels } from "../data/reviews";
@@ -57,6 +58,7 @@ const review = reviewsAboutNiels()[0];
           <div class="mt-auto flex flex-col gap-2 pt-5">
             <a class:list={["rounded-full px-4 py-3 text-center font-semibold", pack.featured ? "bg-ochre-500" : "bg-green-800"]} data-cta={`pakket-${pack.slug}-offerte`} href={`/offerte?pakket=${encodeURIComponent(pack.offer)}`}>Offerte voor {pack.name}</a>
             <a class="rounded-full border border-green-800 px-4 py-3 text-center font-semibold" data-cta={`pakket-${pack.slug}-advies`} href="/adviesgesprek">Vrijblijvend kennismaken</a>
+            <CalendlyButton class="rounded-full border border-green-800 px-4 py-3 text-center font-semibold" cta={`pakket-${pack.slug}-calendly`} />
             <a class="text-center text-sm font-semibold underline" href={`/pakketten/${pack.slug}`}>Uitwerking van {pack.name}</a>
           </div>
         </article>
