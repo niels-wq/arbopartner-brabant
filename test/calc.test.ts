@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { describe, it } from "node:test";
-import { caseManagerHoursPerWeek, caseManagerHoursPerYear, compareEmployment, dayCost, defaultCompareInput, grossMonthlyFromCbs, matchCasemanager, savings } from "../src/lib/calc.ts";
+import { caseManagerHoursPerWeek, caseManagerHoursPerYear, compareEmployment, dayCost, defaultCompareInput, defaultDriftDays, grossMonthlyFromCbs, longCasesPerEmployee, matchCasemanager, RISK, sanctionChancePerLongCase, savings, TNO } from "../src/lib/calc.ts";
 import { savingHeadline } from "../src/lib/compare-view.ts";
 import { pct } from "../src/lib/format.ts";
 import { hourlySavingPct, monthlyCost } from "../src/lib/rates.ts";
@@ -133,23 +133,53 @@ describe("vergelijking", () => {
     assert.equal(result.detachedYear, 58500);
     assert.equal(result.billedHours, 10);
     assert.equal(result.people, 1);
-    assert.equal(result.employmentYear, result.employed.annualPerPerson);
     assert.ok(result.saving > 50000);
     assert.equal(savingHeadline(result).positive, true);
     assert.match(savingHeadline(result).text, /^U bespaart circa /);
     assert.equal(Math.round(result.employed.premiumPct * 10000), 1849);
-    const lineSum = result.lines.reduce((sum, line) => sum + line.amount, 0);
-    assert.equal(Math.round(lineSum), Math.round(result.employed.annualPerPerson));
+    const personSum = result.lines.filter((line) => line.scope === "person").reduce((sum, line) => sum + line.amount, 0);
+    assert.equal(Math.round(personSum), Math.round(result.employed.annualPerPerson));
+    assert.equal(Math.round(result.employmentYear), Math.round(result.employed.annualPerPerson + result.organisationRisk));
+    assert.ok(result.directYear > 0);
+    assert.ok(result.riskYear > result.organisationRisk);
+    assert.match(readFileSync("src/lib/compare-view.ts", "utf8"), /ap-plot-risk/);
+    assert.match(readFileSync("src/lib/compare-view.ts", "utf8"), /Directe kosten/);
   });
 
-  it("houdt een hoge caseload eerlijk", () => {
-    const senior = compareEmployment(defaultCompareInput({ level: "senior", neededHours: 24 }));
+  it("valt bij de standaard binnen 35 tot 500 medewerkers in het voordeel van inhuren", () => {
+    for (let employees = 35; employees <= 500; employees += 1) {
+      const hours = caseManagerHoursPerWeek(employees, 5.4);
+      const result = compareEmployment(defaultCompareInput({ neededHours: hours, employees, orgAbsencePct: 5.4 }));
+      assert.ok(result.saving > 0, `bij ${employees} medewerkers is de besparing ${result.saving}`);
+    }
+  });
+
+  it("rekent de loonsanctie als kans maal maximumduur maal dossiers", () => {
+    const input = defaultCompareInput({ employees: 100, orgAbsencePct: 5.4 });
+    const result = compareEmployment(input);
+    const longCases = 100 * longCasesPerEmployee();
+    assert.equal(result.longCases, longCases);
+    assert.equal(input.sanctionChance, sanctionChancePerLongCase());
+    assert.equal(input.sanctionChance, RISK.substantiveSanctions2025 / RISK.week42Notifications2025);
+    assert.equal(input.sanctionWeeks, 52);
+    assert.equal(input.sickAnnualWage, TNO.referenceWage);
+    assert.equal(result.sanctionCost, input.sanctionChance * input.sickAnnualWage * longCases);
+    assert.equal(result.driftCost, longCases * defaultDriftDays(60, 3) * dayCost(TNO.referenceWage));
+    assert.equal(result.loonwaardeCost, 100 * 0.5 * dayCost(TNO.referenceWage));
+    const zero = compareEmployment(defaultCompareInput({ sanctionChance: 0, driftDaysPerLongCase: 0, loonwaardeExtraDays: 0 }));
+    assert.equal(zero.organisationRisk, 0);
+  });
+
+  it("houdt een hoge caseload eerlijk zodra de risicoposten uit staan", () => {
+    const senior = compareEmployment(
+      defaultCompareInput({ level: "senior", neededHours: 24, sanctionChance: 0, driftDaysPerLongCase: 0, loonwaardeExtraDays: 0 }),
+    );
     assert.equal(senior.detachedHourly, 125);
     assert.equal(senior.detachedYear, 156000);
     assert.ok(senior.saving < 0);
     assert.equal(savingHeadline(senior).positive, false);
     assert.match(savingHeadline(senior).text, /dienstverband circa/);
-    const full = compareEmployment(defaultCompareInput({ neededHours: 40 }));
+    const full = compareEmployment(defaultCompareInput({ neededHours: 40, employees: 100 }));
     assert.equal(full.people, 2);
   });
 

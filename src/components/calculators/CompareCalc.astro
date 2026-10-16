@@ -7,13 +7,19 @@ import {
   compareSources,
   defaultAbsencePct,
   defaultCompareInput,
+  defaultDriftDays,
+  RISK,
+  sanctionChancePerLongCase,
+  TNO,
 } from "../../lib/calc";
 import { compareReportHtml } from "../../lib/compare-view";
 
 const employees = 100;
 const orgAbsence = CBS.nl2025;
 const hoursWeek = caseManagerHoursPerWeek(employees, orgAbsence);
-const defaults = defaultCompareInput({ neededHours: hoursWeek });
+const defaults = defaultCompareInput({ neededHours: hoursWeek, employees, orgAbsencePct: orgAbsence });
+const sanctionPct = (sanctionChancePerLongCase() * 100).toFixed(2).replace(".", ",");
+const driftDefault = defaultDriftDays(defaults.vacancyCalendarDays, defaults.tenureYears);
 const initialHtml = compareReportHtml(defaults, compareEmployment(defaults), {
   employees,
   orgAbsencePct: orgAbsence,
@@ -88,6 +94,25 @@ const sizeHint = defaultAbsencePct(employees);
         <label class="block text-sm">Inwerkweken. Standaard 0: er is geen landelijk cijfer.
           <input class="ap-field" name="onboarding" type="number" min="0" max="26" value={defaults.onboardingWeeks} />
         </label>
+        <label class="block text-sm">Extra werkdagen per dossier langer dan 42 weken, door een gat of een nieuw dossier. Aanname. Standaard is de vacature in werkdagen gedeeld door de dienstjaren ({driftDefault.toLocaleString("nl-NL", { maximumFractionDigits: 1 })}). De ingekochte vervanging haalt dit niet weg.
+          <input class="ap-field" name="drift" type="number" min="0" max="220" step="0.1" value={driftDefault.toFixed(1)} />
+        </label>
+        <h3 class="pt-2 font-semibold">Loonsanctie, verwachte waarde</h3>
+        <p class="text-xs text-ink-soft">Kans × weken / 52 × jaarloon van een zieke werknemer × het aantal 42-wekencases. UWV publiceert geen kans voor een onervaren casemanager. Standaard is het landelijke aandeel inhoudelijke sancties in 2025: {sanctionPct}% per 42-wekencase. Geen toeslag.</p>
+        <label class="block text-sm">Kans per 42-wekencase, %.
+          <input class="ap-field" name="sanction" type="number" min="0" max="100" step="0.01" value={defaults.sanctionChance * 100} />
+        </label>
+        <label class="block text-sm">Weken loondoorbetaling bij een sanctie. Standaard {RISK.sanctionWeeksMax}, het maximum. Niet de gemiddelde duur.
+          <input class="ap-field" name="sanctionweeks" type="number" min="0" max="52" step="1" value={defaults.sanctionWeeks} />
+        </label>
+        <label class="block text-sm">Jaarloon van de zieke werknemer. Standaard {TNO.referenceWage}, het TNO-referentieloon. Geen gemeten loon van zieke werknemers.
+          <input class="ap-field" name="sickwage" type="number" min="0" step="100" value={defaults.sickAnnualWage} />
+        </label>
+        <h3 class="pt-2 font-semibold">Loonwaarde en arbeidsdeskundig onderzoek</h3>
+        <p class="text-xs text-ink-soft">Aanname, geen meting van intern tegenover detachering. AKC zag bij sociaal-emotionele klachten dat vroege arbeidsdeskundige inzet samenhing met minder dossiers die na twee jaar nog open stonden. De halve dag hieronder is niet dat verschil. Hij schaalt mee met uw verzuim ten opzichte van 5,4%. Zet hem op nul om de post te schrappen.</p>
+        <label class="block text-sm">Extra verzuimdagen per medewerker per jaar, bij 5,4% verzuim.
+          <input class="ap-field" name="loonwaarde" type="number" min="0" max="30" step="0.1" value={defaults.loonwaardeExtraDays} />
+        </label>
         <label class="block text-sm">Productiviteit tijdens het inwerken, %.
           <input class="ap-field" name="onboardingProductivity" type="number" min="0" max="100" value={defaults.onboardingProductivity * 100} />
         </label>
@@ -149,6 +174,7 @@ const sizeHint = defaultAbsencePct(employees);
     compareEmployment,
     defaultAbsencePct,
     defaultCompareInput,
+    defaultDriftDays,
     grossMonthlyFromCbs,
     type CompareInput,
   } from "../../lib/calc";
@@ -171,6 +197,7 @@ const sizeHint = defaultAbsencePct(employees);
   const org = form?.querySelector<HTMLInputElement>("[name=org]");
   let grossTouched = false;
   let replacementTouched = false;
+  let driftTouched = false;
   let euroFrom = 0;
   let frame = 0;
 
@@ -236,7 +263,15 @@ const sizeHint = defaultAbsencePct(employees);
       ["lease", "lease"],
       ["km", "km"],
       ["kmtarief", "kmrate"],
+      ["sanctie", "sanction"],
+      ["sanctieweken", "sanctionweeks"],
+      ["ziekloon", "sickwage"],
+      ["loonwaarde", "loonwaarde"],
     ];
+    if (params.has("drift")) {
+      setValue("drift", String(Number(params.get("drift"))));
+      driftTouched = true;
+    }
     for (const [key, name] of numbers) {
       if (params.has(key)) setValue(name, String(Number(params.get(key))));
     }
@@ -247,7 +282,13 @@ const sizeHint = defaultAbsencePct(employees);
     params.set("verzuim", String(orgAbsence));
     params.set("niveau", input.level);
     params.set("contract", String(input.contractHours));
-    const base = defaultCompareInput({ neededHours: input.neededHours, level: input.level, contractHours: input.contractHours });
+    const base = defaultCompareInput({
+      neededHours: input.neededHours,
+      level: input.level,
+      contractHours: input.contractHours,
+      employees: headcount,
+      orgAbsencePct: orgAbsence,
+    });
     const put = (key: string, value: string, keep: boolean) => {
       if (keep) params.set(key, value);
       else params.delete(key);
@@ -278,7 +319,12 @@ const sizeHint = defaultAbsencePct(employees);
       ["lease", input.leaseYear, base.leaseYear],
       ["km", input.kmPerWeek, base.kmPerWeek],
       ["kmtarief", input.kmRate, base.kmRate],
+      ["sanctie", input.sanctionChance * 100, base.sanctionChance * 100],
+      ["sanctieweken", input.sanctionWeeks, base.sanctionWeeks],
+      ["ziekloon", input.sickAnnualWage, base.sickAnnualWage],
+      ["loonwaarde", input.loonwaardeExtraDays, base.loonwaardeExtraDays],
     ];
+    put("drift", String(input.driftDaysPerLongCase), driftTouched);
     for (const [key, value, fallback] of pairs) put(key, String(value), value !== fallback);
     const url = new URL(location.href);
     url.search = params.toString();
@@ -315,6 +361,12 @@ const sizeHint = defaultAbsencePct(employees);
     const hoursWeek = caseManagerHoursPerWeek(headcount, orgAbsence);
     if (!grossTouched && gross) gross.value = grossMonthlyFromCbs(contractHours).toFixed(2);
     if (!replacementTouched && replacement) replacement.value = String(rateFor(chosen, Math.max(10, hoursWeek)));
+    const drift = form.querySelector<HTMLInputElement>("[name=drift]");
+    const vacancy = form.querySelector<HTMLInputElement>("[name=vacancy]");
+    const tenure = form.querySelector<HTMLInputElement>("[name=tenure]");
+    if (!driftTouched && drift && vacancy && tenure) {
+      drift.value = defaultDriftDays(Number(vacancy.value) || 0, Number(tenure.value) || 1).toFixed(1);
+    }
     const data = new FormData(form);
     const input: CompareInput = {
       level: chosen,
@@ -345,6 +397,13 @@ const sizeHint = defaultAbsencePct(employees);
       includeTransition: data.get("transition") === "on",
       publicHolidays: field(data, "holidays", 6),
       nonProductivePct: field(data, "nonproductive"),
+      employees: headcount,
+      orgAbsencePct: orgAbsence,
+      sanctionChance: field(data, "sanction", 1.12) / 100,
+      sanctionWeeks: field(data, "sanctionweeks", 52),
+      sickAnnualWage: field(data, "sickwage", 36500),
+      driftDaysPerLongCase: field(data, "drift", defaultDriftDays(60, 3)),
+      loonwaardeExtraDays: field(data, "loonwaarde", 0.5),
     };
     const result = compareEmployment(input);
     const demand = {
@@ -388,6 +447,9 @@ const sizeHint = defaultAbsencePct(employees);
   });
   replacement?.addEventListener("input", () => {
     replacementTouched = true;
+  });
+  form?.querySelector<HTMLInputElement>("[name=drift]")?.addEventListener("input", () => {
+    driftTouched = true;
   });
   form?.addEventListener("input", (event) => {
     const target = event.target as HTMLElement | null;

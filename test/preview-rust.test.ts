@@ -101,7 +101,9 @@ test("uurvergelijking blijft eerlijk, ook als een volle week in dienst lager is"
   assert.equal(result.detachedHourly, levels.medior.rates[10]);
   assert.equal(result.neededHours, 10);
   assert.ok(perHour > result.detachedHourly);
-  const senior = compareEmployment(defaultCompareInput({ level: "senior", neededHours: 24 }));
+  const senior = compareEmployment(
+    defaultCompareInput({ level: "senior", neededHours: 24, sanctionChance: 0, driftDaysPerLongCase: 0, loonwaardeExtraDays: 0 }),
+  );
   assert.equal(senior.detachedHourly, levels.senior.rates[24]);
   assert.ok(senior.saving < 0);
 });

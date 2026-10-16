@@ -215,6 +215,41 @@ export const TCO = {
   kmRate: 0.25,
 } as const;
 
+/**
+ * Landelijke bouwstenen voor de risicokosten.
+ * Werknemersbanen 2025 zijn afgeleid: CBS noemt +138 duizend (+1,5 procent).
+ * 138000 / 0,015 = 9.200.000 in 2024, maal 1,015 = 9.338.000 in 2025.
+ * De 1,5 procent kan afgerond zijn. De kans en het aantal dossiers zijn daarom aanpasbaar.
+ */
+export const RISK = {
+  substantiveSanctions2025: 1825,
+  week42Notifications2025: 163_464,
+  employeeJobs2025: 9_338_000,
+  sanctionWeeksMax: 52,
+  /** Aanname, geen meting van intern tegenover detachering. Bij 5,4% verzuim. */
+  loonwaardeExtraDays: 0.5,
+  substantiveSanctionsUrl: "https://www.uwv.nl/assets-kai/files/e6c076e8-30cc-481c-b04f-3c3ca52c7a41/uwv-kwantitatieve-Informatie-2025.pdf",
+  riv2018Url: "https://www.uwv.nl/nl/publicaties/kennis/2018/toetsing-van-het-re-integratieverslag-riv",
+  employeeJobsUrl: "https://longreads.cbs.nl/dearbeidsmarktincijfers-2025/de-vraag-naar-arbeid/",
+  akcUrl: "https://www.hetakc.nl/wp-content/uploads/2024/02/Cahier-32-Preventieve-en-vroegtijdige-inzet-van-arbeidsdeskundigen.pdf",
+} as const;
+
+export function longCasesPerEmployee(): number {
+  return RISK.week42Notifications2025 / RISK.employeeJobs2025;
+}
+
+/** Aandeel 42e-weekmeldingen dat in 2025 een inhoudelijke loonsanctie werd. Geen toeslag voor onervarenheid. */
+export function sanctionChancePerLongCase(): number {
+  return RISK.substantiveSanctions2025 / RISK.week42Notifications2025;
+}
+
+/** Vacaturewerkdagen gedeeld door de dienstjaren. Aanname voor extra duur per 42-wekencase. */
+export function defaultDriftDays(vacancyCalendarDays: number, tenureYears: number): number {
+  const tenure = Math.max(1, tenureYears);
+  const vacancyWorkdays = Math.max(0, vacancyCalendarDays) * (5 / 7);
+  return vacancyWorkdays / tenure;
+}
+
 export function grossMonthlyFromCbs(contractHours: number): number {
   return (CBS_WAGE.hourly * Math.max(0, contractHours) * 52) / 12;
 }
@@ -248,9 +283,28 @@ export type CompareInput = {
   includeTransition: boolean;
   publicHolidays: number;
   nonProductivePct: number;
+  /** Organisatiegrootte voor dossier- en sanctierisico. Niet het aantal casemanagers. */
+  employees: number;
+  /** Verzuim van de organisatie, niet van de casemanager. Schaalt de langere dossiers. */
+  orgAbsencePct: number;
+  /** Kans per 42-wekencase, als fractie (0,011 is 1,1%). */
+  sanctionChance: number;
+  sanctionWeeks: number;
+  /** Jaarloon van een zieke werknemer voor de sanctie en de extra verzuimdagen. */
+  sickAnnualWage: number;
+  /** Extra werkdagen per 42-wekencase door een lege stoel of een nieuw dossier. */
+  driftDaysPerLongCase: number;
+  /** Extra verzuimdagen per medewerker per jaar, bij het landelijke verzuim van 5,4%. */
+  loonwaardeExtraDays: number;
 };
 
-export type CostLine = { label: string; amount: number; note: string };
+export type CostLine = {
+  label: string;
+  amount: number;
+  note: string;
+  kind: "direct" | "risk";
+  scope: "person" | "organisation";
+};
 
 export type CompareResult = {
   detachedHourly: number;
@@ -261,6 +315,13 @@ export type CompareResult = {
   neededHours: number;
   people: number;
   employmentYear: number;
+  directYear: number;
+  riskYear: number;
+  organisationRisk: number;
+  longCases: number;
+  sanctionCost: number;
+  driftCost: number;
+  loonwaardeCost: number;
   saving: number;
   lines: CostLine[];
   employed: {
@@ -348,6 +409,13 @@ export function defaultCompareInput(overrides: Partial<CompareInput> = {}): Comp
     includeTransition: true,
     publicHolidays: TCO.publicHolidays2026,
     nonProductivePct: 0,
+    employees: 100,
+    orgAbsencePct: CBS.nl2025,
+    sanctionChance: sanctionChancePerLongCase(),
+    sanctionWeeks: RISK.sanctionWeeksMax,
+    sickAnnualWage: TNO.referenceWage,
+    driftDaysPerLongCase: defaultDriftDays(60, 3),
+    loonwaardeExtraDays: RISK.loonwaardeExtraDays,
   };
   return { ...base, ...overrides };
 }
@@ -402,50 +470,92 @@ export function compareEmployment(input: CompareInput): CompareResult {
   const annualPay = grossYear + holiday + yearEnd;
   const transitionCap = Math.max(TCO.transitionMax, annualPay);
   const transitionAnnual = input.includeTransition ? Math.min(uncappedAccrual, transitionCap / tenure) : 0;
-  const annualPerPerson =
-    wageCost +
-    replacementCost +
-    recruitmentAnnual +
-    vacancyAnnual +
-    onboardingAnnual +
-    trainingAnnual +
-    registrationYear +
-    workplaceYear +
-    travelYear +
-    transitionAnnual;
   const people =
     neededHours <= 0 ? 0 : productiveHoursWeek > 0 ? Math.max(1, Math.ceil(neededHours / productiveHoursWeek)) : 1;
   const unusedHoursWeek =
     people > 0 ? Math.max(0, people * productiveHoursWeek - neededHours) : 0;
   const longAbsenceYear = wageCost + contractHoursYear * replacementRate;
+  const directPerPerson =
+    wageCost + trainingAnnual + registrationYear + workplaceYear + travelYear;
+  const riskPerPerson = replacementCost + recruitmentAnnual + vacancyAnnual + onboardingAnnual + transitionAnnual;
+  const annualPerPerson = directPerPerson + riskPerPerson;
+  const employees = Math.max(0, input.employees);
+  const absenceScale = CBS.nl2025 > 0 ? Math.max(0, input.orgAbsencePct) / CBS.nl2025 : 0;
+  const longCases = employees * longCasesPerEmployee() * absenceScale;
+  const sickWage = Math.max(0, input.sickAnnualWage);
+  const day = dayCost(sickWage);
+  const sanctionCost =
+    Math.max(0, input.sanctionChance) * (Math.max(0, input.sanctionWeeks) / 52) * sickWage * longCases;
+  const driftCost = longCases * Math.max(0, input.driftDaysPerLongCase) * day;
+  const loonwaardeCost = employees * Math.max(0, input.loonwaardeExtraDays) * absenceScale * day;
+  const organisationRisk = sanctionCost + driftCost + loonwaardeCost;
+  const directYear = directPerPerson * people;
+  const riskYear = riskPerPerson * people + organisationRisk;
+  const employmentYear = directYear + riskYear;
+  const detachedYear = yearlyCost(billedHours, detachedHourly);
+  const line = (
+    label: string,
+    amount: number,
+    note: string,
+    kind: CostLine["kind"],
+    scope: CostLine["scope"],
+  ): CostLine => ({ label, amount, note, kind, scope });
   const lines: CostLine[] = [
-    { label: "Bruto jaarloon", amount: grossYear, note: "12 × het maandloon dat u invult." },
-    { label: "Vakantiegeld 8%", amount: holiday, note: "Wettelijk minimum, over het bruto jaarloon." },
-    { label: "Eindejaarsuitkering", amount: yearEnd, note: "Percentage over bruto jaarloon plus vakantiegeld. Standaard 0: er is geen landelijke cao." },
-    { label: "Werkgeverspremies", amount: premiums, note: "AWf, Aof, Wko, Zvw en Whk, tot het maximumpremieloon." },
-    { label: "Pensioen werkgever", amount: pension, note: "Percentage van het bruto jaarloon. Standaard 0: vul uw regeling in." },
-    { label: "Lagere loondoorbetaling bij ziekte", amount: -sickPaySaving, note: "Alleen als u minder dan 100% doorbetaalt." },
-    { label: "Vervanging tijdens ziekte", amount: replacementCost, note: "Verzuimuren × het vervangingstarief." },
-    { label: "Werving, per jaar", amount: recruitmentAnnual, note: "Eenmalige fee gedeeld door de dienstjaren." },
-    { label: "Vacature opvangen, per jaar", amount: vacancyAnnual, note: "Ingekochte uren tijdens de vacature, gedeeld door de dienstjaren." },
-    { label: "Inwerken, per jaar", amount: onboardingAnnual, note: "Uren onder de volle productiviteit, gedeeld door de dienstjaren." },
-    { label: "Opleiding, per jaar", amount: trainingAnnual, note: "Eenmalig cursusbedrag gedeeld door de dienstjaren." },
-    { label: "Registratie", amount: registrationYear, note: "Jaarlijkse contributie van het register." },
-    { label: "Laptop en software", amount: Math.max(0, input.softwareYear), note: "Bedrag dat u zelf invult. Er is geen landelijke prijs." },
-    { label: "Lease of auto", amount: Math.max(0, input.leaseYear), note: "Leasebudget dat u zelf invult. Er is geen landelijke prijs." },
-    { label: "Reiskosten", amount: travelYear, note: "Kilometers per week × tarief × 52." },
-    { label: "Opbouw transitievergoeding", amount: transitionAnnual, note: "Een derde maandsalaris per dienstjaar. U betaalt dit pas als het contract op uw initiatief eindigt." },
+    line("Bruto jaarloon", grossYear, "12 × het maandloon dat u invult.", "direct", "person"),
+    line("Vakantiegeld 8%", holiday, "Wettelijk minimum, over het bruto jaarloon.", "direct", "person"),
+    line("Eindejaarsuitkering", yearEnd, "Percentage over bruto jaarloon plus vakantiegeld. Standaard 0: er is geen landelijke cao.", "direct", "person"),
+    line("Werkgeverspremies", premiums, "AWf, Aof, Wko, Zvw en Whk, tot het maximumpremieloon.", "direct", "person"),
+    line("Pensioen werkgever", pension, "Percentage van het bruto jaarloon. Standaard 0: vul uw regeling in.", "direct", "person"),
+    line("Lagere loondoorbetaling bij ziekte", -sickPaySaving, "Alleen als u minder dan 100% doorbetaalt.", "direct", "person"),
+    line("Opleiding, per jaar", trainingAnnual, "Eenmalig cursusbedrag gedeeld door de dienstjaren.", "direct", "person"),
+    line("Registratie", registrationYear, "Jaarlijkse contributie van het register.", "direct", "person"),
+    line("Laptop en software", Math.max(0, input.softwareYear), "Bedrag dat u zelf invult. Er is geen landelijke prijs.", "direct", "person"),
+    line("Lease of auto", Math.max(0, input.leaseYear), "Leasebudget dat u zelf invult. Er is geen landelijke prijs.", "direct", "person"),
+    line("Reiskosten", travelYear, "Kilometers per week × tarief × 52.", "direct", "person"),
+    line("Vervanging tijdens ziekte van de casemanager", replacementCost, "Verzuimuren van de casemanager × het vervangingstarief. Risicokosten.", "risk", "person"),
+    line("Werving, per jaar", recruitmentAnnual, "Eenmalige fee gedeeld door de dienstjaren. Risicokosten van vertrek.", "risk", "person"),
+    line("Vacature opvangen, per jaar", vacancyAnnual, "Ingekochte uren tijdens de vacature, gedeeld door de dienstjaren.", "risk", "person"),
+    line("Inwerken, per jaar", onboardingAnnual, "Uren onder de volle productiviteit, gedeeld door de dienstjaren.", "risk", "person"),
+    line("Opbouw transitievergoeding", transitionAnnual, "Een derde maandsalaris per dienstjaar. U betaalt dit pas als het contract op uw initiatief eindigt.", "risk", "person"),
+    line(
+      "Langere dossiers tijdens een gat",
+      driftCost,
+      "Aanname: elke 42-wekencase duurt extra werkdagen, omdat de stoel leeg is of een nieuwe persoon het dossier nog niet kent. Gewaardeerd met de TNO-dagkosten van het ingevulde jaarloon. Dit staat naast de ingekochte vervanging.",
+      "risk",
+      "organisation",
+    ),
+    line(
+      "Verwachte loonsanctie",
+      sanctionCost,
+      "Kans per 42-wekencase × weken / 52 × jaarloon van een zieke werknemer × het aantal 42-wekencases. De kans is het landelijke aandeel inhoudelijke sancties, niet een toeslag voor onervarenheid.",
+      "risk",
+      "organisation",
+    ),
+    line(
+      "Minder sturing op loonwaarde",
+      loonwaardeCost,
+      "Aanname: extra verzuimdagen per medewerker bij 5,4% verzuim, meeschalend met uw percentage. AKC meet een kortere duur bij vroege arbeidsdeskundige inzet, niet het verschil tussen intern en detachering.",
+      "risk",
+      "organisation",
+    ),
   ];
   return {
     detachedHourly,
-    detachedYear: yearlyCost(billedHours, detachedHourly),
+    detachedYear,
     detachedMonth: monthlyCost(billedHours, detachedHourly),
     block,
     billedHours,
     neededHours,
     people,
-    employmentYear: annualPerPerson * people,
-    saving: annualPerPerson * people - yearlyCost(billedHours, detachedHourly),
+    employmentYear,
+    directYear,
+    riskYear,
+    organisationRisk,
+    longCases,
+    sanctionCost,
+    driftCost,
+    loonwaardeCost,
+    saving: employmentYear - detachedYear,
     lines,
     employed: {
       grossYear,
@@ -573,6 +683,36 @@ export const compareSources = [
     title: "Transitievergoeding",
     url: "https://www.rijksoverheid.nl/themas/werk/ontslag/vraag-en-antwoord/ontslag/hoe-hoog-is-de-transitievergoeding-als-ik-word-ontslagen",
     note: "Een derde maandsalaris per dienstjaar (BW 7:673). Per 1 januari 2026 is het maximum €102.000 bruto, of een bruto jaarsalaris als dat hoger is. De tool telt de jaarlijkse opbouw mee. U betaalt de vergoeding pas als het contract op uw initiatief eindigt. De knop staat standaard aan en is uit te zetten.",
+  },
+  {
+    title: "UWV, inhoudelijke loonsancties en 42e-weekmeldingen 2025",
+    url: RISK.substantiveSanctionsUrl,
+    note: "Kwantitatieve informatie 2025: 1.825 inhoudelijke loonsancties en 163.464 meldingen met een ziekteduur langer dan 42 weken. De standaardkans is 1.825 / 163.464, ongeveer 1,1% per 42-wekencase. Dat is het landelijke gemiddelde. UWV publiceert geen aparte kans voor een onervaren casemanager of voor discontinuïteit. We zetten daar geen toeslag op. Administratieve sancties (1.887) tellen niet mee: dat is ontbrekende administratie, niet de sturing op het dossier.",
+  },
+  {
+    title: "UWV 2018, aandeel verlengingen bij getoetste verslagen",
+    url: RISK.riv2018Url,
+    note: "Bij 11% van de getoetste re-integratieverslagen volgde een verlenging, en bij 85% van die verlengingen was de reden dat re-integratie niet, te laat of verkeerd was opgepakt. Die 11% geldt voor verslagen aan het einde van twee ziektejaren, niet voor elke 42-wekencase. Daarom is 11% niet de standaardkans. Het maximum van de verlenging is 52 weken.",
+  },
+  {
+    title: "UWV, gerealiseerde duur van een verlenging",
+    url: "https://www.uwv.nl/assets-kai/files/8a519480-aa62-4790-b82f-674bd6ae8edc/effecten-van-verlenging-loondoorbetaling-en-ziekengeld.pdf",
+    note: "De duur van de verlenging wordt niet zodanig geadministreerd dat UWV er een betrouwbaar gemiddelde uit haalt. De tool staat daarom op het maximum van 52 weken. Dat is geen gemiddelde. Vul een kortere duur in als u die wilt gebruiken. In 2018 volgde op 24% van de verlengingen een geslaagd bekortingsverzoek.",
+  },
+  {
+    title: "CBS, werknemersbanen 2025",
+    url: RISK.employeeJobsUrl,
+    note: "De arbeidsmarkt in cijfers 2025: werknemersbanen +138 duizend (+1,5%). Daaruit volgt ongeveer 9,2 miljoen banen in 2024 en 9.338.000 in 2025. De 1,5% kan afgerond zijn. 163.464 meldingen gedeeld door 9.338.000 banen is het standaardaantal 42-wekencases per medewerker. Het schaalt mee met uw verzuimpercentage ten opzichte van 5,4%.",
+  },
+  {
+    title: "TNO-dagkosten voor extra verzuimdagen",
+    url: TNO.source,
+    note: "Extra dagen door een gat in de bezetting of door latere loonwaardesturing worden gewaardeerd met de TNO-dagkosten bij het ingevulde jaarloon. Standaard is dat het referentiejaarloon van €36.500, niet een gemeten loon van zieke werknemers.",
+  },
+  {
+    title: "AKC, vroege arbeidsdeskundige inzet",
+    url: RISK.akcUrl,
+    note: "Cahier 32, database met sociaal-emotionele klachten: na twee jaar stond 4,8% van de cases met vroege inzet nog open, tegen 11,2% zonder. Hetzelfde cahier noemt een gemiddelde stijging van de loonwaarde van 31,7% bij eerder arbeidsdeskundig onderzoek (Hulleman en Brinkman). Geen van beide cijfers is het verschil tussen een interne casemanager en detachering. De standaard van een halve extra verzuimdag per medewerker per jaar, bij 5,4% verzuim, is daarom een aanname. Zet hem op nul om hem uit de som te halen.",
   },
   {
     title: "Krapte op de arbeidsmarkt",

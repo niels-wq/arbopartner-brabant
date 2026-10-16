@@ -785,9 +785,31 @@ a > .ap-figure img {
   border-radius: 0.45rem 0.45rem 0 0;
   background: #5a2418;
 }
+.ap-plot-direct {
+  background: #5a2418;
+}
+.ap-plot-risk {
+  background: #d8a03d;
+}
 .ap-plot-hire {
   background: #12382c;
 }
+.ap-plot-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+}
+.ap-swatch {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-right: 0.35rem;
+  border-radius: 0.2rem;
+  vertical-align: -0.1rem;
+}
+.ap-swatch-direct { background: #5a2418; }
+.ap-swatch-risk { background: #d8a03d; }
+.ap-swatch-hire { background: #12382c; }
 .ap-plot-value,
 .ap-plot-label {
   font-size: 0.85rem;
