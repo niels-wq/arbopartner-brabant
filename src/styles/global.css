@@ -381,10 +381,11 @@ summary.rounded-full.border-green-800:focus-visible,
   object-position: 55% 40%;
 }
 .ap-exit-photo {
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: 999px;
+  width: 6.5rem;
+  height: 5.4rem;
+  border-radius: 0.75rem;
   flex: none;
+  object-fit: cover;
 }
 .ap-icon img {
   width: 100%;
@@ -625,13 +626,68 @@ summary.rounded-full.border-green-800:focus-visible,
   padding: 1rem;
 }
 .ap-exit-card {
-  width: min(28rem, 100%);
+  width: min(40rem, 100%);
   max-height: calc(100dvh - 2rem);
   overflow: auto;
   background: #f3f2ec;
   color: #14261c;
   border-radius: 1.25rem;
   padding: 1.1rem;
+}
+.ap-exit-card .ap-hint {
+  margin: 0;
+  font-size: 0.85rem;
+}
+.ap-exit-choices {
+  display: grid;
+  gap: 0.45rem;
+}
+.ap-exit-choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0.6rem 0.7rem;
+  border: 2px solid #d9ddd6;
+  border-radius: 0.8rem;
+  background: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+.ap-exit-choice:has(input:checked) {
+  border-color: #12382c;
+  background: #f4e2b0;
+}
+.ap-exit-card .ap-exit-choice input {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: none;
+  margin-top: 0.15rem;
+}
+.ap-exit-panel {
+  display: grid;
+  gap: 0.4rem;
+}
+.ap-exit-panel[hidden] {
+  display: none;
+}
+.ap-exit-times {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.ap-exit-times button {
+  background: #ffffff;
+  color: #12382c;
+  border: 2px solid #12382c;
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  font-weight: 700;
+}
+@media (min-width: 640px) {
+  .ap-exit-choices {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 .ap-exit-card .ap-lead {
   padding: 0;

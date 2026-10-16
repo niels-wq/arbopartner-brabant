@@ -45,8 +45,10 @@ const fields = {
   scan: ["naam", "telefoon", "medewerkers"],
   terugbel: ["naam", "telefoon", "medewerkers"],
   checklist: ["naam", "email", "medewerkers"],
-  magnet: ["email", "checklist"],
+  magnet: ["naam", "email"],
 };
+
+const exitChoices = ["checklist", "terugbel", "gesprek", "besparing"];
 
 export function validate(kind, body) {
   const errors = [];
@@ -65,6 +67,14 @@ export function validate(kind, body) {
     const count = Number(headcount);
     if (!Number.isInteger(count) || count < 35 || count > 500) {
       errors.push("Aantal medewerkers hoort tussen 35 en 500 te liggen.");
+    }
+  }
+  if (kind === "magnet") {
+    const keuze = oneLine(body?.keuze, 40);
+    if (!exitChoices.includes(keuze)) errors.push("Kies wat u wilt doen.");
+    if (keuze === "checklist" && !textBlock(body?.checklist, 4000)) errors.push("Veld ontbreekt: checklist.");
+    if (keuze === "terugbel" && !oneLine(body?.telefoon, 40)) {
+      errors.push("Voor een terugbelverzoek is een telefoonnummer nodig.");
     }
   }
   return errors;
@@ -114,7 +124,8 @@ export async function processSubmission(kind, body, ip) {
       subject: `[Arbopartner Brabant] ${kind} — ${who || "nieuw bericht"}`,
       text: messageText(kind, body),
     });
-    if ((kind === "rapport" || kind === "checklist" || kind === "magnet") && validEmail(oneLine(body.email))) {
+    const sendsCopy = kind === "rapport" || kind === "checklist" || (kind === "magnet" && oneLine(body.keuze, 40) === "checklist");
+    if (sendsCopy && validEmail(oneLine(body.email))) {
       const subject = kind === "rapport" ? "Uw berekening" : "Uw verzuim-checklist";
       const intro = kind === "rapport"
         ? "Hier is de berekening die u op de site maakte. Het is een scenario, geen offerte."

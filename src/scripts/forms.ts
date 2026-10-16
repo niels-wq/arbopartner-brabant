@@ -1,16 +1,19 @@
 import { site } from "../data/site";
 import { track } from "./track";
 
-function mailtoLink(kind: string, form: HTMLFormElement): string {
-  const data = new FormData(form);
+export function mailtoHref(kind: string, entries: Iterable<[string, FormDataEntryValue]>): string {
   const lines = [`Formulier: ${kind}`, ""];
-  for (const [key, value] of data.entries()) {
-    if (key === "company_website") continue;
+  for (const [key, value] of entries) {
+    if (key === "company_website" || key === "checklist") continue;
     lines.push(`${key}: ${String(value)}`);
   }
   const subject = encodeURIComponent(`[Arbopartner Brabant] ${kind}`);
   const body = encodeURIComponent(lines.join("\n"));
   return `mailto:${site.parent.email}?subject=${subject}&body=${body}`;
+}
+
+function mailtoLink(kind: string, form: HTMLFormElement): string {
+  return mailtoHref(kind, new FormData(form).entries());
 }
 
 export function bindForms() {

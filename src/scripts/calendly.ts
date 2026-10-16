@@ -47,6 +47,10 @@ async function openPopup(url: string) {
   }
 }
 
+export function openCalendlyPopup(url = calendlyKennismaking.url) {
+  void openPopup(url);
+}
+
 export function bindCalendly() {
   if (typeof window === "undefined" || window.__apCalendly) return;
   window.__apCalendly = true;
@@ -61,7 +65,7 @@ export function bindCalendly() {
     if (!button) return;
     event.preventDefault();
     const url = button.dataset.calendlyUrl || "";
-    void openPopup(url);
+    openCalendlyPopup(url);
   });
 }
 

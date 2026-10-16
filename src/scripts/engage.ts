@@ -1,4 +1,8 @@
+import { calendlyKennismaking } from "../data/calendly";
+import { site } from "../data/site";
 import { checklistText } from "../lib/checklist";
+import { openCalendlyPopup } from "./calendly";
+import { mailtoHref } from "./forms";
 import { downloadPdf } from "./report";
 import { track } from "./track";
 
@@ -12,7 +16,14 @@ if (root && !root.dataset.ready) {
   const chips = chat?.querySelector<HTMLElement>("[data-chips]");
   const lead = chat?.querySelector<HTMLFormElement>("[data-lead]");
   const exit = document.querySelector<HTMLElement>("#ap-exit");
-  const seenKey = "ap_exit_v2";
+  const seenKey = "ap_exit_v3";
+  const choiceLabels: Record<string, string> = {
+    checklist: "Stuur mij de gratis verzuimchecklist",
+    terugbel: "Bel mij terug",
+    gesprek: "Plan direct een gesprek",
+    besparing: "Bereken mijn besparing",
+  };
+  const calculatorHref = "/casemanager-inhuren-of-in-dienst#vergelijking";
   function seen() {
     try {
       return sessionStorage.getItem(seenKey) === "1";
@@ -206,11 +217,53 @@ if (root && !root.dataset.ready) {
   const checklistField = magnet?.querySelector<HTMLInputElement>("[data-checklist-body]");
   if (checklistField) checklistField.value = checklistText;
   const fileName = "arbopartner-verzuim-checklist.pdf";
+
+  function currentChoice() {
+    const value = magnet?.querySelector<HTMLInputElement>('input[name="keuze"]:checked')?.value || "checklist";
+    return value in choiceLabels ? value : "checklist";
+  }
+  function showChoice() {
+    if (!magnet) return;
+    const choice = currentChoice();
+    magnet.querySelectorAll<HTMLElement>("[data-panel]").forEach((panel) => {
+      panel.hidden = panel.dataset.panel !== choice;
+    });
+    const phone = magnet.querySelector<HTMLInputElement>('input[name="telefoon"]');
+    if (phone) phone.required = choice === "terugbel";
+    const submit = magnet.querySelector<HTMLButtonElement>("[data-exit-submit]");
+    if (submit) {
+      submit.textContent = choiceLabels[choice] || choiceLabels.checklist;
+      submit.dataset.cta = `exit-${choice}`;
+    }
+  }
+  function mailFallback(status: HTMLElement, payload: Record<string, string>, extra: string) {
+    const link = mailtoHref("magnet", Object.entries(payload));
+    status.innerHTML = `${extra} <a class="font-semibold underline" href="${link}">Verstuur het bericht via uw eigen e-mail</a>. ${site.placeholders.eigenEmail}`;
+  }
+  magnet?.querySelectorAll<HTMLInputElement>('input[name="keuze"]').forEach((input) => {
+    input.addEventListener("change", () => {
+      showChoice();
+      track("exit_intent_choice", { keuze: currentChoice() });
+    });
+  });
+  magnet?.addEventListener("click", (event) => {
+    const when = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-when]");
+    if (!when) return;
+    const field = magnet.querySelector<HTMLInputElement>('input[name="wanneer"]');
+    if (field) field.value = when.dataset.when || "";
+  });
+  showChoice();
   magnet?.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (!magnet) return;
     const status = magnet.querySelector<HTMLElement>("[data-status]");
-    const payload = Object.fromEntries(new FormData(magnet).entries());
+    const choice = currentChoice();
+    const payload: Record<string, string> = {};
+    for (const [key, value] of new FormData(magnet).entries()) payload[key] = String(value);
+    payload.keuze = choice;
+    if (choice !== "checklist") delete payload.checklist;
+    if (choice !== "terugbel") delete payload.wanneer;
+    track("exit_intent_choice", { keuze: choice });
     if (status) status.textContent = "Versturen…";
     try {
       const response = await fetch("/api/magnet", {
@@ -221,23 +274,47 @@ if (root && !root.dataset.ready) {
       const result = await response.json();
       if (!response.ok || result.ok === false) {
         if (status) status.textContent = (result.errors || ["Versturen lukte niet."]).join(" ");
-        track("form_error", { form_id: "magnet" });
+        track("form_error", { form_id: "magnet", keuze: choice });
         return;
       }
-      downloadPdf("Verzuim-checklist voor werkgevers", checklistText, fileName);
-      track("file_download", { form_id: "magnet", file_name: fileName, lead_source: "exit" });
-      track("generate_lead", { form_id: "magnet", lead_source: "exit" });
-      const email = magnet.querySelector<HTMLInputElement>("input[name=email]");
-      const consent = magnet.querySelector<HTMLInputElement>("input[name=toestemming]");
-      if (email) email.value = "";
-      if (consent) consent.checked = false;
+      track("generate_lead", { form_id: "magnet", lead_source: "exit", keuze: choice });
+      if (choice === "checklist") {
+        downloadPdf("Verzuim-checklist voor werkgevers", checklistText, fileName);
+        track("file_download", { form_id: "magnet", file_name: fileName, lead_source: "exit", keuze: choice });
+        if (status) {
+          status.textContent = result.delivered
+            ? "De checklist downloadt op dit apparaat. Dezelfde tekst gaat ook naar uw e-mail."
+            : "De checklist downloadt op dit apparaat. De mailserver staat nog niet aan, dus er gaat geen mail uit.";
+        }
+        return;
+      }
+      if (choice === "terugbel") {
+        if (result.delivered) {
+          magnet.reset();
+          showChoice();
+          if (status) status.textContent = "Verstuurd. We nemen contact op. We noemen geen terugbeltermijn.";
+        } else if (status) {
+          mailFallback(status, payload, "De mailserver staat nog niet aan, dus het terugbelverzoek is nog niet weg.");
+        }
+        return;
+      }
+      if (choice === "gesprek") {
+        if (status) {
+          if (result.delivered) status.textContent = "Uw gegevens zijn verstuurd. De agenda opent voor een belafspraak van 15 minuten.";
+          else mailFallback(status, payload, "De mailserver staat nog niet aan. De agenda opent wel.");
+        }
+        openCalendlyPopup(calendlyKennismaking.url);
+        return;
+      }
+      if (result.delivered) {
+        window.location.href = calculatorHref;
+        return;
+      }
       if (status) {
-        status.textContent = result.delivered
-          ? "De checklist downloadt op dit apparaat. Dezelfde tekst gaat ook naar uw e-mail."
-          : "De checklist downloadt op dit apparaat. De mailserver staat nog niet aan, dus er gaat geen mail uit.";
+        mailFallback(status, payload, `De mailserver staat nog niet aan. <a class="font-semibold underline" href="${calculatorHref}">Ga naar de berekening</a>.`);
       }
     } catch {
-      if (status) status.textContent = "Versturen lukte niet. De checklist staat ook op de pagina Verzuim-checklist.";
+      if (status) status.textContent = "Versturen lukte niet. Bel 085-0870307 of kijk bij de verzuim-checklist.";
     }
   });
 

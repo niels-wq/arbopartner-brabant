@@ -55,9 +55,15 @@ test("koffiefoto blijft klein en contact toont één portret", () => {
   assert.match(readFileSync("src/styles/global.css", "utf8"), /\.ap-contact:not\(\[open\]\) > \.ap-contact-menu/);
   assert.equal((engage.match(/<img /g) ?? []).length, 2);
   assert.match(engage, /ap-exit-photo/);
+  assert.match(engage, /niels-koffie/);
   assert.match(engage, /niels-face/);
   assert.match(engage, /data-magnet/);
   assert.match(engage, /verzuim-checklist/);
+  assert.match(engage, /voor een snelle terugbelafspraak/);
+  assert.match(engage, /Stuur mij de gratis verzuimchecklist/);
+  assert.match(engage, /Bel mij terug/);
+  assert.match(engage, /Plan direct een gesprek/);
+  assert.match(engage, /Bereken mijn besparing/);
   assert.equal(engage.includes("Gratis verzuimscan"), false);
   assert.equal(/poortwachter/i.test(engage), false);
   assert.ok(existsSync("public/mensen/niels-koffie-240.webp"));

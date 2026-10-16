@@ -75,21 +75,44 @@ import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
 <div id="ap-exit" class="ap-exit" hidden role="dialog" aria-modal="true" aria-labelledby="ap-exit-title">
   <div class="ap-exit-card">
     <div class="flex items-start gap-3">
-      <img class="niels-face ap-exit-photo" src={site.founder.avatar} width="240" height="240" alt="Niels Alderding" />
+      <img class="niels-koffie ap-exit-photo" src={site.founder.photo} width={site.founder.photoWidth} height={site.founder.photoHeight} alt="Niels Alderding" />
       <div class="flex min-w-0 flex-1 items-start justify-between gap-3">
-        <h2 id="ap-exit-title" class="font-serif text-3xl text-green-950" tabindex="-1">De verzuim-checklist, mee naar huis</h2>
+        <h2 id="ap-exit-title" class="font-serif text-3xl text-green-950" tabindex="-1">Wat kan ik voor u doen?</h2>
         <button class="ap-close" type="button" data-close aria-label="Sluiten">×</button>
       </div>
     </div>
-    <p class="mt-2">De verzuim-checklist: een geheugensteun van dag 1 tot week 104. Eén e-mailadres, de pdf downloadt meteen, en als de mailserver aanstaat sturen we dezelfde tekst ook naar u. Geen advies over één dossier. Een keer per bezoek.</p>
+    <p class="mt-2">Naam en e-mailadres zijn verplicht. Telefoon en bedrijfsnaam mogen leeg. Een keer per bezoek.</p>
     <form class="ap-lead mt-3" data-magnet>
-      <label>E-mail<input name="email" type="email" required autocomplete="email" /></label>
+      <label>Naam, verplicht<input name="naam" required autocomplete="name" /></label>
+      <label>E-mailadres, verplicht<input name="email" type="email" required autocomplete="email" /></label>
+      <label>Telefoon<input name="telefoon" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="ap-exit-tel-hint" /></label>
+      <p id="ap-exit-tel-hint" class="ap-hint">voor een snelle terugbelafspraak</p>
+      <label>Bedrijfsnaam<input name="organisatie" autocomplete="organization" /></label>
+      <div class="ap-exit-choices" role="radiogroup" aria-label="Kies wat u wilt doen">
+        <label class="ap-exit-choice"><input type="radio" name="keuze" value="checklist" checked /> <span>Stuur mij de gratis verzuimchecklist</span></label>
+        <label class="ap-exit-choice"><input type="radio" name="keuze" value="terugbel" /> <span>Bel mij terug</span></label>
+        <label class="ap-exit-choice"><input type="radio" name="keuze" value="gesprek" /> <span>Plan direct een gesprek</span></label>
+        <label class="ap-exit-choice"><input type="radio" name="keuze" value="besparing" /> <span>Bereken mijn besparing</span></label>
+      </div>
+      <div data-panel="checklist" class="ap-exit-panel">
+        <p>De verzuim-checklist downloadt meteen als pdf. Als de mailserver aanstaat, sturen we dezelfde tekst ook naar u. Geen advies over één dossier.</p>
+      </div>
+      <div data-panel="terugbel" class="ap-exit-panel" hidden>
+        <p>Wanneer het u uitkomt. We noemen geen terugbeltermijn. Die is nog niet vastgesteld.</p>
+        <div class="ap-exit-times">
+          <button type="button" data-when="Ochtend">Ochtend</button>
+          <button type="button" data-when="Middag">Middag</button>
+          <button type="button" data-when="Later deze week">Later deze week</button>
+        </div>
+        <label>Uw tijdvoorkeur<input name="wanneer" maxlength="180" /></label>
+      </div>
+      <p data-panel="gesprek" class="ap-exit-panel" hidden>{calendlyKennismaking.note}</p>
+      <p data-panel="besparing" class="ap-exit-panel" hidden>U gaat naar de vergelijking op deze site. Die rekent met uw aannames. Het is geen offerte.</p>
       <input type="hidden" name="checklist" data-checklist-body />
-      <label class="flex items-start gap-2 text-sm"><input type="checkbox" name="toestemming" value="ja" required /> <span>Mail mij deze checklist. <a href="/privacy">Privacy</a></span></label>
+      <label class="flex items-start gap-2 text-sm"><input type="checkbox" name="toestemming" value="ja" required /> <span>Matchvermogen B.V. mag deze gegevens gebruiken om op mijn keuze te reageren. <a href="/privacy">Privacy</a></span></label>
       <div class="absolute -left-[9999px]" aria-hidden="true"><label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label></div>
       <div class="ap-actions">
-        <button class="btn" type="submit" data-cta="exit-checklist">Stuur de checklist</button>
-        <CalendlyButton class="btn" cta="exit-calendly" />
+        <button class="btn" type="submit" data-exit-submit data-cta="exit-checklist">Stuur mij de gratis verzuimchecklist</button>
         <button class="btn btn-ghost" type="button" data-close>Nee, dank u</button>
       </div>
       <p data-status class="text-sm" role="status"></p>
