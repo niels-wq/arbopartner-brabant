@@ -31,7 +31,7 @@ describe("echte foto's", () => {
     const situaties = [...(await readFile("src/data/situaties.ts", "utf8")).matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
     const posts = (await readdir("src/content/blog")).filter((name) => name.endsWith(".md")).map((name) => name.replace(/\.md$/, ""));
     assert.equal(services.length, 11);
-    assert.equal(situaties.length, 6);
+    assert.equal(situaties.length, 7);
     assert.equal(posts.length, 20);
     for (const slug of services) assert.ok(slug in dienstFoto, slug);
     for (const slug of situaties) assert.ok(slug in situatieFoto, slug);

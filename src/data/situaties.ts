@@ -1,10 +1,11 @@
-export type SituatieIcon = "calendar" | "balance" | "chairs" | "swap" | "clock" | "alert";
+export type SituatieIcon = "calendar" | "balance" | "chairs" | "swap" | "clock" | "alert" | "document";
 
 export type Situatie = {
   slug: string;
   title: string;
   probleem: string;
   oplossing: string;
+  stappen?: string[];
   resultaat: string;
   icon: SituatieIcon;
   href: string;
@@ -89,5 +90,25 @@ export const situaties: Situatie[] = [
     icon: "alert",
     href: "/tools/loonsanctie-check",
     hrefLabel: "Loonsanctie-check",
+  },
+  {
+    slug: "onduidelijk-verslag",
+    title: "De verslagen van de bedrijfsarts zijn onduidelijk",
+    probleem:
+      "De verslagen van de bedrijfsarts zijn onduidelijk. U weet niet wat u nu wel of niet mag vragen, wat de belastbaarheid is en wat de volgende stap is.",
+    oplossing:
+      "De casemanager maakt het advies bruikbaar voor werkgever en werknemer. De werkgever krijgt geen medische details.",
+    stappen: [
+      "De casemanager vertaalt het advies van de bedrijfsarts naar concrete acties voor werkgever en werknemer.",
+      "We vragen de bedrijfsarts actief om verduidelijking of aanvulling, bijvoorbeeld een concrete FML, de belastbaarheid en een prognose.",
+      "Bij twijfel zetten we een arbeidsdeskundige in om de mogelijkheden en de loonwaarde scherp te krijgen.",
+      "Waar nodig adviseren we over een second opinion of een deskundigenoordeel van het UWV.",
+      "Alles leggen we vast voor een sluitend Poortwachterdossier.",
+    ],
+    resultaat:
+      "Duidelijkheid, sneller handelen en een kleiner risico op een loonsanctie. De werkgever krijgt geen medische details. We garanderen niet dat een sanctie uitblijft.",
+    icon: "document",
+    href: "/adviesgesprek",
+    hrefLabel: "Bespreek dit verslag",
   },
 ];

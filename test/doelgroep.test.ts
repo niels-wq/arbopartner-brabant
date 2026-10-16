@@ -42,9 +42,17 @@ test("situaties zijn herkenbaar en zonder verzonnen namen", () => {
   assert.ok(titles.includes("Continuïteit in de begeleiding lukt niet"));
   assert.ok(titles.some((title) => /langdurig verzuim/i.test(title)));
   assert.ok(titles.some((title) => /loonsanctie/i.test(title)));
-  const blob = situaties.map((item) => `${item.title} ${item.probleem} ${item.oplossing} ${item.resultaat}`).join("\n");
-  assert.equal(/poortwachter/i.test(blob), false);
+  const verslag = situaties.find((item) => item.slug === "onduidelijk-verslag");
+  assert.ok(verslag);
+  assert.match(verslag.probleem, /verslagen van de bedrijfsarts zijn onduidelijk/);
+  assert.match(verslag.oplossing, /geen medische details/);
+  assert.match(verslag.resultaat, /geen medische details/);
+  assert.match(verslag.resultaat, /kleiner risico op een loonsanctie/);
+  assert.ok(verslag.stappen?.some((stap) => /Poortwachterdossier/.test(stap)));
+  assert.equal(verslag.hrefLabel, "Bespreek dit verslag");
+  const blob = situaties.map((item) => `${item.title} ${item.probleem} ${item.oplossing} ${(item.stappen ?? []).join(" ")} ${item.resultaat}`).join("\n");
   assert.equal(/\b(Jan|Piet|Klaas|Sander|Ingrid)\b/.test(blob), false);
+  assert.equal((blob.match(/poortwachter/gi) ?? []).length, 1);
   for (const item of situaties) {
     assert.ok(item.probleem.length > 40, item.slug);
     assert.ok(item.oplossing.length > 40, item.slug);

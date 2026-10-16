@@ -179,6 +179,7 @@ export const situatieFoto = {
   continuiteit: "gesprek-bank",
   "langdurig-verzuim": "gesprek-documenten",
   loonsanctie: "gesprek-plant",
+  "onduidelijk-verslag": "werkplek-notitie",
 } as const satisfies Record<string, FotoId>;
 
 export const blogFoto = {
