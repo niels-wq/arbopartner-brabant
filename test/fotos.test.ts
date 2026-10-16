@@ -55,7 +55,9 @@ describe("echte foto's", () => {
     const blog = await readFile("src/pages/blog/[slug].astro", "utf8");
     const plaats = await readFile("src/pages/werkgebied/[slug].astro", "utf8");
     assert.match(home, /Photo id="gesprek-bank"/);
+    assert.match(home, /Photo id="gesprek-werkgever"/);
     assert.equal(home.includes("BrabantPhoto"), false);
+    assert.equal(home.includes("werkFotoVoorPlaats"), false);
     assert.equal((await readFile("src/pages/blog/index.astro", "utf8")).includes("BrabantPhoto"), false);
     assert.equal((await readFile("src/pages/werkgebied/index.astro", "utf8")).includes("unsplash-eindhoven"), false);
     assert.match(await readFile("src/pages/werkgebied/[slug].astro", "utf8"), /max-w-40/);

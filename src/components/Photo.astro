@@ -8,9 +8,11 @@ interface Props {
   plain?: boolean;
   class?: string;
   sizes?: string;
+  /** "natuurlijk" houdt de bronverhouding, zodat een breed gesprek niet wordt afgesneden. */
+  kader?: "cover" | "natuurlijk";
 }
 
-const { id, eager = false, caption = true, plain = false, class: className, sizes = "(min-width: 1024px) 42rem, 100vw" } = Astro.props;
+const { id, eager = false, caption = true, plain = false, class: className, sizes = "(min-width: 1024px) 42rem, 100vw", kader = "cover" } = Astro.props;
 const foto = fotos[id];
 const base = `/fotos/${id}`;
 ---
@@ -26,7 +28,7 @@ const base = `/fotos/${id}`;
       loading={eager ? "eager" : "lazy"}
       decoding="async"
       fetchpriority={eager ? "high" : "auto"}
-      class="aspect-[3/2] w-full object-cover"
+      class={kader === "natuurlijk" ? "h-auto w-full" : "aspect-[3/2] w-full object-cover"}
     />
   </picture>
   {caption && (

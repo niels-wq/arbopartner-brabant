@@ -35,6 +35,12 @@ describe("Brabant centraal", () => {
     assert.match(home, /Nuchter, dichtbij, Brabants/);
     assert.match(home, /Losplaats 16d/);
     assert.match(home, /BrabantMap/);
+    assert.match(home, /pins="kantoor"/);
+    assert.match(home, /Hier ontvangen wij uw medewerkers/);
+    assert.match(home, /en ook op locatie bij u op de werkvloer, door heel Brabant/);
+    assert.match(home, /Plan een gesprek op locatie/);
+    assert.match(home, /mapsDirectionsHref/);
+    assert.doesNotMatch(home, /werkFotoVoorPlaats/);
     assert.match(home, /VerzuimTijdlijn/);
     const site = await readFile("src/data/site.ts", "utf8");
     assert.match(site, /Casemanager en arbo in Noord-Brabant/);

@@ -3,30 +3,38 @@ import { brabantKaart, kaartSteden } from "../data/brabant-kaart";
 
 interface Props {
   class?: string;
+  /** "kantoor" toont alleen het hoofdkantoor. De volledige kaart blijft de standaard. */
+  pins?: "alle" | "kantoor";
 }
 
-const { class: className } = Astro.props;
+const { class: className, pins = "alle" } = Astro.props;
+const alleenKantoor = pins === "kantoor";
+const titelId = alleenKantoor ? "brabant-ontvangst-titel" : "brabant-kaart-titel";
+const uitlegId = alleenKantoor ? "brabant-ontvangst-uitleg" : "brabant-kaart-uitleg";
+const viewBox = alleenKantoor ? "20 150 680 250" : `0 0 ${brabantKaart.width} ${brabantKaart.height}`;
 ---
 
 <figure class:list={["rounded-[2rem] bg-white p-4 ring-1 ring-line sm:p-6", className]}>
   <svg
-    viewBox={`0 0 ${brabantKaart.width} ${brabantKaart.height}`}
+    viewBox={viewBox}
     role="img"
-    aria-labelledby="brabant-kaart-titel brabant-kaart-uitleg"
+    aria-labelledby={`${titelId} ${uitlegId}`}
     class="h-auto w-full"
   >
-    <title id="brabant-kaart-titel">Kaart van Noord-Brabant</title>
-    <desc id="brabant-kaart-uitleg">
-      Werkgebied in Noord-Brabant. Het kantoor staat in Uden. Gemarkeerd zijn onder meer Den Bosch, Eindhoven, Tilburg, Breda, Helmond, Oss, Veghel, Roosendaal en Bergen op Zoom. Nijmegen ligt net buiten de provincie.
+    <title id={titelId}>{alleenKantoor ? "Kaart van Noord-Brabant met het hoofdkantoor in Uden" : "Kaart van Noord-Brabant"}</title>
+    <desc id={uitlegId}>
+      {alleenKantoor
+        ? "Compacte kaart van Noord-Brabant. Alleen het hoofdkantoor aan de Losplaats 16d in Uden is gemarkeerd."
+        : "Werkgebied in Noord-Brabant. Het kantoor staat in Uden. Gemarkeerd zijn onder meer Den Bosch, Eindhoven, Tilburg, Breda, Helmond, Oss, Veghel, Roosendaal en Bergen op Zoom. Nijmegen ligt net buiten de provincie."}
     </desc>
     <rect width={brabantKaart.width} height={brabantKaart.height} fill="#f7f3ea" />
     <path d={brabantKaart.path} fill="#d7e6d4" stroke="#0c3b27" stroke-width="3" stroke-linejoin="round" />
-    {kaartSteden.filter((stad) => stad.kind === "klein").map((stad) => (
+    {!alleenKantoor && kaartSteden.filter((stad) => stad.kind === "klein").map((stad) => (
       <circle cx={stad.x} cy={stad.y} r="4" fill="#234833">
         <title>{stad.name}</title>
       </circle>
     ))}
-    {kaartSteden.filter((stad) => stad.kind === "stad").map((stad) => (
+    {!alleenKantoor && kaartSteden.filter((stad) => stad.kind === "stad").map((stad) => (
       <g>
         <circle cx={stad.x} cy={stad.y} r="6" fill="#0c3b27" />
         {stad.label && (
@@ -45,7 +53,7 @@ const { class: className } = Astro.props;
         )}
       </g>
     ))}
-    {kaartSteden.filter((stad) => stad.kind === "rand").map((stad) => (
+    {!alleenKantoor && kaartSteden.filter((stad) => stad.kind === "rand").map((stad) => (
       <g>
         <circle cx={stad.x} cy={stad.y} r="6" fill="#f7f3ea" stroke="#8c3d2a" stroke-width="2" />
         {stad.label && (
@@ -55,15 +63,34 @@ const { class: className } = Astro.props;
     ))}
     {kaartSteden.filter((stad) => stad.kind === "kantoor").map((stad) => (
       <g>
-        <circle cx={stad.x} cy={stad.y} r="11" fill="none" stroke="#c4923a" stroke-width="3" />
-        <circle cx={stad.x} cy={stad.y} r="5" fill="#c4923a" />
-        {stad.label && (
-          <text x={stad.x + stad.label.dx} y={stad.y + stad.label.dy} text-anchor={stad.label.anchor} fill="#12261c" stroke="#f7f3ea" stroke-width="5" paint-order="stroke" font-size="15" font-weight="700" font-family="Georgia, serif">Uden</text>
+        {alleenKantoor ? (
+          <>
+            <path
+              d={`M${stad.x} ${stad.y} C${stad.x} ${stad.y} ${stad.x - 12} ${stad.y - 14} ${stad.x - 12} ${stad.y - 22} C${stad.x - 12} ${stad.y - 32} ${stad.x - 6.5} ${stad.y - 38} ${stad.x} ${stad.y - 38} C${stad.x + 6.5} ${stad.y - 38} ${stad.x + 12} ${stad.y - 32} ${stad.x + 12} ${stad.y - 22} C${stad.x + 12} ${stad.y - 14} ${stad.x} ${stad.y} ${stad.x} ${stad.y} Z`}
+              fill="#c4923a"
+              stroke="#0c3b27"
+              stroke-width="1.5"
+            >
+              <title>Hoofdkantoor, Losplaats 16d, Uden</title>
+            </path>
+            <circle cx={stad.x} cy={stad.y - 23} r="3.4" fill="#f7f3ea" />
+            <text x={stad.x + 16} y={stad.y - 22} text-anchor="start" fill="#12261c" stroke="#f7f3ea" stroke-width="5" paint-order="stroke" font-size="16" font-weight="700" font-family="Georgia, serif">Uden</text>
+          </>
+        ) : (
+          <>
+            <circle cx={stad.x} cy={stad.y} r="11" fill="none" stroke="#c4923a" stroke-width="3" />
+            <circle cx={stad.x} cy={stad.y} r="5" fill="#c4923a" />
+            {stad.label && (
+              <text x={stad.x + stad.label.dx} y={stad.y + stad.label.dy} text-anchor={stad.label.anchor} fill="#12261c" stroke="#f7f3ea" stroke-width="5" paint-order="stroke" font-size="15" font-weight="700" font-family="Georgia, serif">Uden</text>
+            )}
+          </>
         )}
       </g>
     ))}
   </svg>
   <figcaption class="mt-3 text-xs leading-relaxed text-ink-soft">
-    {brabantKaart.bron} De okeren stip is het kantoor in Uden. De open stip is Nijmegen, net over de grens in Gelderland.
+    {alleenKantoor
+      ? "De pin is het hoofdkantoor in Uden, Losplaats 16d."
+      : `${brabantKaart.bron} De okeren stip is het kantoor in Uden. De open stip is Nijmegen, net over de grens in Gelderland.`}
   </figcaption>
 </figure>
