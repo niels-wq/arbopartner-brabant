@@ -28,7 +28,7 @@ const faq = [
   },
   {
     q: "Welke kosten zitten er in het dienstverband?",
-    a: "Bruto loon, vakantiegeld, eindejaarsuitkering als u die invult, werkgeverspremies, pensioen als u dat invult, verzuim en vervanging, verlof en feestdagen, werving, inwerktijd als u die invult, opleiding, registratie, laptop, lease en reiskosten als u die invult, en de jaarlijkse opbouw van de transitievergoeding. Leegloop bij een lage caseload zit in het volle contract. Een jaar volledige uitval tonen we ernaast, omdat het CBS-gemiddelde lange gevallen al bevat.",
+    a: "Bruto loon, vakantiegeld, eindejaarsuitkering als u die invult, werkgeverspremies, pensioen als u dat invult, verzuim en vervanging, verlof en feestdagen, werving, inwerktijd als u die invult, opleiding, registratie, laptop, lease en reiskosten als u die invult, en de jaarlijkse opbouw van de transitievergoeding. Daarnaast drie posten over de hele organisatie: overnametijd en inwerkperiode, verlies van continuïteit, en een slechte koppeling aan loonwaarde. Leegloop bij een lage caseload zit in het volle contract. Een jaar volledige uitval tonen we ernaast, omdat het CBS-gemiddelde lange gevallen al bevat.",
   },
   {
     q: "Waar komt het standaard maandloon vandaan?",
@@ -65,7 +65,7 @@ const jsonLd = [crumbsLd(crumbs), faqLd(faq)];
   <HireBenefits />
   <div class="mx-auto max-w-6xl px-4 pb-4">
     <h2 class="font-serif text-4xl text-green-950">De vergelijking</h2>
-    <p class="mt-3 max-w-3xl">Drie stappen, met schuiven: het aantal medewerkers en het verzuimpercentage, het niveau, en het contract in dienst. De verwachte casemanageruren per jaar volgen uit de eerste stap. De staaf van een dienstverband stapelt directe kosten en risicokosten: ziekte en vervanging van de casemanager, een gat bij vertrek, de verwachte waarde van een loonsanctie, en een gelabelde aanname over loonwaarde. In het standaardscenario, 100 medewerkers en 5,4% verzuim, is het verschil {euro(scenario.result.saving, true)} per jaar. Komt een dienstverband lager uit, dan zegt de tool dat.</p>
+    <p class="mt-3 max-w-3xl">Drie stappen, met schuiven: het aantal medewerkers en het verzuimpercentage, het niveau, en het contract in dienst. De verwachte casemanageruren per jaar volgen uit de eerste stap. De staaf van een dienstverband stapelt directe kosten en risicokosten. Drie posten staan elk als eigen regel: overnametijd en inwerkperiode, verlies van continuïteit, en een slechte koppeling aan loonwaarde. In het standaardscenario, 100 medewerkers en 5,4% verzuim, is het verschil {euro(scenario.result.saving, true)} per jaar. Komt een dienstverband lager uit, dan zegt de tool dat.</p>
   </div>
   <div class="mx-auto max-w-6xl px-4 pb-8">
     <CompareCalc />

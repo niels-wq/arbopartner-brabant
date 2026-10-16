@@ -26,7 +26,7 @@ export function savingHeadline(result: CompareResult): { positive: boolean; text
 }
 
 export function scenarioNote(): string {
-  return `Standaardscenario: medior, tien uur per week, tegenover één fulltime contract van veertig uur, inclusief de risicokosten van ziekte, vertrek, een loonsanctie en latere loonwaardesturing. Het bruto maandloon is afgeleid van het CBS-mediaan uurloon van ${euro(CBS_WAGE.hourly)} (${CBS_WAGE.group}, ${CBS_WAGE.year}, voorlopig). Die groep is breder dan alleen casemanagers verzuim. Zet u de aannames voor extra verzuimdagen en de sanctiekans op nul, dan kan een dienstverband in euro's lager uitvallen. De tool laat dat zien.`;
+  return `Standaardscenario: medior, tien uur per week, tegenover één fulltime contract van veertig uur. Drie risicoposten staan apart in de uitkomst: overnametijd en inwerkperiode, verlies van continuïteit, en een slechte koppeling aan loonwaarde. Het bruto maandloon is afgeleid van het CBS-mediaan uurloon van ${euro(CBS_WAGE.hourly)} (${CBS_WAGE.group}, ${CBS_WAGE.year}, voorlopig). Die groep is breder dan alleen casemanagers verzuim. Zet u de overnameweken, de continuïteitsfactor, de extra verzuimdagen, de sanctiekans en de extra sanctiekans op nul, dan kan een dienstverband in euro's lager uitvallen. De tool laat dat zien.`;
 }
 
 function barWidth(value: number, max: number): number {
@@ -56,7 +56,14 @@ export function compareReportHtml(input: CompareInput, result: CompareResult, de
   const row = (line: (typeof result.lines)[number]) =>
     `<tr><th class="py-1 pr-3 align-top font-semibold" scope="row">${line.label}</th><td class="py-1 pr-3 align-top whitespace-nowrap">${euro(line.amount, true)}</td><td class="py-1 align-top text-ink-soft">${line.note}</td></tr>`;
   const personRows = result.lines.filter((line) => line.scope === "person").map(row).join("");
-  const orgRows = result.lines.filter((line) => line.scope === "organisation").map(row).join("");
+  const orgLines = result.lines.filter((line) => line.scope === "organisation");
+  const orgRows = orgLines.map(row).join("");
+  const orgList = orgLines
+    .map(
+      (line, index) =>
+        `<li><span class="font-semibold">${index + 1}. ${line.label}.</span> ${euro(line.amount, true)}. ${line.note}</li>`,
+    )
+    .join("");
 
   return `
     <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">Indicatie, geen offerte</p>
@@ -84,10 +91,12 @@ export function compareReportHtml(input: CompareInput, result: CompareResult, de
       <span><i class="ap-swatch ap-swatch-risk"></i>Risicokosten</span>
       <span><i class="ap-swatch ap-swatch-hire"></i>Arbopartner</span>
     </p>
-    <p class="mt-3 max-w-3xl text-sm">Directe kosten in dienst ${euro(result.directYear, true)}. Risicokosten ${euro(result.riskYear, true)}: ziekte en vervanging van de casemanager, werving, vacature, inwerken, transitie, plus voor de hele organisatie de langere dossiers tijdens een gat, de verwachte loonsanctie en de aanname over loonwaarde. Arbopartner is ${euro(result.detachedYear, true)}, zonder die loonlijst.</p>
+    <p class="mt-3 max-w-3xl text-sm">Directe kosten in dienst ${euro(result.directYear, true)}. Risicokosten ${euro(result.riskYear, true)}, waarvan ${euro(result.organisationRisk, true)} over de hele organisatie. Arbopartner is ${euro(result.detachedYear, true)}, zonder die loonlijst.</p>
+    <h3 class="mt-4 font-serif text-2xl text-green-950">Drie risicoposten van een interne casemanager</h3>
+    <ol class="ap-risk-lines mt-2 max-w-3xl list-none space-y-2 text-sm">${orgList}</ol>
     <p class="mt-4 max-w-3xl">${qualitative}</p>
     <p class="mt-3 max-w-3xl">Bij inhuren betaalt u ${num(result.billedHours, 0)} uur per week × ${euro(result.detachedHourly)} per uur. Dat zijn de uren die u nodig heeft, met een minimum van tien. Bij een dienstverband betaalt u ${result.people === 1 ? "één volledig contract" : `${result.people} volledige contracten`} van ${num(input.contractHours, 0)} uur, ook als u ${num(result.neededHours, 0)} uur nodig heeft. Na wettelijk verlof (${num(employed.leaveHours, 0)} uur), ${num(input.publicHolidays, 0)} feestdagen (${num(employed.holidayHours, 0)} uur) en ${pct(input.absencePct)} verzuim blijft ongeveer ${num(employed.productiveHoursWeek)} productief uur per week over. Daarvan blijven ${num(employed.unusedHoursWeek)} uur onbenut. Die leegloop zit in het salaris, niet als extra regel.${peopleText}</p>
-    <p class="mt-3 max-w-3xl text-sm">De opbouw splitst directe kosten en risicokosten. De transitievergoeding betaalt u pas als het contract op uw initiatief eindigt. De loonsanctie is een verwachte waarde, geen voorspelling dat UWV die oplegt. De extra dagen door een gat en door latere loonwaarde zijn aannames. Elk getal is aan te passen, ook naar nul.</p>
+    <p class="mt-3 max-w-3xl text-sm">De opbouw splitst directe kosten en risicokosten. De transitievergoeding betaalt u pas als het contract op uw initiatief eindigt. De loonsanctie is een verwachte waarde, geen voorspelling dat UWV die oplegt. De overnameweken, de continuïteitsfactor, de extra verzuimdagen en de extra sanctiekans zijn aannames. Elk getal is aan te passen, ook naar nul.</p>
     <aside class="mt-4 rounded-3xl bg-sand-100 p-4 text-sm">
       <p class="font-semibold text-green-950">Scenario: een jaar volledige uitval</p>
       <p class="mt-1">Loonkost plus vervanging van alle contracturen: ${euro(employed.longAbsenceYear, true)} per persoon. Dit zit niet in het jaartotaal. Het CBS-percentage bevat lange gevallen al in het gemiddelde. Telt u het er zelf bij, dan vergelijkt u een uitzondering met een gemiddeld jaar.</p>

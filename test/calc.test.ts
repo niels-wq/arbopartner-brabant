@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { describe, it } from "node:test";
-import { caseManagerHoursPerWeek, caseManagerHoursPerYear, compareEmployment, dayCost, defaultCompareInput, defaultDriftDays, grossMonthlyFromCbs, longCasesPerEmployee, matchCasemanager, RISK, sanctionChancePerLongCase, savings, TNO } from "../src/lib/calc.ts";
+import { akcSanctionExtra, caseManagerGapWorkdays, caseManagerHoursPerWeek, caseManagerHoursPerYear, compareEmployment, dayCost, defaultCompareInput, grossMonthlyFromCbs, longCasesPerEmployee, matchCasemanager, overnameDaysPerLongCase, RISK, sanctionChancePerLongCase, savings, TNO } from "../src/lib/calc.ts";
 import { savingHeadline } from "../src/lib/compare-view.ts";
 import { pct } from "../src/lib/format.ts";
 import { hourlySavingPct, monthlyCost } from "../src/lib/rates.ts";
@@ -147,32 +147,78 @@ describe("vergelijking", () => {
   });
 
   it("valt bij de standaard binnen 35 tot 500 medewerkers in het voordeel van inhuren", () => {
-    for (let employees = 35; employees <= 500; employees += 1) {
-      const hours = caseManagerHoursPerWeek(employees, 5.4);
-      const result = compareEmployment(defaultCompareInput({ neededHours: hours, employees, orgAbsencePct: 5.4 }));
-      assert.ok(result.saving > 0, `bij ${employees} medewerkers is de besparing ${result.saving}`);
+    for (const level of ["medior", "medior-plus", "senior"] as const) {
+      for (let employees = 35; employees <= 500; employees += 1) {
+        const hours = caseManagerHoursPerWeek(employees, 5.4);
+        const result = compareEmployment(
+          defaultCompareInput({ level, neededHours: hours, employees, orgAbsencePct: 5.4 }),
+        );
+        assert.ok(result.saving > 0, `${level} bij ${employees} medewerkers: ${result.saving}`);
+      }
     }
   });
 
-  it("rekent de loonsanctie als kans maal maximumduur maal dossiers", () => {
+  it("rekent de drie organisatieregels apart en laat ze op nul verdwijnen", () => {
     const input = defaultCompareInput({ employees: 100, orgAbsencePct: 5.4 });
     const result = compareEmployment(input);
     const longCases = 100 * longCasesPerEmployee();
+    const day = dayCost(TNO.referenceWage);
     assert.equal(result.longCases, longCases);
     assert.equal(input.sanctionChance, sanctionChancePerLongCase());
     assert.equal(input.sanctionChance, RISK.substantiveSanctions2025 / RISK.week42Notifications2025);
     assert.equal(input.sanctionWeeks, 52);
     assert.equal(input.sickAnnualWage, TNO.referenceWage);
+    assert.equal(input.overnameWeeks, 8);
+    assert.equal(input.continuiteitDaysPerGapWeek, 1);
+    assert.equal(input.loonwaardeSanctionExtra, akcSanctionExtra());
+    assert.equal(akcSanctionExtra(), 0.112 - 0.048);
     assert.equal(result.sanctionCost, input.sanctionChance * input.sickAnnualWage * longCases);
-    assert.equal(result.driftCost, longCases * defaultDriftDays(60, 3) * dayCost(TNO.referenceWage));
-    assert.equal(result.loonwaardeCost, 100 * 0.5 * dayCost(TNO.referenceWage));
-    const zero = compareEmployment(defaultCompareInput({ sanctionChance: 0, driftDaysPerLongCase: 0, loonwaardeExtraDays: 0 }));
+    assert.equal(result.sanctionExtraCost, akcSanctionExtra() * input.sickAnnualWage * longCases);
+    assert.equal(result.overnameCost, longCases * overnameDaysPerLongCase(8, 3) * day);
+    const gapWeeks = caseManagerGapWorkdays({
+      contractHours: 40,
+      absencePct: 5.4,
+      publicHolidays: 6,
+      vacancyCalendarDays: 60,
+      tenureYears: 3,
+    }) / 5;
+    assert.equal(result.continuiteitCost, longCases * gapWeeks * day);
+    assert.equal(result.loonwaardeCost, 100 * 0.5 * day);
+    const labels = result.lines.filter((line) => line.scope === "organisation").map((line) => line.label);
+    assert.deepEqual(labels, [
+      "Overnametijd en inwerkperiode",
+      "Verlies van continuïteit",
+      "Slechte koppeling aan loonwaarde",
+    ]);
+    const loonwaardeLine = result.lines.find((line) => line.label === "Slechte koppeling aan loonwaarde");
+    assert.equal(loonwaardeLine?.amount, result.loonwaardeCost + result.sanctionCost + result.sanctionExtraCost);
+    assert.equal(
+      result.organisationRisk,
+      result.overnameCost + result.continuiteitCost + (loonwaardeLine?.amount ?? 0),
+    );
+    const zero = compareEmployment(
+      defaultCompareInput({
+        sanctionChance: 0,
+        overnameWeeks: 0,
+        continuiteitDaysPerGapWeek: 0,
+        loonwaardeExtraDays: 0,
+        loonwaardeSanctionExtra: 0,
+      }),
+    );
     assert.equal(zero.organisationRisk, 0);
   });
 
   it("houdt een hoge caseload eerlijk zodra de risicoposten uit staan", () => {
     const senior = compareEmployment(
-      defaultCompareInput({ level: "senior", neededHours: 24, sanctionChance: 0, driftDaysPerLongCase: 0, loonwaardeExtraDays: 0 }),
+      defaultCompareInput({
+        level: "senior",
+        neededHours: 24,
+        sanctionChance: 0,
+        overnameWeeks: 0,
+        continuiteitDaysPerGapWeek: 0,
+        loonwaardeExtraDays: 0,
+        loonwaardeSanctionExtra: 0,
+      }),
     );
     assert.equal(senior.detachedHourly, 125);
     assert.equal(senior.detachedYear, 156000);
@@ -181,6 +227,9 @@ describe("vergelijking", () => {
     assert.match(savingHeadline(senior).text, /dienstverband circa/);
     const full = compareEmployment(defaultCompareInput({ neededHours: 40, employees: 100 }));
     assert.equal(full.people, 2);
+    const noDemand = compareEmployment(defaultCompareInput({ neededHours: 0, employees: 100, orgAbsencePct: 0 }));
+    assert.equal(noDemand.people, 1);
+    assert.ok(noDemand.saving > 0);
   });
 
   it("laat een eindejaarsuitkering en de transitievergoeding de jaarkosten bewegen", () => {

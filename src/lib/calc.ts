@@ -228,6 +228,19 @@ export const RISK = {
   sanctionWeeksMax: 52,
   /** Aanname, geen meting van intern tegenover detachering. Bij 5,4% verzuim. */
   loonwaardeExtraDays: 0.5,
+  /**
+   * Aanname, geen landelijk cijfer. Weken dat dossiers stilliggen bij wisseling of vertrek.
+   * Alleen het effect op de verzuimduur, niet het productiviteitsverlies van de nieuwe persoon.
+   */
+  overnameWeeks: 8,
+  /**
+   * Aanname. Extra werkdagen per 42-wekencase voor elke week dat de casemanager weg is.
+   * De weken zelf komen uit ziekte, verlof, feestdagen en de vacature.
+   */
+  continuiteitDaysPerGapWeek: 1,
+  /** AKC Cahier 32: aandeel cases dat na twee jaar nog open stond, zonder en met vroege inzet. */
+  akcStillOpenWithout: 0.112,
+  akcStillOpenWith: 0.048,
   substantiveSanctionsUrl: "https://www.uwv.nl/assets-kai/files/e6c076e8-30cc-481c-b04f-3c3ca52c7a41/uwv-kwantitatieve-Informatie-2025.pdf",
   riv2018Url: "https://www.uwv.nl/nl/publicaties/kennis/2018/toetsing-van-het-re-integratieverslag-riv",
   employeeJobsUrl: "https://longreads.cbs.nl/dearbeidsmarktincijfers-2025/de-vraag-naar-arbeid/",
@@ -243,11 +256,49 @@ export function sanctionChancePerLongCase(): number {
   return RISK.substantiveSanctions2025 / RISK.week42Notifications2025;
 }
 
-/** Vacaturewerkdagen gedeeld door de dienstjaren. Aanname voor extra duur per 42-wekencase. */
+/** Vacaturewerkdagen gedeeld door de dienstjaren. Onderdeel van het continuïteitsgat, geen aparte post. */
 export function defaultDriftDays(vacancyCalendarDays: number, tenureYears: number): number {
   const tenure = Math.max(1, tenureYears);
   const vacancyWorkdays = Math.max(0, vacancyCalendarDays) * (5 / 7);
   return vacancyWorkdays / tenure;
+}
+
+/**
+ * Gelabelde extra sanctiekans. AKC meet dossiers die na twee jaar nog open staan, geen sancties
+ * en geen intern tegenover detachering. Het verschil van 6,4 procentpunt is daarom een aanname.
+ */
+export function akcSanctionExtra(): number {
+  return Math.max(0, RISK.akcStillOpenWithout - RISK.akcStillOpenWith);
+}
+
+/** Werkdagen overname en inwerken, gespreid over de dienstjaren. Aanname voor extra duur per 42-wekencase. */
+export function overnameDaysPerLongCase(overnameWeeks: number, tenureYears: number): number {
+  const tenure = Math.max(1, tenureYears);
+  return (Math.max(0, overnameWeeks) * 5) / tenure;
+}
+
+/**
+ * Werkdagen per jaar dat een interne casemanager er niet is.
+ * Ziekte volgt het CBS-percentage over de uren na verlof en feestdagen.
+ * Verlof is viermaal de wekelijkse arbeidsduur. Feestdagen en de vacature komen uit de invoer.
+ */
+export function caseManagerGapWorkdays(input: {
+  contractHours: number;
+  absencePct: number;
+  publicHolidays: number;
+  vacancyCalendarDays: number;
+  tenureYears: number;
+}): number {
+  const contractHours = Math.max(1, input.contractHours);
+  const hoursPerDay = contractHours / 5;
+  const contractHoursYear = contractHours * 52;
+  const leaveHours = TCO.statutoryLeaveWeeks * contractHours;
+  const holidayHours = Math.max(0, input.publicHolidays) * hoursPerDay;
+  const availableHours = Math.max(0, contractHoursYear - leaveHours - holidayHours);
+  const absenceHours = availableHours * (Math.max(0, input.absencePct) / 100);
+  const sickWorkdays = hoursPerDay > 0 ? absenceHours / hoursPerDay : 0;
+  const leaveWorkdays = TCO.statutoryLeaveWeeks * 5;
+  return sickWorkdays + leaveWorkdays + Math.max(0, input.publicHolidays) + defaultDriftDays(input.vacancyCalendarDays, input.tenureYears);
 }
 
 export function grossMonthlyFromCbs(contractHours: number): number {
@@ -292,10 +343,14 @@ export type CompareInput = {
   sanctionWeeks: number;
   /** Jaarloon van een zieke werknemer voor de sanctie en de extra verzuimdagen. */
   sickAnnualWage: number;
-  /** Extra werkdagen per 42-wekencase door een lege stoel of een nieuw dossier. */
-  driftDaysPerLongCase: number;
+  /** Weken dat dossiers stilliggen bij wisseling of vertrek. Aanname. */
+  overnameWeeks: number;
+  /** Extra werkdagen per 42-wekencase per week dat de casemanager weg is. Aanname. */
+  continuiteitDaysPerGapWeek: number;
   /** Extra verzuimdagen per medewerker per jaar, bij het landelijke verzuim van 5,4%. */
   loonwaardeExtraDays: number;
+  /** Extra kans per 42-wekencase, als fractie. Gelabelde aanname uit het AKC-verschil. */
+  loonwaardeSanctionExtra: number;
 };
 
 export type CostLine = {
@@ -320,7 +375,9 @@ export type CompareResult = {
   organisationRisk: number;
   longCases: number;
   sanctionCost: number;
-  driftCost: number;
+  sanctionExtraCost: number;
+  overnameCost: number;
+  continuiteitCost: number;
   loonwaardeCost: number;
   saving: number;
   lines: CostLine[];
@@ -414,8 +471,10 @@ export function defaultCompareInput(overrides: Partial<CompareInput> = {}): Comp
     sanctionChance: sanctionChancePerLongCase(),
     sanctionWeeks: RISK.sanctionWeeksMax,
     sickAnnualWage: TNO.referenceWage,
-    driftDaysPerLongCase: defaultDriftDays(60, 3),
+    overnameWeeks: RISK.overnameWeeks,
+    continuiteitDaysPerGapWeek: RISK.continuiteitDaysPerGapWeek,
     loonwaardeExtraDays: RISK.loonwaardeExtraDays,
+    loonwaardeSanctionExtra: akcSanctionExtra(),
   };
   return { ...base, ...overrides };
 }
@@ -471,7 +530,7 @@ export function compareEmployment(input: CompareInput): CompareResult {
   const transitionCap = Math.max(TCO.transitionMax, annualPay);
   const transitionAnnual = input.includeTransition ? Math.min(uncappedAccrual, transitionCap / tenure) : 0;
   const people =
-    neededHours <= 0 ? 0 : productiveHoursWeek > 0 ? Math.max(1, Math.ceil(neededHours / productiveHoursWeek)) : 1;
+    productiveHoursWeek > 0 ? Math.max(1, Math.ceil(Math.max(neededHours, 0) / productiveHoursWeek)) : 1;
   const unusedHoursWeek =
     people > 0 ? Math.max(0, people * productiveHoursWeek - neededHours) : 0;
   const longAbsenceYear = wageCost + contractHoursYear * replacementRate;
@@ -484,11 +543,24 @@ export function compareEmployment(input: CompareInput): CompareResult {
   const longCases = employees * longCasesPerEmployee() * absenceScale;
   const sickWage = Math.max(0, input.sickAnnualWage);
   const day = dayCost(sickWage);
-  const sanctionCost =
-    Math.max(0, input.sanctionChance) * (Math.max(0, input.sanctionWeeks) / 52) * sickWage * longCases;
-  const driftCost = longCases * Math.max(0, input.driftDaysPerLongCase) * day;
+  const sanctionWeeksShare = Math.max(0, input.sanctionWeeks) / 52;
+  const sanctionCost = Math.max(0, input.sanctionChance) * sanctionWeeksShare * sickWage * longCases;
+  const sanctionExtraCost = Math.max(0, input.loonwaardeSanctionExtra) * sanctionWeeksShare * sickWage * longCases;
+  const overnameDays = overnameDaysPerLongCase(input.overnameWeeks, tenure);
+  const gapWeeks =
+    caseManagerGapWorkdays({
+      contractHours,
+      absencePct: input.absencePct,
+      publicHolidays: input.publicHolidays,
+      vacancyCalendarDays: input.vacancyCalendarDays,
+      tenureYears: tenure,
+    }) / 5;
+  const continuiteitDays = gapWeeks * Math.max(0, input.continuiteitDaysPerGapWeek);
+  const overnameCost = longCases * overnameDays * day;
+  const continuiteitCost = longCases * continuiteitDays * day;
   const loonwaardeCost = employees * Math.max(0, input.loonwaardeExtraDays) * absenceScale * day;
-  const organisationRisk = sanctionCost + driftCost + loonwaardeCost;
+  const loonwaardeLine = loonwaardeCost + sanctionCost + sanctionExtraCost;
+  const organisationRisk = overnameCost + continuiteitCost + loonwaardeLine;
   const directYear = directPerPerson * people;
   const riskYear = riskPerPerson * people + organisationRisk;
   const employmentYear = directYear + riskYear;
@@ -518,23 +590,23 @@ export function compareEmployment(input: CompareInput): CompareResult {
     line("Inwerken, per jaar", onboardingAnnual, "Uren onder de volle productiviteit, gedeeld door de dienstjaren.", "risk", "person"),
     line("Opbouw transitievergoeding", transitionAnnual, "Een derde maandsalaris per dienstjaar. U betaalt dit pas als het contract op uw initiatief eindigt.", "risk", "person"),
     line(
-      "Langere dossiers tijdens een gat",
-      driftCost,
-      "Aanname: elke 42-wekencase duurt extra werkdagen, omdat de stoel leeg is of een nieuwe persoon het dossier nog niet kent. Gewaardeerd met de TNO-dagkosten van het ingevulde jaarloon. Dit staat naast de ingekochte vervanging.",
+      "Overnametijd en inwerkperiode",
+      overnameCost,
+      "Bij wisseling of vertrek van een interne casemanager liggen dossiers stil en loopt de verzuimduur op. Aanname, geen landelijk cijfer: standaard 8 weken, als werkdagen gedeeld door de dienstjaren, per dossier langer dan 42 weken, gewaardeerd met de TNO-dagkosten. Dit is alleen het effect op de verzuimduur. Het productiviteitsverlies van de nieuwe persoon staat bij Inwerken en staat standaard op 0.",
       "risk",
       "organisation",
     ),
     line(
-      "Verwachte loonsanctie",
-      sanctionCost,
-      "Kans per 42-wekencase × weken / 52 × jaarloon van een zieke werknemer × het aantal 42-wekencases. De kans is het landelijke aandeel inhoudelijke sancties, niet een toeslag voor onervarenheid.",
+      "Verlies van continuïteit",
+      continuiteitCost,
+      "Ziekte, vakantie en vertrek halen de casemanager weg. De werkdagen komen uit het CBS-verzuim over de uren na verlof en feestdagen, uit het wettelijk verlof, uit de feestdagen en uit de vacature gedeeld door de dienstjaren. Aanname: per week afwezigheid duurt elk dossier langer dan 42 weken één extra werkdag. De factor is aanpasbaar. De ingekochte vervanging van de casemanager staat apart.",
       "risk",
       "organisation",
     ),
     line(
-      "Minder sturing op loonwaarde",
-      loonwaardeCost,
-      "Aanname: extra verzuimdagen per medewerker bij 5,4% verzuim, meeschalend met uw percentage. AKC meet een kortere duur bij vroege arbeidsdeskundige inzet, niet het verschil tussen intern en detachering.",
+      "Slechte koppeling aan loonwaarde",
+      loonwaardeLine,
+      "Een interne casemanager zet benutbare mogelijkheden en loonwaarde minder vaak en minder vroeg in, omdat arbeidsdeskundige kennis ontbreekt. De loondoorbetaling duurt langer en het risico op een loonsanctie is hoger. Arbopartner heeft arbeidsdeskundigen in huis via Matchvermogen, daarom staat deze post bij het dienstverband. Drie delen, elk op nul te zetten: een aanname van extra verzuimdagen per medewerker, de landelijke kans op een inhoudelijke loonsanctie (UWV 2025), en een gelabelde extra kans uit het AKC-verschil van 6,4 procentpunt. Dat verschil meet geen sancties en geen intern tegenover detachering.",
       "risk",
       "organisation",
     ),
@@ -553,7 +625,9 @@ export function compareEmployment(input: CompareInput): CompareResult {
     organisationRisk,
     longCases,
     sanctionCost,
-    driftCost,
+    sanctionExtraCost,
+    overnameCost,
+    continuiteitCost,
     loonwaardeCost,
     saving: employmentYear - detachedYear,
     lines,
@@ -693,7 +767,7 @@ export const compareSources = [
   {
     title: "UWV, inhoudelijke loonsancties en 42e-weekmeldingen 2025",
     url: RISK.substantiveSanctionsUrl,
-    note: "Kwantitatieve informatie 2025: 1.825 inhoudelijke loonsancties en 163.464 meldingen met een ziekteduur langer dan 42 weken. De standaardkans is 1.825 / 163.464, ongeveer 1,1% per 42-wekencase. Dat is het landelijke gemiddelde. UWV publiceert geen aparte kans voor een onervaren casemanager of voor discontinuïteit. We zetten daar geen toeslag op. Administratieve sancties (1.887) tellen niet mee: dat is ontbrekende administratie, niet de sturing op het dossier.",
+    note: "Kwantitatieve informatie 2025: 1.825 inhoudelijke loonsancties en 163.464 meldingen met een ziekteduur langer dan 42 weken. De standaardkans is 1.825 / 163.464, ongeveer 1,1% per 42-wekencase. Dat is het landelijke gemiddelde. UWV publiceert geen aparte kans voor een onervaren casemanager of voor discontinuïteit. Die kans krijgt geen toeslag die als UWV-feit wordt gepresenteerd. De extra kans bij de post loonwaarde is een aparte, gelabelde aanname. Administratieve sancties (1.887) tellen niet mee.",
   },
   {
     title: "UWV 2018, aandeel verlengingen bij getoetste verslagen",
@@ -713,12 +787,22 @@ export const compareSources = [
   {
     title: "TNO-dagkosten voor extra verzuimdagen",
     url: TNO.source,
-    note: "Extra dagen door een gat in de bezetting of door latere loonwaardesturing worden gewaardeerd met de TNO-dagkosten bij het ingevulde jaarloon. Standaard is dat het referentiejaarloon van €36.500, niet een gemeten loon van zieke werknemers.",
+    note: "Overnametijd, continuïteitsgaten en extra dagen door latere loonwaardesturing worden gewaardeerd met de TNO-dagkosten bij het ingevulde jaarloon. Standaard is dat het referentiejaarloon van €36.500, niet een gemeten loon van zieke werknemers.",
   },
   {
     title: "AKC, vroege arbeidsdeskundige inzet",
     url: RISK.akcUrl,
-    note: "Cahier 32, database met sociaal-emotionele klachten: na twee jaar stond 4,8% van de cases met vroege inzet nog open, tegen 11,2% zonder. Hetzelfde cahier noemt een gemiddelde stijging van de loonwaarde van 31,7% bij eerder arbeidsdeskundig onderzoek (Hulleman en Brinkman). Geen van beide cijfers is het verschil tussen een interne casemanager en detachering. De standaard van een halve extra verzuimdag per medewerker per jaar, bij 5,4% verzuim, is daarom een aanname. Zet hem op nul om hem uit de som te halen.",
+    note: "Cahier 32, database met sociaal-emotionele klachten: na twee jaar stond 4,8% van de cases met vroege inzet nog open, tegen 11,2% zonder. Het verschil is 6,4 procentpunt. Hetzelfde cahier noemt een gemiddelde stijging van de loonwaarde van 31,7% bij eerder arbeidsdeskundig onderzoek (Hulleman en Brinkman). Geen van beide cijfers is een sanctiekans of het verschil tussen een interne casemanager en detachering. De 6,4 procentpunt is daarom een gelabelde extra kans per 42-wekencase, niet een UWV-cijfer. De halve extra verzuimdag per medewerker per jaar, bij 5,4% verzuim, is een tweede aanname. Beide zijn op nul te zetten.",
+  },
+  {
+    title: "Overnametijd en inwerkperiode, gelabelde aanname",
+    url: "https://www.ad.nl/economie/openstaande-vacature-kost-duizenden-euros-bijna-helft-van-werkgevers-wil-langere-opzegtermijn~a6c049c5/",
+    note: "Er is geen landelijk cijfer voor hoe lang dossiers stilliggen als een interne casemanager vertrekt of wordt vervangen. De 60 vacaturedagen van Intelligence Group zijn een andere post: die zitten in het continuïteitsgat en in de ingekochte vervanging. De standaard van 8 weken is een gelabelde aanname voor de periode daarna, waarin een nieuwe persoon het dossier nog niet kent. Die weken worden werkdagen, gedeeld door de dienstjaren, en per 42-wekencase gewaardeerd met de TNO-dagkosten. Het productiviteitsverlies van de nieuwe persoon blijft de aparte regel Inwerken, standaard 0 weken.",
+  },
+  {
+    title: "Verlies van continuïteit",
+    url: CBS.source,
+    note: "De dagen dat de casemanager er niet is, zijn opgebouwd uit het CBS-verzuim, het wettelijk verlof van vier weken, de feestdagen en de vacature gedeeld door de dienstjaren. De aanname is één extra werkdag per 42-wekencase voor elke week afwezigheid. Die factor staat standaard op 1 en is aanpasbaar, ook naar nul.",
   },
   {
     title: "Krapte op de arbeidsmarkt",
