@@ -57,7 +57,7 @@ const iso = (date: Date) => date.toISOString().slice(0, 10);
     <h1 class="mt-2 font-serif text-4xl text-green-950 md:text-5xl">{post.data.title}</h1>
     {stad ? <BrabantPhoto id={stad} eager class="mt-6" /> : <Photo id={fotoId!} eager class="mt-6" />}
     <p class="mt-3 flex items-center gap-3 text-sm text-ink-soft">
-      <img class="h-10 w-10 rounded-full object-cover" src="/mensen/niels-alderding-avatar.webp" width="160" height="160" alt="" />
+      <img class="niels-face h-10 w-10 rounded-full" src="/mensen/niels-alderding-avatar.webp" width="240" height="240" alt="" />
       <span>Niels Alderding, oprichter van Matchvermogen, namens Arbopartner Brabant. Gepubliceerd {iso(post.data.pubDate)}. Bijgewerkt {iso(post.data.updated)}. Dit is algemene informatie voor werkgevers, geen advies over één dossier.</span>
     </p>
     <div class="prose-ap mt-6">

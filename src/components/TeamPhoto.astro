@@ -8,22 +8,27 @@ interface Props {
   class?: string;
 }
 const { member, sizes, eager = false, class: className = "" } = Astro.props;
+const focused = member.slug === "niels-alderding";
 const base = `/mensen/${member.slug}`;
-const webp = member.widths.map((width) => `${base}-${width}.webp ${width}w`).join(", ");
-const avif = member.widths.map((width) => `${base}-${width}.avif ${width}w`).join(", ");
+const webp = focused
+  ? "/mensen/niels-alderding-face.webp 480w"
+  : member.widths.map((width) => `${base}-${width}.webp ${width}w`).join(", ");
+const avif = focused
+  ? "/mensen/niels-alderding-face.avif 480w"
+  : member.widths.map((width) => `${base}-${width}.avif ${width}w`).join(", ");
 const largest = member.widths[member.widths.length - 1];
 ---
 
 <picture>
   <source type="image/avif" srcset={avif} sizes={sizes} />
   <img
-    src={`${base}-${largest}.webp`}
+    src={focused ? "/mensen/niels-alderding-face.webp" : `${base}-${largest}.webp`}
     srcset={webp}
     sizes={sizes}
-    width={member.width}
-    height={member.height}
+    width={focused ? 480 : member.width}
+    height={focused ? 480 : member.height}
     alt={member.alt}
-    class={className}
+    class:list={[className, focused && "niels-face"]}
     loading={eager ? "eager" : "lazy"}
     decoding="async"
   />

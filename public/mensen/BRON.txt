@@ -1,6 +1,8 @@
 Portretfoto's in deze map zijn overgenomen van de teampagina https://matchvermogen.nl/over-matchvermogen/, geraadpleegd op 15 oktober 2026.
 Het zijn de foto's die Matchvermogen bij de betreffende naam publiceert. Er is geen gezicht bij verzonnen of gegenereerd.
 WebP en AVIF zijn exports van die bronbestanden. De bestandsnaam op matchvermogen.nl wijkt bij Ronald Berens af (Ronald-berends.jpg); de getoonde naam op de pagina is Ronald Berens.
+niels-alderding-avatar.webp is een vierkante uitsnede van de koffiefoto niels-koffie-400.webp (bron matchvermogen.nl, niels-footer-cta-400.jpg), met het gezicht in het midden. Niet opgeschaald.
+niels-alderding-face.webp en .avif zijn een vierkante uitsnede van niels-alderding-960.webp, dezelfde teamfoto, met het gezicht in het midden. Niet opgeschaald.
 
 sandra-ruiter: https://matchvermogen.nl/wp-content/uploads/2026/06/Sandra-ruiter.jpg
 niels-alderding: https://matchvermogen.nl/wp-content/uploads/2024/03/IMGL7645-scaled.jpg

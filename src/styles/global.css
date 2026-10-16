@@ -325,9 +325,20 @@ summary.rounded-full.border-green-800:focus-visible,
   box-shadow: 0 8px 20px rgb(18 38 28 / 18%);
 }
 .ap-icon img,
-.ap-avatar {
+.ap-avatar,
+.niels-face,
+.niels-koffie {
   object-fit: cover;
   object-position: center;
+}
+.niels-koffie {
+  object-position: 55% 40%;
+}
+.ap-exit-photo {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 999px;
+  flex: none;
 }
 .ap-icon img {
   width: 100%;

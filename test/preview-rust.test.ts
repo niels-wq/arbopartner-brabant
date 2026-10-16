@@ -40,7 +40,9 @@ test("koffiefoto blijft klein en contact toont één portret", () => {
   assert.match(photo, /niels-koffie-400\.webp/);
   assert.equal(photo.includes("1200"), false);
   assert.match(engage, /<summary>Contact<\/summary>/);
-  assert.equal((engage.match(/<img /g) ?? []).length, 1);
+  assert.equal((engage.match(/<img /g) ?? []).length, 2);
+  assert.match(engage, /ap-exit-photo/);
+  assert.match(engage, /niels-face/);
   assert.ok(existsSync("public/mensen/niels-koffie-240.webp"));
   assert.ok(existsSync("public/mensen/niels-koffie-400.webp"));
   assert.ok(existsSync("public/mensen/niels-koffie-400.avif"));
