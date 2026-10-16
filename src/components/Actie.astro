@@ -1,0 +1,19 @@
+---
+interface Props {
+  href?: string;
+  label?: string;
+  cta?: string;
+  risk?: string;
+}
+const {
+  href = "/adviesgesprek",
+  label = "Plan een adviesgesprek",
+  cta = "kop-advies",
+  risk = "Het gesprek van 30 minuten verplicht u tot niets.",
+} = Astro.props;
+---
+
+<p class="mt-6">
+  <a class="rounded-full bg-ochre-500 px-5 py-3 font-semibold" data-cta={cta} href={href}>{label}</a>
+</p>
+<p class="mt-2 text-sm text-ink-soft">{risk}</p>

@@ -27,14 +27,15 @@ const faq = [
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Verzuim-checklist</h1>
-    <Figure id="pagina-checklist" eager class="mt-6" />
     <p class="mt-4 text-lg">Een verzuim-checklist is een geheugensteun voor werkgevers: wie welke stap zet tussen de ziekmelding en week 104. Geen juridisch advies en geen oordeel over één dossier. Dezelfde stappen staan uitgewerkt op de <a class="underline" href="/tools/tijdlijn-ziekteverzuim">tijdlijn</a>.</p>
-    <p class="mt-4">
-      <button class="rounded-full bg-green-800 px-5 py-3 font-semibold" type="button" data-checklist-download>Download de pdf, zonder formulier</button>
+    <p class="mt-6">
+      <button class="rounded-full bg-ochre-500 px-5 py-3 font-semibold" type="button" data-checklist-download>Download de pdf</button>
     </p>
-    <ol class="mt-8 space-y-4">
+    <p class="mt-2 text-sm text-ink-soft">Zonder formulier. U zit nergens aan vast.</p>
+    <Figure id="pagina-checklist" class="mt-6" />
+    <ol class="ap-timeline mt-8">
       {checklistGroups.map((item) => (
-        <li class="rounded-3xl border border-line bg-white/80 p-5">
+        <li class="ap-timeline-item rounded-3xl border border-line bg-white/80 p-5">
           <h2 class="font-serif text-2xl text-green-950">{item.when}</h2>
           <p class="mt-2">{item.text}</p>
         </li>

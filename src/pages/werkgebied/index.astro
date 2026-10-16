@@ -5,6 +5,7 @@ import ClusterNav from "../../components/ClusterNav.astro";
 import Photo from "../../components/Photo.astro";
 import BrabantMap from "../../components/BrabantMap.astro";
 import BrabantPhoto from "../../components/BrabantPhoto.astro";
+import CtaBand from "../../components/CtaBand.astro";
 import InlineLead from "../../components/InlineLead.astro";
 import { fotoVoorPlaats } from "../../data/brabant-fotos";
 import { gemeenten } from "../../data/gemeenten";
@@ -55,4 +56,5 @@ const crumbs = [
     <InlineLead source="werkgebied-overzicht" title="Waar zit uw bedrijf?" text="Twee stappen. We bellen terug en kijken of de rit binnen de ring van ongeveer 45 minuten valt, of dat de rit in de offerte hoort." />
   </div>
   <ClusterNav />
+  <CtaBand title="Kijken of de rit in het tarief zit" text="We zeggen in het gesprek of uw adres binnen ongeveer 45 minuten van Uden valt." />
 </Base>

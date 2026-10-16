@@ -2,6 +2,7 @@
 import Figure from "../components/Figure.astro";
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CtaBand from "../components/CtaBand.astro";
 import FaqList from "../components/FaqList.astro";
 import ReviewCard from "../components/ReviewCard.astro";
 import TeamPhoto from "../components/TeamPhoto.astro";
@@ -35,7 +36,7 @@ const nielsReviews = reviewsAboutNiels().slice(0, 2);
 >
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto max-w-6xl px-4 pt-6">
-    <h1 class="font-serif text-5xl text-green-950">Het team</h1>
+    <h1 class="font-serif text-5xl text-green-950">De mensen van Matchvermogen</h1>
     <Figure id="pagina-team" eager class="mt-6 max-w-3xl" />
     <p class="mt-4 max-w-3xl text-lg">Dit zijn de mensen die Matchvermogen op de <a class="underline" href={teamSource}>teampagina</a> publiceert, in dezelfde volgorde, met dezelfde functie. De foto’s komen van die pagina. Een gezicht dat daar niet staat, zetten we hier niet bij.</p>
     <p class="mt-4 max-w-3xl">{zzpFaq.a}</p>
@@ -63,4 +64,5 @@ const nielsReviews = reviewsAboutNiels().slice(0, 2);
     <p class="mt-3"><a class="font-semibold underline" href="/reviews">Alle citaten</a></p>
     <FaqList items={faq} />
   </article>
+  <CtaBand proof={false} title="Dit team op uw dossiers" text="In het gesprek hoort u wie er komt, en of dat iemand uit de vaste kern of een zzp-casemanager is." />
 </Base>

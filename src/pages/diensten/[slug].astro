@@ -6,6 +6,7 @@ import CtaBand from "../../components/CtaBand.astro";
 import HireBenefits from "../../components/HireBenefits.astro";
 import Photo from "../../components/Photo.astro";
 import Mark from "../../components/Mark.astro";
+import Actie from "../../components/Actie.astro";
 import InlineLead from "../../components/InlineLead.astro";
 import { fotoVoorDienst } from "../../data/fotos";
 import { serviceIcons, services } from "../../data/services";
@@ -32,7 +33,8 @@ const crumbs = [
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">{service.title}</h1>
     <p class="mt-4 text-lg text-ink-soft">{service.lead}</p>
-    <Photo id={fotoVoorDienst(service.slug)} eager class="mt-6" />
+    <Actie cta={`dienst-${service.slug}`} />
+    <Photo id={fotoVoorDienst(service.slug)} class="mt-6" />
     {service.sections.map((section) => (
       <section class="mt-8">
         <h2 class="font-serif text-3xl text-green-950"><Mark name={serviceIcons[service.slug]} />{section.heading}</h2>

@@ -1,6 +1,7 @@
 ---
 import Figure from "../../components/Figure.astro";
 import Base from "../../layouts/Base.astro";
+import CtaBand from "../../components/CtaBand.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { crumbsLd } from "../../lib/schema";
 
@@ -29,6 +30,7 @@ const crumbs = [
     <div data-out class="mt-6" aria-live="polite"></div>
     <p class="mt-4 text-sm">Bron: <a class="underline" href="https://opendata.cbs.nl/statline/#/CBS/nl/dataset/80072ned/table">CBS StatLine 80072ned</a>. Voor de kosten per dag: <a class="underline" href="/verzuimkosten-berekenen">de verzuimkostencalculator</a>.</p>
   </article>
+  <CtaBand title="Uw percentage naast de dossiers" text="Een verschil met CBS zegt niets over de oorzaak. Het gesprek wel, als de cijfers er zijn." />
 </Base>
 
 <script>

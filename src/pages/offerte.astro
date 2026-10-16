@@ -77,7 +77,8 @@ const pakketKeuze = Astro.url.searchParams.get("pakket") ?? "";
         <div class="absolute -left-[9999px]" aria-hidden="true">
           <label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label>
         </div>
-        <button class="rounded-full bg-green-800 px-5 py-3 font-semibold" type="submit">Verstuur de aanvraag</button>
+        <button class="rounded-full bg-ochre-500 px-5 py-3 font-semibold" type="submit">Verstuur de aanvraag</button>
+        <p class="text-sm">De aanvraag is nog geen contract. U zit nergens aan vast.</p>
         <p data-status class="text-sm" role="status"></p>
         <p class="text-sm text-ink-soft">Lukt het formulier niet, mail dan {site.parent.email}. {site.placeholders.eigenEmail}</p>
       </fieldset>

@@ -2,6 +2,7 @@
 import Figure from "../components/Figure.astro";
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CtaBand from "../components/CtaBand.astro";
 import SavingsCalc from "../components/calculators/SavingsCalc.astro";
 import { crumbsLd, faqLd } from "../lib/schema";
 
@@ -31,4 +32,5 @@ const faq = [
   <div class="mx-auto max-w-6xl px-4 py-8">
     <SavingsCalc />
   </div>
+  <CtaBand title="Dit scenario naast uw dossiers" text="De som is geen belofte. Het gesprek zegt wat er in uw cijfers te zien is." />
 </Base>

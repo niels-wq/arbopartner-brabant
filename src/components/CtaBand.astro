@@ -1,21 +1,42 @@
 ---
 import Mark from "./Mark.astro";
-interface Props { title?: string; text?: string }
+import { reviews } from "../data/reviews";
+
+interface Props {
+  title?: string;
+  text?: string;
+  href?: string;
+  label?: string;
+  risk?: string;
+  proof?: boolean;
+}
 const {
   title = "Bespreek uw dossiers met een mens",
   text = "Een adviesgesprek duurt 30 minuten. U krijgt geen verkooppraatje, wel een oordeel of detachering past.",
+  href = "/adviesgesprek",
+  label = "Plan een adviesgesprek",
+  risk = "Het gesprek van 30 minuten verplicht u tot niets.",
+  proof = true,
 } = Astro.props;
+const quote = reviews.find((review) => review.author.startsWith("Melisia Telepary"));
 ---
 
 <section class="mx-auto mt-14 max-w-6xl px-4">
-  <div class="flex flex-col gap-4 rounded-[2rem] bg-green-900 px-6 py-8 text-sand-50 md:flex-row md:items-center md:justify-between md:px-10">
-    <div>
-      <h2 class="font-serif text-3xl"><Mark name="chairs" class="text-ochre-200" />{title}</h2>
-      <p class="mt-2 max-w-xl text-sand-100">{text}</p>
-    </div>
-    <div class="flex flex-col gap-3 sm:flex-row">
-      <a class="rounded-full bg-ochre-500 px-5 py-3 text-center font-semibold text-ink" data-cta="band-advies" href="/adviesgesprek">Plan een adviesgesprek</a>
-      <a class="rounded-full border border-sand-200 px-5 py-3 text-center font-semibold" data-cta="band-offerte" href="/offerte">Vraag een offerte</a>
+  <div class="rounded-[2rem] bg-green-900 px-6 py-8 text-sand-50 md:px-10">
+    <h2 class="font-serif text-3xl"><Mark name="chairs" class="text-ochre-200" />{title}</h2>
+    <p class="mt-2 max-w-xl text-sand-100">{text}</p>
+    {proof && quote && (
+      <blockquote class="mt-4 max-w-xl border-l-2 border-ochre-500 pl-4">
+        <p>„{quote.quote}”</p>
+        <footer class="mt-2 text-sm">
+          {quote.name}{quote.organisation ? `, ${quote.organisation}` : ""}. Review van Matchvermogen, {quote.date}.
+          <a href="/reviews">Bron en datum</a>
+        </footer>
+      </blockquote>
+    )}
+    <div class="mt-6">
+      <a class="btn" data-cta={href === "/offerte" ? "band-offerte" : "band-advies"} href={href}>{label}</a>
+      <p class="mt-3 max-w-xl text-sm">{risk}</p>
     </div>
   </div>
 </section>

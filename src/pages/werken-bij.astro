@@ -121,7 +121,8 @@ const crumbs = [
           <input name="toestemming" type="checkbox" value="ja" required />
           <span>{site.parent.legalName} mag deze aanmelding en het CV gebruiken om te beoordelen of u past. Zie de <a class="underline" href="/privacy">privacyverklaring</a>.</span>
         </label>
-        <button class="rounded-full bg-green-800 px-5 py-3 font-semibold" type="submit">Verstuur de aanmelding</button>
+        <button class="rounded-full bg-ochre-500 px-5 py-3 font-semibold" type="submit">Verstuur de aanmelding</button>
+        <p class="text-sm">De aanmelding verplicht u tot niets.</p>
         <p data-status class="text-sm" role="status"></p>
         <p class="text-sm">Lukt het formulier niet, mail het CV dan naar <a class="font-semibold underline" href={`mailto:${site.parent.email}`}>{site.parent.email}</a>.</p>
       </fieldset>

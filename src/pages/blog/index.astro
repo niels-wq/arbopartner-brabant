@@ -5,6 +5,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ClusterNav from "../../components/ClusterNav.astro";
 import Photo from "../../components/Photo.astro";
 import BrabantPhoto from "../../components/BrabantPhoto.astro";
+import CtaBand from "../../components/CtaBand.astro";
 import InlineLead from "../../components/InlineLead.astro";
 import { blogStad, fotoVoorBlog } from "../../data/fotos";
 import { crumbsLd } from "../../lib/schema";
@@ -19,7 +20,7 @@ const crumbs = [
 <Base title="Kennis over verzuim" description="Artikelen voor werkgevers over ziekmelding, verzuimkosten, casemanagement en re-integratie in Brabant." jsonLd={[crumbsLd(crumbs)]}>
   <Breadcrumbs crumbs={crumbs} />
   <header class="mx-auto max-w-6xl px-4 pt-6">
-    <h1 class="font-serif text-5xl text-green-950">Kennis</h1>
+    <h1 class="font-serif text-5xl text-green-950">Uitleg voor werkgevers</h1>
     <p class="mt-4 max-w-2xl">Kennis op deze site is algemene uitleg voor werkgevers over verzuim, re-integratie en de kosten daarvan. Geen juridisch advies en geen oordeel over één dossier. De wet die de re-integratiestappen voorschrijft, noemen we in het artikel zelf, niet als merk.</p>
     <Photo id="unsplash-eindhoven" eager class="mt-6 max-w-3xl" />
   </header>
@@ -45,4 +46,5 @@ const crumbs = [
     <InlineLead source="blog-overzicht" title="Vraag over een artikel" />
   </div>
   <ClusterNav />
+  <CtaBand title="Van een artikel naar uw dossiers" text="De stukken zijn algemene uitleg. In een gesprek kijken we of ze op uw situatie passen." />
 </Base>

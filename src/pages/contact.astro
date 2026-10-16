@@ -19,9 +19,11 @@ const crumbs = [
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto grid max-w-6xl gap-8 px-4 pt-6 lg:grid-cols-2">
     <div>
-      <h1 class="font-serif text-5xl text-green-950">Contact</h1>
-      <Figure id="pagina-contact" eager class="mt-6" />
-      <p class="mt-4">Contact met Arbopartner Brabant loopt via {site.parent.legalName} in {site.parent.city}: telefoon {site.parent.phoneDisplay}, WhatsApp {site.parent.whatsappDisplay} en {site.parent.email}. {site.labelStatement}.</p>
+      <h1 class="font-serif text-5xl text-green-950">Bel of stuur een bericht</h1>
+      <p class="mt-4 text-lg">Contact met Arbopartner Brabant loopt via {site.parent.legalName} in {site.parent.city}. Bellen gaat via {site.parent.phoneDisplay}. WhatsApp is {site.parent.whatsappDisplay}. {site.labelStatement}.</p>
+      <p class="mt-6"><a class="rounded-full bg-ochre-500 px-5 py-3 font-semibold" data-cta="contact-bel" data-channel="phone" href={phoneHref}>Bel {site.parent.phoneDisplay}</a></p>
+      <p class="mt-2 text-sm text-ink-soft">U zit nergens aan vast door te bellen.</p>
+      <Figure id="pagina-contact" class="mt-6" />
       <address class="mt-4 not-italic">
         {site.parent.legalName}<br />
         {site.parent.street}<br />
@@ -43,11 +45,11 @@ const crumbs = [
       <label class="block">Bedrijf<input class="field" name="organisatie" required autocomplete="organization" /></label>
       <label class="block">Telefoon<input class="field" name="telefoon" type="tel" required autocomplete="tel" /></label>
       <MedewerkersVeld />
-      <label class="block">E-mail, als u wilt<input class="field" name="email" type="email" autocomplete="email" /></label>
       <label class="block">Bericht<textarea class="field min-h-20" name="vraag" maxlength="1000"></textarea></label>
       <label class="flex gap-2 text-sm"><input type="checkbox" name="toestemming" value="ja" required /> <span>Akkoord met contact over dit bericht. <a class="underline" href="/privacy">Privacy</a></span></label>
       <div class="absolute -left-[9999px]" aria-hidden="true"><label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label></div>
-      <button class="rounded-full bg-green-800 px-5 py-3 font-semibold text-sand-50" type="submit">Verstuur</button>
+      <button class="rounded-full bg-ochre-500 px-5 py-3 font-semibold" type="submit">Verstuur het bericht</button>
+      <p class="text-sm">U zit nergens aan vast. We nemen contact op over dit bericht.</p>
       <p data-status class="text-sm" role="status"></p>
     </form>
   </article>

@@ -31,9 +31,9 @@ const steps = [
     <Figure id="pagina-tijdlijn" eager class="mt-6" />
     <TimelineFigure />
     <p class="mt-4 text-lg">De tijdlijn bij ziekte is een geheugensteun van de ziekmelding tot week 104: wie welke stap zet, en wanneer loon, UWV en re-integratie elkaar raken. Geen juridisch advies. Cao’s wijken af, vooral bij de hoogte van het loon in het eerste en tweede jaar. Het wettelijk minimum is 70% gedurende 104 weken.</p>
-    <ol class="mt-8 space-y-4">
+    <ol class="ap-timeline mt-8">
       {steps.map((step) => (
-        <li class="rounded-3xl border border-line bg-white/80 p-5">
+        <li class="ap-timeline-item rounded-3xl border border-line bg-white/80 p-5">
           <p class="text-sm font-semibold uppercase tracking-wide text-ochre-800">{step.when}</p>
           <h2 class="font-serif text-2xl text-green-950">{step.who}</h2>
           <p class="mt-2">{step.text}</p>

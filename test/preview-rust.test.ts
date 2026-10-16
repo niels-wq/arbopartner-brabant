@@ -5,16 +5,22 @@ import { arbodienstUurtarieven } from "../src/data/arbodienst-tarieven.ts";
 import { compareEmployment, costPerNeededHour, defaultCompareInput } from "../src/lib/calc.ts";
 import { levels } from "../src/lib/rates.ts";
 
-test("tarievenpagina toont alleen uurtarieven en bronnen", () => {
+test("tarievenpagina toont alleen de tabel, de vergelijking, drie vragen en één afsluitende CTA", () => {
   const page = readFileSync("src/pages/tarieven.astro", "utf8");
   assert.equal(page.includes("PackageGrid"), false);
   assert.equal(page.includes("CostTeaser"), false);
+  assert.equal(page.includes("CallbackForm"), false);
+  assert.equal(page.includes("ClusterNav"), false);
+  assert.equal(page.includes("Figure"), false);
+  assert.equal(page.includes("arbodienst"), false);
   assert.equal(page.includes("per maand"), false);
   assert.equal(page.includes("per jaar"), false);
   assert.match(page, /24\+ uur/);
   assert.match(page, /costPerNeededHour/);
-  assert.match(page, /arbodienstUurtarieven/);
   assert.match(page, /\/casemanager-inhuren-of-in-dienst#vergelijking/);
+  assert.equal((page.match(/<h2 /g) ?? []).length, 2);
+  assert.equal((page.match(/q: /g) ?? []).length, 3);
+  assert.match(page, /proof=\{false\}/);
   assert.equal(/poortwachter/i.test(page), false);
   assert.equal(arbodienstUurtarieven.length, 4);
   for (const row of arbodienstUurtarieven) {
