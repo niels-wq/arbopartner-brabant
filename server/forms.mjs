@@ -45,6 +45,7 @@ const fields = {
   scan: ["naam", "telefoon", "medewerkers"],
   terugbel: ["naam", "telefoon", "medewerkers"],
   checklist: ["naam", "email", "medewerkers"],
+  magnet: ["email", "checklist"],
 };
 
 export function validate(kind, body) {
@@ -53,7 +54,7 @@ export function validate(kind, body) {
   if (body?.toestemming !== "ja") errors.push("Vink de toestemming aan om het bericht te versturen.");
   const required = fields[kind] || [];
   for (const key of required) {
-    const value = key === "rapport" || key === "vraag" || key === "wat" ? textBlock(body?.[key], 4000) : oneLine(body?.[key], 500);
+    const value = key === "rapport" || key === "vraag" || key === "wat" || key === "checklist" ? textBlock(body?.[key], 4000) : oneLine(body?.[key], 500);
     if (!value) errors.push(`Veld ontbreekt: ${key}.`);
   }
   if ((kind === "rapport" || body?.email) && !validEmail(oneLine(body?.email))) {
@@ -113,11 +114,11 @@ export async function processSubmission(kind, body, ip) {
       subject: `[Arbopartner Brabant] ${kind} — ${who || "nieuw bericht"}`,
       text: messageText(kind, body),
     });
-    if ((kind === "rapport" || kind === "checklist") && validEmail(oneLine(body.email))) {
-      const subject = kind === "checklist" ? "Uw verzuim-checklist" : "Uw berekening";
-      const intro = kind === "checklist"
-        ? "Hier is de verzuim-checklist die u aanvroeg. Het is een geheugensteun, geen advies over één dossier."
-        : "Hier is de berekening die u op de site maakte. Het is een scenario, geen offerte.";
+    if ((kind === "rapport" || kind === "checklist" || kind === "magnet") && validEmail(oneLine(body.email))) {
+      const subject = kind === "rapport" ? "Uw berekening" : "Uw verzuim-checklist";
+      const intro = kind === "rapport"
+        ? "Hier is de berekening die u op de site maakte. Het is een scenario, geen offerte."
+        : "Hier is de verzuim-checklist die u aanvroeg. Het is een geheugensteun, geen advies over één dossier.";
       const content = textBlock(body.checklist || body.rapport, 4000);
       try {
         await transport.sendMail({

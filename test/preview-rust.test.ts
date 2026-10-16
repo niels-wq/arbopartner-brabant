@@ -43,6 +43,10 @@ test("koffiefoto blijft klein en contact toont één portret", () => {
   assert.equal((engage.match(/<img /g) ?? []).length, 2);
   assert.match(engage, /ap-exit-photo/);
   assert.match(engage, /niels-face/);
+  assert.match(engage, /data-magnet/);
+  assert.match(engage, /verzuim-checklist/);
+  assert.equal(engage.includes("Gratis verzuimscan"), false);
+  assert.equal(/poortwachter/i.test(engage), false);
   assert.ok(existsSync("public/mensen/niels-koffie-240.webp"));
   assert.ok(existsSync("public/mensen/niels-koffie-400.webp"));
   assert.ok(existsSync("public/mensen/niels-koffie-400.avif"));

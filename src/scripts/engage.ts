@@ -1,3 +1,5 @@
+import { checklistText } from "../lib/checklist";
+import { downloadPdf } from "./report";
 import { track } from "./track";
 
 const root = document.querySelector<HTMLElement>("#ap-engage");
@@ -10,7 +12,7 @@ if (root && !root.dataset.ready) {
   const chips = chat?.querySelector<HTMLElement>("[data-chips]");
   const lead = chat?.querySelector<HTMLFormElement>("[data-lead]");
   const exit = document.querySelector<HTMLElement>("#ap-exit");
-  const seenKey = "ap_exit_v1";
+  const seenKey = "ap_exit_v2";
   function seen() {
     try {
       return sessionStorage.getItem(seenKey) === "1";
@@ -200,24 +202,18 @@ if (root && !root.dataset.ready) {
     }
     if (event.target === exit) closeExit();
   });
-  exit?.querySelectorAll<HTMLButtonElement>("[data-choice]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const form = exit.querySelector<HTMLFormElement>("[data-scan]");
-      const kind = exit.querySelector<HTMLInputElement>("[name=soort]");
-      if (kind) kind.value = button.dataset.choice || "terugbel";
-      form?.removeAttribute("hidden");
-      form?.querySelector<HTMLInputElement>("input[name=naam]")?.focus();
-      track("exit_intent_choice", { choice: button.dataset.choice || "" });
-    });
-  });
-  exit?.querySelector<HTMLFormElement>("[data-scan]")?.addEventListener("submit", async (event) => {
+  const magnet = exit?.querySelector<HTMLFormElement>("[data-magnet]");
+  const checklistField = magnet?.querySelector<HTMLInputElement>("[data-checklist-body]");
+  if (checklistField) checklistField.value = checklistText;
+  const fileName = "arbopartner-verzuim-checklist.pdf";
+  magnet?.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const form = event.currentTarget as HTMLFormElement;
-    const status = form.querySelector<HTMLElement>("[data-status]");
-    const payload = Object.fromEntries(new FormData(form).entries());
+    if (!magnet) return;
+    const status = magnet.querySelector<HTMLElement>("[data-status]");
+    const payload = Object.fromEntries(new FormData(magnet).entries());
     if (status) status.textContent = "Versturen…";
     try {
-      const response = await fetch("/api/scan", {
+      const response = await fetch("/api/magnet", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(payload),
@@ -225,13 +221,23 @@ if (root && !root.dataset.ready) {
       const result = await response.json();
       if (!response.ok || result.ok === false) {
         if (status) status.textContent = (result.errors || ["Versturen lukte niet."]).join(" ");
+        track("form_error", { form_id: "magnet" });
         return;
       }
-      if (status) status.textContent = "Verstuurd. We bellen u op een werkdag.";
-      form.reset();
-      track("generate_lead", { form_id: "scan", lead_source: "exit" });
+      downloadPdf("Verzuim-checklist voor werkgevers", checklistText, fileName);
+      track("file_download", { form_id: "magnet", file_name: fileName, lead_source: "exit" });
+      track("generate_lead", { form_id: "magnet", lead_source: "exit" });
+      const email = magnet.querySelector<HTMLInputElement>("input[name=email]");
+      const consent = magnet.querySelector<HTMLInputElement>("input[name=toestemming]");
+      if (email) email.value = "";
+      if (consent) consent.checked = false;
+      if (status) {
+        status.textContent = result.delivered
+          ? "De checklist downloadt op dit apparaat. Dezelfde tekst gaat ook naar uw e-mail."
+          : "De checklist downloadt op dit apparaat. De mailserver staat nog niet aan, dus er gaat geen mail uit.";
+      }
     } catch {
-      if (status) status.textContent = "Versturen lukte niet. Bel ons gerust.";
+      if (status) status.textContent = "Versturen lukte niet. De checklist staat ook op de pagina Verzuim-checklist.";
     }
   });
 

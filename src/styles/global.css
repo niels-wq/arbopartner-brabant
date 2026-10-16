@@ -571,10 +571,15 @@ summary.rounded-full.border-green-800:focus-visible,
 }
 .ap-exit-card {
   width: min(28rem, 100%);
+  max-height: calc(100dvh - 2rem);
+  overflow: auto;
   background: #f3f2ec;
   color: #14261c;
   border-radius: 1.25rem;
   padding: 1.1rem;
+}
+.ap-exit-card .ap-lead {
+  padding: 0;
 }
 .ap-exit-card p,
 .ap-exit-card label {
