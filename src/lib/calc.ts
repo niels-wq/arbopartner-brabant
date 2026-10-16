@@ -598,6 +598,12 @@ export function costPerNeededHour(result: CompareResult): number {
   return hours > 0 ? result.employmentYear / hours : 0;
 }
 
+/** Volledige kost van het dienstverband, gedeeld door de productieve uren van de mensen in dienst. */
+export function costPerProductiveHour(result: CompareResult): number {
+  const hours = result.employed.productiveHours * result.people;
+  return hours > 0 ? result.employmentYear / hours : 0;
+}
+
 export const compareSources = [
   {
     title: "CBS, bruto uurloon naar beroep",

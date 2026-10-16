@@ -1,5 +1,5 @@
 import { euro, pct } from "./format";
-import { hourlySavingPct, levels, monthlyCost, verzuimanalysePrijs, type Block, type LevelId } from "./rates";
+import { hourlySavingPct, levels, verzuimanalysePrijs, type Block, type LevelId } from "./rates";
 
 export type PackageSlug = "basis" | "premium" | "pro";
 
@@ -78,27 +78,23 @@ export const riskReversal =
 export const centerStage =
   "Premium staat in het midden omdat we dat blok als eerste voorleggen als de omvang nog niet vaststaat. We noemen het niet het meest gekozen pakket: dit label heeft nog geen eigen klanten, dus dat cijfer bestaat niet.";
 
-export function monthLine(hours: number, hourly: number): string {
-  return `${hours} × ${euro(hourly)} × 52 / 12 = ${euro(monthlyCost(hours, hourly))}`;
-}
-
 export function savingLine(level: LevelId, block: Block): string | null {
   if (block === 10) return null;
   const base = levels[level].rates[10];
   const rate = levels[level].rates[block];
-  return `Bespaar ${pct(hourlySavingPct(level, block))} t.o.v. 10 uur. Dat is het uurtarief: (${euro(base)} − ${euro(rate)}) / ${euro(base)}. Het maandbedrag ligt hoger, omdat u meer uren afneemt.`;
+  return `Het uurtarief ligt ${pct(hourlySavingPct(level, block))} lager dan het 10-uurtarief van dit niveau: (${euro(base)} − ${euro(rate)}) / ${euro(base)}.`;
 }
 
 export function priceFaq() {
   const medior = levels.medior;
   return [
     {
-      q: "Hoe is het maandbedrag berekend?",
-      a: `Uren per week × uurtarief × 52 weken / 12. We ronden niet af naar een mooi bedrag. Bij medior en 10 uur is dat ${monthLine(10, medior.rates[10])} per maand, exclusief btw.`,
+      q: "Hoe is het uurtarief opgebouwd?",
+      a: `De tabel noemt een richtprijs per uur, exclusief btw. Bij medior is dat ${euro(medior.rates[10])} bij 10 uur, ${euro(medior.rates[20])} bij 20 uur en ${euro(medior.rates[24])} vanaf 24 uur. We rekenen geen maand- of jaarbedrag.`,
     },
     {
       q: "Wat betekent de badge over 10 uur?",
-      a: `Alleen het uurtarief ligt lager dan het 10-uurtarief van hetzelfde niveau. Bij medior en 20 uur: (${euro(medior.rates[10])} − ${euro(medior.rates[20])}) / ${euro(medior.rates[10])} = ${pct(hourlySavingPct("medior", 20))}. Bij 24 uur of meer: (${euro(medior.rates[10])} − ${euro(medior.rates[24])}) / ${euro(medior.rates[10])} = ${pct(hourlySavingPct("medior", 24))}. Het maandbedrag ligt hoger, omdat u meer uren afneemt. Het is geen korting op de factuur van een kleiner blok.`,
+      a: `Alleen het uurtarief ligt lager dan het 10-uurtarief van hetzelfde niveau. Bij medior en 20 uur: (${euro(medior.rates[10])} − ${euro(medior.rates[20])}) / ${euro(medior.rates[10])} = ${pct(hourlySavingPct("medior", 20))}. Bij 24 uur of meer: (${euro(medior.rates[10])} − ${euro(medior.rates[24])}) / ${euro(medior.rates[10])} = ${pct(hourlySavingPct("medior", 24))}. Het is geen korting op de factuur van een kleiner blok.`,
     },
     {
       q: "Waarom staat Premium in het midden?",

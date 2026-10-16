@@ -70,7 +70,7 @@
   </form>
   <div data-out class="rounded-[2rem] bg-green-950 p-6 text-sand-50" aria-live="polite">
     <p class="text-sm uppercase tracking-[0.16em] text-ochre-200">Richtadvies</p>
-    <p class="mt-3 font-serif text-3xl">Beantwoord de vragen. U ziet daarna niveau, pakket en een richtprijs per maand.</p>
+    <p class="mt-3 font-serif text-3xl">Beantwoord de vragen. U ziet daarna niveau, pakket en een richtprijs per uur.</p>
   </div>
 </div>
 
@@ -147,10 +147,9 @@
         <div><dt class="text-sand-200">Pakket</dt><dd class="text-lg font-semibold">${pack.name}</dd></div>
         <div><dt class="text-sand-200">Inzet</dt><dd class="text-lg font-semibold">${result.billedHours} uur per week</dd></div>
         <div><dt class="text-sand-200">Richtprijs per uur</dt><dd class="text-lg font-semibold">${euro(result.hourly)}</dd></div>
-        <div><dt class="text-sand-200">Per maand</dt><dd class="text-lg font-semibold">${euro(result.monthly)}</dd></div>
       </dl>
-      <p class="mt-3 text-sm text-sand-200">${result.billedHours} × ${euro(result.hourly)} × 52 / 12 = ${euro(result.monthly)} per maand. Exclusief btw. Reistijd binnen 45 minuten zit erin. ${result.twoPeople ? "Vanaf 30 uur werken twee casemanagers." : ""} Vuistregel: ongeveer 10 uur per 100 medewerkers, met een minimum van 10 uur.</p>
-      ${result.block === 10 ? "" : `<p class="mt-2 text-sm text-sand-200">Bespaar ${pct(hourlySavingPct(result.level, result.block))} t.o.v. 10 uur op het uurtarief: (${euro(levels[result.level].rates[10])} − ${euro(result.hourly)}) / ${euro(levels[result.level].rates[10])}. Het maandbedrag is daardoor niet lager, want u neemt meer uren af.</p>`}
+      <p class="mt-3 text-sm text-sand-200">${result.billedHours} uur per week × ${euro(result.hourly)} per uur. Reistijd binnen 45 minuten zit erin. ${result.twoPeople ? "Vanaf 30 uur werken twee casemanagers." : ""} Vuistregel: ongeveer 10 uur per 100 medewerkers, met een minimum van 10 uur.</p>
+      ${result.block === 10 ? "" : `<p class="mt-2 text-sm text-sand-200">Het uurtarief ligt ${pct(hourlySavingPct(result.level, result.block))} lager dan het 10-uurtarief van dit niveau: (${euro(levels[result.level].rates[10])} − ${euro(result.hourly)}) / ${euro(levels[result.level].rates[10])}.</p>`}
       <div class="mt-5 flex flex-col gap-3 sm:flex-row">
         <a class="rounded-full bg-ochre-500 px-4 py-2 text-center font-semibold text-ink" data-cta="match-advies" href="/adviesgesprek">Plan een adviesgesprek</a>
         <a class="rounded-full border border-sand-200 px-4 py-2 text-center font-semibold" data-cta="match-offerte" href="/offerte">Vraag een offerte</a>

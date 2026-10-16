@@ -3,8 +3,8 @@ import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import CtaBand from "../components/CtaBand.astro";
 import FaqList from "../components/FaqList.astro";
-import { CBS_WAGE, compareEmployment, costPerNeededHour, defaultCompareInput } from "../lib/calc";
-import { euro } from "../lib/format";
+import { CBS_WAGE, compareEmployment, costPerNeededHour, costPerProductiveHour, defaultCompareInput } from "../lib/calc";
+import { euro, num } from "../lib/format";
 import { levels, type Block } from "../lib/rates";
 import { crumbsLd, faqLd } from "../lib/schema";
 
@@ -14,8 +14,10 @@ const crumbs = [
 ];
 const hours: Block[] = [10, 20, 24];
 const scenario = compareEmployment(defaultCompareInput());
+const perProductiveHour = costPerProductiveHour(scenario);
 const perNeededHour = costPerNeededHour(scenario);
 const mediorTien = levels.medior.rates[10];
+const productiveWeek = scenario.employed.productiveHoursWeek;
 
 const faq = [
   {
@@ -24,7 +26,7 @@ const faq = [
   },
   {
     q: "Hoe vergelijkt dit met iemand in dienst?",
-    a: "De vergelijking deelt de kost van een fulltime contract door de uren casemanagement die u nodig heeft. In het standaardscenario is dat tien uur per week tegenover één contract van veertig uur. Heeft u bijna een volle werkweek nodig, dan kan een dienstverband lager uitvallen. De tool laat dat zien.",
+    a: "De vergelijking deelt de kost van een fulltime contract door de productieve uren, en door de uren casemanagement die u nodig heeft. In het standaardscenario is dat tien uur per week tegenover één contract van veertig uur. Per gewerkt uur kan een dienstverband lager liggen. Omgeslagen naar de uren die u afneemt, ligt ons uurtarief lager. Heeft u bijna een volle werkweek nodig, dan kan een dienstverband als geheel lager uitvallen. De calculator laat dat zien.",
   },
   {
     q: "Zit de bedrijfsarts in dit uur?",
@@ -69,25 +71,26 @@ const faq = [
     </div>
     <p class="mt-3 text-sm text-ink-soft">Per uur, exclusief btw. Het blok volgt de uren per week: 10, 20 of 24 en meer.</p>
 
-    <h2 id="vergelijking" class="mt-12 font-serif text-3xl text-green-950">Tegenover iemand in dienst</h2>
-    <p class="mt-4">In het standaardscenario heeft u {scenario.neededHours} uur casemanagement per week nodig. Een fulltime contract van {scenario.employed.contractHoursYear / 52} uur komt in dit model uit op {euro(perNeededHour, true)} per uur van die {scenario.neededHours} uur. Ons medior-tarief bij 10 uur is {euro(mediorTien)} per uur.</p>
+    <h2 id="vergelijking" class="mt-12 font-serif text-3xl text-green-950">Wat kost een casemanager in dienst écht per productief uur?</h2>
+    <p class="mt-4">Hetzelfde standaardscenario als de calculator: medior, 100 medewerkers, 5,4% verzuim, één contract van 40 uur. In de kost zitten werkgeverslasten, uren die wegvallen door verlof, feestdagen en verzuim, en de risicokosten van vervanging, een gat bij vertrek en een loonsanctie.</p>
     <div class="mt-4 grid gap-3 sm:grid-cols-2">
       <p class="rounded-2xl border border-line bg-white p-4">
-        <span class="block text-sm text-ink-soft">Contract, omgerekend naar een nodig uur</span>
-        <strong class="mt-1 block font-serif text-4xl text-green-950">{euro(perNeededHour, true)}</strong>
+        <span class="block text-sm text-ink-soft">In dienst, per uur dat u nodig heeft</span>
+        <strong class="mt-1 block font-serif text-4xl text-green-950">{euro(perNeededHour)}</strong>
       </p>
       <p class="rounded-2xl bg-ochre-200 p-4">
         <span class="block text-sm">Medior bij 10 uur</span>
         <strong class="mt-1 block font-serif text-4xl text-green-950">{euro(mediorTien)}</strong>
       </p>
     </div>
-    <p class="mt-3">Het verschil zit in de uren die een contract wel betaalt en die u niet nodig heeft. Heeft u bijna een volle werkweek nodig, dan kan een dienstverband lager uitvallen. De vergelijking rekent dat eerlijk.</p>
+    <p class="mt-3">Ons uurtarief ligt lager. Een productief uur van de persoon in dienst is {euro(perProductiveHour)}. Het contract levert ongeveer {num(productiveWeek)} van die uren per week, en dit scenario heeft er {scenario.neededHours} nodig. De {euro(perNeededHour)} is die kost, gedeeld door de uren die u afneemt.</p>
     <p class="mt-3 text-sm text-ink-soft">
       Het model start bij het CBS-mediaan uurloon van {euro(CBS_WAGE.hourly)} ({CBS_WAGE.group}, {CBS_WAGE.year}, voorlopig) en telt vakantiegeld, werkgeverspremies, verlof, verzuim, werving en de opbouw van de transitievergoeding mee.
       <a class="underline" href={CBS_WAGE.source}>Bron: CBS StatLine 86355NED</a>.
+      Heeft u bijna een volle werkweek nodig, dan kan een dienstverband als geheel lager uitvallen. De calculator rekent dat met uw eigen cijfers.
     </p>
     <p class="mt-5">
-      <a class="rounded-full bg-ochre-500 px-5 py-3 font-semibold" data-cta="tarieven-vergelijking" href="/casemanager-inhuren-of-in-dienst#vergelijking">Vergelijk dit met iemand in dienst</a>
+      <a class="rounded-full bg-ochre-500 px-5 py-3 font-semibold" data-cta="tarieven-vergelijking" href="/casemanager-inhuren-of-in-dienst#vergelijking">Bereken het voor uw organisatie</a>
     </p>
 
     <FaqList items={faq} title="Vragen over de uurtarieven" />

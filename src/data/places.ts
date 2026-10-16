@@ -244,7 +244,7 @@ export const places: Place[] = [
       },
       {
         q: "Wat kost een start met tien uur?",
-        a: "Het medior-tarief voor een blok van tien uur is €112,50 exclusief btw. Per maand is dat €4.875 bij 52 weken. Dat is een richtprijs, geen offerte.",
+        a: "Het medior-tarief voor een blok van tien uur is €112,50 per uur, exclusief btw. Dat is een richtprijs, geen offerte.",
       },
     ],
   },

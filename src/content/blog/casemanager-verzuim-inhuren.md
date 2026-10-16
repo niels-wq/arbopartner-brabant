@@ -48,7 +48,7 @@ Die scheiding is bewust. Een begeleider die ook het ‘onafhankelijke’ onderzo
 
 ## De prijs in context
 
-Richtprijzen van Arbopartner Brabant, exclusief btw: medior €112,50 bij tien uur per week, €107,50 bij twintig en €102,50 vanaf 24 uur. Medior+ zit op €120, €115 en €110. Senior met specialisatie op €137,50, €131,50 en €125. Reistijd binnen ongeveer 45 minuten van Uden zit erin. De [tarievenpagina](/tarieven) zet er de maandbedragen naast.
+Richtprijzen van Arbopartner Brabant, exclusief btw: medior €112,50 bij tien uur per week, €107,50 bij twintig en €102,50 vanaf 24 uur. Medior+ zit op €120, €115 en €110. Senior met specialisatie op €137,50, €131,50 en €125. Reistijd binnen ongeveer 45 minuten van Uden zit erin. De [tarievenpagina](/tarieven) zet de uurtarieven naast elkaar.
 
 Die bedragen liggen rond of onder veel bureau-uurtarieven die in de markt tussen grofweg €130 en €160 worden genoemd, en rond de bovenkant van interimtarieven van €85 tot €120. Ze zijn geen automatische korting op een dienstverband. STAVV noemt voor een medior een bruto maandloon van €3.500 tot €4.500. Dat is een band, geen kostprijs. Bij een lage caseload betaalt u een fulltime kracht ook door, en bij ons alleen de afgenomen uren. De [vergelijking inhuren of in dienst](/casemanager-inhuren-of-in-dienst) rekent dat met bronnen die u kunt aanpassen. Bij een hoge caseload kan het dienstverband in euro’s lager zijn. De uitkomst heet indicatie, geen offerte.
 

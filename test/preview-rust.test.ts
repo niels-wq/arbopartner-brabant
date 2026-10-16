@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import test from "node:test";
 import { arbodienstUurtarieven } from "../src/data/arbodienst-tarieven.ts";
-import { compareEmployment, costPerNeededHour, defaultCompareInput } from "../src/lib/calc.ts";
+import { compareEmployment, costPerNeededHour, costPerProductiveHour, defaultCompareInput } from "../src/lib/calc.ts";
 import { levels } from "../src/lib/rates.ts";
 
 test("tarievenpagina toont alleen de tabel, de vergelijking, drie vragen en één afsluitende CTA", () => {
@@ -17,6 +17,9 @@ test("tarievenpagina toont alleen de tabel, de vergelijking, drie vragen en éé
   assert.equal(page.includes("per jaar"), false);
   assert.match(page, /24\+ uur/);
   assert.match(page, /costPerNeededHour/);
+  assert.match(page, /costPerProductiveHour/);
+  assert.match(page, /Wat kost een casemanager in dienst écht per productief uur/);
+  assert.match(page, /Bereken het voor uw organisatie/);
   assert.match(page, /\/casemanager-inhuren-of-in-dienst#vergelijking/);
   assert.equal((page.match(/<h2 /g) ?? []).length, 2);
   assert.equal((page.match(/q: /g) ?? []).length, 3);
@@ -103,10 +106,13 @@ test("logo is een woordmerk zonder het oude beeld", () => {
 
 test("uurvergelijking blijft eerlijk, ook als een volle week in dienst lager is", () => {
   const result = compareEmployment(defaultCompareInput());
-  const perHour = costPerNeededHour(result);
+  const perNeeded = costPerNeededHour(result);
+  const perProductive = costPerProductiveHour(result);
   assert.equal(result.detachedHourly, levels.medior.rates[10]);
   assert.equal(result.neededHours, 10);
-  assert.ok(perHour > result.detachedHourly);
+  assert.ok(perNeeded > result.detachedHourly);
+  assert.ok(perProductive < result.detachedHourly);
+  assert.ok(perProductive > 50);
   const senior = compareEmployment(
     defaultCompareInput({ level: "senior", neededHours: 24, sanctionChance: 0, driftDaysPerLongCase: 0, loonwaardeExtraDays: 0 }),
   );

@@ -1,7 +1,7 @@
 ---
-import { hourlySavingPct, levels, monthlyCost, type LevelId } from "../lib/rates";
+import { hourlySavingPct, levels, type LevelId } from "../lib/rates";
 import { euro, pct } from "../lib/format";
-import { centerStage, monthLine, packages, riskReversal, savingLine } from "../lib/pricing";
+import { centerStage, packages, riskReversal, savingLine } from "../lib/pricing";
 import { site } from "../data/site";
 import CalendlyButton from "./CalendlyButton.astro";
 import Mark from "./Mark.astro";
@@ -10,16 +10,15 @@ import { reviewsAboutNiels } from "../data/reviews";
 
 const levelIds = Object.keys(levels) as LevelId[];
 const anchorRate = levels.senior.rates[24];
-const anchorMonthly = monthlyCost(24, anchorRate);
 const review = reviewsAboutNiels()[0];
 ---
 
 <section class="mx-auto max-w-6xl px-4">
   <aside class="rounded-[2rem] border border-line bg-green-950 px-6 py-6 text-sand-50">
     <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-200">Eerst het hoogste blok</p>
-    <p class="mt-2 font-serif text-3xl md:text-4xl">Pro, senior, 24 uur: {euro(anchorMonthly)} per maand</p>
-    <p class="mt-2 max-w-3xl text-sand-100">{monthLine(24, anchorRate)}. Exclusief btw. Dit is het hoogste maandbedrag in de tabel, bij het minimum van 24 uur. Meer uren rekenen met hetzelfde uurtarief, dus het maandbedrag stijgt mee.</p>
-    <p class="mt-3 max-w-3xl text-sm text-sand-100">Een fulltime casemanager in dienst betaalt u ook bij een lage caseload. De <a class="font-semibold text-ochre-200 underline" href="/casemanager-inhuren-of-in-dienst#vergelijking">vergelijking inhuren of in dienst</a> zet de jaarkosten naast deze blokken. De aannames komen uit CBS, de wet en gangbare werkgeverslasten, en u kunt ze aanpassen.</p>
+    <p class="mt-2 font-serif text-3xl md:text-4xl">Pro, senior, vanaf 24 uur: {euro(anchorRate)} per uur</p>
+    <p class="mt-2 max-w-3xl text-sand-100">Exclusief btw. Vanaf 24 uur geldt dit uurtarief, ook als u meer uren afneemt.</p>
+    <p class="mt-3 max-w-3xl text-sm text-sand-100">Een fulltime casemanager in dienst betaalt u ook bij een lage caseload. De <a class="font-semibold text-ochre-200 underline" href="/tarieven#vergelijking">vergelijking per productief uur</a> zet dat naast dit uurtarief. De aannames komen uit CBS, de wet en gangbare werkgeverslasten, en u kunt ze in de calculator aanpassen.</p>
   </aside>
 
   <p class="mt-8 max-w-3xl">{centerStage}</p>
@@ -27,7 +26,6 @@ const review = reviewsAboutNiels()[0];
   <div class="mt-6 grid items-stretch gap-4 md:grid-cols-3">
     {packages.map((pack) => {
       const hourly = levels.medior.rates[pack.hours];
-      const monthly = monthlyCost(pack.hours, hourly);
       const save = pack.hours === 10 ? null : savingLine("medior", pack.hours);
       return (
         <article class:list={["flex h-full flex-col rounded-[2rem] bg-white p-6", pack.featured ? "order-1 border-2 border-ochre-700 shadow-md md:order-none md:py-8" : "order-2 border border-line md:order-none"]}>
@@ -35,10 +33,9 @@ const review = reviewsAboutNiels()[0];
           <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">{pack.concrete}</p>
           <h2 class="font-serif text-4xl text-green-950"><Mark name={pack.slug === "basis" ? "clock" : pack.slug === "premium" ? "chart" : "shield"} />{pack.name}</h2>
           <p class="mt-2">{pack.summary}</p>
-          <p class="mt-4 text-sm text-ink-soft">Vanaf, niveau medior</p>
-          <p class="font-serif text-4xl text-green-950">{euro(monthly)} <span class="font-sans text-base font-semibold text-ink">per maand</span></p>
-          <p class="text-sm">{monthLine(pack.hours, hourly)}</p>
-          <p class="text-sm text-ink-soft">Uurtarief {euro(hourly)}</p>
+          <p class="mt-4 text-sm text-ink-soft">Niveau medior, exclusief btw</p>
+          <p class="font-serif text-4xl text-green-950">{euro(hourly)} <span class="font-sans text-base font-semibold text-ink">per uur</span></p>
+          <p class="text-sm text-ink-soft">{pack.hours === 24 ? "Vanaf 24 uur per week" : `${pack.hours} uur per week`}</p>
           {save && <p class="ap-save mt-3 rounded-2xl px-3 py-2 text-sm font-semibold">{save}</p>}
           <ul class="mt-4 list-disc space-y-2 pl-5">
             {pack.outcomes.map((item) => <li>{item}</li>)}
@@ -50,7 +47,7 @@ const review = reviewsAboutNiels()[0];
               return (
                 <p>
                   <span class="font-semibold">{levels[id].short}</span>
-                  {" "}{euro(monthlyCost(pack.hours, rate))} per maand · {euro(rate)} per uur · {badge}
+                  {" "}{euro(rate)} per uur · {badge}
                 </p>
               );
             })}
@@ -70,7 +67,7 @@ const review = reviewsAboutNiels()[0];
   <p class="mt-2 max-w-3xl text-sm">Bij elk blok: arbeidsdeskundige via Matchvermogen met {site.discount.arbeidsdeskundige}% korting, tweede spoor via Best Match met {site.discount.tweedeSpoor}% korting. Dat zijn bestaande afspraken, geen extra korting op het uurtarief.</p>
 
   <h2 class="mt-12 font-serif text-3xl text-green-950">Vergelijking</h2>
-  <p class="mt-2 max-w-3xl text-sm">Maandbedragen zijn uren × uurtarief × 52 / 12, exclusief btw. De badge is het verschil in uurtarief tegenover 10 uur van hetzelfde niveau.</p>
+  <p class="mt-2 max-w-3xl text-sm">Richtprijzen per uur, exclusief btw. De badge is het verschil in uurtarief tegenover 10 uur van hetzelfde niveau.</p>
   <div class="mt-4 overflow-x-auto">
     <table class="w-full min-w-[40rem] text-left text-sm">
       <caption class="sr-only">Basis, Premium en Pro naast elkaar</caption>
@@ -88,9 +85,7 @@ const review = reviewsAboutNiels()[0];
               const rate = levels[id].rates[pack.hours];
               return (
                 <td class="py-3 pr-3">
-                  <span class="block font-semibold">{euro(monthlyCost(pack.hours, rate))} per maand</span>
-                  <span class="block">Uurtarief {euro(rate)}</span>
-                  <span class="block text-ink-soft">{monthLine(pack.hours, rate)}</span>
+                  <span class="block font-semibold">{euro(rate)} per uur</span>
                   {pack.hours === 10 ? <span class="block">Referentie voor dit niveau</span> : <span class="mt-1 block font-semibold">Bespaar {pct(hourlySavingPct(id, pack.hours))} t.o.v. 10 uur</span>}
                 </td>
               );
