@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { describe, it } from "node:test";
-import werken from "../src/data/werken.json" with { type: "json" };
+import werken from "../server/werken.json" with { type: "json" };
 import {
   AIRTABLE_CV_LIMIT,
   CANDIDATE_EMAIL,

@@ -13,7 +13,6 @@ ENV PORT=4327
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
 COPY --from=build /app/dist ./dist
-COPY --from=build /app/src/data/werken.json ./src/data/werken.json
 COPY server ./server
 EXPOSE 4327
 CMD ["node", "server/index.mjs"]

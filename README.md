@@ -125,13 +125,13 @@ Maak de keuzes exact zo aan. `typecast` staat aan, maar een ontbrekende keuze la
 | ErvaringJaren | number | geheel getal, 0 tot 60 |
 | Registraties | multiple select | `RCM`, `SKO`, `BIG`, `Geen` |
 | Opleiding | single line | |
-| Regios | multiple select | de plaatsen uit `src/data/werken.json`, inclusief `Elders in Noord-Brabant` |
+| Regios | multiple select | de plaatsen uit `server/werken.json`, inclusief `Elders in Noord-Brabant` |
 | BeschikbaarheidUren | number | tot 40 |
 | Uurtarief | number | alleen bij zzp, het tarief dat de kandidaat zelf opgeeft |
 | KvK | single line | alleen bij zzp, 8 cijfers |
 | VOG | single select | `Ja`, `Nee`, `Aangevraagd` |
 | Beroepsaansprakelijkheid | single select | `Ja`, `Nee` |
-| Specialisaties | multiple select | de twaalf waarden uit `src/data/werken.json` |
+| Specialisaties | multiple select | de twaalf waarden uit `server/werken.json` |
 | SpecialisatieOverig | single line | vrije tekst, leeg mag |
 | Toestemming | checkbox | |
 | Ingediend | date | `YYYY-MM-DD` |

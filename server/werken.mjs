@@ -1,4 +1,4 @@
-import werken from "../src/data/werken.json" with { type: "json" };
+import werken from "./werken.json" with { type: "json" };
 
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_HITS = 4;

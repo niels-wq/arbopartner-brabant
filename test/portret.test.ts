@@ -45,9 +45,16 @@ test("vierkante uitsnedes houden het gezicht in het midden van de cirkel", () =>
   }
 });
 
-test("de productieserver kan werken.json importeren", () => {
+test("de productieserver importeert werken.json vanuit server/", () => {
   const docker = readFileSync("Dockerfile", "utf8");
-  assert.match(docker, /COPY --from=build \/app\/src\/data\/werken\.json \.\/src\/data\/werken\.json/);
-  assert.match(readFileSync("server/index.mjs", "utf8"), /"\.avif": "image\/avif"/);
-  assert.ok(existsSync("src/data/werken.json"));
+  const server = readFileSync("server/werken.mjs", "utf8");
+  assert.match(server, /from "\.\/werken\.json"/);
+  assert.equal(server.includes("../src/"), false);
+  assert.equal(docker.includes("src/data"), false);
+  assert.match(docker, /COPY server \.\/server/);
+  assert.ok(existsSync("server/werken.json"));
+  assert.equal(existsSync("src/data/werken.json"), false);
+  for (const file of ["server/index.mjs", "server/forms.mjs", "server/vite-plugin.mjs"]) {
+    assert.equal(readFileSync(file, "utf8").includes("../src/"), false, file);
+  }
 });
