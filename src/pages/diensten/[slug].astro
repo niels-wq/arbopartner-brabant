@@ -1,16 +1,20 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import FaqList from "../../components/FaqList.astro";
 import CtaBand from "../../components/CtaBand.astro";
-import HireBenefits from "../../components/HireBenefits.astro";
-import Photo from "../../components/Photo.astro";
-import Mark from "../../components/Mark.astro";
-import Actie from "../../components/Actie.astro";
+import FaqList from "../../components/FaqList.astro";
 import InlineLead from "../../components/InlineLead.astro";
+import OfferBar from "../../components/OfferBar.astro";
+import Photo from "../../components/Photo.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
 import { fotoVoorDienst } from "../../data/fotos";
-import { serviceIcons, services } from "../../data/services";
-import { zzpFaq } from "../../data/site";
+import { reviews } from "../../data/reviews";
+import { serviceGroups, serviceLayout } from "../../data/service-layout";
+import { services } from "../../data/services";
+import { site, zzpFaq } from "../../data/site";
+import { MARKET } from "../../lib/calc";
+import { euro } from "../../lib/format";
+import { levels, verzuimanalysePrijs } from "../../lib/rates";
 import { crumbsLd, faqLd } from "../../lib/schema";
 
 export function getStaticPaths() {
@@ -18,9 +22,12 @@ export function getStaticPaths() {
 }
 
 const { service } = Astro.props;
-const faq = [...service.faq, zzpFaq];
-const index = services.findIndex((item) => item.slug === service.slug);
-const related = [1, 2, 3].map((step) => services[(index + step) % services.length]);
+const layout = serviceLayout[service.slug];
+const group = serviceGroups.find((item) => item.id === layout.group);
+const review = reviews.find((item) => item.name === layout.reviewName);
+const faq = service.slug === "casemanager-detachering" ? [...service.faq, zzpFaq] : service.faq;
+const related = services.filter((item) => item.slug !== service.slug && serviceLayout[item.slug]?.group === layout.group);
+const medior = levels.medior.rates;
 const crumbs = [
   { name: "Home", path: "/" },
   { name: "Diensten", path: "/diensten" },
@@ -29,48 +36,124 @@ const crumbs = [
 ---
 
 <Base title={service.title} description={service.description} jsonLd={[crumbsLd(crumbs), faqLd(faq)]}>
-  <Breadcrumbs crumbs={crumbs} />
-  <article class="mx-auto max-w-3xl px-4 pt-6">
-    <h1 class="font-serif text-5xl text-green-950">{service.title}</h1>
-    <p class="mt-4 text-lg text-ink-soft">{service.lead}</p>
-    <Actie cta={`dienst-${service.slug}`} />
-    <Photo id={fotoVoorDienst(service.slug)} class="mt-6" />
-    {service.sections.map((section) => (
-      <section class="mt-8">
-        <h2 class="font-serif text-3xl text-green-950"><Mark name={serviceIcons[service.slug]} />{section.heading}</h2>
-        {section.paragraphs.map((paragraph) => <p class="mt-3">{paragraph}</p>)}
+  <article class="ap-dienst">
+    <Breadcrumbs crumbs={crumbs} />
+    <header class="mx-auto grid max-w-6xl items-center gap-6 px-4 pt-6 md:grid-cols-[1.1fr_0.9fr]">
+      <div>
+        {group && <a class="text-sm font-semibold text-green-800 underline decoration-ochre-500" href={`/diensten#${group.id}`}>{group.title}</a>}
+        <h1 class="mt-2 font-serif text-4xl text-green-950 md:text-5xl">{service.title}</h1>
+        <p class="mt-3 max-w-xl text-lg">{service.lead}</p>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <a class="btn" data-cta={`dienst-hero-offerte-${service.slug}`} href={`/offerte?dienst=${service.slug}`}>Offerte binnen 24 uur</a>
+          <a class="btn btn-ghost" data-cta={`dienst-hero-tarief-${service.slug}`} href="/tarieven">Uurtarieven</a>
+        </div>
+        <p class="mt-2 text-sm text-ink-soft">{site.responsePromise}</p>
+      </div>
+      <Photo id={fotoVoorDienst(service.slug)} eager caption={false} class="max-md:max-h-48" />
+    </header>
+
+    <div class="mx-auto max-w-3xl px-4">
+      <section class="mt-10" id="probleem" aria-labelledby="probleem-kop">
+        <h2 id="probleem-kop" class="font-serif text-3xl text-green-950">Probleem</h2>
+        <p class="mt-3">{layout.problem}</p>
       </section>
-    ))}
-    {service.sister && (
-      <p class="mt-8 rounded-3xl bg-ochre-200 px-5 py-4">
-        Zustermerk {service.sister.name}: <a class="font-semibold underline" href={service.sister.url}>{service.sister.text}</a>
-      </p>
-    )}
-    <HireBenefits />
-    <h2 class="mt-10 font-serif text-3xl text-green-950">Meer van deze diensten</h2>
-    <ul class="mt-4 grid gap-4 sm:grid-cols-3">
-      {related.map((item) => (
-        <li>
-          <a class="block overflow-hidden rounded-2xl border border-line bg-white" href={`/diensten/${item.slug}`}>
-            <Photo id={fotoVoorDienst(item.slug)} plain caption={false} sizes="(min-width: 640px) 16rem, 100vw" />
-            <span class="block p-4 font-semibold text-green-950">{item.title}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
-    <p class="mt-4"><a class="font-semibold underline" href="/diensten">Alle diensten</a> · <a class="font-semibold underline" href="/situaties">Herkent u dit?</a></p>
-    <FaqList items={faq} />
-  </article>
-  <div class="mx-auto max-w-3xl px-4">
-    <InlineLead
-      id={service.slug === "verzuimanalyse" ? "gratis" : undefined}
-      source={service.slug === "verzuimanalyse" ? "gratis-verzuimanalyse" : `dienst-${service.slug}`}
-      title={service.slug === "verzuimanalyse" ? "Gratis verzuimanalyse" : "Kort doorgeven over deze dienst"}
-      submit={service.slug === "verzuimanalyse" ? "Gratis verzuimanalyse" : "Verstuur"}
-      text={service.slug === "verzuimanalyse"
-        ? "Twee stappen: eerst uw nummer, daarna naam en organisatie. We laten op basis van uw cijfers zien hoe het verzuimpercentage kan dalen. Geen vast percentage vooraf. Het uitgewerkte rapport van €995 blijft een aparte opdracht."
-        : "Twee stappen: eerst uw nummer, daarna naam en organisatie. We bellen terug. Dit formulier is nog geen offerte."}
+
+      <section class="mt-10" id="aanpak" aria-labelledby="aanpak-kop">
+        <h2 id="aanpak-kop" class="font-serif text-3xl text-green-950">Aanpak</h2>
+        <ol class="mt-4 grid gap-3">
+          {layout.steps.map((step, index) => (
+            <li class="flex gap-4 rounded-2xl border border-line bg-white p-4">
+              <span class="font-serif text-3xl text-ochre-800">{index + 1}</span>
+              <p><span class="font-semibold text-green-950">{step.title}.</span> {step.text}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="mt-10" id="resultaat" aria-labelledby="resultaat-kop">
+        <h2 id="resultaat-kop" class="font-serif text-3xl text-green-950">Resultaat</h2>
+        <p class="mt-3">{layout.outcome}</p>
+        {service.sister && (
+          <p class="mt-3 text-sm">
+            Zustermerk {service.sister.name}: <a class="font-semibold underline" href={service.sister.url}>{service.sister.text}</a>
+          </p>
+        )}
+      </section>
+
+      <section class="mt-10" id="prijs" aria-labelledby="prijs-kop">
+        <h2 id="prijs-kop" class="font-serif text-3xl text-green-950">Prijsindicatie in uren</h2>
+        {layout.priceKind === "uren" && (
+          <div class="mt-4 grid gap-3 sm:grid-cols-3">
+            <p class="rounded-2xl border border-line bg-white p-4"><span class="block text-sm text-ink-soft">Medior, 10 uur</span><strong class="mt-1 block font-serif text-3xl text-green-950">{euro(medior[10])}</strong><span class="text-sm">per uur</span></p>
+            <p class="rounded-2xl border border-line bg-white p-4"><span class="block text-sm text-ink-soft">Medior, 20 uur</span><strong class="mt-1 block font-serif text-3xl text-green-950">{euro(medior[20])}</strong><span class="text-sm">per uur</span></p>
+            <p class="rounded-2xl border border-line bg-white p-4"><span class="block text-sm text-ink-soft">Medior, 24+ uur</span><strong class="mt-1 block font-serif text-3xl text-green-950">{euro(medior[24])}</strong><span class="text-sm">per uur</span></p>
+          </div>
+        )}
+        {layout.priceKind === "analyse" && (
+          <p class="mt-4 rounded-2xl bg-ochre-200 p-4 text-lg font-semibold text-green-950">Uitgewerkt rapport {euro(verzuimanalysePrijs, true)}, exclusief btw.</p>
+        )}
+        {layout.priceKind === "spoor2" && (
+          <p class="mt-4 rounded-2xl bg-ochre-200 p-4">
+            <span class="rounded-full bg-white px-3 py-1 text-sm font-semibold">Spoor 2 −{site.discount.tweedeSpoor}%</span>
+            <span class="mt-2 block">Matchvermogen publiceert een modulaire band vanaf {euro(MARKET.spoor2Price, true)}. Klanten van dit label krijgen tot {site.discount.tweedeSpoor}% korting bij Best Match.</span>
+          </p>
+        )}
+        {layout.priceKind === "ad" && (
+          <p class="mt-4 rounded-2xl bg-ochre-200 p-4">
+            <span class="rounded-full bg-white px-3 py-1 text-sm font-semibold">AD −{site.discount.arbeidsdeskundige}%</span>
+            <span class="mt-2 block">Matchvermogen publiceert een vaste prijs vanaf {euro(MARKET.adPrice, true)}. Klanten van dit label krijgen tot {site.discount.arbeidsdeskundige}% korting.</span>
+          </p>
+        )}
+        {(layout.priceKind === "spoor2" || layout.priceKind === "ad" || layout.priceKind === "offerte") && (
+          <p class="mt-3">De uren van de casemanager volgen het uurtarief. Medior is {euro(medior[10])} per uur bij 10 uur per week.</p>
+        )}
+        <p class="mt-3">{layout.priceNote}</p>
+        <p class="mt-3 text-sm"><a class="font-semibold underline" href="/tarieven">Alle uurtarieven</a>. Exclusief btw. Dit is geen offerte.</p>
+      </section>
+
+      {review && (
+        <section class="mt-10" id="review" aria-labelledby="review-kop">
+          <h2 id="review-kop" class="font-serif text-3xl text-green-950">Review</h2>
+          <blockquote class="mt-4 rounded-2xl border border-line bg-white p-5">
+            <p>„{review.quote.replace(/\s+/g, " ").trim()}”</p>
+            <footer class="mt-3 text-sm text-ink-soft">
+              {review.name}{review.organisation ? `, ${review.organisation}` : ""}. Review van Matchvermogen, {review.date}.
+              <a class="underline" href={review.sourceUrl}>Bron</a>
+            </footer>
+          </blockquote>
+        </section>
+      )}
+
+      <FaqList items={faq} />
+
+      {related.length > 0 && (
+        <section class="mt-12" aria-labelledby="verwant-kop">
+          <h2 id="verwant-kop" class="font-serif text-3xl text-green-950">Ook bij {group?.title}</h2>
+          <div class="mt-4 grid gap-4 sm:grid-cols-2">
+            {related.map((item) => <ServiceCard service={item} />)}
+          </div>
+        </section>
+      )}
+    </div>
+
+    <CtaBand
+      title="Deze dienst omzetten in een offerte"
+      text="U noemt de dienst. Wij bevestigen het uur en, waar die geldt, de korting."
+      href={`/offerte?dienst=${service.slug}`}
+      label="Offerte binnen 24 uur"
+      proof={false}
     />
-  </div>
-  <CtaBand />
+    <div class="mx-auto max-w-3xl px-4">
+      <InlineLead
+        id={service.slug === "verzuimanalyse" ? "gratis" : undefined}
+        source={service.slug === "verzuimanalyse" ? "gratis-verzuimanalyse" : `dienst-${service.slug}`}
+        title={service.slug === "verzuimanalyse" ? "Gratis verzuimanalyse" : "Kort doorgeven over deze dienst"}
+        submit={service.slug === "verzuimanalyse" ? "Gratis verzuimanalyse" : "Verstuur"}
+        text={service.slug === "verzuimanalyse"
+          ? "Twee stappen: eerst uw nummer, daarna naam en organisatie. We laten op basis van uw cijfers zien hoe het verzuimpercentage kan dalen. Geen vast percentage vooraf. Het uitgewerkte rapport van €995 blijft een aparte opdracht."
+          : "Twee stappen: eerst uw nummer, daarna naam en organisatie. Dit formulier is nog geen offerte."}
+      />
+    </div>
+  </article>
+  <OfferBar href={`/offerte?dienst=${service.slug}`} />
 </Base>

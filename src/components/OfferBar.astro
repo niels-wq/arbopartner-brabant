@@ -1,0 +1,14 @@
+---
+import { site } from "../data/site";
+
+interface Props {
+  href?: string;
+}
+
+const { href = "/offerte" } = Astro.props;
+---
+
+<div class="ap-offer-bar" role="region" aria-label="Offerte">
+  <p>{site.responsePromise}</p>
+  <a class="btn" data-cta="offer-bar" href={href}>Offerte binnen 24 uur</a>
+</div>

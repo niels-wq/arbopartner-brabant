@@ -1,44 +1,84 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import ClusterNav from "../../components/ClusterNav.astro";
 import CtaBand from "../../components/CtaBand.astro";
-import Photo from "../../components/Photo.astro";
+import Guarantees from "../../components/Guarantees.astro";
 import Mark from "../../components/Mark.astro";
-import InlineLead from "../../components/InlineLead.astro";
-import { fotoVoorDienst } from "../../data/fotos";
-import { serviceIcons, services } from "../../data/services";
+import OfferBar from "../../components/OfferBar.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+import { serviceGroups, serviceLayout } from "../../data/service-layout";
+import { reviews } from "../../data/reviews";
+import { services } from "../../data/services";
+import { site } from "../../data/site";
 import { crumbsLd } from "../../lib/schema";
 
 const crumbs = [
   { name: "Home", path: "/" },
   { name: "Diensten", path: "/diensten" },
 ];
+const stripNames = ["Heidi Wichems", "Marjolein Menheere", "Raimonda Kasparaviciute"];
+const strip = stripNames.map((name) => reviews.find((review) => review.name === name)).filter((review) => review !== undefined);
+const grouped = serviceGroups.map((group) => ({
+  ...group,
+  services: services.filter((service) => serviceLayout[service.slug]?.group === group.id),
+}));
 ---
 
-<Base title="Diensten" description="Casemanager detacheren, verzuimanalyse, protocol, training, jobcoaching, mediation, eerste en tweede spoor, WIA-begeleiding en arbeidsdeskundig onderzoek. Voor organisaties met 35–500 medewerkers." jsonLd={[crumbsLd(crumbs)]}>
-  <Breadcrumbs crumbs={crumbs} />
-  <header class="mx-auto max-w-6xl px-4 pt-6">
-    <h1 class="font-serif text-5xl text-green-950">Diensten</h1>
-    <p class="mt-4 max-w-2xl text-lg text-ink-soft">Een dienst van Arbopartner Brabant is begeleiding van verzuim door een vaste gedetacheerde casemanager, voor organisaties met 35–500 medewerkers. Daaromheen zitten de diensten die Matchvermogen, Best Match, werkhervattingskas.nl of arbeidsdeskundig.com echt aanbieden. Een preventief medisch onderzoek staat daar niet als dienst. Het label is geen arbodienst.</p>
-    <p class="mt-6"><a class="rounded-full bg-ochre-500 px-5 py-3 font-semibold" data-cta="diensten-advies" href="/adviesgesprek">Plan een adviesgesprek</a></p>
-    <p class="mt-2 text-sm text-ink-soft">Het gesprek van 30 minuten verplicht u tot niets.</p>
-    <Photo id="gesprek-drie" eager class="mt-6 max-w-3xl" />
-  </header>
-  <div class="mx-auto grid max-w-6xl gap-4 px-4 py-8 md:grid-cols-2">
-    {services.map((service) => (
-      <a class="overflow-hidden rounded-[2rem] border border-line bg-white/80" href={`/diensten/${service.slug}`}>
-        <Photo id={fotoVoorDienst(service.slug)} plain caption={false} sizes="(min-width: 768px) 28rem, 100vw" />
-        <div class="p-6">
-        <h2 class="font-serif text-3xl text-green-950"><Mark name={serviceIcons[service.slug]} />{service.title}</h2>
-        <p class="mt-2 text-ink-soft">{service.lead}</p>
+<Base title="Diensten" description="Kies waar u hulp bij nodig heeft: verzuim begeleiden, re-integratie en spoor 2, arbeidsdeskundig en WIA, of verzuim voorkomen en beleid. Voor organisaties met 35–500 medewerkers." jsonLd={[crumbsLd(crumbs)]}>
+  <div class="ap-diensten">
+    <Breadcrumbs crumbs={crumbs} />
+    <header class="mx-auto max-w-6xl px-4 pt-4">
+      <h1 class="font-serif text-3xl text-green-950 md:text-5xl">Diensten</h1>
+      <p class="mt-2 max-w-2xl md:mt-3 md:text-lg">Een vaste casemanager {site.audience} in Noord-Brabant. Kies waar u hulp bij nodig heeft. Wij zijn geen arbodienst.</p>
+    </header>
+
+    <nav class="mx-auto max-w-6xl px-4 pt-5" aria-labelledby="keuzehulp">
+      <h2 id="keuzehulp" class="font-serif text-2xl text-green-950 md:text-3xl">Waar heeft u hulp bij nodig?</h2>
+      <div class="mt-4 grid grid-cols-2 gap-3 xl:grid-cols-4">
+        {grouped.map((group) => (
+          <a class="ap-choice" data-cta={`keuze-${group.id}`} href={`#${group.id}`}>
+            <Mark name={group.icon} class="ap-choice-mark" />
+            <strong>{group.title}</strong>
+            <span>{group.text}</span>
+          </a>
+        ))}
+      </div>
+    </nav>
+
+    {grouped.map((group) => (
+      <section class="mx-auto max-w-6xl px-4 pt-12" id={group.id} aria-labelledby={`${group.id}-kop`}>
+        <h2 id={`${group.id}-kop`} class="font-serif text-3xl text-green-950">{group.title}</h2>
+        <p class="mt-2 max-w-2xl text-ink-soft">{group.text}</p>
+        <div class="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {group.services.map((service) => <ServiceCard service={service} />)}
         </div>
-      </a>
+      </section>
     ))}
+
+    <section class="mx-auto max-w-6xl px-4 pt-14" aria-labelledby="reviewstrook">
+      <h2 id="reviewstrook" class="font-serif text-3xl text-green-950">Wat opdrachtgevers van Matchvermogen zeggen</h2>
+      <p class="mt-2 max-w-2xl text-sm text-ink-soft">Letterlijke reviews van matchvermogen.nl. Ze gaan over Matchvermogen, niet over een offerte van dit label.</p>
+      <div class="mt-4 grid gap-4 md:grid-cols-3">
+        {strip.map((review) => (
+          <blockquote class="rounded-2xl border border-line bg-white p-5">
+            <p>„{review.quote.replace(/\s+/g, " ").trim()}”</p>
+            <footer class="mt-3 text-sm text-ink-soft">
+              {review.name}{review.organisation ? `, ${review.organisation}` : ""}. {review.date}.
+              <a class="underline" href="/reviews">Bron</a>
+            </footer>
+          </blockquote>
+        ))}
+      </div>
+    </section>
+
+    <Guarantees plaats="diensten" />
+    <CtaBand
+      title="Zeg welke dienst u nodig heeft"
+      text="De offerte bevestigt het uur, de korting en de wijzigingstermijn."
+      href="/offerte"
+      label="Offerte binnen 24 uur"
+      proof={false}
+    />
   </div>
-  <div class="mx-auto max-w-3xl px-4">
-    <InlineLead source="diensten-overzicht" title="Welke dienst speelt er?" />
-  </div>
-  <ClusterNav />
-  <CtaBand />
+  <OfferBar />
 </Base>

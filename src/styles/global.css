@@ -767,6 +767,71 @@ summary.rounded-full.border-green-800:focus-visible,
   vertical-align: -0.35rem;
   color: currentColor;
 }
+.ap-card-mark,
+.ap-choice-mark {
+  margin-right: 0;
+  vertical-align: 0;
+}
+.ap-choice {
+  display: flex;
+  min-height: 9.5rem;
+  flex-direction: column;
+  gap: 0.35rem;
+  border-radius: 1.25rem;
+  background: #12382c;
+  padding: 1rem;
+  color: #f4f1e8;
+  text-decoration: none;
+}
+.ap-choice:hover,
+.ap-choice:focus-visible {
+  background: #145c45;
+  color: #f4f1e8;
+  text-decoration: none;
+}
+.ap-choice strong,
+.ap-choice span {
+  color: #f4f1e8;
+}
+.ap-choice strong {
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+.ap-choice-mark {
+  color: #f8e7c4;
+}
+.ap-diensten [id],
+.ap-dienst [id] {
+  scroll-margin-top: 8rem;
+}
+.ap-offer-bar {
+  position: fixed;
+  z-index: 46;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
+  background: #12382c;
+  color: #f4f1e8;
+  border-top: 3px solid #d8a03d;
+}
+.ap-offer-bar p {
+  margin: 0;
+  color: #f4f1e8;
+  font-weight: 700;
+}
+body:has(.ap-offer-bar) {
+  padding-bottom: 5.5rem;
+}
+body:has(.ap-offer-bar) .ap-calc,
+body:has(.ap-offer-bar) .ap-dock {
+  bottom: 5.4rem;
+}
 
 .ap-figure {
   margin: 0;
@@ -1124,5 +1189,44 @@ main a.underline {
   .ap-rates td::before {
     content: attr(data-label);
     color: #3d4f45;
+  }
+}
+
+@media (max-width: 767px) {
+  .ap-choice {
+    min-height: 0;
+    padding: 0.7rem;
+  }
+  .ap-choice strong {
+    font-size: 1rem;
+    line-height: 1.15;
+  }
+  .ap-choice span {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    font-size: 0.82rem;
+    line-height: 1.25;
+  }
+  .ap-choice-mark {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+  .ap-offer-bar {
+    bottom: 4.6rem;
+    flex-wrap: nowrap;
+    padding: 0.45rem 0.7rem calc(0.45rem + env(safe-area-inset-bottom));
+  }
+  .ap-offer-bar p {
+    font-size: 0.92rem;
+    line-height: 1.25;
+  }
+  body:has(.ap-offer-bar) {
+    padding-bottom: 8.6rem;
+  }
+  body:has(.ap-offer-bar) .ap-calc,
+  body:has(.ap-offer-bar) .ap-dock {
+    bottom: calc(8.4rem + env(safe-area-inset-bottom));
   }
 }
