@@ -15,7 +15,13 @@ import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
   <a class="btn btn-ghost" data-cta="sticky-bel" data-channel="phone" href={phoneHref}>Bel {site.parent.phoneDisplay}</a>
 </aside>
 
-<a class="ap-calc btn" data-cta="calculator-fab" href="/welke-casemanager">Welke casemanager</a>
+<a class="ap-calc" data-cta="calculator-fab" href="/casemanager-inhuren-of-in-dienst#vergelijking" aria-label="Bereken uw besparing">
+  <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" focusable="false">
+    <rect x="4" y="2.5" width="18" height="21" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+    <path d="M8 8.5h10M8 14h3.2M14.8 14H18M8 18.2h3.2M14.8 18.2H18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+  <span class="ap-tip">Bereken uw besparing</span>
+</a>
 
 <div class="ap-dock">
   <button id="ap-chat-open" class="ap-icon" type="button" aria-expanded="false" aria-controls="ap-chat" aria-label="Chat openen">

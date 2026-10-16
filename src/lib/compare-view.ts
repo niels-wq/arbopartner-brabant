@@ -1,5 +1,20 @@
-import { CBS_WAGE, compareEmployment, defaultCompareInput, type CompareInput, type CompareResult } from "./calc.ts";
+import {
+  CASE_HOURS_PER_100,
+  CBS,
+  CBS_WAGE,
+  compareEmployment,
+  defaultCompareInput,
+  type CompareInput,
+  type CompareResult,
+} from "./calc.ts";
 import { euro, num, pct } from "./format.ts";
+
+export type Demand = {
+  employees: number;
+  orgAbsencePct: number;
+  hoursWeek: number;
+  hoursYear: number;
+};
 
 export function savingHeadline(result: CompareResult): { positive: boolean; text: string } {
   const amount = euro(Math.abs(result.saving), true);
@@ -19,12 +34,17 @@ function barWidth(value: number, max: number): number {
   return Math.min(100, (value / max) * 100);
 }
 
-export function compareReportHtml(input: CompareInput, result: CompareResult): string {
+export function compareReportHtml(input: CompareInput, result: CompareResult, demand?: Demand): string {
   const headline = savingHeadline(result);
   const employed = result.employed;
   const max = Math.max(result.employmentYear, result.detachedYear, 1);
   const employedWidth = barWidth(result.employmentYear, max);
   const detachedWidth = barWidth(result.detachedYear, max);
+  const gap = Math.abs(result.saving);
+  const figureLabel = headline.positive ? "Besparing per jaar" : result.saving < 0 ? "Verschil per jaar" : "Verschil per jaar";
+  const demandText = demand
+    ? `Vuistregel op deze site: ${CASE_HOURS_PER_100} uur per week per 100 medewerkers bij ${pct(CBS.nl2025)} verzuim, het landelijke CBS-cijfer van 2025. ${num(demand.employees, 0)} medewerkers en ${pct(demand.orgAbsencePct)} verzuim geven ${num(demand.hoursWeek)} uur per week, ${num(demand.hoursYear, 0)} uur per jaar. ${demand.hoursWeek + 0.05 < result.billedHours ? `Het kleinste blok is ${num(result.billedHours, 0)} uur per week. De vergelijking rekent dat blok, niet de lagere vuistregel.` : `De vergelijking rekent ${num(result.billedHours)} uur per week.`}`
+    : "";
   const peopleText =
     result.people > 1
       ? ` Voor ${num(result.neededHours, 0)} uur per week zijn ${result.people} mensen in dienst nodig, omdat één persoon na verlof, feestdagen en verzuim ongeveer ${num(employed.productiveHoursWeek)} productieve uren per week levert.`
@@ -41,15 +61,20 @@ export function compareReportHtml(input: CompareInput, result: CompareResult): s
 
   return `
     <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">Indicatie, geen offerte</p>
-    <h2 class="mt-2 font-serif text-4xl leading-tight text-green-950 md:text-5xl" data-outcome>${headline.text}</h2>
-    <div class="mt-5 space-y-3" role="img" aria-label="Jaarkosten in dienst ${euro(result.employmentYear, true)}, inhuren ${euro(result.detachedYear, true)}.">
-      <div>
-        <div class="mb-1 flex justify-between gap-3 text-sm font-semibold"><span>Casemanager in dienst</span><span>${euro(result.employmentYear, true)} per jaar</span></div>
-        <div class="h-4 overflow-hidden rounded-full bg-sand-200"><div class="h-4 rounded-full" style="width:${employedWidth}%;background:#5a2418"></div></div>
+    <p class="mt-2 text-sm font-semibold text-green-950">${figureLabel}</p>
+    <p class="ap-save-figure font-serif text-5xl leading-none text-green-950 md:text-6xl" data-euro="${Math.round(gap)}" data-outcome>${euro(gap, true)}</p>
+    <p class="mt-2 max-w-xl text-lg">${headline.text}. Exclusief btw.</p>
+    ${demandText ? `<p class="mt-3 max-w-xl text-sm">${demandText}</p>` : ""}
+    <div class="ap-plot mt-5" role="img" aria-label="Jaarkosten in dienst ${euro(result.employmentYear, true)}, Arbopartner ${euro(result.detachedYear, true)}.">
+      <div class="ap-plot-col">
+        <span class="ap-plot-value">${euro(result.employmentYear, true)}</span>
+        <span class="ap-plot-track"><span class="ap-plot-bar ap-plot-employ" style="height:${employedWidth}%"></span></span>
+        <span class="ap-plot-label">In dienst</span>
       </div>
-      <div>
-        <div class="mb-1 flex justify-between gap-3 text-sm font-semibold"><span>Inhuren bij Arbopartner</span><span>${euro(result.detachedYear, true)} per jaar</span></div>
-        <div class="h-4 overflow-hidden rounded-full bg-sand-200"><div class="h-4 rounded-full" style="width:${detachedWidth}%;background:#0c3b27"></div></div>
+      <div class="ap-plot-col">
+        <span class="ap-plot-value">${euro(result.detachedYear, true)}</span>
+        <span class="ap-plot-track"><span class="ap-plot-bar ap-plot-hire" style="height:${detachedWidth}%"></span></span>
+        <span class="ap-plot-label">Arbopartner</span>
       </div>
     </div>
     <p class="mt-4 max-w-3xl">${qualitative}</p>

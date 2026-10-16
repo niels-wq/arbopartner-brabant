@@ -1,3 +1,4 @@
+import { calendlyKennismaking } from "../data/calendly";
 import { bindForms } from "./forms";
 import { track } from "./track";
 
@@ -60,7 +61,7 @@ export function downloadPdf(title: string, body: string, fileName = "arbopartner
   URL.revokeObjectURL(url);
 }
 
-export function mountReport(host: HTMLElement, input: { calculator: string; title: string; body: string }) {
+export function mountReport(host: HTMLElement, input: { calculator: string; title: string; body: string; submitLabel?: string; calendly?: boolean }) {
   host.querySelector("[data-report]")?.remove();
   const wrap = document.createElement("form");
   wrap.className = "ap-report";
@@ -68,15 +69,20 @@ export function mountReport(host: HTMLElement, input: { calculator: string; titl
   wrap.dataset.endpoint = "/api/rapport";
   wrap.dataset.kind = "rapport";
   wrap.dataset.cta = `rapport-${input.calculator}`;
+  const label = input.submitLabel || "Stuur mij het rapport";
+  const book = input.calendly
+    ? `<button class="btn btn-ghost" type="button" data-calendly="${calendlyKennismaking.id}" data-calendly-url="${calendlyKennismaking.url}" data-cta="rapport-${input.calculator}-calendly">${calendlyKennismaking.label}</button>`
+    : "";
   wrap.innerHTML = `
-    <p class="font-semibold">Stuur mij het rapport</p>
+    <p class="font-semibold">${label}</p>
     <p class="text-sm">Als de mailserver aanstaat, sturen we deze berekening naar uw e-mailadres en naar ons. Het is een scenario, geen offerte. De pdf kunt u ook meteen downloaden.</p>
     <label>E-mail<input name="email" type="email" required autocomplete="email" /></label>
     <label class="flex items-start gap-2 text-sm"><input type="checkbox" name="toestemming" value="ja" required /> <span>Mail mij dit rapport. <a href="/privacy">Privacy</a></span></label>
     <input type="hidden" name="rapport" />
     <input type="hidden" name="calculator" />
     <div class="ap-actions">
-      <button class="btn" type="submit">Stuur mij het rapport</button>
+      <button class="btn" type="submit">${label}</button>
+      ${book}
       <button class="btn btn-ghost" type="button" data-pdf>Download PDF</button>
     </div>
     <p data-status class="text-sm" role="status"></p>

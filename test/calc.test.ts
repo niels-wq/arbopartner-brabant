@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { describe, it } from "node:test";
-import { compareEmployment, dayCost, defaultCompareInput, grossMonthlyFromCbs, matchCasemanager, savings } from "../src/lib/calc.ts";
+import { caseManagerHoursPerWeek, caseManagerHoursPerYear, compareEmployment, dayCost, defaultCompareInput, grossMonthlyFromCbs, matchCasemanager, savings } from "../src/lib/calc.ts";
 import { savingHeadline } from "../src/lib/compare-view.ts";
 import { pct } from "../src/lib/format.ts";
 import { hourlySavingPct, monthlyCost } from "../src/lib/rates.ts";
@@ -106,6 +107,24 @@ describe("besparing", () => {
 });
 
 describe("vergelijking", () => {
+  it("leidt casemanageruren af uit medewerkers en verzuim", () => {
+    assert.equal(caseManagerHoursPerWeek(100, 5.4), 10);
+    assert.equal(caseManagerHoursPerYear(100, 5.4), 520);
+    assert.ok(caseManagerHoursPerWeek(35, 5.4) < 10);
+    assert.ok(caseManagerHoursPerWeek(200, 10.8) > caseManagerHoursPerWeek(200, 5.4));
+    const page = readFileSync("src/components/calculators/CompareCalc.astro", "utf8");
+    assert.match(page, /name="employees"/);
+    assert.match(page, /name="org"/);
+    assert.match(page, /type="range"/);
+    assert.match(page, /Stuur mij dit rapport/);
+    assert.match(page, /calendly: true/);
+    assert.match(readFileSync("src/scripts/report.ts", "utf8"), /data-calendly/);
+    assert.match(page, /history\.replaceState/);
+    assert.match(page, /Aannames en bronnen/);
+    assert.match(page, /min="35"/);
+    assert.match(page, /max="500"/);
+  });
+
   it("betaalt bij tien uur een volledig contract en niet een fractie fte", () => {
     const input = defaultCompareInput();
     assert.equal(input.grossMonthly, grossMonthlyFromCbs(40));

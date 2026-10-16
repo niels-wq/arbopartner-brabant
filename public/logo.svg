@@ -23,8 +23,9 @@
 <g transform="translate(96.62 52.00) scale(0.015000 -0.015000)"><path d="M82 0V486H150L157 416H160Q195 451 234.0 474.5Q273 498 323 498Q400 498 435.5 449.5Q471 401 471 308V0H389V297Q389 366 367.5 396.5Q346 427 297 427Q260 427 230.5 408.0Q201 389 164 352V0Z"/></g>
 <g transform="translate(105.57 52.00) scale(0.015000 -0.015000)"><path d="M235 -9Q158 -9 127.0 36.0Q96 81 96 153V419H24V481L100 486L110 642H179V486H311V419H179V152Q179 108 195.5 83.0Q212 58 254 58Q267 58 281.0 60.5Q295 63 309 70L327 12Q308 3 284.0 -3.0Q260 -9 235 -9Z"/></g>
     </g>
-    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M10.0 28.0 A16 12 0 0 1 42.0 28.0" stroke="#14261C" stroke-width="2.6"/>
-      <path d="M26.0 35.0 V45.0" stroke="#D8A03D" stroke-width="2.6"/>
+    <g fill="none" stroke-linecap="round">
+      <path d="M17.0 18.0 V40.0" stroke="#14261C" stroke-width="2.6"/>
+      <path d="M35.0 23.0 V40.0" stroke="#14261C" stroke-width="2.6"/>
+      <path d="M12.0 42.0 H40.0" stroke="#D8A03D" stroke-width="2.2"/>
     </g>
 </svg>

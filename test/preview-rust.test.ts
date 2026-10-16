@@ -46,6 +46,12 @@ test("koffiefoto blijft klein en contact toont één portret", () => {
   assert.match(photo, /niels-koffie-400\.webp/);
   assert.equal(photo.includes("1200"), false);
   assert.match(engage, /<summary>Contact<\/summary>/);
+  assert.match(engage, /Bereken uw besparing/);
+  assert.match(engage, /\/casemanager-inhuren-of-in-dienst#vergelijking/);
+  assert.match(engage, /fab-whatsapp/);
+  assert.match(engage, /fab-bel/);
+  assert.match(engage, /fab-mail/);
+  assert.match(engage, /fab-calendly/);
   assert.equal((engage.match(/<img /g) ?? []).length, 2);
   assert.match(engage, /ap-exit-photo/);
   assert.match(engage, /niels-face/);
@@ -73,7 +79,8 @@ test("logo is een woordmerk zonder het oude beeld", () => {
   assert.match(fav, /Arbopartner Brabant/);
   assert.equal(fav.includes("M32 15"), false);
   assert.equal(fav.includes("M15 33c1-14"), false);
-  assert.match(readFileSync("src/components/Header.astro", "utf8"), /logo-light\.png\?v=20261016/);
+  assert.match(readFileSync("src/components/Header.astro", "utf8"), /logo-light\.png\?v=20261016b/);
+  assert.match(readFileSync("public/favicon.svg", "utf8"), /M11 7\.5 V20/);
   assert.match(readFileSync("src/components/Footer.astro", "utf8"), /width="223" height="64"/);
   for (const file of [
     "public/logo.png",

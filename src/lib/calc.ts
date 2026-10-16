@@ -301,6 +301,20 @@ export function defaultGrossMonthly(_level?: LevelId, contractHours = 40): numbe
   return grossMonthlyFromCbs(contractHours);
 }
 
+/** Vuistregel op deze site: 10 uur per week per 100 medewerkers bij het landelijke CBS-percentage. */
+export const CASE_HOURS_PER_100 = 10;
+
+export function caseManagerHoursPerWeek(employees: number, absencePct: number): number {
+  const people = Math.max(0, employees);
+  const absence = Math.max(0, absencePct);
+  if (CBS.nl2025 <= 0) return 0;
+  return (people / 100) * CASE_HOURS_PER_100 * (absence / CBS.nl2025);
+}
+
+export function caseManagerHoursPerYear(employees: number, absencePct: number): number {
+  return caseManagerHoursPerWeek(employees, absencePct) * 52;
+}
+
 export function defaultCompareInput(overrides: Partial<CompareInput> = {}): CompareInput {
   const level = overrides.level ?? "medior";
   const contractHours = overrides.contractHours ?? 40;

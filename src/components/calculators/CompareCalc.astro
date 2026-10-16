@@ -1,153 +1,324 @@
 ---
-import { compareSources, defaultCompareInput } from "../../lib/calc";
+import {
+  CBS,
+  caseManagerHoursPerWeek,
+  caseManagerHoursPerYear,
+  compareEmployment,
+  compareSources,
+  defaultAbsencePct,
+  defaultCompareInput,
+} from "../../lib/calc";
 import { compareReportHtml } from "../../lib/compare-view";
-import { compareEmployment } from "../../lib/calc";
 
-const defaults = defaultCompareInput();
-const initialHtml = compareReportHtml(defaults, compareEmployment(defaults));
+const employees = 100;
+const orgAbsence = CBS.nl2025;
+const hoursWeek = caseManagerHoursPerWeek(employees, orgAbsence);
+const defaults = defaultCompareInput({ neededHours: hoursWeek });
+const initialHtml = compareReportHtml(defaults, compareEmployment(defaults), {
+  employees,
+  orgAbsencePct: orgAbsence,
+  hoursWeek,
+  hoursYear: caseManagerHoursPerYear(employees, orgAbsence),
+});
+const sizeHint = defaultAbsencePct(employees);
 ---
 
-<div data-compare id="vergelijking">
-  <div data-out class="rounded-[2rem] border border-line bg-white/80 p-6 md:p-8" aria-live="polite" set:html={initialHtml} />
-  <form class="mt-6 grid gap-6 lg:grid-cols-2">
-    <div class="space-y-4 rounded-[2rem] border border-line bg-white/80 p-5 md:p-7">
-      <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">Uw situatie</p>
-      <label class="block text-sm font-semibold">Niveau
-        <select class="ap-field" name="level">
-          <option value="medior" selected>Medior</option>
-          <option value="medior-plus">Medior+</option>
-          <option value="senior">Senior met specialisatie</option>
-        </select>
-      </label>
-      <label class="block text-sm font-semibold">Uren per week die u echt nodig heeft
-        <input class="ap-field" name="hours" type="number" min="1" max="80" step="1" value={defaults.neededHours} />
-      </label>
-      <p class="text-sm text-ink-soft">Bij inhuren rekenen we die uren, met een minimum van tien. Bij een dienstverband betaalt u het volle contract, ook als u minder uren nodig heeft.</p>
-      <label class="block text-sm font-semibold">Bruto maandloon bij een dienstverband
-        <input class="ap-field" name="gross" type="number" min="0" step="0.01" value={defaults.grossMonthly.toFixed(2)} />
-      </label>
-      <p class="text-xs text-ink-soft" data-salary-note>Afgeleid van het CBS-mediaan uurloon. Geen CBS-maandloon. Pas het aan naar het loon dat u echt zou bieden.</p>
-      <label class="block text-sm font-semibold">Contracturen per week in dienst
-        <input class="ap-field" name="contract" type="number" min="8" max="40" value={defaults.contractHours} />
-      </label>
-      <button class="rounded-full bg-green-800 px-5 py-3 font-semibold text-sand-50" type="submit">Reken opnieuw</button>
-    </div>
-    <fieldset class="space-y-3 rounded-[2rem] bg-sand-100 p-5 md:p-7">
-      <legend class="font-semibold text-green-950">Aannames, met bron en aanpasbaar</legend>
-      <label class="check"><input type="checkbox" name="large" checked /> Grote werkgever (Aof hoog, 7,63%). Uitvinken = niet-groot, Aof 6,27%. Middelgroot vult u zelf, die mix verschilt per werkgever.</label>
-      <label class="check"><input type="checkbox" name="temporary" /> Tijdelijk contract (AWf hoog, 7,74% in plaats van 2,74%).</label>
-      <label class="block text-sm">Whk, %. Standaard 1,52, het landelijk gemiddelde. Niet uw eigen beschikking.
-        <input class="ap-field" name="whk" type="number" min="0" max="10" step="0.01" value={defaults.whkPct} />
-      </label>
-      <label class="block text-sm">Pensioen werkgever, % van bruto jaarloon. Standaard 0: er is geen landelijk percentage.
-        <input class="ap-field" name="pension" type="number" min="0" max="40" step="0.1" value={defaults.pensionPct} />
-      </label>
-      <label class="block text-sm">Eindejaarsuitkering, % van bruto jaarloon plus vakantiegeld. Standaard 0: er is geen wettelijk percentage.
-        <input class="ap-field" name="yearend" type="number" min="0" max="20" step="0.1" value={defaults.yearEndPct} />
-      </label>
-      <label class="block text-sm">Verzuim van de casemanager zelf, %. Standaard CBS 5,4.
-        <input class="ap-field" name="absence" type="number" min="0" max="100" step="0.1" value={defaults.absencePct} />
-      </label>
-      <label class="block text-sm">Loondoorbetaling tijdens ziekte, %. Wettelijk minimum is 70. Standaard 100.
-        <input class="ap-field" name="sickpay" type="number" min="70" max="100" value={defaults.sickPayPct} />
-      </label>
-      <label class="check"><input type="checkbox" name="replace" checked /> Ziekte laten vervangen.</label>
-      <label class="block text-sm">Vervangingstarief per uur. Standaard ons tarief voor dit niveau en deze uren.
-        <input class="ap-field" name="replacement" type="number" min="0" max="250" step="0.5" value={defaults.replacementRate} />
-      </label>
-      <label class="block text-sm">Directe wervingskosten, eenmalig. Standaard 5000.
-        <input class="ap-field" name="recruitment" type="number" min="0" step="100" value={defaults.recruitmentCost} />
-      </label>
-      <label class="block text-sm">Vacature in kalenderdagen. Standaard 60.
-        <input class="ap-field" name="vacancy" type="number" min="0" max="365" value={defaults.vacancyCalendarDays} />
-      </label>
-      <label class="check"><input type="checkbox" name="coverVacancy" checked /> Tijdens de vacature vervanging inkopen.</label>
-      <label class="block text-sm">Dienstjaren om eenmalige kosten over af te schrijven.
-        <input class="ap-field" name="tenure" type="number" min="1" max="40" value={defaults.tenureYears} />
-      </label>
-      <label class="block text-sm">Inwerkweken. Standaard 0: er is geen landelijk cijfer.
-        <input class="ap-field" name="onboarding" type="number" min="0" max="26" value={defaults.onboardingWeeks} />
-      </label>
-      <label class="block text-sm">Productiviteit tijdens het inwerken, %.
-        <input class="ap-field" name="onboardingProductivity" type="number" min="0" max="100" value={defaults.onboardingProductivity * 100} />
-      </label>
-      <label class="block text-sm">Niet-productieve uren na verlof en verzuim, %. Standaard 0. Leegloop bij een lage caseload zit al in het volle contract.
-        <input class="ap-field" name="nonproductive" type="number" min="0" max="80" step="1" value={defaults.nonProductivePct} />
-      </label>
-      <label class="block text-sm">Feestdagen op een werkdag. Standaard 6 in 2026.
-        <input class="ap-field" name="holidays" type="number" min="0" max="15" value={defaults.publicHolidays} />
-      </label>
-      <label class="block text-sm">Opleiding, eenmalig, exclusief btw. Standaard 4290, de lijstprijs van één CROV-aanbieder.
-        <input class="ap-field" name="training" type="number" min="0" step="10" value={defaults.trainingOnce} />
-      </label>
-      <label class="block text-sm">Registratie per jaar. Standaard 380, RNVC 2026.
-        <input class="ap-field" name="registration" type="number" min="0" step="10" value={defaults.registrationYear} />
-      </label>
-      <label class="block text-sm">Laptop en software per jaar. Standaard 0.
-        <input class="ap-field" name="software" type="number" min="0" step="50" value={defaults.softwareYear} />
-      </label>
-      <label class="block text-sm">Lease of auto per jaar. Standaard 0.
-        <input class="ap-field" name="lease" type="number" min="0" step="50" value={defaults.leaseYear} />
-      </label>
-      <label class="block text-sm">Zakelijke kilometers per week. Standaard 0.
-        <input class="ap-field" name="km" type="number" min="0" step="1" value={defaults.kmPerWeek} />
-      </label>
-      <label class="block text-sm">Kilometertarief. Standaard 0,25, de onbelaste vergoeding 2026.
-        <input class="ap-field" name="kmrate" type="number" min="0" max="1" step="0.01" value={defaults.kmRate} />
-      </label>
-      <label class="check"><input type="checkbox" name="transition" checked /> Jaarlijkse opbouw van de transitievergoeding meetellen. U betaalt die pas als het contract op uw initiatief eindigt.</label>
+<div class="ap-compare" data-compare id="vergelijking">
+  <form class="space-y-5 rounded-[2rem] border border-line bg-white/80 p-5 md:p-7">
+    <fieldset class="space-y-3">
+      <legend class="font-semibold text-green-950">Stap 1. Uw organisatie</legend>
+      <label class="block text-sm font-semibold" for="cmp-employees">Aantal medewerkers: <span data-out-employees>{employees}</span></label>
+      <input class="ap-slider" id="cmp-employees" name="employees" type="range" min="35" max="500" step="1" value={employees} />
+      <p class="text-sm text-ink-soft">Voor organisaties met 35–500 medewerkers.</p>
+      <label class="block text-sm font-semibold" for="cmp-absence">Verzuimpercentage: <span data-out-absence>{orgAbsence.toFixed(1).replace(".", ",")}</span>%</label>
+      <input class="ap-slider" id="cmp-absence" name="org" type="range" min="0" max="20" step="0.1" value={orgAbsence} />
+      <p class="text-sm text-ink-soft" data-size-hint>CBS 2025 bij deze omvang: {sizeHint.toFixed(1).replace(".", ",")}%. Landelijk is het {CBS.nl2025.toFixed(1).replace(".", ",")}%. De uren schalen met het percentage dat u hier zet, niet met het groottecijfer.</p>
+      <p class="text-sm font-semibold text-green-950" data-hours>Verwachte inzet: {hoursWeek.toLocaleString("nl-NL", { maximumFractionDigits: 1 })} uur per week, {Math.round(hoursWeek * 52).toLocaleString("nl-NL")} uur per jaar.</p>
     </fieldset>
+    <fieldset class="space-y-2">
+      <legend class="font-semibold text-green-950">Stap 2. Niveau</legend>
+      <label class="block text-sm font-semibold" for="cmp-level"><span data-out-level>Medior</span></label>
+      <input class="ap-slider" id="cmp-level" name="level" type="range" min="0" max="2" step="1" value="0" />
+      <p class="text-sm text-ink-soft">Medior, medior+ of senior. Het uurtarief hoort bij het blok dat uit de uren volgt.</p>
+    </fieldset>
+    <fieldset class="space-y-2">
+      <legend class="font-semibold text-green-950">Stap 3. Contract in dienst</legend>
+      <label class="block text-sm font-semibold" for="cmp-contract">Contracturen per week: <span data-out-contract>{defaults.contractHours}</span></label>
+      <input class="ap-slider" id="cmp-contract" name="contract" type="range" min="8" max="40" step="1" value={defaults.contractHours} />
+      <p class="text-sm text-ink-soft">Bij een dienstverband betaalt u dit volle contract. Het bruto maandloon volgt het CBS-uurloon, tenzij u het hieronder wijzigt.</p>
+    </fieldset>
+    <details class="rounded-3xl bg-sand-100 p-4">
+      <summary class="cursor-pointer font-semibold">Aannames en bronnen</summary>
+      <div class="mt-4 space-y-3">
+        <label class="block text-sm font-semibold">Bruto maandloon bij een dienstverband
+          <input class="ap-field" name="gross" type="number" min="0" step="0.01" value={defaults.grossMonthly.toFixed(2)} />
+        </label>
+        <p class="text-xs text-ink-soft" data-salary-note>Afgeleid van het CBS-mediaan uurloon. Geen CBS-maandloon. Pas het aan naar het loon dat u echt zou bieden.</p>
+        <label class="check"><input type="checkbox" name="large" checked /> Grote werkgever (Aof hoog, 7,63%). Uitvinken = niet-groot, Aof 6,27%. Middelgroot vult u zelf, die mix verschilt per werkgever.</label>
+        <label class="check"><input type="checkbox" name="temporary" /> Tijdelijk contract (AWf hoog, 7,74% in plaats van 2,74%).</label>
+        <label class="block text-sm">Whk, %. Standaard 1,52, het landelijk gemiddelde. Niet uw eigen beschikking.
+          <input class="ap-field" name="whk" type="number" min="0" max="10" step="0.01" value={defaults.whkPct} />
+        </label>
+        <label class="block text-sm">Pensioen werkgever, % van bruto jaarloon. Standaard 0: er is geen landelijk percentage.
+          <input class="ap-field" name="pension" type="number" min="0" max="40" step="0.1" value={defaults.pensionPct} />
+        </label>
+        <label class="block text-sm">Eindejaarsuitkering, % van bruto jaarloon plus vakantiegeld. Standaard 0: er is geen wettelijk percentage.
+          <input class="ap-field" name="yearend" type="number" min="0" max="20" step="0.1" value={defaults.yearEndPct} />
+        </label>
+        <label class="block text-sm">Verzuim van de casemanager zelf, %. Standaard CBS 5,4. Dit is niet het verzuim van uw organisatie uit stap 1.
+          <input class="ap-field" name="absence" type="number" min="0" max="100" step="0.1" value={defaults.absencePct} />
+        </label>
+        <label class="block text-sm">Loondoorbetaling tijdens ziekte, %. Wettelijk minimum is 70. Standaard 100.
+          <input class="ap-field" name="sickpay" type="number" min="70" max="100" value={defaults.sickPayPct} />
+        </label>
+        <label class="check"><input type="checkbox" name="replace" checked /> Ziekte laten vervangen.</label>
+        <label class="block text-sm">Vervangingstarief per uur. Standaard ons tarief voor dit niveau en deze uren.
+          <input class="ap-field" name="replacement" type="number" min="0" max="250" step="0.5" value={defaults.replacementRate} />
+        </label>
+        <label class="block text-sm">Directe wervingskosten, eenmalig. Standaard 5000.
+          <input class="ap-field" name="recruitment" type="number" min="0" step="100" value={defaults.recruitmentCost} />
+        </label>
+        <label class="block text-sm">Vacature in kalenderdagen. Standaard 60.
+          <input class="ap-field" name="vacancy" type="number" min="0" max="365" value={defaults.vacancyCalendarDays} />
+        </label>
+        <label class="check"><input type="checkbox" name="coverVacancy" checked /> Tijdens de vacature vervanging inkopen.</label>
+        <label class="block text-sm">Dienstjaren om eenmalige kosten over af te schrijven.
+          <input class="ap-field" name="tenure" type="number" min="1" max="40" value={defaults.tenureYears} />
+        </label>
+        <label class="block text-sm">Inwerkweken. Standaard 0: er is geen landelijk cijfer.
+          <input class="ap-field" name="onboarding" type="number" min="0" max="26" value={defaults.onboardingWeeks} />
+        </label>
+        <label class="block text-sm">Productiviteit tijdens het inwerken, %.
+          <input class="ap-field" name="onboardingProductivity" type="number" min="0" max="100" value={defaults.onboardingProductivity * 100} />
+        </label>
+        <label class="block text-sm">Niet-productieve uren na verlof en verzuim, %. Standaard 0. Leegloop bij een lage caseload zit al in het volle contract.
+          <input class="ap-field" name="nonproductive" type="number" min="0" max="80" step="1" value={defaults.nonProductivePct} />
+        </label>
+        <label class="block text-sm">Feestdagen op een werkdag. Standaard 6 in 2026.
+          <input class="ap-field" name="holidays" type="number" min="0" max="15" value={defaults.publicHolidays} />
+        </label>
+        <label class="block text-sm">Opleiding, eenmalig, exclusief btw. Standaard 4290, de lijstprijs van één CROV-aanbieder.
+          <input class="ap-field" name="training" type="number" min="0" step="10" value={defaults.trainingOnce} />
+        </label>
+        <label class="block text-sm">Registratie per jaar. Standaard 380, RNVC 2026.
+          <input class="ap-field" name="registration" type="number" min="0" step="10" value={defaults.registrationYear} />
+        </label>
+        <label class="block text-sm">Laptop en software per jaar. Standaard 0.
+          <input class="ap-field" name="software" type="number" min="0" step="50" value={defaults.softwareYear} />
+        </label>
+        <label class="block text-sm">Lease of auto per jaar. Standaard 0.
+          <input class="ap-field" name="lease" type="number" min="0" step="50" value={defaults.leaseYear} />
+        </label>
+        <label class="block text-sm">Zakelijke kilometers per week. Standaard 0.
+          <input class="ap-field" name="km" type="number" min="0" step="1" value={defaults.kmPerWeek} />
+        </label>
+        <label class="block text-sm">Kilometertarief. Standaard 0,25, de onbelaste vergoeding 2026.
+          <input class="ap-field" name="kmrate" type="number" min="0" max="1" step="0.01" value={defaults.kmRate} />
+        </label>
+        <label class="check"><input type="checkbox" name="transition" checked /> Jaarlijkse opbouw van de transitievergoeding meetellen. U betaalt die pas als het contract op uw initiatief eindigt.</label>
+        <h3 class="pt-2 font-semibold">Bronnen</h3>
+        <ul class="space-y-2 text-sm">
+          {compareSources.map((item) => (
+            <li>
+              <a class="font-semibold text-green-800 underline decoration-ochre-500" href={item.url}>{item.title}</a>
+              <span> — {item.note}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </details>
+    <button class="btn btn-ghost" type="button" data-share>Kopieer de link</button>
+    <p class="text-sm" data-share-status role="status"></p>
   </form>
-  <details class="mt-4 rounded-3xl bg-sand-100 p-4 text-sm" open>
-    <summary class="cursor-pointer font-semibold">Bronnen</summary>
-    <ul class="mt-3 space-y-2">
-      {compareSources.map((item) => (
-        <li>
-          <a class="font-semibold text-green-800 underline decoration-ochre-500" href={item.url}>{item.title}</a>
-          <span> — {item.note}</span>
-        </li>
-      ))}
-    </ul>
-  </details>
+  <div data-out class="rounded-[2rem] border border-line bg-white/80 p-5 md:p-8" aria-live="polite" set:html={initialHtml}></div>
 </div>
 
 <style>
   .check { display: flex; gap: 0.5rem; align-items: flex-start; font-size: 0.95rem; }
+  .ap-compare { display: grid; gap: 1.25rem; scroll-margin-top: 1rem; }
+  @media (min-width: 960px) {
+    .ap-compare { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items: start; }
+    .ap-compare [data-out] { position: sticky; top: 1rem; }
+  }
 </style>
 
 <script>
-  import { compareEmployment, grossMonthlyFromCbs, type CompareInput } from "../../lib/calc";
+  import {
+    caseManagerHoursPerWeek,
+    caseManagerHoursPerYear,
+    compareEmployment,
+    defaultAbsencePct,
+    grossMonthlyFromCbs,
+    type CompareInput,
+  } from "../../lib/calc";
   import { compareReportHtml } from "../../lib/compare-view";
+  import { euro } from "../../lib/format";
   import { rateFor } from "../../lib/rates";
   import { mountReport } from "../../scripts/report";
   import { track } from "../../scripts/track";
 
+  const levels = ["medior", "medior-plus", "senior"] as const;
+  const levelLabels = ["Medior", "Medior+", "Senior met specialisatie"];
   const root = document.querySelector<HTMLElement>("[data-compare]");
   const form = root?.querySelector("form");
   const out = root?.querySelector<HTMLElement>("[data-out]");
   const gross = form?.querySelector<HTMLInputElement>("[name=gross]");
   const replacement = form?.querySelector<HTMLInputElement>("[name=replacement]");
   const contract = form?.querySelector<HTMLInputElement>("[name=contract]");
-  const level = form?.querySelector<HTMLSelectElement>("[name=level]");
-  const hours = form?.querySelector<HTMLInputElement>("[name=hours]");
+  const level = form?.querySelector<HTMLInputElement>("[name=level]");
+  const employees = form?.querySelector<HTMLInputElement>("[name=employees]");
+  const org = form?.querySelector<HTMLInputElement>("[name=org]");
   let grossTouched = false;
   let replacementTouched = false;
+  let euroFrom = 0;
+  let frame = 0;
 
+  function clamp(value: number, min: number, max: number) {
+    return Math.min(max, Math.max(min, value));
+  }
   function field(data: FormData, name: string, fallback = 0) {
     const value = Number(data.get(name));
     return Number.isFinite(value) ? value : fallback;
   }
-
+  function setChecked(name: string, on: boolean) {
+    const input = form?.querySelector<HTMLInputElement>(`[name=${name}]`);
+    if (input) input.checked = on;
+  }
+  function setValue(name: string, value: string) {
+    const input = form?.querySelector<HTMLInputElement>(`[name=${name}]`);
+    if (input) input.value = value;
+  }
+  function readUrl() {
+    const params = new URLSearchParams(location.search);
+    if (!params.has("medewerkers") && !params.has("verzuim") && !params.has("niveau") && !params.has("contract")) return;
+    if (employees && params.has("medewerkers")) employees.value = String(clamp(Number(params.get("medewerkers")), 35, 500));
+    if (org && params.has("verzuim")) org.value = String(clamp(Number(params.get("verzuim")), 0, 20));
+    if (level && params.has("niveau")) {
+      const index = levels.indexOf(params.get("niveau") as (typeof levels)[number]);
+      if (index >= 0) level.value = String(index);
+    }
+    if (contract && params.has("contract")) contract.value = String(clamp(Number(params.get("contract")), 8, 40));
+    if (params.has("loon") && gross) {
+      gross.value = String(Number(params.get("loon")));
+      grossTouched = true;
+    }
+    if (params.has("vervangtarief") && replacement) {
+      replacement.value = String(Number(params.get("vervangtarief")));
+      replacementTouched = true;
+    }
+    const flags: [string, string][] = [
+      ["groot", "large"],
+      ["tijdelijk", "temporary"],
+      ["vervang", "replace"],
+      ["vacatureopvangen", "coverVacancy"],
+      ["transitie", "transition"],
+    ];
+    for (const [key, name] of flags) {
+      if (params.has(key)) setChecked(name, params.get(key) === "1");
+    }
+    const numbers: [string, string][] = [
+      ["whk", "whk"],
+      ["pensioen", "pension"],
+      ["eindejaar", "yearend"],
+      ["verzuimcm", "absence"],
+      ["loondoor", "sickpay"],
+      ["werving", "recruitment"],
+      ["vacature", "vacancy"],
+      ["dienstjaren", "tenure"],
+      ["inwerken", "onboarding"],
+      ["productief", "onboardingProductivity"],
+      ["leegloop", "nonproductive"],
+      ["feestdagen", "holidays"],
+      ["opleiding", "training"],
+      ["registratie", "registration"],
+      ["software", "software"],
+      ["lease", "lease"],
+      ["km", "km"],
+      ["kmtarief", "kmrate"],
+    ];
+    for (const [key, name] of numbers) {
+      if (params.has(key)) setValue(name, String(Number(params.get(key))));
+    }
+  }
+  function writeUrl(input: CompareInput, headcount: number, orgAbsence: number) {
+    const params = new URLSearchParams(location.search);
+    params.set("medewerkers", String(headcount));
+    params.set("verzuim", String(orgAbsence));
+    params.set("niveau", input.level);
+    params.set("contract", String(input.contractHours));
+    const base = defaultCompareInput({ neededHours: input.neededHours, level: input.level, contractHours: input.contractHours });
+    const put = (key: string, value: string, keep: boolean) => {
+      if (keep) params.set(key, value);
+      else params.delete(key);
+    };
+    put("loon", String(input.grossMonthly), grossTouched);
+    put("vervangtarief", String(input.replacementRate), replacementTouched);
+    put("groot", input.largeEmployer ? "1" : "0", input.largeEmployer !== base.largeEmployer);
+    put("tijdelijk", input.temporaryContract ? "1" : "0", input.temporaryContract !== base.temporaryContract);
+    put("vervang", input.replaceAbsence ? "1" : "0", input.replaceAbsence !== base.replaceAbsence);
+    put("vacatureopvangen", input.coverVacancy ? "1" : "0", input.coverVacancy !== base.coverVacancy);
+    put("transitie", input.includeTransition ? "1" : "0", input.includeTransition !== base.includeTransition);
+    const pairs: [string, number, number][] = [
+      ["whk", input.whkPct, base.whkPct],
+      ["pensioen", input.pensionPct, base.pensionPct],
+      ["eindejaar", input.yearEndPct, base.yearEndPct],
+      ["verzuimcm", input.absencePct, base.absencePct],
+      ["loondoor", input.sickPayPct, base.sickPayPct],
+      ["werving", input.recruitmentCost, base.recruitmentCost],
+      ["vacature", input.vacancyCalendarDays, base.vacancyCalendarDays],
+      ["dienstjaren", input.tenureYears, base.tenureYears],
+      ["inwerken", input.onboardingWeeks, base.onboardingWeeks],
+      ["productief", input.onboardingProductivity * 100, base.onboardingProductivity * 100],
+      ["leegloop", input.nonProductivePct, base.nonProductivePct],
+      ["feestdagen", input.publicHolidays, base.publicHolidays],
+      ["opleiding", input.trainingOnce, base.trainingOnce],
+      ["registratie", input.registrationYear, base.registrationYear],
+      ["software", input.softwareYear, base.softwareYear],
+      ["lease", input.leaseYear, base.leaseYear],
+      ["km", input.kmPerWeek, base.kmPerWeek],
+      ["kmtarief", input.kmRate, base.kmRate],
+    ];
+    for (const [key, value, fallback] of pairs) put(key, String(value), value !== fallback);
+    const url = new URL(location.href);
+    url.search = params.toString();
+    if (url.href !== location.href) history.replaceState(null, "", url);
+  }
+  function animateEuro(node: HTMLElement | null) {
+    if (!node) return;
+    const target = Number(node.dataset.euro);
+    if (!Number.isFinite(target)) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      node.textContent = euro(target, true);
+      euroFrom = target;
+      return;
+    }
+    const from = euroFrom;
+    const start = performance.now();
+    cancelAnimationFrame(frame);
+    const step = (now: number) => {
+      const t = Math.min(1, (now - start) / 700);
+      const eased = 1 - (1 - t) ** 3;
+      node.textContent = euro(Math.round(from + (target - from) * eased), true);
+      if (t < 1) frame = requestAnimationFrame(step);
+      else euroFrom = target;
+    };
+    frame = requestAnimationFrame(step);
+  }
   function render(shouldTrack: boolean) {
-    if (!form || !out) return;
+    if (!form || !out || !employees || !org || !level || !contract) return;
+    const headcount = clamp(Number(employees.value) || 100, 35, 500);
+    const orgAbsence = Math.round(clamp(Number(org.value) || 5.4, 0, 20) * 10) / 10;
+    const chosen = levels[clamp(Number(level.value) || 0, 0, 2)] ?? "medior";
+    const contractHours = clamp(Number(contract.value) || 40, 8, 40);
+    const hoursWeek = caseManagerHoursPerWeek(headcount, orgAbsence);
+    if (!grossTouched && gross) gross.value = grossMonthlyFromCbs(contractHours).toFixed(2);
+    if (!replacementTouched && replacement) replacement.value = String(rateFor(chosen, Math.max(10, hoursWeek)));
     const data = new FormData(form);
-    const chosen = String(data.get("level")) as CompareInput["level"];
-    const neededHours = field(data, "hours", 10);
-    const contractHours = field(data, "contract", 40);
     const input: CompareInput = {
       level: chosen,
-      neededHours,
-      grossMonthly: grossTouched ? field(data, "gross") : grossMonthlyFromCbs(contractHours),
+      neededHours: hoursWeek,
+      grossMonthly: field(data, "gross"),
       contractHours,
       largeEmployer: data.get("large") === "on",
       temporaryContract: data.get("temporary") === "on",
@@ -157,7 +328,7 @@ const initialHtml = compareReportHtml(defaults, compareEmployment(defaults));
       absencePct: field(data, "absence", 5.4),
       sickPayPct: field(data, "sickpay", 100),
       replaceAbsence: data.get("replace") === "on",
-      replacementRate: replacementTouched ? field(data, "replacement") : rateFor(chosen, Math.max(10, neededHours)),
+      replacementRate: field(data, "replacement"),
       recruitmentCost: field(data, "recruitment"),
       tenureYears: field(data, "tenure", 3),
       vacancyCalendarDays: field(data, "vacancy"),
@@ -175,12 +346,39 @@ const initialHtml = compareReportHtml(defaults, compareEmployment(defaults));
       nonProductivePct: field(data, "nonproductive"),
     };
     const result = compareEmployment(input);
-    out.innerHTML = compareReportHtml(input, result);
+    const demand = {
+      employees: headcount,
+      orgAbsencePct: orgAbsence,
+      hoursWeek,
+      hoursYear: caseManagerHoursPerYear(headcount, orgAbsence),
+    };
+    out.innerHTML = compareReportHtml(input, result, demand);
+    animateEuro(out.querySelector<HTMLElement>("[data-euro]"));
+    const employeesOut = form.querySelector<HTMLElement>("[data-out-employees]");
+    const absenceOut = form.querySelector<HTMLElement>("[data-out-absence]");
+    const levelOut = form.querySelector<HTMLElement>("[data-out-level]");
+    const contractOut = form.querySelector<HTMLElement>("[data-out-contract]");
+    const hoursOut = form.querySelector<HTMLElement>("[data-hours]");
+    const hint = form.querySelector<HTMLElement>("[data-size-hint]");
+    if (employeesOut) employeesOut.textContent = headcount.toLocaleString("nl-NL");
+    if (absenceOut) absenceOut.textContent = orgAbsence.toLocaleString("nl-NL", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    if (levelOut) levelOut.textContent = levelLabels[levels.indexOf(chosen)] ?? chosen;
+    if (contractOut) contractOut.textContent = String(contractHours);
+    if (hoursOut) {
+      hoursOut.textContent = `Verwachte inzet: ${hoursWeek.toLocaleString("nl-NL", { maximumFractionDigits: 1 })} uur per week, ${Math.round(demand.hoursYear).toLocaleString("nl-NL")} uur per jaar.`;
+    }
+    if (hint) {
+      const bench = defaultAbsencePct(headcount);
+      hint.textContent = `CBS 2025 bij deze omvang: ${bench.toLocaleString("nl-NL", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%. Landelijk is het 5,4%. De uren schalen met het percentage dat u hier zet, niet met het groottecijfer.`;
+    }
     mountReport(out, {
       calculator: "casemanager-inhuren-of-in-dienst",
       title: "Casemanager inhuren of in dienst nemen",
       body: out.innerText.trim(),
+      submitLabel: "Stuur mij dit rapport",
+      calendly: true,
     });
+    writeUrl(input, headcount, orgAbsence);
     if (shouldTrack) track("calculator_result", { calculator: "casemanager-inhuren-of-in-dienst" });
   }
 
@@ -190,36 +388,20 @@ const initialHtml = compareReportHtml(defaults, compareEmployment(defaults));
   replacement?.addEventListener("input", () => {
     replacementTouched = true;
   });
-  function syncDerived() {
-    if (!grossTouched && gross && contract) {
-      const next = grossMonthlyFromCbs(Number(contract.value) || 40);
-      gross.value = next.toFixed(2);
-    }
-    if (!replacementTouched && replacement && level && hours) {
-      replacement.value = String(rateFor(level.value as CompareInput["level"], Math.max(10, Number(hours.value) || 10)));
-    }
-  }
-  level?.addEventListener("change", () => {
-    syncDerived();
-    render(false);
-  });
-  hours?.addEventListener("change", () => {
-    syncDerived();
-    render(false);
-  });
-  contract?.addEventListener("change", () => {
-    syncDerived();
-    render(false);
-  });
   form?.addEventListener("input", (event) => {
     const target = event.target as HTMLElement | null;
-    if (target === level || target === hours || target === contract) return;
-    render(false);
+    if (target === gross || target === replacement) render(false);
+    else render(false);
   });
-  form?.addEventListener("submit", (event) => {
-    event.preventDefault();
-    syncDerived();
-    render(true);
+  form?.querySelector<HTMLButtonElement>("[data-share]")?.addEventListener("click", async () => {
+    const status = form.querySelector<HTMLElement>("[data-share-status]");
+    try {
+      await navigator.clipboard.writeText(location.href);
+      if (status) status.textContent = "Link gekopieerd. De parameters staan in het adres.";
+    } catch {
+      if (status) status.textContent = location.href;
+    }
   });
+  readUrl();
   render(false);
 </script>
