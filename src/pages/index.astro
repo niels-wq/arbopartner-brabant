@@ -14,11 +14,11 @@ import Guarantees from "../components/Guarantees.astro";
 import { qualityFaq } from "../data/garanties";
 import TeamStrip from "../components/TeamStrip.astro";
 import BrabantMap from "../components/BrabantMap.astro";
-import BrabantPhoto from "../components/BrabantPhoto.astro";
 import VerzuimTijdlijn from "../components/VerzuimTijdlijn.astro";
 import Situaties from "../components/Situaties.astro";
 import Feiten from "../components/Feiten.astro";
 import Photo from "../components/Photo.astro";
+import { werkFotoVoorPlaats } from "../data/fotos";
 import { faqLd, teamPeopleLd } from "../lib/schema";
 
 const steden = ["den-bosch", "eindhoven", "tilburg"] as const;
@@ -184,9 +184,20 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
     <p class="mt-2 max-w-2xl text-ink-soft">Den Bosch, Eindhoven, Tilburg, Breda, Helmond, Oss, Uden, Veghel, Roosendaal, Bergen op Zoom en de gemeenten eromheen. Het kantoor staat in Uden. Reistijd binnen ongeveer 45 minuten van dat kantoor zit in het tarief. Verder in Brabant staat de rit in de offerte.</p>
     <BrabantMap class="mt-6" />
     <ul class="mt-8 grid gap-6 sm:grid-cols-3">
-      {steden.map((id) => (
-        <li><BrabantPhoto id={id} /></li>
-      ))}
+      {steden.map((id) => {
+        const place = places.find((item) => item.slug === id)!;
+        return (
+          <li>
+            <a class="block overflow-hidden rounded-2xl border border-line bg-white" href={`/werkgebied/${place.slug}`}>
+              <Photo id={werkFotoVoorPlaats(place.slug)} plain caption={false} sizes="(min-width: 640px) 20rem, 100vw" />
+              <div class="p-4">
+                <h3 class="font-serif text-2xl text-green-950">{place.name}</h3>
+                <p class="mt-1 text-sm text-ink-soft">{place.sectors.join(", ")}. De foto toont dat soort werk.</p>
+              </div>
+            </a>
+          </li>
+        );
+      })}
     </ul>
     <ul class="mt-6 flex flex-wrap gap-2">
       {places.map((place) => (

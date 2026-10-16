@@ -1,5 +1,3 @@
-import type { FotoId as StadId } from "./brabant-fotos";
-
 export type SiteFoto = {
   caption: string;
   alt: string;
@@ -86,6 +84,46 @@ export const fotos = {
     "Drie mensen van het team van Matchvermogen aan een tafel.",
     "Drie mensen van het team van Matchvermogen in gesprek, met een plant op de voorgrond. Foto gepubliceerd op matchvermogen.nl.",
   ),
+  "gesprek-werkgever": {
+    caption: "Arbeidsdeskundigen van Matchvermogen in gesprek met een werkgever.",
+    alt: "Arbeidsdeskundigen van Matchvermogen in gesprek met een werkgever aan een tafel met laptops en papieren. Foto gepubliceerd op matchvermogen.nl.",
+    author: "Matchvermogen",
+    license: "Foto van Matchvermogen",
+    licenseUrl: "https://matchvermogen.nl/over-matchvermogen/",
+    sourceUrl: "https://matchvermogen.nl/wp-content/uploads/2026/10/arbeidsdeskundig-onderzoek-team-1600.webp",
+    width: 1400,
+    height: 665,
+  },
+  "werkvloer-productie": {
+    caption: "Een medewerker aan een naaimachine in een productieruimte. Geen opdrachtgever van Arbopartner Brabant.",
+    alt: "Een medewerker in een blauwe stofjas werkt aan een naaimachine in een productieruimte. Stockfoto, geen opdrachtgever van Arbopartner Brabant.",
+    author: "Igor Ovsyannykov",
+    license: "Unsplash License",
+    licenseUrl: "https://unsplash.com/license",
+    sourceUrl: "https://unsplash.com/photos/w_nh1ECO7QY",
+    width: 1400,
+    height: 933,
+  },
+  "werkvloer-bouw": {
+    caption: "Mensen met helmen op een bouwplaats. Geen opdrachtgever van Arbopartner Brabant.",
+    alt: "Twee mensen met witte helmen op een bouwplaats, op de rug gezien, bij een gebouw in aanbouw. Stockfoto, geen opdrachtgever van Arbopartner Brabant.",
+    author: "Clem Onojeghuo",
+    license: "Unsplash License",
+    licenseUrl: "https://unsplash.com/license",
+    sourceUrl: "https://unsplash.com/photos/zZza888FSKg",
+    width: 1400,
+    height: 933,
+  },
+  "werkvloer-zorg": {
+    caption: "Een zorgmedewerker in uniform op een gang. Geen opdrachtgever van Arbopartner Brabant.",
+    alt: "Een zorgmedewerker in lichtblauw uniform en een witte jas, met een stethoscoop, loopt over een gang. Stockfoto, geen opdrachtgever van Arbopartner Brabant.",
+    author: "voltamax",
+    license: "Pexels License",
+    licenseUrl: "https://www.pexels.com/license/",
+    sourceUrl: "https://www.pexels.com/photo/adult-doctor-girl-healthcare-355934/",
+    width: 1400,
+    height: 934,
+  },
   "pexels-overleg": {
     caption: "Werkoverleg aan een laptop. Geen opdrachtgever van Arbopartner Brabant.",
     alt: "Een man en een vrouw in een kantooroverleg aan een laptop. Stockfoto, geen opdrachtgever van Arbopartner Brabant.",
@@ -116,26 +154,6 @@ export const fotos = {
     width: 1400,
     height: 2100,
   },
-  "unsplash-fabriek": {
-    caption: "De Van Nellefabriek in Rotterdam. Geen opdrachtgever, en niet in Brabant.",
-    alt: "De Van Nellefabriek in Rotterdam, een fabrieksgebouw met trappen. Geen opdrachtgever van Arbopartner Brabant.",
-    author: "Pim Menkveld",
-    license: "Unsplash License",
-    licenseUrl: "https://unsplash.com/license",
-    sourceUrl: "https://unsplash.com/photos/i1aXE78if_4",
-    width: 1400,
-    height: 1750,
-  },
-  "unsplash-eindhoven": {
-    caption: "Het Stratumseind in Eindhoven, 's avonds. Geen foto van een opdrachtgever.",
-    alt: "Mensen op het Stratumseind in Eindhoven in de avond. Stockfoto, geen opdrachtgever van Arbopartner Brabant.",
-    author: "Omar Ramadan",
-    license: "Unsplash License",
-    licenseUrl: "https://unsplash.com/license",
-    sourceUrl: "https://unsplash.com/photos/people-walking-on-street-during-night-time-RsTgMxSFppI",
-    width: 1400,
-    height: 1866,
-  },
 } as const satisfies Record<string, SiteFoto>;
 
 export type FotoId = keyof typeof fotos;
@@ -164,7 +182,10 @@ export const situatieFoto = {
 } as const satisfies Record<string, FotoId>;
 
 export const blogFoto = {
-  "verzuim-maakindustrie-brabant": "unsplash-fabriek",
+  "verzuim-maakindustrie-brabant": "werkvloer-productie",
+  "verzuimbegeleiding-den-bosch": "pexels-overleg",
+  "verzuimbegeleiding-uden-veghel": "werkvloer-productie",
+  "verzuimbegeleiding-eindhoven-helmond": "werkvloer-productie",
   "burn-out-medewerker-werkgever": "gesprek-bankstel",
   "casemanager-in-dienst-of-detacheren": "pexels-overleg",
   "casemanager-verzuim-inhuren": "gesprek-advies",
@@ -199,8 +220,34 @@ export function fotoVoorBlog(id: string): FotoId | undefined {
   return (blogFoto as Record<string, FotoId>)[id];
 }
 
-export const blogStad = {
-  "verzuimbegeleiding-den-bosch": "den-bosch",
-  "verzuimbegeleiding-uden-veghel": "uden",
-  "verzuimbegeleiding-eindhoven-helmond": "eindhoven",
-} as const satisfies Record<string, StadId>;
+/** Het soort werk op een plaats. Geen stads- of gebouwfoto. */
+export const plaatsWerk = {
+  uden: "werkvloer-productie",
+  veghel: "werkvloer-productie",
+  oss: "werkvloer-zorg",
+  "den-bosch": "pexels-overleg",
+  eindhoven: "werkvloer-productie",
+  helmond: "werkvloer-productie",
+  boxmeer: "werkvloer-productie",
+  cuijk: "werkvloer-bouw",
+  schijndel: "werkvloer-bouw",
+  boxtel: "werkvloer-productie",
+  veldhoven: "gesprek-werkgever",
+  best: "pexels-team",
+  nijmegen: "werkvloer-zorg",
+  grave: "werkvloer-zorg",
+  gemert: "werkvloer-bouw",
+  deurne: "werkvloer-productie",
+  tilburg: "werkvloer-zorg",
+  waalwijk: "werkvloer-productie",
+  oosterhout: "werkvloer-productie",
+  breda: "pexels-overleg",
+  roosendaal: "pexels-team",
+  "bergen-op-zoom": "werkvloer-productie",
+} as const satisfies Record<string, FotoId>;
+
+export function werkFotoVoorPlaats(slug: string): FotoId {
+  const id = (plaatsWerk as Record<string, FotoId>)[slug];
+  if (!id) throw new Error(`geen werkfoto voor plaats ${slug}`);
+  return id;
+}

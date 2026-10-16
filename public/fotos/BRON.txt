@@ -18,8 +18,14 @@ Stock, licentie gecontroleerd op de fotopagina (geen Unsplash+):
 pexels-overleg: Antoni Shkraba, Pexels License, https://www.pexels.com/photo/a-man-and-woman-having-a-meeting-in-the-office-5862282/ (2020)
 pexels-team: Yan Krukau, Pexels License, https://www.pexels.com/photo/colleagues-having-a-meeting-7793719/ (2021)
 pexels-tafel: Alena Darmel, Pexels License, https://www.pexels.com/photo/colleagues-having-a-conversation-while-sitting-on-a-table-8134175/ (2021)
-unsplash-fabriek: Pim Menkveld, Unsplash License, Van Nellefabriek Rotterdam, https://unsplash.com/photos/i1aXE78if_4 (2016)
-unsplash-eindhoven: Omar Ramadan, Unsplash License, Stratumseind Eindhoven, https://unsplash.com/photos/people-walking-on-street-during-night-time-RsTgMxSFppI (2020)
+gesprek-werkgever: Matchvermogen, alt-tekst op de mediabibliotheek: arbeidsdeskundigen in gesprek met een werkgever. https://matchvermogen.nl/wp-content/uploads/2026/10/arbeidsdeskundig-onderzoek-team-1600.webp
+
+Werkvloer, licentie gecontroleerd via de Wikimedia Commons-API (maker, licentie en de originele Unsplash- of Pexels-pagina):
+werkvloer-productie: Igor Ovsyannykov, Unsplash License, https://unsplash.com/photos/w_nh1ECO7QY — Commons File:Factory Worker Making Clothes (Unsplash).jpg, CC0
+werkvloer-bouw: Clem Onojeghuo, Unsplash License, https://unsplash.com/photos/zZza888FSKg — Commons File:At a Building site (Unsplash).jpg, CC0
+werkvloer-zorg: voltamax, Pexels License, https://www.pexels.com/photo/adult-doctor-girl-healthcare-355934/ — dezelfde url staat bij Commons File:Female Nurse.jpg
+
+Niet meer gebruikt: de Van Nellefabriek en het Stratumseind. Dat zijn gebouw en straat, geen werk.
 
 Niet gebruikt: DALL·E- en Gemini-bestanden op matchvermogen.nl, en Pexels-foto's uit 2025-2026 waarvan niet vaststond dat het echte foto's waren.
 Een foto die het gebouw Losplaats 16d toont, staat niet op matchvermogen.nl of arbeidsdeskundig.com.

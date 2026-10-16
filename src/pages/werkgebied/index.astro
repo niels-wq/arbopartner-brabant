@@ -4,10 +4,9 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ClusterNav from "../../components/ClusterNav.astro";
 import Photo from "../../components/Photo.astro";
 import BrabantMap from "../../components/BrabantMap.astro";
-import BrabantPhoto from "../../components/BrabantPhoto.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import InlineLead from "../../components/InlineLead.astro";
-import { fotoVoorPlaats } from "../../data/brabant-fotos";
+import { werkFotoVoorPlaats } from "../../data/fotos";
 import { gemeenten } from "../../data/gemeenten";
 import { places } from "../../data/places";
 import { crumbsLd } from "../../lib/schema";
@@ -24,15 +23,14 @@ const crumbs = [
     <h1 class="font-serif text-5xl text-green-950">Casemanager in heel Brabant</h1>
     <p class="mt-4 max-w-2xl">Arbopartner Brabant werkt voor werkgevers in Noord-Brabant, nuchter en dichtbij. De thuisbasis is het kantoor aan de Losplaats 16d in Uden. Reistijd binnen ongeveer 45 minuten van dat kantoor zit in het tarief. Ligt uw adres verder in de provincie, dan staat de rit in de offerte. De minuten bij een stad zijn een indicatie per auto buiten de spits.</p>
     <BrabantMap class="mt-6" />
-    <Photo id="unsplash-eindhoven" class="mt-6 max-w-3xl" />
+    <Photo id="gesprek-werkgever" class="mt-6 max-w-3xl" />
   </header>
   <ul class="mx-auto grid max-w-6xl gap-4 px-4 py-8 sm:grid-cols-2 lg:grid-cols-3">
     {places.map((place) => {
-      const foto = fotoVoorPlaats(place.slug);
       return (
         <li>
           <a class="block h-full overflow-hidden rounded-[2rem] border border-line bg-white/80" href={`/werkgebied/${place.slug}`}>
-            {foto && <BrabantPhoto id={foto} caption={false} plain />}
+            <Photo id={werkFotoVoorPlaats(place.slug)} caption={false} plain sizes="(min-width: 1024px) 22rem, 100vw" />
             <div class="p-5">
               <h2 class="font-serif text-2xl text-green-950">{place.name}</h2>
               <p class="text-sm text-ochre-800">{place.buitenBrabant ? "Rand, Gelderland" : place.municipality} · ongeveer {place.minutes} minuten</p>

@@ -7,10 +7,8 @@ import ClusterNav from "../../components/ClusterNav.astro";
 import FaqList from "../../components/FaqList.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import Photo from "../../components/Photo.astro";
-import BrabantPhoto from "../../components/BrabantPhoto.astro";
 import InlineLead from "../../components/InlineLead.astro";
-import { brabantFotos } from "../../data/brabant-fotos";
-import { blogStad, fotos, fotoVoorBlog } from "../../data/fotos";
+import { fotos, fotoVoorBlog } from "../../data/fotos";
 import { absoluteUrl } from "../../data/site";
 import { articleLd, crumbsLd, faqLd } from "../../lib/schema";
 
@@ -21,10 +19,9 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const stad = blogStad[post.id as keyof typeof blogStad];
-const fotoId = fotoVoorBlog(post.id);
-const image = stad ? absoluteUrl(`/brabant/${stad}.webp`) : absoluteUrl(`/fotos/${fotoId}.webp`);
-const imageAlt = stad ? brabantFotos[stad].alt : fotos[fotoId!].alt;
+const fotoId = fotoVoorBlog(post.id)!;
+const image = absoluteUrl(`/fotos/${fotoId}.webp`);
+const imageAlt = fotos[fotoId].alt;
 const crumbs = [
   { name: "Home", path: "/" },
   { name: "Kennis", path: "/blog" },
@@ -55,7 +52,7 @@ const iso = (date: Date) => date.toISOString().slice(0, 10);
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">{post.data.keyword}</p>
     <h1 class="mt-2 font-serif text-4xl text-green-950 md:text-5xl">{post.data.title}</h1>
-    {stad ? <BrabantPhoto id={stad} eager class="mt-6" /> : <Photo id={fotoId!} eager class="mt-6" />}
+    <Photo id={fotoId} eager class="mt-6" />
     <p class="mt-3 flex items-center gap-3 text-sm text-ink-soft">
       <img class="niels-face h-10 w-10 rounded-full" src="/mensen/niels-alderding-avatar.webp" width="240" height="240" alt="" />
       <span>Niels Alderding, oprichter van Matchvermogen, namens Arbopartner Brabant. Gepubliceerd {iso(post.data.pubDate)}. Bijgewerkt {iso(post.data.updated)}. Dit is algemene informatie voor werkgevers, geen advies over één dossier.</span>

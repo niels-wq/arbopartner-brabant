@@ -4,11 +4,13 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import FaqList from "../../components/FaqList.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import BrabantPhoto from "../../components/BrabantPhoto.astro";
+import Photo from "../../components/Photo.astro";
 import Mark from "../../components/Mark.astro";
 import Actie from "../../components/Actie.astro";
 import InlineLead from "../../components/InlineLead.astro";
 import { site, phoneHref, mailHref } from "../../data/site";
 import { fotoVoorPlaats } from "../../data/brabant-fotos";
+import { werkFotoVoorPlaats } from "../../data/fotos";
 import { getPlace, places } from "../../data/places";
 import { crumbsLd, faqLd, organizationLd } from "../../lib/schema";
 
@@ -41,7 +43,8 @@ const rit = place.reistijdInTarief === false
     <h1 class="mt-2 font-serif text-5xl text-green-950">Casemanager {place.in}</h1>
     <p class="mt-4 text-lg">Een vaste casemanager {place.in}, {gebied}. De thuisbasis is het kantoor van {site.name} in Uden. De rit is ongeveer {place.minutes} minuten buiten de spits. {rit} {place.lead}</p>
     <Actie cta={`plaats-${place.slug}`} />
-    {foto && <BrabantPhoto id={foto} class="mt-6" />}
+    <Photo id={werkFotoVoorPlaats(place.slug)} class="mt-6" />
+    {foto && <BrabantPhoto id={foto} class="mt-3 max-w-40" />}
     <address class="mt-4 rounded-3xl bg-sand-100 p-4 text-sm not-italic">
       <strong>{site.name}</strong>, label van {site.parent.legalName}<br />
       {site.parent.street}, {site.parent.postalCode} {site.parent.city}<br />

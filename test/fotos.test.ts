@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { access, readdir, readFile } from "node:fs/promises";
 import { describe, it } from "node:test";
 import { brabantFotos, fotoVoorPlaats } from "../src/data/brabant-fotos.ts";
-import { blogFoto, blogStad, dienstFoto, fotos, situatieFoto } from "../src/data/fotos.ts";
+import { blogFoto, dienstFoto, fotos, plaatsWerk, situatieFoto, werkFotoVoorPlaats } from "../src/data/fotos.ts";
 import { places } from "../src/data/places.ts";
 
 const vrij = /^(CC0|CC BY|CC BY-SA|Public domain)/;
@@ -35,12 +35,16 @@ describe("echte foto's", () => {
     assert.equal(posts.length, 20);
     for (const slug of services) assert.ok(slug in dienstFoto, slug);
     for (const slug of situaties) assert.ok(slug in situatieFoto, slug);
-    for (const id of posts) assert.ok(id in blogFoto || id in blogStad, id);
+    for (const id of posts) assert.ok(id in blogFoto, id);
     for (const place of places) {
       const foto = fotoVoorPlaats(place.slug);
       assert.ok(foto, place.slug);
       assert.ok(brabantFotos[foto]);
       await access(`public/brabant/${foto}.webp`);
+      const werk = werkFotoVoorPlaats(place.slug);
+      assert.equal(werk, plaatsWerk[place.slug as keyof typeof plaatsWerk]);
+      assert.equal(werk in fotos, true);
+      assert.equal(/kerk|skyline|stratumseind|evoluon/i.test(fotos[werk].alt), false, place.slug);
     }
   });
 
@@ -51,6 +55,10 @@ describe("echte foto's", () => {
     const blog = await readFile("src/pages/blog/[slug].astro", "utf8");
     const plaats = await readFile("src/pages/werkgebied/[slug].astro", "utf8");
     assert.match(home, /Photo id="gesprek-bank"/);
+    assert.equal(home.includes("BrabantPhoto"), false);
+    assert.equal((await readFile("src/pages/blog/index.astro", "utf8")).includes("BrabantPhoto"), false);
+    assert.equal((await readFile("src/pages/werkgebied/index.astro", "utf8")).includes("unsplash-eindhoven"), false);
+    assert.match(await readFile("src/pages/werkgebied/[slug].astro", "utf8"), /max-w-40/);
     assert.match(home, /site\.founder\.avatar/);
     assert.equal(dienst.includes("Figure"), false);
     assert.match(dienst, /fotoVoorDienst/);
