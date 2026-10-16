@@ -9,6 +9,7 @@ import ReviewCard from "../components/ReviewCard.astro";
 import { calendlyKennismaking } from "../data/calendly";
 import { mapsDirectionsHref, officeConversation, site, zzpFaq } from "../data/site";
 import { reviewsAboutNiels } from "../data/reviews";
+import Button from "../components/Button.astro";
 import CalendlyButton from "../components/CalendlyButton.astro";
 import Guarantees from "../components/Guarantees.astro";
 import { qualityFaq } from "../data/garanties";
@@ -56,11 +57,11 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
       <h1 class="mt-3 max-w-xl text-4xl text-green-950 md:text-6xl">Casemanager en arbo in Brabant.</h1>
       <p class="mt-5 max-w-xl text-lg text-ink-soft">Nuchter, dichtbij, Brabants. Arbopartner Brabant is een label van Matchvermogen B.V. en detacheert een vaste casemanager {site.audience} in heel Noord-Brabant. Het kantoor staat in Uden, aan de Losplaats 16d. Het label is geen arbodienst. Een arbeidsdeskundige van Matchvermogen staat als achtervang klaar, met korting.</p>
       <div class="mt-8">
-        <a class="rounded-full bg-ochre-500 px-5 py-3 text-center font-semibold" data-cta="home-advies" href="/adviesgesprek">Plan een adviesgesprek</a>
+        <Button data-cta="home-advies" href="/adviesgesprek">Plan een adviesgesprek</Button>
         <p class="mt-2 text-sm text-ink-soft">Het gesprek van 30 minuten verplicht u tot niets.</p>
         <p class="mt-3 max-w-xl text-sm text-ink-soft">
           Liever eerst kort kennismaken?
-          <CalendlyButton class="font-semibold text-green-800 underline" cta="home-calendly" />
+          <CalendlyButton inline cta="home-calendly" />
           <span> — 15 minuten, vrijblijvend.</span>
           <a class="ml-1 font-semibold text-green-800 underline" data-cta="home-spoed" href="/spoedhulp">Ik heb nu een probleem</a>
         </p>
@@ -193,11 +194,7 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
           </address>
           <p class="mt-4 flex flex-wrap items-center gap-3">
             <a class="font-semibold text-green-900 underline decoration-ochre-500" data-cta="home-route-uden" href={mapsDirectionsHref} rel="noopener noreferrer">Route</a>
-            <CalendlyButton
-              class="rounded-full bg-ochre-500 px-5 py-3 text-center font-semibold"
-              cta="home-locatie-uden"
-              label="Plan een gesprek op locatie"
-            />
+            <CalendlyButton cta="home-locatie-uden" label="Plan een gesprek op locatie" />
           </p>
           <p class="mt-3 text-sm text-ink-soft">{calendlyKennismaking.note}</p>
         </div>

@@ -1,4 +1,5 @@
 ---
+import Button from "./Button.astro";
 import { site, phoneHref, whatsappHref } from "../data/site";
 import { services } from "../data/services";
 
@@ -49,7 +50,7 @@ const more = [
             ))}
           </div>
         </details>
-        <a class="rounded-full bg-green-800 px-4 py-2" data-cta="nav-advies" href="/adviesgesprek">Adviesgesprek</a>
+        <Button data-cta="nav-advies" href="/adviesgesprek">Adviesgesprek</Button>
       </nav>
       <details class="relative lg:hidden">
         <summary class="cursor-pointer list-none rounded-full border border-sand-100 px-3 py-2 text-sm font-semibold text-sand-50">Menu</summary>
@@ -60,7 +61,7 @@ const more = [
           {more.map((link) => (
             <a class="block py-2 font-semibold" href={link.href}>{link.label}</a>
           ))}
-          <a class="mt-2 block rounded-full bg-green-800 px-4 py-2 text-center font-semibold" data-cta="menu-advies" href="/adviesgesprek">Adviesgesprek</a>
+          <Button class="block" data-cta="menu-advies" href="/adviesgesprek">Adviesgesprek</Button>
           <a class="mt-2 block py-2 font-semibold" data-cta="menu-spoed" href="/spoedhulp">Spoedhulp</a>
           <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-ochre-800">Diensten</p>
           {services.map((service) => (

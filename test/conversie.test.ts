@@ -19,7 +19,8 @@ test("de afsluiting heeft één knop, een risicozin en een echt citaat", () => {
   const band = readFileSync("src/components/CtaBand.astro", "utf8");
   assert.match(band, /Melisia Telepary/);
   assert.match(band, /verplicht u tot niets/);
-  assert.equal((band.match(/<a /g) ?? []).length, 2);
-  assert.match(band, /class="btn"/);
+  assert.equal((band.match(/<a /g) ?? []).length, 1);
+  assert.match(band, /<Button /);
+  assert.match(readFileSync("src/components/Button.astro", "utf8"), /"btn btn-ghost"/);
   assert.equal(/poortwachter/i.test(band), false);
 });

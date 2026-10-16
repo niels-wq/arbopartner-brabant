@@ -23,6 +23,11 @@
   --color-clay-700: #d8a03d;
   --color-clay-600: #c4923a;
   --color-line: #d9ddd6;
+  /* Knop en ruimte. Eén plek, zodat pagina's geen eigen padding stapelen. */
+  --spacing-btn-y: 0.8125rem;
+  --spacing-btn-x: 1.5rem;
+  --spacing-cta: 1.25rem;
+  --spacing-card: 1.5rem;
 }
 
 html {
@@ -267,17 +272,31 @@ summary.rounded-full.border-green-800:focus-visible,
 .btn-accent,
 .btn-urgent,
 .btn-ghost,
-.btn-ghost-light {
+.btn-ghost-light,
+a.rounded-full.bg-green-800,
+button.rounded-full.bg-green-800,
+a.rounded-full.bg-ochre-500,
+button.rounded-full.bg-ochre-500,
+a.rounded-full.bg-clay-700,
+button.rounded-full.bg-clay-700,
+a.rounded-full.border-green-800,
+button.rounded-full.border-green-800,
+summary.rounded-full.border-green-800 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 44px;
   border-radius: 8px;
-  padding: 0.65rem 1.15rem;
+  padding: var(--spacing-btn-y) var(--spacing-btn-x);
   font-weight: 700;
   text-align: center;
   text-decoration: none;
   line-height: 1.2;
+}
+a.block:is(.btn, .rounded-full.bg-green-800, .rounded-full.bg-ochre-500, .rounded-full.border-green-800) {
+  display: flex;
+  width: 100%;
+  margin-top: var(--spacing-cta);
 }
 .btn:hover,
 .btn-accent:hover,
@@ -285,6 +304,82 @@ summary.rounded-full.border-green-800:focus-visible,
 .btn-ghost:hover,
 .btn-ghost-light:hover {
   text-decoration: none;
+}
+
+/* Tekst en knoppen blijven uit elkaars marge. De selector dekt .btn en de
+   oudere utility-knoppen, zodat een pagina geen eigen mt-2 hoeft. */
+:is(
+  .btn,
+  .btn-ghost,
+  .btn-ghost-light,
+  a.rounded-full.bg-ochre-500,
+  button.rounded-full.bg-ochre-500,
+  a.rounded-full.bg-green-800,
+  button.rounded-full.bg-green-800,
+  a.rounded-full.bg-clay-700,
+  button.rounded-full.bg-clay-700,
+  a.rounded-full.border-green-800,
+  button.rounded-full.border-green-800
+) + :is(p, ul, ol, address),
+p:has(> :is(
+  .btn,
+  .btn-ghost,
+  a.rounded-full.bg-ochre-500,
+  button.rounded-full.bg-ochre-500,
+  a.rounded-full.bg-green-800,
+  button.rounded-full.bg-green-800,
+  a.rounded-full.border-green-800,
+  button.rounded-full.border-green-800
+)) + :is(p, ul, ol),
+:is(p, h1, h2, h3, h4, address, blockquote) + :is(
+  .btn,
+  .btn-ghost,
+  a.rounded-full.bg-ochre-500,
+  button.rounded-full.bg-ochre-500,
+  a.rounded-full.bg-green-800,
+  button.rounded-full.bg-green-800,
+  a.rounded-full.border-green-800,
+  button.rounded-full.border-green-800
+):not(:where(.ap-offer-bar, .ap-sticky, .ap-actions, .flex) > *),
+:is(p, h1, h2, h3, address) + :is(p, div):has(> :is(
+  .btn,
+  .btn-ghost,
+  a.rounded-full.bg-ochre-500,
+  button.rounded-full.bg-ochre-500,
+  a.rounded-full.bg-green-800,
+  button.rounded-full.bg-green-800,
+  a.rounded-full.border-green-800,
+  button.rounded-full.border-green-800
+)),
+:is(p, div):has(> :is(
+  .btn,
+  .btn-ghost,
+  a.rounded-full.bg-ochre-500,
+  button.rounded-full.bg-ochre-500,
+  a.rounded-full.bg-green-800,
+  button.rounded-full.bg-green-800,
+  a.rounded-full.border-green-800,
+  button.rounded-full.border-green-800
+)) + :is(p, ul, ol) {
+  margin-top: var(--spacing-cta);
+}
+
+:is(.flex, .ap-actions, .ap-sticky, .ap-offer-bar):has(> :is(
+  .btn,
+  .btn-ghost,
+  a.rounded-full.bg-ochre-500,
+  button.rounded-full.bg-ochre-500,
+  a.rounded-full.bg-green-800,
+  button.rounded-full.bg-green-800,
+  a.rounded-full.border-green-800,
+  button.rounded-full.border-green-800
+)) {
+  gap: var(--spacing-cta);
+}
+
+:is(article, a, div, form, section):is(.rounded-2xl, .rounded-3xl, .rounded-\[2rem\]):is(.p-4, .p-5),
+:is(article, a, div):is(.rounded-2xl, .rounded-3xl, .rounded-\[2rem\]) > :is(div, address):is(.p-4, .p-5) {
+  padding: var(--spacing-card);
 }
 
 .ap-sticky {
@@ -699,8 +794,8 @@ summary.rounded-full.border-green-800:focus-visible,
 .ap-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.8rem;
+  gap: var(--spacing-cta);
+  margin-top: var(--spacing-cta);
 }
 @media (max-width: 767px) {
   body {
@@ -713,7 +808,7 @@ summary.rounded-full.border-green-800:focus-visible,
     right: 0;
     bottom: 0;
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
     padding: 0.55rem 0.75rem calc(0.55rem + env(safe-area-inset-bottom));
     background: #ffffff;
     border-top: 1px solid #d9ddd6;
@@ -721,6 +816,8 @@ summary.rounded-full.border-green-800:focus-visible,
   .ap-sticky .btn,
   .ap-sticky .btn-urgent {
     flex: 1;
+    padding-inline: 1.25rem;
+    white-space: nowrap;
   }
   .ap-calc,
   .ap-dock {
@@ -779,7 +876,7 @@ summary.rounded-full.border-green-800:focus-visible,
   gap: 0.35rem;
   border-radius: 1.25rem;
   background: #12382c;
-  padding: 1rem;
+  padding: var(--spacing-card);
   color: #f4f1e8;
   text-decoration: none;
 }
@@ -814,7 +911,7 @@ summary.rounded-full.border-green-800:focus-visible,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: var(--spacing-cta);
   padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
   background: #12382c;
   color: #f4f1e8;
@@ -1195,7 +1292,7 @@ main a.underline {
 @media (max-width: 767px) {
   .ap-choice {
     min-height: 0;
-    padding: 0.7rem;
+    padding: 1rem;
   }
   .ap-choice strong {
     font-size: 1rem;
@@ -1218,15 +1315,21 @@ main a.underline {
     flex-wrap: nowrap;
     padding: 0.45rem 0.7rem calc(0.45rem + env(safe-area-inset-bottom));
   }
+  .ap-offer-bar .btn {
+    flex: none;
+    padding-inline: 1.25rem;
+    white-space: nowrap;
+  }
   .ap-offer-bar p {
+    min-width: 0;
     font-size: 0.92rem;
     line-height: 1.25;
   }
   body:has(.ap-offer-bar) {
-    padding-bottom: 8.6rem;
+    padding-bottom: 9.2rem;
   }
   body:has(.ap-offer-bar) .ap-calc,
   body:has(.ap-offer-bar) .ap-dock {
-    bottom: calc(8.4rem + env(safe-area-inset-bottom));
+    bottom: calc(9.4rem + env(safe-area-inset-bottom));
   }
 }

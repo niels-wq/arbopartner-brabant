@@ -1,4 +1,6 @@
 ---
+import Button from "./Button.astro";
+
 interface Props {
   href?: string;
   label?: string;
@@ -14,6 +16,6 @@ const {
 ---
 
 <p class="mt-6">
-  <a class="rounded-full bg-ochre-500 px-5 py-3 font-semibold" data-cta={cta} href={href}>{label}</a>
+  <Button data-cta={cta} href={href}>{label}</Button>
 </p>
 <p class="mt-2 text-sm text-ink-soft">{risk}</p>
