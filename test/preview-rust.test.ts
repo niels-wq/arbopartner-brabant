@@ -61,9 +61,20 @@ test("koffiefoto blijft klein en contact toont één portret", () => {
 test("logo is een woordmerk zonder het oude beeld", () => {
   const svg = readFileSync("public/logo.svg", "utf8");
   const light = readFileSync("public/logo-light.svg", "utf8");
-  assert.match(svg, /Arbopartner Brabant/);
-  assert.equal(svg.includes("M15 33c1-14"), false);
-  assert.equal(light.includes("M15 33c1-14"), false);
+  const fav = readFileSync("public/favicon.svg", "utf8");
+  for (const file of [svg, light]) {
+    assert.match(file, /Arbopartner Brabant/);
+    assert.match(file, /viewBox="0 0 [\d.]+ 64"/);
+    assert.equal(file.includes("M15 33c1-14"), false);
+    assert.equal(file.includes("1490"), false);
+    const paths = [...file.matchAll(/d="([^"]+)"/g)].map((match) => match[1]);
+    assert.ok(new Set(paths).size >= 8, "woordmerk moet verschillende letters bevatten");
+  }
+  assert.match(fav, /Arbopartner Brabant/);
+  assert.equal(fav.includes("M32 15"), false);
+  assert.equal(fav.includes("M15 33c1-14"), false);
+  assert.match(readFileSync("src/components/Header.astro", "utf8"), /logo-light\.png\?v=20261016/);
+  assert.match(readFileSync("src/components/Footer.astro", "utf8"), /width="223" height="64"/);
   for (const file of [
     "public/logo.png",
     "public/logo-light.png",
