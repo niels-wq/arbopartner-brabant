@@ -52,6 +52,7 @@ test("koffiefoto blijft klein en contact toont één portret", () => {
   assert.match(engage, /fab-bel/);
   assert.match(engage, /fab-mail/);
   assert.match(engage, /fab-calendly/);
+  assert.match(readFileSync("src/styles/global.css", "utf8"), /\.ap-contact:not\(\[open\]\) > \.ap-contact-menu/);
   assert.equal((engage.match(/<img /g) ?? []).length, 2);
   assert.match(engage, /ap-exit-photo/);
   assert.match(engage, /niels-face/);

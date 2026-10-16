@@ -433,6 +433,9 @@ summary.rounded-full.border-green-800:focus-visible,
   background: #163f32;
   color: #ffffff;
 }
+.ap-contact:not([open]) > .ap-contact-menu {
+  display: none;
+}
 .ap-contact-menu {
   position: absolute;
   right: calc(100% + 0.45rem);
@@ -674,6 +677,12 @@ summary.rounded-full.border-green-800:focus-visible,
     width: auto;
     max-height: min(58dvh, 28rem);
   }
+  .ap-contact-menu {
+    position: fixed;
+    right: 1rem;
+    bottom: calc(4.8rem + 8.2rem + env(safe-area-inset-bottom));
+    width: min(16rem, calc(100vw - 7.5rem));
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -785,6 +794,7 @@ a > .ap-figure img {
   font-weight: 700;
   text-align: center;
   color: #14261c;
+  overflow-wrap: anywhere;
 }
 @media (prefers-reduced-motion: no-preference) {
   .ap-plot-bar {

@@ -85,7 +85,7 @@ export function compareReportHtml(input: CompareInput, result: CompareResult, de
       <p class="mt-1">Loonkost plus vervanging van alle contracturen: ${euro(employed.longAbsenceYear, true)} per persoon. Dit zit niet in het jaartotaal. Het CBS-percentage bevat lange gevallen al in het gemiddelde. Telt u het er zelf bij, dan vergelijkt u een uitzondering met een gemiddeld jaar.</p>
     </aside>
     <h3 class="mt-6 font-serif text-2xl text-green-950">Opbouw per persoon in dienst</h3>
-    <div class="mt-2 overflow-x-auto">
+    <div class="mt-2 max-w-full overflow-x-auto">
       <table class="w-full min-w-[36rem] text-left text-sm">
         <thead><tr class="border-b border-line"><th class="py-1 pr-3" scope="col">Post</th><th class="py-1 pr-3" scope="col">Per jaar</th><th class="py-1" scope="col">Toelichting</th></tr></thead>
         <tbody>${rows}</tbody>
