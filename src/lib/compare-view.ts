@@ -3,7 +3,9 @@ import {
   CBS,
   CBS_WAGE,
   compareEmployment,
+  costPerProductiveHour,
   defaultCompareInput,
+  MARKET,
   type CompareInput,
   type CompareResult,
 } from "./calc.ts";
@@ -16,11 +18,19 @@ export type Demand = {
   hoursYear: number;
 };
 
+/** Positief: aandeel van de kost in dienst. Negatief: hoeveel lager het dienstverband is dan Arbopartner. */
+export function savingPercent(result: CompareResult): number {
+  if (result.saving > 0 && result.employmentYear > 0) return (result.saving / result.employmentYear) * 100;
+  if (result.saving < 0 && result.detachedNet > 0) return (Math.abs(result.saving) / result.detachedNet) * 100;
+  return 0;
+}
+
 export function savingHeadline(result: CompareResult): { positive: boolean; text: string } {
   const amount = euro(Math.abs(result.saving), true);
-  if (result.saving > 0) return { positive: true, text: `U bespaart circa ${amount} per jaar` };
+  const share = pct(Math.round(savingPercent(result) * 10) / 10);
+  if (result.saving > 0) return { positive: true, text: `U bespaart circa ${amount} per jaar, circa ${share}` };
   if (result.saving < 0) {
-    return { positive: false, text: `In dit scenario is een dienstverband circa ${amount} per jaar lager` };
+    return { positive: false, text: `In dit scenario is een dienstverband circa ${amount} per jaar lager, circa ${share}` };
   }
   return { positive: false, text: "In dit scenario zijn de jaarkosten gelijk" };
 }
@@ -37,10 +47,11 @@ function barWidth(value: number, max: number): number {
 export function compareReportHtml(input: CompareInput, result: CompareResult, demand?: Demand): string {
   const headline = savingHeadline(result);
   const employed = result.employed;
-  const max = Math.max(result.employmentYear, result.detachedYear, 1);
+  const arbopartnerYear = result.detachedNet;
+  const max = Math.max(result.employmentYear, arbopartnerYear, 1);
   const directWidth = barWidth(result.directYear, max);
   const riskWidth = barWidth(result.riskYear, max);
-  const detachedWidth = barWidth(result.detachedYear, max);
+  const detachedWidth = barWidth(arbopartnerYear, max);
   const gap = Math.abs(result.saving);
   const figureLabel = headline.positive ? "Besparing per jaar" : result.saving < 0 ? "Verschil per jaar" : "Verschil per jaar";
   const demandText = demand
@@ -57,6 +68,7 @@ export function compareReportHtml(input: CompareInput, result: CompareResult, de
     `<tr><th class="py-1 pr-3 align-top font-semibold" scope="row">${line.label}</th><td class="py-1 pr-3 align-top whitespace-nowrap">${euro(line.amount, true)}</td><td class="py-1 align-top text-ink-soft">${line.note}</td></tr>`;
   const personRows = result.lines.filter((line) => line.scope === "person").map(row).join("");
   const orgLines = result.lines.filter((line) => line.scope === "organisation");
+  const hireLines = result.lines.filter((line) => line.scope === "hire");
   const orgRows = orgLines.map(row).join("");
   const orgList = orgLines
     .map(
@@ -64,6 +76,10 @@ export function compareReportHtml(input: CompareInput, result: CompareResult, de
         `<li><span class="font-semibold">${index + 1}. ${line.label}.</span> ${euro(line.amount, true)}. ${line.note}</li>`,
     )
     .join("");
+  const hireList = hireLines
+    .map((line) => `<li><span class="font-semibold">${line.label}.</span> ${euro(line.amount, true)} besparing. ${line.note}</li>`)
+    .join("");
+  const productiveHour = costPerProductiveHour(result);
 
   return `
     <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">Indicatie, geen offerte</p>
@@ -71,7 +87,7 @@ export function compareReportHtml(input: CompareInput, result: CompareResult, de
     <p class="ap-save-figure font-serif text-5xl leading-none text-green-950 md:text-6xl" data-euro="${Math.round(gap)}" data-outcome>${euro(gap, true)}</p>
     <p class="mt-2 max-w-xl text-lg">${headline.text}. Exclusief btw.</p>
     ${demandText ? `<p class="mt-3 max-w-xl text-sm">${demandText}</p>` : ""}
-    <div class="ap-plot mt-5" role="img" aria-label="In dienst ${euro(result.employmentYear, true)}, waarvan directe kosten ${euro(result.directYear, true)} en risicokosten ${euro(result.riskYear, true)}. Arbopartner ${euro(result.detachedYear, true)}.">
+    <div class="ap-plot mt-5" role="img" aria-label="In dienst ${euro(result.employmentYear, true)}, waarvan directe kosten ${euro(result.directYear, true)} en risicokosten ${euro(result.riskYear, true)}. Arbopartner ${euro(arbopartnerYear, true)} na korting.">
       <div class="ap-plot-col">
         <span class="ap-plot-value">${euro(result.employmentYear, true)}</span>
         <span class="ap-plot-track">
@@ -81,7 +97,7 @@ export function compareReportHtml(input: CompareInput, result: CompareResult, de
         <span class="ap-plot-label">In dienst</span>
       </div>
       <div class="ap-plot-col">
-        <span class="ap-plot-value">${euro(result.detachedYear, true)}</span>
+        <span class="ap-plot-value">${euro(arbopartnerYear, true)}</span>
         <span class="ap-plot-track"><span class="ap-plot-bar ap-plot-hire" style="height:${detachedWidth}%"></span></span>
         <span class="ap-plot-label">Arbopartner</span>
       </div>
@@ -91,9 +107,33 @@ export function compareReportHtml(input: CompareInput, result: CompareResult, de
       <span><i class="ap-swatch ap-swatch-risk"></i>Risicokosten</span>
       <span><i class="ap-swatch ap-swatch-hire"></i>Arbopartner</span>
     </p>
-    <p class="mt-3 max-w-3xl text-sm">Directe kosten in dienst ${euro(result.directYear, true)}. Risicokosten ${euro(result.riskYear, true)}, waarvan ${euro(result.organisationRisk, true)} over de hele organisatie. Arbopartner is ${euro(result.detachedYear, true)}, zonder die loonlijst.</p>
+    <p class="mt-3 max-w-3xl text-sm">Directe kosten in dienst ${euro(result.directYear, true)}. Risicokosten ${euro(result.riskYear, true)}, waarvan ${euro(result.organisationRisk, true)} over de hele organisatie. Arbopartner is ${euro(arbopartnerYear, true)} na korting. Het uurblok zonder die korting is ${euro(result.detachedYear, true)}.</p>
     <h3 class="mt-4 font-serif text-2xl text-green-950">Drie risicoposten van een interne casemanager</h3>
     <ol class="ap-risk-lines mt-2 max-w-3xl list-none space-y-2 text-sm">${orgList}</ol>
+    <h3 class="mt-4 font-serif text-2xl text-green-950">Korting via Arbopartner</h3>
+    <p class="mt-2 max-w-3xl text-sm">Tot 10% korting op spoor 2 en tot 8% op arbeidsdeskundig onderzoek. De bedragen staan aan de Arbopartner-kant, als besparing op de marktprijs.</p>
+    <ol class="ap-hire-lines mt-2 max-w-3xl list-none space-y-2 text-sm">${hireList}</ol>
+    <h3 class="mt-4 font-serif text-2xl text-green-950">Drie uurtarieven</h3>
+    <div class="mt-2 max-w-full overflow-x-auto">
+      <table class="w-full min-w-[28rem] text-left text-sm">
+        <caption class="sr-only">Uurtarief in dienst per productief uur, zzp-casemanager en Arbopartner</caption>
+        <thead>
+          <tr class="border-b border-line">
+            <th class="py-2 pr-3" scope="col">In dienst, per productief uur</th>
+            <th class="py-2 pr-3" scope="col">Zzp-casemanager</th>
+            <th class="py-2" scope="col">Arbopartner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="py-2 pr-3 font-semibold">${euro(productiveHour)}</td>
+            <td class="py-2 pr-3 font-semibold">${euro(result.zzpHourly)}</td>
+            <td class="py-2 font-semibold">${euro(result.detachedHourly)}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-2 max-w-3xl text-sm">In dienst is de volle kost per productief uur van het contract. Zzp is ${euro(result.zzpHourly)}, het midden van de band die STAVV noemt (€${MARKET.zzpLow} tot €${MARKET.zzpHigh}). Dat midden is geen gemiddelde. <a class="underline" href="${MARKET.zzpUrl}">Bron: STAVV</a>. Arbopartner is het uurtarief voor de uren die u afneemt.</p>
     <p class="mt-4 max-w-3xl">${qualitative}</p>
     <p class="mt-3 max-w-3xl">Bij inhuren betaalt u ${num(result.billedHours, 0)} uur per week × ${euro(result.detachedHourly)} per uur. Dat zijn de uren die u nodig heeft, met een minimum van tien. Bij een dienstverband betaalt u ${result.people === 1 ? "één volledig contract" : `${result.people} volledige contracten`} van ${num(input.contractHours, 0)} uur, ook als u ${num(result.neededHours, 0)} uur nodig heeft. Na wettelijk verlof (${num(employed.leaveHours, 0)} uur), ${num(input.publicHolidays, 0)} feestdagen (${num(employed.holidayHours, 0)} uur) en ${pct(input.absencePct)} verzuim blijft ongeveer ${num(employed.productiveHoursWeek)} productief uur per week over. Daarvan blijven ${num(employed.unusedHoursWeek)} uur onbenut. Die leegloop zit in het salaris, niet als extra regel.${peopleText}</p>
     <p class="mt-3 max-w-3xl text-sm">De opbouw splitst directe kosten en risicokosten. De transitievergoeding betaalt u pas als het contract op uw initiatief eindigt. De loonsanctie is een verwachte waarde, geen voorspelling dat UWV die oplegt. De overnameweken, de continuïteitsfactor, de extra verzuimdagen en de extra sanctiekans zijn aannames. Elk getal is aan te passen, ook naar nul.</p>

@@ -20,6 +20,13 @@ test("tarievenpagina toont alleen de tabel, de vergelijking, drie vragen en éé
   assert.match(page, /costPerProductiveHour/);
   assert.match(page, /Wat kost een casemanager in dienst écht per productief uur/);
   assert.match(page, /Bereken het voor uw organisatie/);
+  assert.match(page, /In dienst, per productief uur/);
+  assert.match(page, /Zzp-casemanager/);
+  assert.match(page, /U bespaart circa/);
+  assert.match(page, /korting op spoor 2/);
+  assert.match(readFileSync("src/components/HireBenefits.astro", "utf8"), /Tot 10% korting op spoor 2 en tot 8% op arbeidsdeskundig onderzoek/);
+  assert.match(readFileSync("src/components/Guarantees.astro", "utf8"), /responsePromise/);
+  assert.match(readFileSync("src/data/site.ts", "utf8"), /Reactie en offerte binnen 24 uur/);
   assert.match(page, /\/casemanager-inhuren-of-in-dienst#vergelijking/);
   assert.equal((page.match(/<h2 /g) ?? []).length, 2);
   assert.equal((page.match(/q: /g) ?? []).length, 3);

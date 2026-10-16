@@ -62,7 +62,7 @@ export const places: Place[] = [
     faq: [
       {
         q: "Hoe snel is een casemanager in Veghel?",
-        a: "De rit vanuit Uden is ongeveer een kwartier buiten de spits. Bij een nieuwe ziekmelding bellen we dezelfde dag. De precieze terugbeltermijn leggen we nog vast.",
+        a: "De rit vanuit Uden is ongeveer een kwartier buiten de spits. Bij een nieuwe ziekmelding bellen we dezelfde dag. Reactie en offerte binnen 24 uur.",
       },
       {
         q: "Werken jullie ook in Erp en Keldonk?",

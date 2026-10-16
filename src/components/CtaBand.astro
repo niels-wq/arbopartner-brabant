@@ -1,6 +1,7 @@
 ---
 import Mark from "./Mark.astro";
 import { reviews } from "../data/reviews";
+import { site } from "../data/site";
 
 interface Props {
   title?: string;
@@ -15,7 +16,7 @@ const {
   text = "Een adviesgesprek duurt 30 minuten. U krijgt geen verkooppraatje, wel een oordeel of detachering past.",
   href = "/adviesgesprek",
   label = "Plan een adviesgesprek",
-  risk = "Het gesprek van 30 minuten verplicht u tot niets.",
+  risk = `${site.responsePromise} Het gesprek van 30 minuten verplicht u tot niets.`,
   proof = true,
 } = Astro.props;
 const quote = reviews.find((review) => review.author.startsWith("Melisia Telepary"));

@@ -1,3 +1,5 @@
+const responsePromiseText = "Reactie en offerte binnen 24 uur.";
+
 export const site = {
   name: "Arbopartner Brabant",
   domain: "https://www.arbopartnerbrabant.nl",
@@ -70,11 +72,10 @@ export const site = {
     avatar: "/mensen/niels-alderding-avatar.webp",
     photoSource: "https://matchvermogen.nl/wp-content/uploads/2026/09/niels-footer-cta-400.jpg",
   },
+  responsePromise: responsePromiseText,
   placeholders: {
-    callback:
-      "PLACEHOLDER: de terugbeltermijn is nog niet vastgesteld. Bel of app, dan pakt Matchvermogen B.V. uw vraag op.",
-    offerteDagen:
-      "PLACEHOLDER: het aantal werkdagen waarbinnen u een offerte ontvangt, is nog niet vastgesteld.",
+    callback: responsePromiseText,
+    offerteDagen: responsePromiseText,
     eigenEmail:
       "PLACEHOLDER: een eigen mailbox voor Arbopartner Brabant is nog niet ingesteld. Mail gaat naar info@matchvermogen.nl.",
     btw: "PLACEHOLDER: het btw-identificatienummer staat niet op matchvermogen.nl.",

@@ -66,6 +66,10 @@ if (root && !root.dataset.ready) {
       text: "Richtprijzen, exclusief btw: medior vanaf €102,50 per uur bij 24 uur of meer, tot €137,50 voor een senior bij 10 uur. Reistijd binnen 45 minuten van Uden zit erin. De tarievenpagina zet de blokken naast elkaar. Dit is geen offerte.",
     },
     {
+      test: /korting|spoor 2|tweede spoor|arbeidsdeskundig onderzoek/,
+      text: "Tot 10% korting op spoor 2 en tot 8% op arbeidsdeskundig onderzoek, via Best Match en Matchvermogen. De calculator zet die korting als besparing. De offerte bevestigt het percentage.",
+    },
+    {
       test: /arbodienst|bedrijfsarts|arts/,
       text: "Nee. Arbopartner Brabant detacheert een casemanager. De bedrijfsarts blijft u zelf organiseren. Een arbeidsdeskundige van Matchvermogen kan meekijken, met 8% korting.",
     },
@@ -75,7 +79,7 @@ if (root && !root.dataset.ready) {
     },
     {
       test: /spoed|ziek|vandaag|terugbel/,
-      text: `Bel ${phone} of app. U kunt hier ook uw nummer achterlaten. We verzinnen geen terugbeltermijn die nog niet is vastgesteld.`,
+      text: `Bel ${phone} of app. U kunt hier ook uw nummer achterlaten. ${site.responsePromise}`,
     },
   ];
 
@@ -292,7 +296,7 @@ if (root && !root.dataset.ready) {
         if (result.delivered) {
           magnet.reset();
           showChoice();
-          if (status) status.textContent = "Verstuurd. We nemen contact op. We noemen geen terugbeltermijn.";
+          if (status) status.textContent = `Verstuurd. ${site.responsePromise}`;
         } else if (status) {
           mailFallback(status, payload, "De mailserver staat nog niet aan, dus het terugbelverzoek is nog niet weg.");
         }

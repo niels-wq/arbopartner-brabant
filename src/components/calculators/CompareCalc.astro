@@ -8,10 +8,13 @@ import {
   compareSources,
   defaultAbsencePct,
   defaultCompareInput,
+  defaultInterventionCounts,
+  MARKET,
   RISK,
   sanctionChancePerLongCase,
   TNO,
 } from "../../lib/calc";
+import { site } from "../../data/site";
 import { compareReportHtml } from "../../lib/compare-view";
 
 const employees = 100;
@@ -20,6 +23,7 @@ const hoursWeek = caseManagerHoursPerWeek(employees, orgAbsence);
 const defaults = defaultCompareInput({ neededHours: hoursWeek, employees, orgAbsencePct: orgAbsence });
 const sanctionPct = (sanctionChancePerLongCase() * 100).toFixed(2).replace(".", ",");
 const extraSanctionPct = (akcSanctionExtra() * 100).toFixed(1).replace(".", ",");
+const interventionDefaults = defaultInterventionCounts(employees, orgAbsence);
 const initialHtml = compareReportHtml(defaults, compareEmployment(defaults), {
   employees,
   orgAbsencePct: orgAbsence,
@@ -119,6 +123,29 @@ const sizeHint = defaultAbsencePct(employees);
         <label class="block text-sm">Jaarloon van de zieke werknemer. Standaard {TNO.referenceWage}, het TNO-referentieloon. Geen gemeten loon van zieke werknemers.
           <input class="ap-field" name="sickwage" type="number" min="0" step="100" value={defaults.sickAnnualWage} />
         </label>
+        <h3 class="pt-2 font-semibold">Korting via Arbopartner</h3>
+        <p class="text-xs text-ink-soft">Tot {site.discount.tweedeSpoor}% korting op spoor 2 en tot {site.discount.arbeidsdeskundige}% op arbeidsdeskundig onderzoek. De korting telt als besparing aan de Arbopartner-kant. Het aantal volgt de dossiers langer dan 42 weken en schaalt mee met medewerkers en verzuim. De prijzen zijn de onderkant of het vanaf-bedrag van Matchvermogen, aanpasbaar.</p>
+        <label class="block text-sm">Tweede-spoortrajecten per jaar. Aanname: de helft van de 42-wekencases. Standaard bij deze omvang {interventionDefaults.spoor2Count.toLocaleString("nl-NL", { maximumFractionDigits: 2 })}.
+          <input class="ap-field" name="spoor2" type="number" min="0" max="200" step="0.1" value={defaults.spoor2Count} />
+        </label>
+        <label class="block text-sm">Marktprijs per tweede-spoortraject. Standaard {MARKET.spoor2Price}, onderkant van de modulaire band €1.250 tot €2.600.
+          <input class="ap-field" name="spoor2prijs" type="number" min="0" step="50" value={defaults.spoor2Price} />
+        </label>
+        <label class="block text-sm">Korting spoor 2, %. Standaard {defaults.spoor2DiscountPct}.
+          <input class="ap-field" name="spoor2korting" type="number" min="0" max="100" step="1" value={defaults.spoor2DiscountPct} />
+        </label>
+        <label class="block text-sm">Arbeidsdeskundige onderzoeken per jaar. Aanname: één per 42-wekencase. Standaard bij deze omvang {interventionDefaults.adCount.toLocaleString("nl-NL", { maximumFractionDigits: 2 })}.
+          <input class="ap-field" name="ad" type="number" min="0" max="200" step="0.1" value={defaults.adCount} />
+        </label>
+        <label class="block text-sm">Marktprijs per arbeidsdeskundig onderzoek. Standaard {MARKET.adPrice}, vaste prijs vanaf van Matchvermogen.
+          <input class="ap-field" name="adprijs" type="number" min="0" step="50" value={defaults.adPrice} />
+        </label>
+        <label class="block text-sm">Korting arbeidsdeskundig onderzoek, %. Standaard {defaults.adDiscountPct}.
+          <input class="ap-field" name="adkorting" type="number" min="0" max="100" step="1" value={defaults.adDiscountPct} />
+        </label>
+        <label class="block text-sm">Zzp-uurtarief. Standaard {defaults.zzpHourly}, het midden van de STAVV-band €{MARKET.zzpLow} tot €{MARKET.zzpHigh}. Geen gemiddelde.
+          <input class="ap-field" name="zzp" type="number" min="0" max="300" step="0.5" value={defaults.zzpHourly} />
+        </label>
         <label class="block text-sm">Productiviteit tijdens het inwerken, %.
           <input class="ap-field" name="onboardingProductivity" type="number" min="0" max="100" value={defaults.onboardingProductivity * 100} />
         </label>
@@ -181,7 +208,9 @@ const sizeHint = defaultAbsencePct(employees);
     compareEmployment,
     defaultAbsencePct,
     defaultCompareInput,
+    defaultInterventionCounts,
     grossMonthlyFromCbs,
+    MARKET,
     sanctionChancePerLongCase,
     type CompareInput,
   } from "../../lib/calc";
@@ -204,6 +233,8 @@ const sizeHint = defaultAbsencePct(employees);
   const org = form?.querySelector<HTMLInputElement>("[name=org]");
   let grossTouched = false;
   let replacementTouched = false;
+  let spoor2Touched = false;
+  let adTouched = false;
   let euroFrom = 0;
   let frame = 0;
 
@@ -276,7 +307,20 @@ const sizeHint = defaultAbsencePct(employees);
       ["overname", "overname"],
       ["continuiteit", "continuiteit"],
       ["loonwaardesanctie", "loonwaardesanctie"],
+      ["spoor2prijs", "spoor2prijs"],
+      ["spoor2korting", "spoor2korting"],
+      ["adprijs", "adprijs"],
+      ["adkorting", "adkorting"],
+      ["zzp", "zzp"],
     ];
+    if (params.has("spoor2")) {
+      setValue("spoor2", String(Number(params.get("spoor2"))));
+      spoor2Touched = true;
+    }
+    if (params.has("ad")) {
+      setValue("ad", String(Number(params.get("ad"))));
+      adTouched = true;
+    }
     for (const [key, name] of numbers) {
       if (params.has(key)) setValue(name, String(Number(params.get(key))));
     }
@@ -331,7 +375,14 @@ const sizeHint = defaultAbsencePct(employees);
       ["overname", input.overnameWeeks, base.overnameWeeks],
       ["continuiteit", input.continuiteitDaysPerGapWeek, base.continuiteitDaysPerGapWeek],
       ["loonwaardesanctie", input.loonwaardeSanctionExtra * 100, base.loonwaardeSanctionExtra * 100],
+      ["spoor2prijs", input.spoor2Price, base.spoor2Price],
+      ["spoor2korting", input.spoor2DiscountPct, base.spoor2DiscountPct],
+      ["adprijs", input.adPrice, base.adPrice],
+      ["adkorting", input.adDiscountPct, base.adDiscountPct],
+      ["zzp", input.zzpHourly, base.zzpHourly],
     ];
+    put("spoor2", String(input.spoor2Count), spoor2Touched);
+    put("ad", String(input.adCount), adTouched);
     for (const [key, value, fallback] of pairs) put(key, String(value), value !== fallback);
     const url = new URL(location.href);
     url.search = params.toString();
@@ -368,6 +419,11 @@ const sizeHint = defaultAbsencePct(employees);
     const hoursWeek = caseManagerHoursPerWeek(headcount, orgAbsence);
     if (!grossTouched && gross) gross.value = grossMonthlyFromCbs(contractHours).toFixed(2);
     if (!replacementTouched && replacement) replacement.value = String(rateFor(chosen, Math.max(10, hoursWeek)));
+    const counts = defaultInterventionCounts(headcount, orgAbsence);
+    const spoor2 = form.querySelector<HTMLInputElement>("[name=spoor2]");
+    const ad = form.querySelector<HTMLInputElement>("[name=ad]");
+    if (!spoor2Touched && spoor2) spoor2.value = String(counts.spoor2Count);
+    if (!adTouched && ad) ad.value = String(counts.adCount);
     const data = new FormData(form);
     const input: CompareInput = {
       level: chosen,
@@ -407,6 +463,13 @@ const sizeHint = defaultAbsencePct(employees);
       continuiteitDaysPerGapWeek: field(data, "continuiteit", 1),
       loonwaardeExtraDays: field(data, "loonwaarde", 0.5),
       loonwaardeSanctionExtra: field(data, "loonwaardesanctie", akcSanctionExtra() * 100) / 100,
+      spoor2Count: field(data, "spoor2", counts.spoor2Count),
+      spoor2Price: field(data, "spoor2prijs", MARKET.spoor2Price),
+      spoor2DiscountPct: field(data, "spoor2korting", 10),
+      adCount: field(data, "ad", counts.adCount),
+      adPrice: field(data, "adprijs", MARKET.adPrice),
+      adDiscountPct: field(data, "adkorting", 8),
+      zzpHourly: field(data, "zzp", MARKET.zzpHourly),
     };
     const result = compareEmployment(input);
     const demand = {
@@ -450,6 +513,12 @@ const sizeHint = defaultAbsencePct(employees);
   });
   replacement?.addEventListener("input", () => {
     replacementTouched = true;
+  });
+  form?.querySelector<HTMLInputElement>("[name=spoor2]")?.addEventListener("input", () => {
+    spoor2Touched = true;
+  });
+  form?.querySelector<HTMLInputElement>("[name=ad]")?.addEventListener("input", () => {
+    adTouched = true;
   });
   form?.addEventListener("input", (event) => {
     const target = event.target as HTMLElement | null;

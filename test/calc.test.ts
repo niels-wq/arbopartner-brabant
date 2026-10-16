@@ -136,6 +136,7 @@ describe("vergelijking", () => {
     assert.ok(result.saving > 50000);
     assert.equal(savingHeadline(result).positive, true);
     assert.match(savingHeadline(result).text, /^U bespaart circa /);
+    assert.match(savingHeadline(result).text, /circa \d+(,\d+)?%/);
     assert.equal(Math.round(result.employed.premiumPct * 10000), 1849);
     const personSum = result.lines.filter((line) => line.scope === "person").reduce((sum, line) => sum + line.amount, 0);
     assert.equal(Math.round(personSum), Math.round(result.employed.annualPerPerson));
@@ -206,6 +207,19 @@ describe("vergelijking", () => {
       }),
     );
     assert.equal(zero.organisationRisk, 0);
+    const noDiscount = compareEmployment(
+      defaultCompareInput({ spoor2Count: 0, adCount: 0, employees: 100, orgAbsencePct: 5.4 }),
+    );
+    assert.equal(noDiscount.interventionSaving, 0);
+    assert.equal(noDiscount.detachedNet, noDiscount.detachedYear);
+    const withDiscount = compareEmployment(input);
+    assert.equal(withDiscount.spoor2Saving, input.spoor2Count * input.spoor2Price * (input.spoor2DiscountPct / 100));
+    assert.equal(withDiscount.adSaving, input.adCount * input.adPrice * (input.adDiscountPct / 100));
+    assert.equal(withDiscount.saving, withDiscount.employmentYear - withDiscount.detachedNet);
+    assert.equal(input.spoor2DiscountPct, 10);
+    assert.equal(input.adDiscountPct, 8);
+    assert.equal(input.spoor2Price, 1250);
+    assert.equal(input.adPrice, 999);
   });
 
   it("houdt een hoge caseload eerlijk zodra de risicoposten uit staan", () => {

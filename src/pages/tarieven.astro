@@ -3,8 +3,10 @@ import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import CtaBand from "../components/CtaBand.astro";
 import FaqList from "../components/FaqList.astro";
-import { CBS_WAGE, compareEmployment, costPerNeededHour, costPerProductiveHour, defaultCompareInput } from "../lib/calc";
-import { euro, num } from "../lib/format";
+import { CBS_WAGE, compareEmployment, costPerNeededHour, costPerProductiveHour, defaultCompareInput, MARKET } from "../lib/calc";
+import { savingPercent } from "../lib/compare-view";
+import { site } from "../data/site";
+import { euro, num, pct } from "../lib/format";
 import { levels, type Block } from "../lib/rates";
 import { crumbsLd, faqLd } from "../lib/schema";
 
@@ -18,6 +20,7 @@ const perProductiveHour = costPerProductiveHour(scenario);
 const perNeededHour = costPerNeededHour(scenario);
 const mediorTien = levels.medior.rates[10];
 const productiveWeek = scenario.employed.productiveHoursWeek;
+const savingShare = pct(Math.round(savingPercent(scenario) * 10) / 10);
 
 const faq = [
   {
@@ -26,7 +29,7 @@ const faq = [
   },
   {
     q: "Hoe vergelijkt dit met iemand in dienst?",
-    a: "De vergelijking deelt de kost van een fulltime contract door de productieve uren, en door de uren casemanagement die u nodig heeft. In het standaardscenario is dat tien uur per week tegenover één contract van veertig uur. Per gewerkt uur kan een dienstverband lager liggen. Omgeslagen naar de uren die u afneemt, ligt ons uurtarief lager. Heeft u bijna een volle werkweek nodig, dan kan een dienstverband als geheel lager uitvallen. De calculator laat dat zien.",
+    a: `De tabel zet drie uurtarieven naast elkaar: de kost per productief uur in dienst, het midden van de zzp-band van STAVV, en ons uurtarief. U bespaart circa ${savingShare} tegenover een dienstverband in het standaardscenario. Omgeslagen naar de uren die u afneemt, ligt ons uur lager. Heeft u bijna een volle werkweek nodig, dan kan een dienstverband als geheel lager uitvallen. De calculator laat dat zien.`,
   },
   {
     q: "Zit de bedrijfsarts in dit uur?",
@@ -72,7 +75,27 @@ const faq = [
     <p class="mt-3 text-sm text-ink-soft">Per uur, exclusief btw. Het blok volgt de uren per week: 10, 20 of 24 en meer.</p>
 
     <h2 id="vergelijking" class="mt-12 font-serif text-3xl text-green-950">Wat kost een casemanager in dienst écht per productief uur?</h2>
-    <p class="mt-4">Hetzelfde standaardscenario als de calculator: medior, 100 medewerkers, 5,4% verzuim, één contract van 40 uur. In de kost zitten werkgeverslasten, uren die wegvallen door verlof, feestdagen en verzuim, en de risicokosten van vervanging, overnametijd, verlies van continuïteit en een slechte koppeling aan loonwaarde.</p>
+    <p class="mt-4">Hetzelfde standaardscenario als de calculator: medior, 100 medewerkers, 5,4% verzuim, één contract van 40 uur. In de kost zitten werkgeverslasten, uren die wegvallen door verlof, feestdagen en verzuim, en de risicokosten van vervanging, overnametijd, verlies van continuïteit en een slechte koppeling aan loonwaarde. Tot {site.discount.tweedeSpoor}% korting op spoor 2 en tot {site.discount.arbeidsdeskundige}% op arbeidsdeskundig onderzoek telt mee als besparing.</p>
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full text-left">
+        <caption class="sr-only">Uurtarief in dienst per productief uur, zzp-casemanager en Arbopartner</caption>
+        <thead>
+          <tr class="border-b border-line text-sm">
+            <th class="py-2 pr-4 font-semibold" scope="col">In dienst, per productief uur</th>
+            <th class="py-2 pr-4 font-semibold" scope="col">Zzp-casemanager</th>
+            <th class="py-2 font-semibold" scope="col">Arbopartner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="py-3 pr-4 font-serif text-3xl text-green-950">{euro(perProductiveHour)}</td>
+            <td class="py-3 pr-4 font-serif text-3xl text-green-950">{euro(MARKET.zzpHourly)}</td>
+            <td class="py-3 font-serif text-3xl text-green-950">{euro(mediorTien)}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3">U bespaart circa {savingShare} tegenover een dienstverband in dit scenario. In dienst is de volle kost per productief uur. Zzp is het midden van de band die <a class="underline" href={MARKET.zzpUrl}>STAVV</a> noemt, €{MARKET.zzpLow} tot €{MARKET.zzpHigh}. Dat midden is geen gemiddelde.</p>
     <div class="mt-4 grid gap-3 sm:grid-cols-2">
       <p class="rounded-2xl border border-line bg-white p-4">
         <span class="block text-sm text-ink-soft">In dienst, per uur dat u nodig heeft</span>

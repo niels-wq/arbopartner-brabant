@@ -81,7 +81,7 @@ import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
         <button class="ap-close" type="button" data-close aria-label="Sluiten">×</button>
       </div>
     </div>
-    <p class="mt-2">Naam en e-mailadres zijn verplicht. Telefoon en bedrijfsnaam mogen leeg. Een keer per bezoek.</p>
+    <p class="mt-2">Naam en e-mailadres zijn verplicht. Telefoon en bedrijfsnaam mogen leeg. Een keer per bezoek. {site.responsePromise}</p>
     <form class="ap-lead mt-3" data-magnet>
       <label>Naam, verplicht<input name="naam" required autocomplete="name" /></label>
       <label>E-mailadres, verplicht<input name="email" type="email" required autocomplete="email" /></label>
@@ -98,7 +98,7 @@ import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
         <p>De verzuim-checklist downloadt meteen als pdf. Als de mailserver aanstaat, sturen we dezelfde tekst ook naar u. Geen advies over één dossier.</p>
       </div>
       <div data-panel="terugbel" class="ap-exit-panel" hidden>
-        <p>Wanneer het u uitkomt. We noemen geen terugbeltermijn. Die is nog niet vastgesteld.</p>
+        <p>Wanneer het u uitkomt. {site.responsePromise}</p>
         <div class="ap-exit-times">
           <button type="button" data-when="Ochtend">Ochtend</button>
           <button type="button" data-when="Middag">Middag</button>

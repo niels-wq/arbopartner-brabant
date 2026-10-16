@@ -1,3 +1,4 @@
+import { site } from "../data/site.ts";
 import {
   levels,
   monthlyCost,
@@ -247,8 +248,41 @@ export const RISK = {
   akcUrl: "https://www.hetakc.nl/wp-content/uploads/2024/02/Cahier-32-Preventieve-en-vroegtijdige-inzet-van-arbeidsdeskundigen.pdf",
 } as const;
 
+/**
+ * Marktprijzen voor de korting via Arbopartner, en het zzp-uurtarief.
+ * De bedragen zijn de onderkant of het midden van een gepubliceerde band, geen gemiddelde.
+ */
+export const MARKET = {
+  /** Onderkant van de modulaire band €1.250 tot €2.600. */
+  spoor2Price: 1250,
+  spoor2Url: "https://matchvermogen.nl/2e-spoor-kosten/",
+  /** Vaste prijs vanaf €999, exclusief btw. */
+  adPrice: 999,
+  adUrl: "https://matchvermogen.nl/arbeidsdeskundig-onderzoek-kosten/",
+  /** STAVV: zzp-tarieven vaak tussen €65 en €110. Het midden is geen gemiddelde. */
+  zzpLow: 65,
+  zzpHigh: 110,
+  zzpHourly: 87.5,
+  zzpUrl: "https://www.stavv.nl/casemanager-verzuim/zzp/",
+  /**
+   * Aanname, geen landelijk quotum. Aandeel van de 42-wekencases.
+   * Het aantal schaalt daardoor met medewerkers en verzuim.
+   */
+  spoor2PerLongCase: 0.5,
+  adPerLongCase: 1,
+} as const;
+
 export function longCasesPerEmployee(): number {
   return RISK.week42Notifications2025 / RISK.employeeJobs2025;
+}
+
+export function defaultInterventionCounts(employees: number, orgAbsencePct: number): { spoor2Count: number; adCount: number } {
+  const scale = CBS.nl2025 > 0 ? Math.max(0, orgAbsencePct) / CBS.nl2025 : 0;
+  const cases = Math.max(0, employees) * longCasesPerEmployee() * scale;
+  return {
+    spoor2Count: cases * MARKET.spoor2PerLongCase,
+    adCount: cases * MARKET.adPerLongCase,
+  };
 }
 
 /** Aandeel 42e-weekmeldingen dat in 2025 een inhoudelijke loonsanctie werd. Geen toeslag voor onervarenheid. */
@@ -351,6 +385,20 @@ export type CompareInput = {
   loonwaardeExtraDays: number;
   /** Extra kans per 42-wekencase, als fractie. Gelabelde aanname uit het AKC-verschil. */
   loonwaardeSanctionExtra: number;
+  /** Aantal tweede-spoortrajecten per jaar. Standaard afgeleid van grootte en verzuim. */
+  spoor2Count: number;
+  /** Marktprijs per tweede-spoortraject, exclusief btw. */
+  spoor2Price: number;
+  /** Korting in procenten. Standaard tot 10. */
+  spoor2DiscountPct: number;
+  /** Aantal arbeidsdeskundige onderzoeken per jaar. */
+  adCount: number;
+  /** Marktprijs per arbeidsdeskundig onderzoek, exclusief btw. */
+  adPrice: number;
+  /** Korting in procenten. Standaard tot 8. */
+  adDiscountPct: number;
+  /** Marktuurtarief van een zzp-casemanager. */
+  zzpHourly: number;
 };
 
 export type CostLine = {
@@ -358,7 +406,7 @@ export type CostLine = {
   amount: number;
   note: string;
   kind: "direct" | "risk";
-  scope: "person" | "organisation";
+  scope: "person" | "organisation" | "hire";
 };
 
 export type CompareResult = {
@@ -379,6 +427,12 @@ export type CompareResult = {
   overnameCost: number;
   continuiteitCost: number;
   loonwaardeCost: number;
+  spoor2Saving: number;
+  adSaving: number;
+  interventionSaving: number;
+  /** Urenblok minus de korting op spoor 2 en arbeidsdeskundig onderzoek. */
+  detachedNet: number;
+  zzpHourly: number;
   saving: number;
   lines: CostLine[];
   employed: {
@@ -437,6 +491,9 @@ export function defaultCompareInput(overrides: Partial<CompareInput> = {}): Comp
   const level = overrides.level ?? "medior";
   const contractHours = overrides.contractHours ?? 40;
   const neededHours = overrides.neededHours ?? 10;
+  const employees = overrides.employees ?? 100;
+  const orgAbsencePct = overrides.orgAbsencePct ?? CBS.nl2025;
+  const interventions = defaultInterventionCounts(employees, orgAbsencePct);
   const base: CompareInput = {
     level,
     neededHours,
@@ -466,8 +523,8 @@ export function defaultCompareInput(overrides: Partial<CompareInput> = {}): Comp
     includeTransition: true,
     publicHolidays: TCO.publicHolidays2026,
     nonProductivePct: 0,
-    employees: 100,
-    orgAbsencePct: CBS.nl2025,
+    employees,
+    orgAbsencePct,
     sanctionChance: sanctionChancePerLongCase(),
     sanctionWeeks: RISK.sanctionWeeksMax,
     sickAnnualWage: TNO.referenceWage,
@@ -475,6 +532,13 @@ export function defaultCompareInput(overrides: Partial<CompareInput> = {}): Comp
     continuiteitDaysPerGapWeek: RISK.continuiteitDaysPerGapWeek,
     loonwaardeExtraDays: RISK.loonwaardeExtraDays,
     loonwaardeSanctionExtra: akcSanctionExtra(),
+    spoor2Count: interventions.spoor2Count,
+    spoor2Price: MARKET.spoor2Price,
+    spoor2DiscountPct: site.discount.tweedeSpoor,
+    adCount: interventions.adCount,
+    adPrice: MARKET.adPrice,
+    adDiscountPct: site.discount.arbeidsdeskundige,
+    zzpHourly: MARKET.zzpHourly,
   };
   return { ...base, ...overrides };
 }
@@ -565,6 +629,12 @@ export function compareEmployment(input: CompareInput): CompareResult {
   const riskYear = riskPerPerson * people + organisationRisk;
   const employmentYear = directYear + riskYear;
   const detachedYear = yearlyCost(billedHours, detachedHourly);
+  const spoor2Saving =
+    Math.max(0, input.spoor2Count) * Math.max(0, input.spoor2Price) * (Math.max(0, input.spoor2DiscountPct) / 100);
+  const adSaving = Math.max(0, input.adCount) * Math.max(0, input.adPrice) * (Math.max(0, input.adDiscountPct) / 100);
+  const interventionSaving = spoor2Saving + adSaving;
+  const detachedNet = detachedYear - interventionSaving;
+  const zzpHourly = Math.max(0, input.zzpHourly);
   const line = (
     label: string,
     amount: number,
@@ -610,6 +680,20 @@ export function compareEmployment(input: CompareInput): CompareResult {
       "risk",
       "organisation",
     ),
+    line(
+      "Korting op spoor 2",
+      spoor2Saving,
+      `Tot ${site.discount.tweedeSpoor}% korting op spoor 2 via Best Match. De marktprijs is standaard €${MARKET.spoor2Price}, de onderkant van de modulaire band van Matchvermogen (€1.250 tot €2.600). Het aantal trajecten is een aanname: de helft van de dossiers langer dan 42 weken, meeschalend met medewerkers en verzuim. Dit is een besparing aan de Arbopartner-kant.`,
+      "direct",
+      "hire",
+    ),
+    line(
+      "Korting op arbeidsdeskundig onderzoek",
+      adSaving,
+      `Tot ${site.discount.arbeidsdeskundige}% korting op arbeidsdeskundig onderzoek via Matchvermogen. De marktprijs is standaard €${MARKET.adPrice}, de vaste prijs vanaf die Matchvermogen publiceert. Het aantal is een aanname: één onderzoek per dossier langer dan 42 weken. Arbopartner heeft arbeidsdeskundigen in huis via Matchvermogen.`,
+      "direct",
+      "hire",
+    ),
   ];
   return {
     detachedHourly,
@@ -629,7 +713,12 @@ export function compareEmployment(input: CompareInput): CompareResult {
     overnameCost,
     continuiteitCost,
     loonwaardeCost,
-    saving: employmentYear - detachedYear,
+    spoor2Saving,
+    adSaving,
+    interventionSaving,
+    detachedNet,
+    zzpHourly,
+    saving: employmentYear - detachedNet,
     lines,
     employed: {
       grossYear,
@@ -803,6 +892,21 @@ export const compareSources = [
     title: "Verlies van continuïteit",
     url: CBS.source,
     note: "De dagen dat de casemanager er niet is, zijn opgebouwd uit het CBS-verzuim, het wettelijk verlof van vier weken, de feestdagen en de vacature gedeeld door de dienstjaren. De aanname is één extra werkdag per 42-wekencase voor elke week afwezigheid. Die factor staat standaard op 1 en is aanpasbaar, ook naar nul.",
+  },
+  {
+    title: "Matchvermogen, prijs tweede spoor",
+    url: MARKET.spoor2Url,
+    note: "Tabel op de kostenpagina: tweede spoor modulair €1.250 tot €2.600, exclusief btw. De calculator start op €1.250, de onderkant van die band, niet een gemiddelde. De band loopt verder voor digitale, langere en gespecialiseerde trajecten. Het bedrag is aanpasbaar.",
+  },
+  {
+    title: "Matchvermogen, prijs arbeidsdeskundig onderzoek",
+    url: MARKET.adUrl,
+    note: "Vaste prijs vanaf €999, exclusief btw. De calculator start op dat vanaf-bedrag. De pagina noemt ook hogere banden per soort onderzoek. Het bedrag is aanpasbaar.",
+  },
+  {
+    title: "STAVV, zzp-casemanager",
+    url: MARKET.zzpUrl,
+    note: "STAVV schrijft dat zzp-tarieven in de markt vaak tussen €65 en €110 per uur worden genoemd. De kolom gebruikt €87,50, het midden van die band. Dat is geen gemeten gemiddelde en geen tarief van Arbopartner.",
   },
   {
     title: "Krapte op de arbeidsmarkt",
