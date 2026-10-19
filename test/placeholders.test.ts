@@ -34,7 +34,6 @@ test("de publieke bron toont geen placeholder", () => {
   for (const file of walk(path.join(root, "src"))) {
     const lines = readFileSync(file, "utf8").split("\n");
     lines.forEach((line, index) => {
-      if (line.includes("TODO(juridisch)")) return;
       const visible = line.replace(/\splaceholder="[^"]*"/gi, "");
       for (const pattern of banned) {
         if (pattern.test(visible)) hits.push(`${path.relative(root, file)}:${index + 1} ${line.trim()}`);
@@ -58,6 +57,11 @@ test("footer en contact gebruiken de colofongegevens van Matchvermogen", () => {
   assert.match(site, /email: "info@matchvermogen.nl"/);
   assert.match(site, /phoneDisplay: "085-0870307"/);
   assert.match(site, /street: "Losplaats 16d"/);
-  assert.match(site, /btw: null/);
+  assert.match(site, /btw: "NL863765993B01"/);
+  assert.match(readFileSync(path.join(root, "src/lib/schema.ts"), "utf8"), /vatID: site\.parent\.btw/);
+  for (const rel of ["src/pages/privacy.astro", "src/pages/voorwaarden.astro"]) {
+    const page = readFileSync(path.join(root, rel), "utf8");
+    assert.match(page, /KvK \{site\.parent\.kvk\}, btw \{site\.parent\.btw\}/);
+  }
   assert.match(site, /maximaal 2 jaar na het laatste contact/);
 });

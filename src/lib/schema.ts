@@ -80,7 +80,8 @@ export function organizationLd(areaName?: string) {
       name: site.parent.legalName,
       url: site.parent.url,
       identifier: `KvK ${site.parent.kvk}`,
-      taxID: site.parent.btw ?? undefined,
+      taxID: site.parent.btw,
+      vatID: site.parent.btw,
     },
     areaServed: [
       { "@type": "AdministrativeArea", name: "Noord-Brabant" },

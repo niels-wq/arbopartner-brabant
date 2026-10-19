@@ -17,7 +17,7 @@ export const site = {
     tradeName: "Matchvermogen",
     url: "https://matchvermogen.nl",
     kvk: "85849618",
-    btw: null as string | null,
+    btw: "NL863765993B01",
     email: "info@matchvermogen.nl",
     phoneDisplay: "085-0870307",
     phoneTel: "+31850870307",

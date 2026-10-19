@@ -67,14 +67,14 @@ Nixpacks kan ook, als u de Dockerfile niet gebruikt: startcommando `npm run buil
 Het blok “Onze garanties” staat op de homepage, de pakketten en de vergelijking.
 
 - Na een concrete verzuimanalyse laten we zien hoe het verzuimpercentage kan dalen. Geen vast percentage. De knop heet “Gratis verzuimanalyse”.
-- Kwaliteitsgarantie als de adviezen worden gevolgd: kosteloos bijsturen of wisselen van casemanager. Geen geld-terug-bedrag. In `src/data/garanties.ts` staat `TODO(juridisch)` voor een Wtta/DBA-advocaat, ja/nee 322.
+- Kwaliteitsgarantie als de adviezen worden gevolgd: kosteloos bijsturen of wisselen van casemanager. Geen geld-terug-bedrag.
 - Goedkoper dan iemand in dienst, onderbouwd met de vergelijkingscalculator. De rekenregels veranderen niet.
 
 Bellen gaat via het vaste nummer 085-0870307 (`tel:` en schema). Het 06-nummer staat alleen op WhatsApp-links (`wa.me`).
 
 ## Bedrijfsgegevens
 
-KvK 85849618, Losplaats 16d, 5404 NJ Uden, telefoon 085-0870307 en info@matchvermogen.nl staan in het colofon van matchvermogen.nl. Een btw-identificatienummer staat daar niet en tonen we daarom niet. Contact- en offerteaanvragen bewaren we maximaal 2 jaar na het laatste contact, zoals de privacyverklaring van Matchvermogen. De wijzigingstermijn van uren staat in de offerte. Reactie en offerte: binnen 24 uur. De kennismaking in de agenda is de belafspraak van 15 minuten op https://calendly.com/matchvermogen/call-15-min.
+KvK 85849618, btw NL863765993B01, Losplaats 16d, 5404 NJ Uden, telefoon 085-0870307 en info@matchvermogen.nl. Het btw-nummer staat op Moneybird-factuur 1272428485. Contact- en offerteaanvragen bewaren we maximaal 2 jaar na het laatste contact, zoals de privacyverklaring van Matchvermogen. De wijzigingstermijn van uren staat in de offerte. Reactie en offerte: binnen 24 uur. De kennismaking in de agenda is de belafspraak van 15 minuten op https://calendly.com/matchvermogen/call-15-min.
 
 ## Werken bij
 

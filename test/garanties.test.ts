@@ -31,9 +31,11 @@ test("garanties staan op homepage, pakketten en vergelijking", () => {
   assert.doesNotMatch(block, /geld terug|money back|€\s*\d+/i);
 });
 
-test("kwaliteitsvoorwaarden hebben een juridische TODO", () => {
+test("kwaliteitsvoorwaarden noemen geen openstaande juridische toets", () => {
   const source = read("src/data/garanties.ts");
-  assert.match(source, /TODO\(juridisch\): voorwaarden van de kwaliteitsgarantie laten toetsen door een Wtta\/DBA-advocaat\. ja\/nee 322/);
+  const terms = read("src/pages/voorwaarden.astro");
+  assert.doesNotMatch(source, /TODO\(juridisch\)|nog niet juridisch|concept/);
+  assert.doesNotMatch(terms, /concept|juridisch toetsen|nog niet live/);
   assert.match(source, /geen geld-terug-bedrag/);
   assert.match(source, /kosteloos bij/);
 });
