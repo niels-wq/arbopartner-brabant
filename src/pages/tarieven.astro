@@ -96,8 +96,8 @@ const faq = [
         <a class="underline" href={CBS_WAGE.source}>Bron: CBS StatLine 86355NED</a>.
         Verzuim: <a class="underline" href={CBS.source}>CBS</a>.
       </p>
-      <div class="ap-rate-cta flex flex-wrap gap-5">
-        <Button data-cta="tarieven-vergelijking" href="/casemanager-inhuren-of-in-dienst#vergelijking">Bereken het voor uw organisatie</Button>
+      <div class="ap-rate-cta flex flex-col items-start gap-5">
+        <Button class="ap-rate-zzp" data-cta="tarieven-zzp" href="/casemanager-inhuren-of-in-dienst#vergelijking">Bereken of een zzp’er goedkoper is dan in dienst</Button>
         <Button variant="ghost" data-cta="tarieven-kennismaking" href="/adviesgesprek">Plan een gratis kennismaking</Button>
       </div>
     </section>
@@ -165,10 +165,13 @@ const faq = [
     <FaqList items={faq} title="Vragen over de uurtarieven" />
   </article>
   <CtaBand
-    title="Kijk mee naar uw situatie"
-    text="Dertig minuten, vrijblijvend. Of reken eerst zelf wat een uur in dienst u kost."
-    href="/adviesgesprek"
-    label="Plan een gratis kennismaking"
+    title="Zet zzp naast iemand in dienst"
+    text="De calculator vergelijkt in dienst, zzp en Arbopartner met uw eigen uren."
+    href="/casemanager-inhuren-of-in-dienst#vergelijking"
+    label="Bereken of een zzp’er goedkoper is dan in dienst"
+    risk="De uitkomst is een berekening, geen offerte."
+    cta="tarieven-zzp-onder"
+    wrapClass="ap-rate-cta"
     proof={false}
   />
 </Base>

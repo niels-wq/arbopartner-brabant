@@ -28,8 +28,10 @@ test("tarievenpagina vergelijkt de kost per nodig uur, met uurtarieven en eerlij
   assert.match(page, /Eerlijk advies/);
   assert.match(page, /Dan raden we u aan om iemand in dienst te nemen/);
   assert.match(page, /Dan is Arbopartner de slimste keuze/);
-  assert.match(page, /Bereken het voor uw organisatie/);
+  assert.equal((page.match(/Bereken of een zzp.er goedkoper is dan in dienst/g) ?? []).length, 2);
+  assert.equal((page.match(/\/casemanager-inhuren-of-in-dienst#vergelijking/g) ?? []).length, 2);
   assert.match(page, /Plan een gratis kennismaking/);
+  assert.match(page, /ap-rate-cta/);
   assert.match(page, /korting op spoor 2/);
   assert.match(readFileSync("src/components/HireBenefits.astro", "utf8"), /Tot 10% korting op spoor 2 en tot 8% op arbeidsdeskundig onderzoek/);
   assert.match(readFileSync("src/components/Guarantees.astro", "utf8"), /responsePromise/);

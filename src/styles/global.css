@@ -370,6 +370,11 @@ p:has(> :is(
   margin-top: 2.5rem;
 }
 
+.ap-rate-zzp.ap-rate-zzp {
+  padding: 1rem 1.75rem;
+  font-size: 1.125rem;
+}
+
 :is(.flex, .ap-actions, .ap-sticky, .ap-offer-bar):has(> :is(
   .btn,
   .btn-ghost,
