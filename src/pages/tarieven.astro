@@ -1,12 +1,12 @@
 ---
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Button from "../components/Button.astro";
 import CtaBand from "../components/CtaBand.astro";
 import FaqList from "../components/FaqList.astro";
-import { CBS_WAGE, compareEmployment, costPerNeededHour, costPerProductiveHour, defaultCompareInput, MARKET } from "../lib/calc";
-import { savingPercent } from "../lib/compare-view";
+import { CBS, CBS_WAGE, compareEmployment, costPerNeededHour, costPerProductiveHour, defaultCompareInput, MARKET } from "../lib/calc";
 import { site } from "../data/site";
-import { euro, num, pct } from "../lib/format";
+import { euro, pct } from "../lib/format";
 import { levels, type Block } from "../lib/rates";
 import { crumbsLd, faqLd } from "../lib/schema";
 
@@ -15,12 +15,13 @@ const crumbs = [
   { name: "Tarieven", path: "/tarieven" },
 ];
 const hours: Block[] = [10, 20, 24];
-const scenario = compareEmployment(defaultCompareInput());
+const input = defaultCompareInput();
+const scenario = compareEmployment(input);
 const perProductiveHour = costPerProductiveHour(scenario);
 const perNeededHour = costPerNeededHour(scenario);
 const mediorTien = levels.medior.rates[10];
-const productiveWeek = scenario.employed.productiveHoursWeek;
-const savingShare = pct(Math.round(savingPercent(scenario) * 10) / 10);
+const zzpHourly = scenario.zzpHourly;
+const arbopartnerShare = perNeededHour > 0 ? `${((mediorTien / perNeededHour) * 100).toFixed(1)}%` : "0%";
 
 const faq = [
   {
@@ -28,8 +29,8 @@ const faq = [
     a: "Nee. De tabel is een richtprijs per uur, exclusief btw. De offerte bevestigt het tarief voor uw dossiers. Dit is geen offerte.",
   },
   {
-    q: "Hoe vergelijkt dit met iemand in dienst?",
-    a: `De tabel zet drie uurtarieven naast elkaar: de kost per productief uur in dienst, het midden van de zzp-band van STAVV, en ons uurtarief. U bespaart circa ${savingShare} tegenover een dienstverband in het standaardscenario. Omgeslagen naar de uren die u afneemt, ligt ons uur lager. Heeft u bijna een volle werkweek nodig, dan kan een dienstverband als geheel lager uitvallen. De calculator laat dat zien.`,
+    q: "Waarom lijkt een uur in dienst goedkoper?",
+    a: `Een productief uur in dienst kost ${euro(perProductiveHour)} in het standaardscenario. Dat kale uur ligt lager dan ons uurtarief van ${euro(mediorTien)}. Het zzp-midden van STAVV, ${euro(zzpHourly)}, ligt ook lager. Die bedragen zijn niet de kost per uur dat u nodig heeft. Die kost is ${euro(perNeededHour)}: de hele kost van het dienstverband, gedeeld door de uren die u afneemt. Heeft u bijna een volle werkweek nodig, dan kan een dienstverband als geheel lager uitvallen. De calculator laat dat zien.`,
   },
   {
     q: "Zit de bedrijfsarts in dit uur?",
@@ -40,89 +41,134 @@ const faq = [
 
 <Base
   title="Tarieven"
-  description="Uurtarieven voor een gedetacheerde casemanager: medior, medior+ en senior bij 10, 20 en 24+ uur. Exclusief btw. Dit is geen offerte."
+  description="Uurtarieven exclusief btw. Een casemanager in dienst kost meer per uur dat u nodig heeft dan het uurtarief van Arbopartner. Dit is geen offerte."
   jsonLd={[crumbsLd(crumbs), faqLd(faq)]}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <article class="mx-auto max-w-3xl px-4 pb-4 pt-10">
-    <h1 class="font-serif text-4xl text-green-950 md:text-5xl">Uurtarieven, exclusief btw</h1>
-    <p class="mt-4 text-lg">Een tarief van Arbopartner Brabant is een richtprijs per uur voor een gedetacheerde casemanager. Hoe groter het blok, hoe lager het uur. Dit is geen offerte. Het label is voor organisaties met 35–500 medewerkers.</p>
+  <article class="mx-auto max-w-5xl px-4 pb-8 pt-14 md:pt-20">
+    <header class="max-w-3xl">
+      <h1 class="font-serif text-4xl text-green-950 md:text-6xl">De goedkopere keuze per uur dat u nodig heeft</h1>
+      <p class="mt-6 text-xl leading-snug md:text-2xl">
+        Een casemanager in dienst kost {euro(perNeededHour)} per uur dat u werkelijk nodig heeft.
+        Bij Arbopartner betaalt u {euro(mediorTien)}, alleen voor de uren die u afneemt.
+      </p>
+    </header>
 
-    <h2 class="mt-10 font-serif text-3xl text-green-950">Uurtarieven</h2>
-    <div class="ap-rates mt-4">
-      <table class="w-full text-left">
-        <caption class="sr-only">Uurtarief exclusief btw voor medior, medior+ en senior bij 10, 20 en 24 of meer uur per week</caption>
-        <thead>
-          <tr class="border-b border-line text-sm">
-            <th class="py-2 pr-4 font-semibold" scope="col">Niveau</th>
-            {hours.map((hour) => (
-              <th class="py-2 pr-4 font-semibold" scope="col">{hour === 24 ? "24+ uur" : `${hour} uur`}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {Object.values(levels).map((level) => (
-            <tr class="border-b border-line">
-              <th class="py-3 pr-4 font-semibold" scope="row">{level.short}</th>
+    <section id="vergelijking" class="mt-14 md:mt-16" aria-labelledby="vergelijking-titel">
+      <h2 id="vergelijking-titel" class="sr-only">Vergelijking van in dienst, zzp en Arbopartner</h2>
+      <div class="grid gap-6 md:grid-cols-3 md:gap-8">
+        <article class="flex flex-col rounded-[2rem] border border-line bg-white p-6 md:p-8">
+          <h3 class="text-sm font-semibold uppercase tracking-[0.14em] text-ink-soft">In dienst</h3>
+          <p class="mt-4 font-serif text-4xl text-green-950 md:text-5xl">{euro(perNeededHour)}</p>
+          <p class="mt-2">per uur dat u nodig heeft</p>
+          <div class="mt-6 h-3 rounded-full bg-sand-200" aria-hidden="true">
+            <div class="h-3 w-full rounded-full bg-green-900"></div>
+          </div>
+          <p class="mt-4 text-sm text-ink-soft">Leegloop, ziekte, overname en inwerken, en verlies van continuïteit zitten in dit bedrag.</p>
+        </article>
+
+        <article class="flex flex-col rounded-[2rem] border border-line bg-white p-6 md:p-8">
+          <h3 class="text-sm font-semibold uppercase tracking-[0.14em] text-ink-soft">Zzp</h3>
+          <p class="mt-4 font-serif text-4xl text-green-950 md:text-5xl">{euro(zzpHourly)}</p>
+          <p class="mt-2">kale markttarief</p>
+          <p class="mt-6 text-sm text-ink-soft">
+            Lager dan ons uur. Midden van de band die <a class="underline" href={MARKET.zzpUrl}>STAVV</a> noemt, €{MARKET.zzpLow} tot €{MARKET.zzpHigh}. Geen gemiddelde en geen volle kost, daarom geen balk.
+          </p>
+        </article>
+
+        <article class="flex flex-col rounded-[2rem] bg-ochre-200 p-6 md:p-8">
+          <h3 class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">Arbopartner</h3>
+          <p class="mt-3 text-sm font-semibold">Goedkoper dan in dienst</p>
+          <p class="mt-4 font-serif text-4xl text-green-950 md:text-5xl">{euro(mediorTien)}</p>
+          <p class="mt-2">per uur dat u afneemt</p>
+          <div class="mt-6 h-3 rounded-full bg-white/80" aria-hidden="true">
+            <div class="h-3 rounded-full bg-green-950" style={`width: ${arbopartnerShare}`}></div>
+          </div>
+          <p class="mt-4 text-sm">
+            Alleen de uren die u afneemt. Tot {site.discount.tweedeSpoor}% korting op spoor 2 en tot {site.discount.arbeidsdeskundige}% op arbeidsdeskundig onderzoek komt daar nog af.
+          </p>
+        </article>
+      </div>
+
+      <p class="mt-8 max-w-2xl text-ink-soft">
+        Eerlijk: een productief uur in dienst kost {euro(perProductiveHour)}. Dat kale uur ligt lager dan ons tarief.
+        Standaardscenario: medior, {input.neededHours} uur per week, {input.employees} medewerkers, {pct(input.orgAbsencePct)} verzuim.
+        <a class="underline" href={CBS_WAGE.source}>Bron: CBS StatLine 86355NED</a>.
+        Verzuim: <a class="underline" href={CBS.source}>CBS</a>.
+      </p>
+      <div class="ap-rate-cta flex flex-wrap gap-5">
+        <Button data-cta="tarieven-vergelijking" href="/casemanager-inhuren-of-in-dienst#vergelijking">Bereken het voor uw organisatie</Button>
+        <Button variant="ghost" data-cta="tarieven-kennismaking" href="/adviesgesprek">Plan een gratis kennismaking</Button>
+      </div>
+    </section>
+
+    <section class="mt-24 md:mt-32" aria-labelledby="uren-titel">
+      <h2 id="uren-titel" class="font-serif text-3xl text-green-950 md:text-4xl">Uurtarieven</h2>
+      <div class="ap-rates mt-8">
+        <table class="w-full text-left">
+          <caption class="sr-only">Uurtarief exclusief btw voor medior, medior+ en senior bij 10, 20 en 24 of meer uur per week</caption>
+          <thead>
+            <tr class="border-b border-line text-sm">
+              <th class="py-2 pr-4 font-semibold" scope="col">Niveau</th>
               {hours.map((hour) => (
-                <td class="py-3 pr-4" data-label={hour === 24 ? "24+ uur" : `${hour} uur`}>{euro(level.rates[hour])}</td>
+                <th class="py-2 pr-4 font-semibold" scope="col">{hour === 24 ? "24+ uur" : `${hour} uur`}</th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-    <p class="mt-3 text-sm text-ink-soft">Per uur, exclusief btw. Het blok volgt de uren per week: 10, 20 of 24 en meer.</p>
+          </thead>
+          <tbody>
+            {Object.values(levels).map((level) => (
+              <tr class="border-b border-line">
+                <th class="py-3 pr-4 font-semibold" scope="row">{level.short}</th>
+                {hours.map((hour) => (
+                  <td class="py-3 pr-4" data-label={hour === 24 ? "24+ uur" : `${hour} uur`}>{euro(level.rates[hour])}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-sm text-ink-soft">Per uur, exclusief btw. Het blok volgt de uren per week: 10, 20 of 24 en meer. Dit is geen offerte.</p>
+    </section>
 
-    <h2 id="vergelijking" class="mt-12 font-serif text-3xl text-green-950">Wat kost een casemanager in dienst écht per productief uur?</h2>
-    <p class="mt-4">Hetzelfde standaardscenario als de calculator: medior, 100 medewerkers, 5,4% verzuim, één contract van 40 uur. In de kost zitten werkgeverslasten, uren die wegvallen door verlof, feestdagen en verzuim, en de risicokosten van vervanging, overnametijd, verlies van continuïteit en een slechte koppeling aan loonwaarde. Tot {site.discount.tweedeSpoor}% korting op spoor 2 en tot {site.discount.arbeidsdeskundige}% op arbeidsdeskundig onderzoek telt mee als besparing.</p>
-    <div class="mt-4 overflow-x-auto">
-      <table class="w-full text-left">
-        <caption class="sr-only">Uurtarief in dienst per productief uur, zzp-casemanager en Arbopartner</caption>
-        <thead>
-          <tr class="border-b border-line text-sm">
-            <th class="py-2 pr-4 font-semibold" scope="col">In dienst, per productief uur</th>
-            <th class="py-2 pr-4 font-semibold" scope="col">Zzp-casemanager</th>
-            <th class="py-2 font-semibold" scope="col">Arbopartner</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="py-3 pr-4 font-serif text-3xl text-green-950">{euro(perProductiveHour)}</td>
-            <td class="py-3 pr-4 font-serif text-3xl text-green-950">{euro(MARKET.zzpHourly)}</td>
-            <td class="py-3 font-serif text-3xl text-green-950">{euro(mediorTien)}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="mt-3">U bespaart circa {savingShare} tegenover een dienstverband in dit scenario. In dienst is de volle kost per productief uur. Zzp is het midden van de band die <a class="underline" href={MARKET.zzpUrl}>STAVV</a> noemt, €{MARKET.zzpLow} tot €{MARKET.zzpHigh}. Dat midden is geen gemiddelde.</p>
-    <div class="mt-4 grid gap-3 sm:grid-cols-2">
-      <p class="rounded-2xl border border-line bg-white p-4">
-        <span class="block text-sm text-ink-soft">In dienst, per uur dat u nodig heeft</span>
-        <strong class="mt-1 block font-serif text-4xl text-green-950">{euro(perNeededHour)}</strong>
-      </p>
-      <p class="rounded-2xl bg-ochre-200 p-4">
-        <span class="block text-sm">Medior bij 10 uur</span>
-        <strong class="mt-1 block font-serif text-4xl text-green-950">{euro(mediorTien)}</strong>
-      </p>
-    </div>
-    <p class="mt-3">Ons uurtarief ligt lager. Een productief uur van de persoon in dienst is {euro(perProductiveHour)}. Het contract levert ongeveer {num(productiveWeek)} van die uren per week, en dit scenario heeft er {scenario.neededHours} nodig. De {euro(perNeededHour)} is die kost, gedeeld door de uren die u afneemt.</p>
-    <p class="mt-3 text-sm text-ink-soft">
-      Het model start bij het CBS-mediaan uurloon van {euro(CBS_WAGE.hourly)} ({CBS_WAGE.group}, {CBS_WAGE.year}, voorlopig) en telt vakantiegeld, werkgeverspremies, verlof, verzuim, werving en de opbouw van de transitievergoeding mee.
-      <a class="underline" href={CBS_WAGE.source}>Bron: CBS StatLine 86355NED</a>.
-      Heeft u bijna een volle werkweek nodig, dan kan een dienstverband als geheel lager uitvallen. De calculator rekent dat met uw eigen cijfers.
-    </p>
-    <p class="mt-5">
-      <a class="rounded-full bg-ochre-500 px-5 py-3 font-semibold" data-cta="tarieven-vergelijking" href="/casemanager-inhuren-of-in-dienst#vergelijking">Bereken het voor uw organisatie</a>
-    </p>
+    <section class="mt-24 rounded-[2rem] bg-white px-6 py-12 md:mt-32 md:px-12 md:py-16" aria-labelledby="meekijken-titel">
+      <h2 id="meekijken-titel" class="font-serif text-3xl text-green-950 md:text-4xl">We kijken gericht mee</h2>
+      <p class="mt-5 max-w-2xl text-lg">We bekijken uw dossiers, het verzuim en de grootte van de organisatie. Daarna zeggen we wat het slimst is.</p>
+      <div class="ap-rate-cta">
+        <Button data-cta="tarieven-meekijken" href="/adviesgesprek">Bespreek uw situatie</Button>
+      </div>
+    </section>
+
+    <section class="mt-24 md:mt-32" aria-labelledby="advies-titel">
+      <h2 id="advies-titel" class="max-w-3xl font-serif text-3xl text-green-950 md:text-4xl">Eerlijk advies</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-2 md:gap-8">
+        <article class="rounded-[2rem] border border-line bg-white p-6 md:p-10">
+          <h3 class="font-serif text-2xl text-green-950 md:text-3xl">Dan raden we u aan om iemand in dienst te nemen</h3>
+          <ul class="mt-6 list-disc space-y-3 pl-5">
+            <li>U heeft structureel veel dossiers.</li>
+            <li>De organisatie is groot en het werk vult bijna een volle week.</li>
+            <li>Dan kan een dienstverband als geheel lager uitvallen. De calculator rekent dat met uw eigen cijfers.</li>
+          </ul>
+        </article>
+        <article class="rounded-[2rem] bg-green-900 p-6 text-sand-50 md:p-10">
+          <h3 class="font-serif text-2xl md:text-3xl">Dan is Arbopartner de slimste keuze</h3>
+          <ul class="mt-6 list-disc space-y-3 pl-5">
+            <li>Het werk komt in pieken.</li>
+            <li>De vacature is niet ingevuld.</li>
+            <li>U zoekt een overbrugging.</li>
+            <li>De dossiers zijn specialistisch.</li>
+            <li>De continuïteit is in het geding.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
 
     <FaqList items={faq} title="Vragen over de uurtarieven" />
   </article>
   <CtaBand
-    title="Richtprijs omzetten in een offerte"
-    text="De offerte bevestigt het uurtarief."
-    href="/offerte"
-    label="Vraag een offerte"
+    title="Kijk mee naar uw situatie"
+    text="Dertig minuten, vrijblijvend. Of reken eerst zelf wat een uur in dienst u kost."
+    href="/adviesgesprek"
+    label="Plan een gratis kennismaking"
     proof={false}
   />
 </Base>

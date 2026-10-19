@@ -364,6 +364,12 @@ p:has(> :is(
   margin-top: var(--spacing-cta);
 }
 
+/* Extra lucht boven een CTA op de tarievenpagina. Drie klassen, zodat dit
+   wint van de algemene knopafstand (die telt ook de zwaardere :is()-selector). */
+.ap-rate-cta.ap-rate-cta.ap-rate-cta {
+  margin-top: 2.5rem;
+}
+
 :is(.flex, .ap-actions, .ap-sticky, .ap-offer-bar):has(> :is(
   .btn,
   .btn-ghost,

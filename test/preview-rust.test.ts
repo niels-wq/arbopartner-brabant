@@ -5,7 +5,7 @@ import { arbodienstUurtarieven } from "../src/data/arbodienst-tarieven.ts";
 import { compareEmployment, costPerNeededHour, costPerProductiveHour, defaultCompareInput } from "../src/lib/calc.ts";
 import { levels } from "../src/lib/rates.ts";
 
-test("tarievenpagina toont alleen de tabel, de vergelijking, drie vragen en één afsluitende CTA", () => {
+test("tarievenpagina vergelijkt de kost per nodig uur, met uurtarieven en eerlijk advies", () => {
   const page = readFileSync("src/pages/tarieven.astro", "utf8");
   assert.equal(page.includes("PackageGrid"), false);
   assert.equal(page.includes("CostTeaser"), false);
@@ -15,20 +15,30 @@ test("tarievenpagina toont alleen de tabel, de vergelijking, drie vragen en éé
   assert.equal(page.includes("arbodienst"), false);
   assert.equal(page.includes("per maand"), false);
   assert.equal(page.includes("per jaar"), false);
+  assert.equal(page.includes("laagste van de drie"), false);
+  assert.equal(page.includes("goedkoper dan zzp"), false);
   assert.match(page, /24\+ uur/);
   assert.match(page, /costPerNeededHour/);
   assert.match(page, /costPerProductiveHour/);
-  assert.match(page, /Wat kost een casemanager in dienst écht per productief uur/);
+  assert.match(page, /De goedkopere keuze per uur dat u nodig heeft/);
+  assert.match(page, /per uur dat u nodig heeft/);
+  assert.match(page, /kale markttarief/);
+  assert.match(page, /Dat kale uur ligt lager/);
+  assert.match(page, /We kijken gericht mee/);
+  assert.match(page, /Eerlijk advies/);
+  assert.match(page, /Dan raden we u aan om iemand in dienst te nemen/);
+  assert.match(page, /Dan is Arbopartner de slimste keuze/);
   assert.match(page, /Bereken het voor uw organisatie/);
-  assert.match(page, /In dienst, per productief uur/);
-  assert.match(page, /Zzp-casemanager/);
-  assert.match(page, /U bespaart circa/);
+  assert.match(page, /Plan een gratis kennismaking/);
   assert.match(page, /korting op spoor 2/);
   assert.match(readFileSync("src/components/HireBenefits.astro", "utf8"), /Tot 10% korting op spoor 2 en tot 8% op arbeidsdeskundig onderzoek/);
   assert.match(readFileSync("src/components/Guarantees.astro", "utf8"), /responsePromise/);
   assert.match(readFileSync("src/data/site.ts", "utf8"), /Reactie en offerte binnen 24 uur/);
+  assert.match(readFileSync("src/components/PackageGrid.astro", "utf8"), /vergelijking per uur dat u nodig heeft/);
   assert.match(page, /\/casemanager-inhuren-of-in-dienst#vergelijking/);
-  assert.equal((page.match(/<h2 /g) ?? []).length, 2);
+  assert.match(page, /<h2 id="uren-titel"/);
+  assert.match(page, /<h2 id="meekijken-titel"/);
+  assert.match(page, /<h2 id="advies-titel"/);
   assert.equal((page.match(/q: /g) ?? []).length, 3);
   assert.match(page, /proof=\{false\}/);
   assert.equal(/poortwachter/i.test(page), false);
