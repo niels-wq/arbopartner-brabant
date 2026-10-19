@@ -3,7 +3,6 @@ import {
   CBS,
   CBS_WAGE,
   compareEmployment,
-  costPerProductiveHour,
   defaultCompareInput,
   MARKET,
   type CompareInput,
@@ -79,8 +78,6 @@ export function compareReportHtml(input: CompareInput, result: CompareResult, de
   const hireList = hireLines
     .map((line) => `<li><span class="font-semibold">${line.label}.</span> ${euro(line.amount, true)} besparing. ${line.note}</li>`)
     .join("");
-  const productiveHour = costPerProductiveHour(result);
-
   return `
     <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">Indicatie, geen offerte</p>
     <p class="mt-2 text-sm font-semibold text-green-950">${figureLabel}</p>
@@ -113,27 +110,10 @@ export function compareReportHtml(input: CompareInput, result: CompareResult, de
     <h3 class="mt-4 font-serif text-2xl text-green-950">Korting via Arbopartner</h3>
     <p class="mt-2 max-w-3xl text-sm">Tot 10% korting op spoor 2 en tot 8% op arbeidsdeskundig onderzoek. De bedragen staan aan de Arbopartner-kant, als besparing op de marktprijs.</p>
     <ol class="ap-hire-lines mt-2 max-w-3xl list-none space-y-2 text-sm">${hireList}</ol>
-    <h3 class="mt-4 font-serif text-2xl text-green-950">Drie uurtarieven</h3>
-    <div class="mt-2 max-w-full overflow-x-auto">
-      <table class="w-full min-w-[28rem] text-left text-sm">
-        <caption class="sr-only">Uurtarief in dienst per productief uur, zzp-casemanager en Arbopartner</caption>
-        <thead>
-          <tr class="border-b border-line">
-            <th class="py-2 pr-3" scope="col">In dienst, per productief uur</th>
-            <th class="py-2 pr-3" scope="col">Zzp-casemanager</th>
-            <th class="py-2" scope="col">Arbopartner</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="py-2 pr-3 font-semibold">${euro(productiveHour)}</td>
-            <td class="py-2 pr-3 font-semibold">${euro(result.zzpHourly)}</td>
-            <td class="py-2 font-semibold">${euro(result.detachedHourly)}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="mt-2 max-w-3xl text-sm">In dienst is de volle kost per productief uur van het contract. Zzp is ${euro(result.zzpHourly)}, het midden van de band die STAVV noemt (€${MARKET.zzpLow} tot €${MARKET.zzpHigh}). Dat midden is geen gemiddelde. <a class="underline" href="${MARKET.zzpUrl}">Bron: STAVV</a>. Arbopartner is het uurtarief voor de uren die u afneemt.</p>
+    <details class="mt-4 max-w-3xl rounded-3xl border border-line p-4">
+      <summary class="cursor-pointer font-semibold">Losse zzp’er, geen kolom in deze vergelijking</summary>
+      <p class="mt-3 text-sm">Een losse zzp’er levert een kaal markttarief. STAVV noemt vaak €${MARKET.zzpLow} tot €${MARKET.zzpHigh}. Het midden van die band, ${euro(result.zzpHourly)}, is geen gemiddelde en geen volle kost. <a class="underline" href="${MARKET.zzpUrl}">Bron: STAVV</a>. Dit tarief staat niet naast Arbopartner, omdat het zoektijd, inwerken, een ontbrekende vervanger, een ontbrekende arbeidsdeskundige en het DBA-risico niet meetelt. Voor die posten is geen gepubliceerd bedrag. Die cijfers verzinnen we niet. In het tarief van Arbopartner zitten vervanging bij ziekte of vakantie, een arbeidsdeskundige die meekijkt, geen zoek- en inwerktijd voor u, wisselen van casemanager, geen DBA-risico van schijnzelfstandigheid voor u als werkgever, en de interventiekorting.</p>
+    </details>
     <p class="mt-4 max-w-3xl">${qualitative}</p>
     <p class="mt-3 max-w-3xl">Bij inhuren betaalt u ${num(result.billedHours, 0)} uur per week × ${euro(result.detachedHourly)} per uur. Dat zijn de uren die u nodig heeft, met een minimum van tien. Bij een dienstverband betaalt u ${result.people === 1 ? "één volledig contract" : `${result.people} volledige contracten`} van ${num(input.contractHours, 0)} uur, ook als u ${num(result.neededHours, 0)} uur nodig heeft. Na wettelijk verlof (${num(employed.leaveHours, 0)} uur), ${num(input.publicHolidays, 0)} feestdagen (${num(employed.holidayHours, 0)} uur) en ${pct(input.absencePct)} verzuim blijft ongeveer ${num(employed.productiveHoursWeek)} productief uur per week over. Daarvan blijven ${num(employed.unusedHoursWeek)} uur onbenut. Die leegloop zit in het salaris, niet als extra regel.${peopleText}</p>
     <p class="mt-3 max-w-3xl text-sm">De opbouw splitst directe kosten en risicokosten. De transitievergoeding betaalt u pas als het contract op uw initiatief eindigt. De loonsanctie is een verwachte waarde, geen voorspelling dat UWV die oplegt. De overnameweken, de continuïteitsfactor, de extra verzuimdagen en de extra sanctiekans zijn aannames. Elk getal is aan te passen, ook naar nul.</p>

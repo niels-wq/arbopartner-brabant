@@ -906,7 +906,7 @@ export const compareSources = [
   {
     title: "STAVV, zzp-casemanager",
     url: MARKET.zzpUrl,
-    note: "STAVV schrijft dat zzp-tarieven in de markt vaak tussen €65 en €110 per uur worden genoemd. De kolom gebruikt €87,50, het midden van die band. Dat is geen gemeten gemiddelde en geen tarief van Arbopartner.",
+    note: "STAVV schrijft dat zzp-tarieven in de markt vaak tussen €65 en €110 per uur worden genoemd. Het midden van die band is geen gemeten gemiddelde, geen volle kost en geen kolom naast Arbopartner. Zoektijd, inwerken, een ontbrekende vervanger, een ontbrekende arbeidsdeskundige en het DBA-risico hebben geen gepubliceerd bedrag.",
   },
   {
     title: "Krapte op de arbeidsmarkt",

@@ -4,7 +4,7 @@ import Breadcrumbs from "../components/Breadcrumbs.astro";
 import Button from "../components/Button.astro";
 import CtaBand from "../components/CtaBand.astro";
 import FaqList from "../components/FaqList.astro";
-import { CBS, CBS_WAGE, compareEmployment, costPerNeededHour, costPerProductiveHour, defaultCompareInput, MARKET } from "../lib/calc";
+import { CBS, CBS_WAGE, compareEmployment, costPerNeededHour, costPerProductiveHour, defaultCompareInput } from "../lib/calc";
 import { site } from "../data/site";
 import { euro, pct } from "../lib/format";
 import { levels, type Block } from "../lib/rates";
@@ -20,7 +20,6 @@ const scenario = compareEmployment(input);
 const perProductiveHour = costPerProductiveHour(scenario);
 const perNeededHour = costPerNeededHour(scenario);
 const mediorTien = levels.medior.rates[10];
-const zzpHourly = scenario.zzpHourly;
 const arbopartnerShare = perNeededHour > 0 ? `${((mediorTien / perNeededHour) * 100).toFixed(1)}%` : "0%";
 
 const faq = [
@@ -30,7 +29,7 @@ const faq = [
   },
   {
     q: "Waarom lijkt een uur in dienst goedkoper?",
-    a: `Een productief uur in dienst kost ${euro(perProductiveHour)} in het standaardscenario. Dat kale uur ligt lager dan ons uurtarief van ${euro(mediorTien)}. Het zzp-midden van STAVV, ${euro(zzpHourly)}, ligt ook lager. Die bedragen zijn niet de kost per uur dat u nodig heeft. Die kost is ${euro(perNeededHour)}: de hele kost van het dienstverband, gedeeld door de uren die u afneemt. Heeft u bijna een volle werkweek nodig, dan kan een dienstverband als geheel lager uitvallen. De calculator laat dat zien.`,
+    a: `Een productief uur in dienst kost ${euro(perProductiveHour)} in het standaardscenario. Dat kale uur ligt lager dan ons uurtarief van ${euro(mediorTien)}. Het is niet de kost per uur dat u nodig heeft. Die kost is ${euro(perNeededHour)}: de hele kost van het dienstverband, gedeeld door de uren die u afneemt. Heeft u bijna een volle werkweek nodig, dan kan een dienstverband als geheel lager uitvallen. De calculator laat dat zien.`,
   },
   {
     q: "Zit de bedrijfsarts in dit uur?",
@@ -55,8 +54,8 @@ const faq = [
     </header>
 
     <section id="vergelijking" class="mt-14 md:mt-16" aria-labelledby="vergelijking-titel">
-      <h2 id="vergelijking-titel" class="sr-only">Vergelijking van in dienst, zzp en Arbopartner</h2>
-      <div class="grid gap-6 md:grid-cols-3 md:gap-8">
+      <h2 id="vergelijking-titel" class="sr-only">Vergelijking van in dienst en Arbopartner</h2>
+      <div class="grid gap-6 md:grid-cols-2 md:gap-8">
         <article class="flex flex-col rounded-[2rem] border border-line bg-white p-6 md:p-8">
           <h3 class="text-sm font-semibold uppercase tracking-[0.14em] text-ink-soft">In dienst</h3>
           <p class="mt-4 font-serif text-4xl text-green-950 md:text-5xl">{euro(perNeededHour)}</p>
@@ -65,15 +64,6 @@ const faq = [
             <div class="h-3 w-full rounded-full bg-green-900"></div>
           </div>
           <p class="mt-4 text-sm text-ink-soft">Leegloop, ziekte, overname en inwerken, en verlies van continuïteit zitten in dit bedrag.</p>
-        </article>
-
-        <article class="flex flex-col rounded-[2rem] border border-line bg-white p-6 md:p-8">
-          <h3 class="text-sm font-semibold uppercase tracking-[0.14em] text-ink-soft">Zzp</h3>
-          <p class="mt-4 font-serif text-4xl text-green-950 md:text-5xl">{euro(zzpHourly)}</p>
-          <p class="mt-2">kale markttarief</p>
-          <p class="mt-6 text-sm text-ink-soft">
-            Lager dan ons uur. Midden van de band die <a class="underline" href={MARKET.zzpUrl}>STAVV</a> noemt, €{MARKET.zzpLow} tot €{MARKET.zzpHigh}. Geen gemiddelde en geen volle kost, daarom geen balk.
-          </p>
         </article>
 
         <article class="flex flex-col rounded-[2rem] bg-ochre-200 p-6 md:p-8">
@@ -97,9 +87,24 @@ const faq = [
         Verzuim: <a class="underline" href={CBS.source}>CBS</a>.
       </p>
       <div class="ap-rate-cta flex flex-col items-start gap-5">
-        <Button class="ap-rate-zzp" data-cta="tarieven-zzp" href="/casemanager-inhuren-of-in-dienst#vergelijking">Bereken of een zzp’er goedkoper is dan in dienst</Button>
+        <Button class="ap-rate-main" data-cta="tarieven-besparing" href="/casemanager-inhuren-of-in-dienst#vergelijking">Bereken wat u bespaart ten opzichte van in dienst</Button>
         <Button variant="ghost" data-cta="tarieven-kennismaking" href="/adviesgesprek">Plan een gratis kennismaking</Button>
       </div>
+    </section>
+
+    <section class="mt-24 md:mt-32" aria-labelledby="inbegrepen-titel">
+      <h2 id="inbegrepen-titel" class="max-w-3xl font-serif text-3xl text-green-950 md:text-4xl">Wat zit er in ons tarief (en bij een losse zzp’er niet)</h2>
+      <p class="mt-5 max-w-2xl text-lg">Een losse zzp’er levert het uur. In ons tarief zit dit erbij.</p>
+      <ul class="mt-8 grid gap-x-10 gap-y-4 md:grid-cols-2">
+        <li class="flex gap-3"><span class="font-semibold text-green-800" aria-hidden="true">✓</span><span>Een vervanger bij ziekte of vakantie. De continuïteit blijft.</span></li>
+        <li class="flex gap-3"><span class="font-semibold text-green-800" aria-hidden="true">✓</span><span>Een arbeidsdeskundige die meekijkt, voor de loonwaarde en het risico op een loonsanctie. We garanderen niet dat een sanctie uitblijft.</span></li>
+        <li class="flex gap-3"><span class="font-semibold text-green-800" aria-hidden="true">✓</span><span>Geen zoek- en inwerktijd voor u.</span></li>
+        <li class="flex gap-3"><span class="font-semibold text-green-800" aria-hidden="true">✓</span><span>Snel wisselen van casemanager.</span></li>
+        <li class="flex gap-3"><span class="font-semibold text-green-800" aria-hidden="true">✓</span><span>Geen DBA-risico van schijnzelfstandigheid voor u als werkgever. De opdracht loopt via {site.parent.legalName}, niet via een losse zzp’er.</span></li>
+        <li class="flex gap-3"><span class="font-semibold text-green-800" aria-hidden="true">✓</span><span>Interventiekorting: tot {site.discount.tweedeSpoor}% op spoor 2 en tot {site.discount.arbeidsdeskundige}% op arbeidsdeskundig onderzoek.</span></li>
+        <li class="flex gap-3"><span class="font-semibold text-green-800" aria-hidden="true">✓</span><span>{site.responsePromise}</span></li>
+        <li class="flex gap-3"><span class="font-semibold text-green-800" aria-hidden="true">✓</span><span>Een kantoor aan de {site.parent.street} in {site.parent.city}.</span></li>
+      </ul>
     </section>
 
     <section class="mt-24 md:mt-32" aria-labelledby="uren-titel">
@@ -165,12 +170,12 @@ const faq = [
     <FaqList items={faq} title="Vragen over de uurtarieven" />
   </article>
   <CtaBand
-    title="Zet zzp naast iemand in dienst"
-    text="De calculator vergelijkt in dienst, zzp en Arbopartner met uw eigen uren."
+    title="Besparing ten opzichte van in dienst"
+    text="De calculator rekent uw uren tegen een casemanager in dienst."
     href="/casemanager-inhuren-of-in-dienst#vergelijking"
-    label="Bereken of een zzp’er goedkoper is dan in dienst"
+    label="Bereken wat u bespaart ten opzichte van in dienst"
     risk="De uitkomst is een berekening, geen offerte."
-    cta="tarieven-zzp-onder"
+    cta="tarieven-besparing-onder"
     wrapClass="ap-rate-cta"
     proof={false}
   />

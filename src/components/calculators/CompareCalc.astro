@@ -143,7 +143,7 @@ const sizeHint = defaultAbsencePct(employees);
         <label class="block text-sm">Korting arbeidsdeskundig onderzoek, %. Standaard {defaults.adDiscountPct}.
           <input class="ap-field" name="adkorting" type="number" min="0" max="100" step="1" value={defaults.adDiscountPct} />
         </label>
-        <label class="block text-sm">Zzp-uurtarief. Standaard {defaults.zzpHourly}, het midden van de STAVV-band €{MARKET.zzpLow} tot €{MARKET.zzpHigh}. Geen gemiddelde.
+        <label class="block text-sm">Zzp-uurtarief, alleen als aanname. De uitkomst zet dit niet als kolom naast Arbopartner. Standaard {defaults.zzpHourly}, het midden van de STAVV-band €{MARKET.zzpLow} tot €{MARKET.zzpHigh}. Geen gemiddelde.
           <input class="ap-field" name="zzp" type="number" min="0" max="300" step="0.5" value={defaults.zzpHourly} />
         </label>
         <label class="block text-sm">Productiviteit tijdens het inwerken, %.
