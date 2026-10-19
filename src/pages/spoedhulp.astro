@@ -13,7 +13,7 @@ const crumbs = [
 const faq = [
   {
     q: "Bellen jullie vandaag terug?",
-    a: site.placeholders.callback,
+    a: site.responsePromise,
   },
   {
     q: "Wat als het dossier al bijna twee jaar loopt?",
@@ -37,7 +37,7 @@ const checks = [
       <h1 class="font-serif text-5xl text-green-950">Zieke medewerker? Bel vandaag.</h1>
       <Figure id="pagina-spoed" eager class="mt-6" />
       <p class="mt-4 text-lg">Geen keuzemenu. U spreekt iemand van Matchvermogen B.V., het moederbedrijf achter dit label.</p>
-      <p class="mt-4 text-sm">{site.placeholders.callback}</p>
+      <p class="mt-4 text-sm">{site.responsePromise}</p>
       <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
         <a class="rounded-full bg-ochre-500 px-5 py-3 text-center font-semibold" data-cta="spoed-bel" data-channel="phone" href={phoneHref}>Bel {site.parent.phoneDisplay}</a>
         <a class="btn-ghost text-center" data-cta="spoed-app" data-channel="whatsapp" href={whatsappHref}>App {site.parent.whatsappDisplay}</a>

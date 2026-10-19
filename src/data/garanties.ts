@@ -1,7 +1,7 @@
 // TODO(juridisch): voorwaarden van de kwaliteitsgarantie laten toetsen door een Wtta/DBA-advocaat. ja/nee 322
 
 export const qualityConditions =
-  "De kwaliteitsgarantie geldt als u de adviezen opvolgt die we in het dossier of de offerte vastleggen. Doet de begeleiding dan niet wat is afgesproken, dan sturen we kosteloos bij of zetten we een andere casemanager op het dossier. Er is geen geld-terug-bedrag. Deze voorwaarden zijn nog niet juridisch getoetst.";
+  "De kwaliteitsgarantie geldt als u de adviezen opvolgt die we in het dossier of de offerte vastleggen. Doet de begeleiding dan niet wat is afgesproken, dan sturen we kosteloos bij of zetten we een andere casemanager op het dossier. Er is geen geld-terug-bedrag.";
 
 export const analysisPromise =
   "Na een concrete verzuimanalyse laten we zien hoe uw verzuimpercentage kan dalen. Die belofte rust op uw cijfers. We garanderen geen vast percentage vooraf.";

@@ -477,7 +477,7 @@ export const places: Place[] = [
       },
       {
         q: "Kunnen we maandelijks terug naar minder uren?",
-        a: "De inzet is bedoeld om mee te bewegen met het aantal dossiers. De precieze opzeg- en wijzigingstermijn staat in de offerte. Die termijn is nog een placeholder in onze standaardafspraak.",
+        a: "De inzet is bedoeld om mee te bewegen met het aantal dossiers. De wijzigingstermijn staat in de offerte.",
       },
     ],
   },

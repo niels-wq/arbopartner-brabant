@@ -73,7 +73,7 @@ export const packages: {
 ];
 
 export const riskReversal =
-  "Vrijblijvend kennismaken: een adviesgesprek van 30 minuten. U hoeft niets af te nemen. Een maandelijkse opzegtermijn staat niet vast; die hoort in de offerte en beloven we hier niet.";
+  "Vrijblijvend kennismaken: een adviesgesprek van 30 minuten. U hoeft niets af te nemen. De wijzigingstermijn van de uren staat in de offerte.";
 
 export const centerStage =
   "Premium staat in het midden omdat we dat blok als eerste voorleggen als de omvang nog niet vaststaat. We noemen het niet het meest gekozen pakket: dit label heeft nog geen eigen klanten, dus dat cijfer bestaat niet.";
@@ -102,7 +102,7 @@ export function priceFaq() {
     },
     {
       q: "Kan ik maandelijks opzeggen?",
-      a: "Dat staat niet vast. De opzegtermijn hoort in de offerte en is nog niet als standaard vastgelegd. Wat wel vaststaat: het adviesgesprek van 30 minuten verplicht u tot niets.",
+      a: "De wijzigingstermijn staat in de offerte. Een maandelijkse opzegtermijn beloven we hier niet. Het adviesgesprek van 30 minuten verplicht u tot niets.",
     },
     {
       q: "Zijn dit vaste prijzen?",

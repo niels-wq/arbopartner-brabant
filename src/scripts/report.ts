@@ -75,7 +75,7 @@ export function mountReport(host: HTMLElement, input: { calculator: string; titl
     : "";
   wrap.innerHTML = `
     <p class="font-semibold">${label}</p>
-    <p class="text-sm">Als de mailserver aanstaat, sturen we deze berekening naar uw e-mailadres en naar ons. Het is een scenario, geen offerte. De pdf kunt u ook meteen downloaden.</p>
+    <p class="text-sm">We sturen deze berekening naar uw e-mailadres en naar ons. Het is een scenario, geen offerte. De pdf kunt u ook meteen downloaden.</p>
     <label>E-mail<input name="email" type="email" required autocomplete="email" /></label>
     <label class="flex items-start gap-2 text-sm"><input type="checkbox" name="toestemming" value="ja" required /> <span>Mail mij dit rapport. <a href="/privacy">Privacy</a></span></label>
     <input type="hidden" name="rapport" />

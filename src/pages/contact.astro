@@ -30,14 +30,11 @@ const crumbs = [
         {site.parent.postalCode} {site.parent.city}<br />
         KvK {site.parent.kvk}
       </address>
-      <p class="mt-2 text-sm">{site.placeholders.btw}</p>
-      <p class="mt-2 text-sm">{site.placeholders.adresLabel}</p>
       <p class="mt-4">
         <a class="font-semibold underline" href={phoneHref}>{site.parent.phoneDisplay}</a><br />
         <a class="font-semibold underline" href={mailHref}>{site.parent.email}</a><br />
         <a class="font-semibold underline" href={whatsappHref}>WhatsApp {site.parent.whatsappDisplay}</a>
       </p>
-      <p class="mt-2 text-sm">{site.placeholders.eigenEmail}</p>
     </div>
     <form class="space-y-3 rounded-[2rem] border border-line bg-white/80 p-5" data-endpoint="/api/advies" data-kind="advies" data-cta="contact">
       <h2 class="font-serif text-3xl">Stuur een bericht</h2>

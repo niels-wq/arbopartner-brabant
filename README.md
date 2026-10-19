@@ -2,7 +2,7 @@
 
 Nederlandstalige site voor Arbopartner Brabant, een label van Matchvermogen. Het label detacheert een vaste casemanager bij werkgevers met 35 of meer medewerkers in Noord-Brabant. Het kantoor staat in Uden. Reistijd binnen ongeveer 45 minuten van dat kantoor zit in het tarief.
 
-De site is statische HTML (Astro) met interactieve calculators. Formulieren lopen via een kleine Node-server. Het domein `https://www.arbopartnerbrabant.nl` is nog niet live. Canonicals, sitemap en structured data wijzen al naar dat domein.
+De site is statische HTML (Astro) met interactieve calculators. Formulieren lopen via een kleine Node-server. Canonicals, sitemap en structured data wijzen naar `https://www.arbopartnerbrabant.nl`.
 
 ## Lokaal draaien
 
@@ -72,31 +72,15 @@ Het blok “Onze garanties” staat op de homepage, de pakketten en de vergelijk
 
 Bellen gaat via het vaste nummer 085-0870307 (`tel:` en schema). Het 06-nummer staat alleen op WhatsApp-links (`wa.me`).
 
-## Placeholders
+## Bedrijfsgegevens
 
-Deze punten zijn bewust open gelaten:
-
-- Terugbeltermijn van spoedhulp.
-- Aantal werkdagen voor een offerte.
-- Eigen mailbox van het label (nu `info@matchvermogen.nl`).
-- Btw-identificatienummer (staat niet op matchvermogen.nl).
-- Apart vestigingsadres (nu het kantoor van Matchvermogen B.V., Losplaats 16d, 5404 NJ Uden, KvK 85849618).
-- Namen, foto’s en directe nummers van casemanagers.
-- Online agendalink voor een kantoorgesprek. De kennismaking is de belafspraak van 15 minuten op https://calendly.com/matchvermogen/call-15-min (bron: arbeidsdeskundig.com). matchvermogen.nl en werkhervattingskas.nl publiceren geen eventlink.
-- Bewaartermijn van formuliergegevens.
-- Standaard opzegtermijn van een urenblok.
-- Juridische toets van de conceptvoorwaarden, inclusief Wtta/DBA.
-- SMTP-gegevens voor echte aflevering.
-- Inkoopprijzen van zzp-casemanagers zijn niet gepubliceerd. De verkooprijzen zijn richtprijzen.
-- Eigen Google-reviews bestaan nog niet. Citaten zijn letterlijk van matchvermogen.nl/referenties/.
-- Bewaartermijn van sollicitaties. Die is dezelfde open placeholder als bij de andere formulieren. Er staat geen aantal maanden op de site.
-- Salaris en uren van de baan in dienst. Die spreken we af in de procedure.
+KvK 85849618, Losplaats 16d, 5404 NJ Uden, telefoon 085-0870307 en info@matchvermogen.nl staan in het colofon van matchvermogen.nl. Een btw-identificatienummer staat daar niet en tonen we daarom niet. Contact- en offerteaanvragen bewaren we maximaal 2 jaar na het laatste contact, zoals de privacyverklaring van Matchvermogen. De wijzigingstermijn van uren staat in de offerte. Reactie en offerte: binnen 24 uur. De kennismaking in de agenda is de belafspraak van 15 minuten op https://calendly.com/matchvermogen/call-15-min.
 
 ## Werken bij
 
 `/werken-bij` heeft twee trajecten: zzp-casemanager en een baan in dienst. Het formulier loopt in zes stappen en post multipart naar `POST /api/werken`. Honeypot-veld `company_website`. Per IP maximaal 4 aanmeldingen per 10 minuten. Een CV is pdf of docx, maximaal 10 MB.
 
-Ontvanger van de mailfallback is vast `info@matchvermogen.nl`. Zonder `SMTP_HOST` én zonder Airtable antwoordt de site dat de aanmelding nog niet is opgeslagen. Een mailto met het CV kan de browser niet maken.
+Ontvanger van de mailfallback is vast `info@matchvermogen.nl`. Zonder `SMTP_HOST` én zonder Airtable antwoordt de site dat de aanmelding niet is opgeslagen en noemt dat adres. Een mailto met het CV kan de browser niet maken.
 
 ### Omgevingsvariabelen
 

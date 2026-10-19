@@ -242,7 +242,7 @@ if (root && !root.dataset.ready) {
   }
   function mailFallback(status: HTMLElement, payload: Record<string, string>, extra: string) {
     const link = mailtoHref("magnet", Object.entries(payload));
-    status.innerHTML = `${extra} <a class="font-semibold underline" href="${link}">Verstuur het bericht via uw eigen e-mail</a>. ${site.placeholders.eigenEmail}`;
+    status.innerHTML = `${extra} <a class="font-semibold underline" href="${link}">Verstuur het bericht via uw eigen e-mail</a> naar ${site.parent.email}.`;
   }
   magnet?.querySelectorAll<HTMLInputElement>('input[name="keuze"]').forEach((input) => {
     input.addEventListener("change", () => {
@@ -288,7 +288,7 @@ if (root && !root.dataset.ready) {
         if (status) {
           status.textContent = result.delivered
             ? "De checklist downloadt op dit apparaat. Dezelfde tekst gaat ook naar uw e-mail."
-            : "De checklist downloadt op dit apparaat. De mailserver staat nog niet aan, dus er gaat geen mail uit.";
+            : "De checklist downloadt op dit apparaat.";
         }
         return;
       }
@@ -298,14 +298,14 @@ if (root && !root.dataset.ready) {
           showChoice();
           if (status) status.textContent = `Verstuurd. ${site.responsePromise}`;
         } else if (status) {
-          mailFallback(status, payload, "De mailserver staat nog niet aan, dus het terugbelverzoek is nog niet weg.");
+          mailFallback(status, payload, "Het terugbelverzoek is niet verzonden.");
         }
         return;
       }
       if (choice === "gesprek") {
         if (status) {
           if (result.delivered) status.textContent = "Uw gegevens zijn verstuurd. De agenda opent voor een belafspraak van 15 minuten.";
-          else mailFallback(status, payload, "De mailserver staat nog niet aan. De agenda opent wel.");
+          else mailFallback(status, payload, "Uw gegevens zijn niet verzonden. De agenda opent wel.");
         }
         openCalendlyPopup(calendlyKennismaking.url);
         return;
@@ -315,7 +315,7 @@ if (root && !root.dataset.ready) {
         return;
       }
       if (status) {
-        mailFallback(status, payload, `De mailserver staat nog niet aan. <a class="font-semibold underline" href="${calculatorHref}">Ga naar de berekening</a>.`);
+        mailFallback(status, payload, `<a class="font-semibold underline" href="${calculatorHref}">Ga naar de berekening</a>.`);
       }
     } catch {
       if (status) status.textContent = "Versturen lukte niet. Bel 085-0870307 of kijk bij de verzuim-checklist.";

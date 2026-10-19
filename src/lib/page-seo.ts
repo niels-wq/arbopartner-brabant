@@ -37,7 +37,7 @@ const byPath: Record<string, FaqItem[]> = {
   "/offerte": [
     {
       q: "Wanneer krijg ik een offerte?",
-      a: site.placeholders.offerteDagen,
+      a: site.responsePromise,
     },
     shared[0],
   ],
@@ -100,8 +100,8 @@ const byPath: Record<string, FaqItem[]> = {
   ],
   "/voorwaarden": [
     {
-      q: "Zijn de voorwaarden definitief?",
-      a: "Nee. Het is een concept voor een label dat nog niet live is. Laat de tekst juridisch toetsen voordat u erop contracteert.",
+      q: "Waar staat de wijzigingstermijn?",
+      a: "In de offerte. Deze pagina legt geen vast aantal weken of maanden vast.",
     },
     shared[0],
   ],

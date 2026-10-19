@@ -60,7 +60,7 @@ Den Bosch voelt voor veel medewerkers als een dorp met een station. De leidingge
 
 ## Starten zonder groot traject
 
-Heeft u vandaag een dossier dat vastzit, bel [spoedhulp](/spoedhulp). Wilt u het komende jaar structureren, plan een [adviesgesprek](/adviesgesprek) van dertig minuten. Neem het verzuimpercentage van twaalf maanden mee en het aantal mensen dat langer dan zes weken ziek is. Meer hebben we voor een eerste oordeel niet nodig. Een offerte volgt alleen als u die vraagt. De doorlooptijd van die offerte is nog niet als vast aantal werkdagen gepubliceerd. Dat zeggen we liever dan een termijn die we niet waarmaken.
+Heeft u vandaag een dossier dat vastzit, bel [spoedhulp](/spoedhulp). Wilt u het komende jaar structureren, plan een [adviesgesprek](/adviesgesprek) van dertig minuten. Neem het verzuimpercentage van twaalf maanden mee en het aantal mensen dat langer dan zes weken ziek is. Meer hebben we voor een eerste oordeel niet nodig. Een offerte volgt alleen als u die vraagt. Reactie en offerte binnen 24 uur.
 
 Den Bosch is bereikbaar, het mkb is hier groot genoeg voor een vaste casemanager, en klein genoeg om geen callcenter te willen. Dat is de maat van de begeleiding die we vanuit Uden leveren.
 

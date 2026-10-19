@@ -53,7 +53,7 @@ function showStatus(status: HTMLElement | null, text: string) {
 
 function statusText(result: { delivered?: boolean; via?: string; cv?: string }) {
   if (!result.delivered) {
-    return "Nog niet opgeslagen. De database en de mailserver zijn nog niet ingesteld. Mail uw CV naar info@matchvermogen.nl.";
+    return "De aanmelding is niet opgeslagen. Mail uw CV naar info@matchvermogen.nl.";
   }
   if (result.via === "airtable" && result.cv === "attachment") {
     return "Ontvangen. Uw aanmelding staat in de kandidatenlijst, met het CV erbij.";

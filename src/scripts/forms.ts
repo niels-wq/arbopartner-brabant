@@ -47,7 +47,7 @@ export function bindForms() {
         }
         const link = mailtoLink(form.dataset.kind || "bericht", form);
         if (status) {
-          status.innerHTML = `De mailserver is nog niet ingesteld. <a class="font-semibold underline" href="${link}">Verstuur het bericht via uw eigen e-mail</a>. ${site.placeholders.eigenEmail}`;
+          status.innerHTML = `Versturen via deze site lukte niet. <a class="font-semibold underline" href="${link}">Verstuur het bericht via uw eigen e-mail</a> naar ${site.parent.email}.`;
         }
       } catch {
         const link = mailtoLink(form.dataset.kind || "bericht", form);

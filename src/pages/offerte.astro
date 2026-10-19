@@ -18,7 +18,7 @@ const pakketKeuze = Astro.url.searchParams.get("pakket") ?? "";
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Offerte in 2 minuten</h1>
     <Figure id="pagina-offerte" eager class="mt-6" />
-    <p class="mt-4">Drie korte stappen, zonder bijlage. Eerst wie we bellen, daarna de situatie, daarna het blok. {site.placeholders.offerteDagen}</p>
+    <p class="mt-4">Drie korte stappen, zonder bijlage. Eerst wie we bellen, daarna de situatie, daarna het blok. {site.responsePromise}</p>
     <form class="mt-6 space-y-4" data-endpoint="/api/offerte" data-kind="offerte" data-cta="offerte" data-wizard>
       <p aria-live="polite">Stap <span data-step-label>1</span> van 3</p>
       <fieldset data-step="1" class="space-y-3 rounded-[2rem] border border-line bg-white/80 p-5">
@@ -80,7 +80,7 @@ const pakketKeuze = Astro.url.searchParams.get("pakket") ?? "";
         <button class="rounded-full bg-ochre-500 px-5 py-3 font-semibold" type="submit">Verstuur de aanvraag</button>
         <p class="text-sm">De aanvraag is nog geen contract. U zit nergens aan vast.</p>
         <p data-status class="text-sm" role="status"></p>
-        <p class="text-sm text-ink-soft">Lukt het formulier niet, mail dan {site.parent.email}. {site.placeholders.eigenEmail}</p>
+        <p class="text-sm text-ink-soft">Lukt het formulier niet, mail dan {site.parent.email}.</p>
       </fieldset>
       <div class="flex gap-3" data-nav>
         <button type="button" data-prev class="rounded-full border border-green-800 px-4 py-2 font-semibold">Vorige</button>

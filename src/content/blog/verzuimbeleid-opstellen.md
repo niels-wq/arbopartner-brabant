@@ -54,7 +54,7 @@ Vierde hoofdstuk: frequent verzuim. De drempel, bijvoorbeeld drie of vier meldin
 
 Vijfde hoofdstuk: loon. Wat de cao zegt over het eerste en tweede jaar, of er wachtdagen zijn, wie de salarisadministratie informeert. Geen percentages verzinnen. De cao wint van uw voorkeur.
 
-Zesde hoofdstuk: privacy en bewaarplaats. Wie het dossier mag openen. Dat diagnoses er niet in horen. Hoe lang u stukken bewaart. De bewaartermijn voor formulieren op onze site is nog een open punt. Voor uw eigen verzuimdossiers volgt u de termijn die uw jurist en de wet voorschrijven, vaak gekoppeld aan de duur van het dienstverband en de fiscale bewaarplicht voor loonstukken. Laat dat niet aan een leverancier over.
+Zesde hoofdstuk: privacy en bewaarplaats. Wie het dossier mag openen. Dat diagnoses er niet in horen. Hoe lang u stukken bewaart. Contact- en offerteformulieren op deze site bewaren we maximaal 2 jaar na het laatste contact, de termijn die Matchvermogen B.V. publiceert. Voor uw eigen verzuimdossiers volgt u de termijn die uw jurist en de wet voorschrijven, vaak gekoppeld aan de duur van het dienstverband en de fiscale bewaarplicht voor loonstukken. Laat dat niet aan een leverancier over.
 
 ## Tips uit de praktijk
 
