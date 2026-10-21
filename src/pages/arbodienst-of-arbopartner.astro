@@ -1,0 +1,144 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Button from "../components/Button.astro";
+import CalendlyButton from "../components/CalendlyButton.astro";
+import FaqList from "../components/FaqList.astro";
+import Photo from "../components/Photo.astro";
+import { calendlyKennismaking } from "../data/calendly";
+import { arbodienstFaq, arbodienstGevallen, arbodienstRows } from "../data/arbodienst";
+import { site } from "../data/site";
+import { crumbsLd, faqLd } from "../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Anders dan een arbodienst", path: "/arbodienst-of-arbopartner" },
+];
+const faq = arbodienstFaq.map((item) => ({ q: item.q, a: item.a }));
+---
+
+<Base
+  title="Anders dan een arbodienst"
+  description="Een arbodienst richt zich op verzuimbegeleiding en de bedrijfsarts. Arbopartner Brabant vult aan, voor organisaties met 35 tot 500 medewerkers in Noord-Brabant."
+  jsonLd={[crumbsLd(crumbs), faqLd(faq)]}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <article class="mx-auto max-w-6xl px-4 pb-8 pt-14 md:pt-20">
+    <header class="grid items-start gap-10 lg:grid-cols-[1.15fr_0.85fr]">
+      <div class="max-w-3xl">
+        <p class="text-sm font-semibold uppercase tracking-[0.16em] text-ochre-800">{site.audience} in Noord-Brabant</p>
+        <h1 class="mt-3 font-serif text-4xl text-green-950 md:text-6xl">In de meeste dossiers gaat het goed. Die andere vragen om een senior.</h1>
+        <p class="mt-6 text-xl leading-snug text-ink md:text-2xl">
+          In ongeveer 95% van de dossiers gaat het vanzelf goed. Die ongeveer 5% die fout kan gaan, is het allerbelangrijkste.
+          Mist u die 5%, dan heeft u niets aan de 95%: daar ontstaan loonsancties, hoge WGA-lasten en dergelijke.
+        </p>
+        <p class="mt-5 max-w-2xl text-lg text-ink-soft">
+          Een arbodienst richt zich op verzuimbegeleiding, de bedrijfsarts en de stappen in de eerste twee ziektejaren.
+          Wij vullen aan en gaan verder. We werken enkel met senior casemanagers. Tien jaar ervaring.
+          Een beginnende casemanager ziet die 5% niet aankomen. Een senior wel.
+        </p>
+      </div>
+      <Photo id="gesprek-documenten" eager sizes="(min-width: 1024px) 28rem, 100vw" />
+    </header>
+
+    <section class="mt-20 md:mt-28" aria-labelledby="vijf-kop">
+      <h2 id="vijf-kop" class="max-w-3xl font-serif text-3xl text-green-950 md:text-4xl">Ongeveer 95%, en de 5% die telt</h2>
+      <p class="mt-4 max-w-2xl text-ink-soft">Dit is onze kernboodschap, geen onderzoek en geen landelijk percentage. Casemanagers zijn schaars en het vak is complex.</p>
+      <div class="mt-8 grid gap-6 md:grid-cols-[1.15fr_0.85fr]">
+        <article class="rounded-[2rem] border border-line bg-white p-8 md:p-10">
+          <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ink-soft">Gaat meestal vanzelf</p>
+          <p class="mt-4 font-serif text-5xl text-green-950 md:text-6xl"><span data-count="95" data-suffix="%">95%</span></p>
+          <p class="mt-4 text-lg">Ongeveer 95% van de dossiers loopt zonder dat het misgaat.</p>
+        </article>
+        <article class="rounded-[2rem] bg-ochre-200 p-8 md:p-10">
+          <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">Hier gaat het om</p>
+          <p class="mt-4 font-serif text-5xl text-green-950 md:text-6xl"><span data-count="5" data-suffix="%">5%</span></p>
+          <p class="mt-4 text-lg">Ongeveer 5% kan fout gaan. Mist u dat deel, dan heeft u niets aan de rest.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="mt-20 md:mt-28" aria-labelledby="tabel-kop">
+      <h2 id="tabel-kop" class="font-serif text-3xl text-green-950 md:text-4xl">Arbodienst en Arbopartner Brabant</h2>
+      <p class="mt-4 max-w-2xl text-ink-soft">Naast elkaar, niet tegenover elkaar. De arbodienst doet zijn deel. Wij doen het deel dat daarop volgt.</p>
+      <div class="mt-8 grid gap-4 md:hidden">
+        {arbodienstRows.map((row) => (
+          <article class="rounded-[2rem] border border-line bg-white p-6">
+            <h3 class="font-serif text-2xl text-green-950">{row.onderwerp}</h3>
+            <p class="mt-4 text-sm font-semibold uppercase tracking-[0.12em] text-ink-soft">Arbodienst</p>
+            <p class="mt-2">{row.arbodienst}</p>
+            <p class="mt-4 text-sm font-semibold uppercase tracking-[0.12em] text-ochre-800">Arbopartner Brabant</p>
+            <p class="mt-2">{row.wij}</p>
+          </article>
+        ))}
+      </div>
+      <div class="mt-8 hidden overflow-x-auto md:block">
+        <table class="w-full text-left">
+          <caption class="sr-only">Vergelijking van een arbodienst en Arbopartner Brabant</caption>
+          <thead>
+            <tr class="border-b border-line text-sm">
+              <th class="py-3 pr-4 font-semibold" scope="col">Onderwerp</th>
+              <th class="py-3 pr-4 font-semibold" scope="col">Arbodienst</th>
+              <th class="py-3 font-semibold" scope="col">Arbopartner Brabant</th>
+            </tr>
+          </thead>
+          <tbody>
+            {arbodienstRows.map((row) => (
+              <tr class="border-b border-line align-top">
+                <th class="py-4 pr-4 font-semibold" scope="row">{row.onderwerp}</th>
+                <td class="py-4 pr-4 text-ink-soft">{row.arbodienst}</td>
+                <td class="py-4">{row.wij}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mt-20 md:mt-28" aria-labelledby="gevallen-kop">
+      <div class="grid items-end gap-8 lg:grid-cols-[1fr_0.8fr]">
+        <div>
+          <h2 id="gevallen-kop" class="font-serif text-3xl text-green-950 md:text-4xl">Hier gaat het verschil maken</h2>
+          <p class="mt-4 max-w-2xl text-ink-soft">Zes situaties die we bij werkgevers tegenkomen. Geen verzonnen klant. Wel waar het vaak misgaat, wat wij doen, en wat u ervan mag verwachten.</p>
+        </div>
+        <Photo id="werkvloer-productie" sizes="(min-width: 1024px) 24rem, 100vw" />
+      </div>
+      <div class="mt-10 grid gap-6">
+        {arbodienstGevallen.map((item, index) => (
+          <article class="rounded-[2rem] border border-line bg-white p-6 md:p-10">
+            <p class="text-sm font-semibold text-ochre-800">Situatie {index + 1}</p>
+            <h3 class="mt-2 font-serif text-2xl text-green-950 md:text-3xl">{item.titel}</h3>
+            <p class="mt-4">{item.situatie}</p>
+            <dl class="mt-6 grid gap-4 md:grid-cols-3">
+              <div>
+                <dt class="text-sm font-semibold uppercase tracking-[0.12em] text-ink-soft">Waar het vaak misgaat</dt>
+                <dd class="mt-2">{item.mis}</dd>
+              </div>
+              <div>
+                <dt class="text-sm font-semibold uppercase tracking-[0.12em] text-ink-soft">Wat wij doen</dt>
+                <dd class="mt-2">{item.doen}</dd>
+              </div>
+              <div>
+                <dt class="text-sm font-semibold uppercase tracking-[0.12em] text-ink-soft">Resultaat</dt>
+                <dd class="mt-2">{item.resultaat}</dd>
+              </div>
+            </dl>
+            <p class="mt-6"><a class="font-semibold text-green-900 underline decoration-ochre-500" href={item.href}>{item.hrefLabel}</a></p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="mt-20 rounded-[2rem] bg-green-900 px-6 py-12 text-sand-50 md:mt-28 md:px-12 md:py-16" aria-labelledby="kennismaking-kop">
+      <h2 id="kennismaking-kop" class="max-w-2xl font-serif text-3xl md:text-4xl">Gratis kennismaking of een gesprek over uw dossier</h2>
+      <p class="mt-4 max-w-2xl text-lg text-sand-100">Voor organisaties met 35 tot 500 medewerkers. We kijken of het dossier bij ons past. Geen verkooppraatje.</p>
+      <div class="mt-8 flex flex-col items-start gap-5">
+        <CalendlyButton label="Plan een gratis kennismaking" cta="arbodienst-calendly" />
+        <Button variant="ghost-light" data-cta="arbodienst-dossier" href="/adviesgesprek">Bespreek uw dossier</Button>
+      </div>
+      <p class="mt-5 max-w-xl text-sm text-sand-100">{calendlyKennismaking.note} {site.responsePromise}</p>
+    </section>
+
+    <FaqList items={faq} title="Vragen over het verschil" />
+  </article>
+</Base>

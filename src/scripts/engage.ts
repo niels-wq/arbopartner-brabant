@@ -71,7 +71,7 @@ if (root && !root.dataset.ready) {
     },
     {
       test: /arbodienst|bedrijfsarts|arts/,
-      text: "Nee. Arbopartner Brabant detacheert een casemanager. De bedrijfsarts blijft u zelf organiseren. Een arbeidsdeskundige van Matchvermogen kan meekijken, met 8% korting.",
+      text: "Nee. Een arbodienst richt zich op verzuimbegeleiding, de bedrijfsarts en de stappen in de eerste twee ziektejaren. Wij vullen aan, met senior casemanagers, en gaan verder tot en met 12 jaar WGA en de Ziektewet. Het verschil staat op /arbodienst-of-arbopartner. De bedrijfsarts blijft u zelf organiseren.",
     },
     {
       test: /werkgebied|uden|brabant|reistijd|waar werken/,

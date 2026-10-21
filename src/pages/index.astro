@@ -16,6 +16,7 @@ import { qualityFaq } from "../data/garanties";
 import TeamStrip from "../components/TeamStrip.astro";
 import BrabantMap from "../components/BrabantMap.astro";
 import VerzuimTijdlijn from "../components/VerzuimTijdlijn.astro";
+import AndersDanArbodienst from "../components/AndersDanArbodienst.astro";
 import Situaties from "../components/Situaties.astro";
 import Feiten from "../components/Feiten.astro";
 import Photo from "../components/Photo.astro";
@@ -28,7 +29,7 @@ const faq = [
   },
   {
     q: "Zijn jullie een arbodienst?",
-    a: "Nee. We detacheren een casemanager en schakelen waar nodig een arbeidsdeskundige in. De verplichte bedrijfsarts blijft u zelf organiseren.",
+    a: "Nee. Een arbodienst richt zich op verzuimbegeleiding, de bedrijfsarts en de stappen in de eerste twee ziektejaren. Wij vullen aan met senior casemanagers en gaan verder op de keten tot en met 12 jaar WGA en de Ziektewet. De bedrijfsarts blijft u zelf organiseren.",
   },
   {
     q: "Wat is het verschil met iemand in dienst nemen?",
@@ -89,6 +90,8 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
       </div>
     </aside>
   </section>
+
+  <AndersDanArbodienst />
 
   <Guarantees plaats="home" />
 

@@ -2,6 +2,7 @@ import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { handleApi } from "./forms.mjs";
+import { wwwRedirectLocation } from "./redirect.mjs";
 
 const root = path.resolve(process.cwd(), "dist");
 const port = Number(process.env.PORT || 4327);
@@ -56,6 +57,15 @@ const server = createServer(async (req, res) => {
   try {
     if (await handleApi(req, res)) return;
     const url = new URL(req.url || "/", "http://localhost");
+    const canonical = wwwRedirectLocation(url.pathname, url.search, req.headers.host, req.headers["x-forwarded-host"]);
+    if (canonical) {
+      res.writeHead(301, {
+        location: canonical,
+        "cache-control": "public, max-age=86400",
+      });
+      res.end();
+      return;
+    }
     if (url.pathname === "/detacheren-of-in-dienst") {
       res.writeHead(301, { location: "/casemanager-inhuren-of-in-dienst" + url.search });
       res.end();

@@ -63,4 +63,5 @@ Heel Noord-Brabant. Plaatspagina's: Uden (thuisbasis), Veghel, Oss, 's-Hertogenb
 - https://www.arbopartnerbrabant.nl/casemanager-inhuren-of-in-dienst
 - https://www.arbopartnerbrabant.nl/spoedhulp
 - https://www.arbopartnerbrabant.nl/over-ons
+- https://www.arbopartnerbrabant.nl/arbodienst-of-arbopartner — een arbodienst richt zich op verzuimbegeleiding, de bedrijfsarts en de stappen in de eerste twee ziektejaren. Dit label vult aan met senior casemanagers en de keten tot en met 12 jaar WGA en de Ziektewet. Geen arbodienst, geen medisch oordeel.
 - https://www.arbopartnerbrabant.nl/werken-bij — aanmelden als zzp-casemanager, of solliciteren naar een baan in dienst. Geen gepubliceerd salaris.
