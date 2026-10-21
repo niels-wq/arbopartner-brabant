@@ -2,6 +2,7 @@ import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { handleApi } from "./forms.mjs";
+import { applySecurityHeaders } from "./headers.mjs";
 import { wwwRedirectLocation } from "./redirect.mjs";
 
 const root = path.resolve(process.cwd(), "dist");
@@ -54,6 +55,7 @@ async function fileFor(urlPath) {
 }
 
 const server = createServer(async (req, res) => {
+  applySecurityHeaders(res);
   try {
     if (await handleApi(req, res)) return;
     const url = new URL(req.url || "/", "http://localhost");
@@ -87,8 +89,6 @@ const server = createServer(async (req, res) => {
       const html = await readFile(missing).catch(() => Buffer.from("Pagina niet gevonden"));
       res.writeHead(404, {
         "content-type": "text/html; charset=utf-8",
-        "x-content-type-options": "nosniff",
-        "referrer-policy": "strict-origin-when-cross-origin",
       });
       res.end(html);
       return;
@@ -103,11 +103,10 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, {
       "content-type": types[ext] || "application/octet-stream",
       "cache-control": cache,
-      "x-content-type-options": "nosniff",
-      "referrer-policy": "strict-origin-when-cross-origin",
     });
     res.end(body);
   } catch {
+    if (res.headersSent) return;
     res.writeHead(500, { "content-type": "text/plain; charset=utf-8" });
     res.end("Er ging iets mis.");
   }
