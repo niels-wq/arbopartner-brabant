@@ -36,7 +36,7 @@ Tweede spoor is re-integratie naar werk bij een andere werkgever. Eerste spoor i
 
 U start als duidelijk wordt dat structurele terugkeer in het eigen werk niet waarschijnlijk is, en als intern ander werk ontbreekt of niet past. Dat moment ligt zelden op een vaste week. Bij de ene medewerker is het in maand vier duidelijk, bij de ander pas na de eerstejaarsevaluatie. De bedrijfsarts en, als u die inschakelt, de arbeidsdeskundige onderbouwen het perspectief. U hoeft niet te wachten op de zin ‘spoor twee is verplicht’ alsof dat een toverspreuk is. Wachten tot die zin valt, is vaak al laat.
 
-Een praktische toets: als u in het plan van aanpak geen geloofwaardige route naar de oude uren meer ziet, en de lijst met interne functies is nagelopen, dan opent u het tweede spoor. U sluit het eerste niet. Een stage bij een andere werkgever kan samengaan met een dag aangepast werk bij u, als de arts dat aankan.
+Een praktische toets: als u in het plan van aanpak geen geloofwaardige route naar de oude uren meer ziet, en de lijst met interne functies is nagelopen, dan opent u het tweede spoor. De [loonsanctie-risicoscan](/loonsanctie-risicoscan) vraagt of dat op tijd gebeurde. U sluit het eerste niet. Een stage bij een andere werkgever kan samengaan met een dag aangepast werk bij u, als de arts dat aankan.
 
 Te vroeg starten, terwijl terugkeer in de eigen functie nog reëel is en de medewerker daar energie op zet, jaagt mensen onnodig de arbeidsmarkt op. Te laat starten is de veel grotere fout. UWV beschrijft te late of verkeerde re-integratie als dominante reden bij loonsancties.
 

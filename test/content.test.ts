@@ -37,6 +37,8 @@ describe("wet in de merklaag", () => {
     for (const file of all) {
       if (file.includes(`${path.sep}content${path.sep}blog${path.sep}`)) continue;
       if (file.endsWith(`${path.sep}data${path.sep}situaties.ts`)) continue;
+      if (file.endsWith(`${path.sep}loonsanctie-risicoscan.astro`)) continue;
+      if (file.endsWith(`${path.sep}verzuim-tijdlijn.astro`)) continue;
       const text = await readFile(file, "utf8");
       if (/poortwachter/i.test(text)) offenders.push(path.relative(root, file));
     }

@@ -1,0 +1,197 @@
+---
+import Figure from "../components/Figure.astro";
+import PlanOfOfferte from "../components/PlanOfOfferte.astro";
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Button from "../components/Button.astro";
+import CtaBand from "../components/CtaBand.astro";
+import FaqList from "../components/FaqList.astro";
+import { site } from "../data/site";
+import { answerLabel, kernboodschap, scanItems, scanSources } from "../lib/verzuim-tools";
+import { crumbsLd, faqLd } from "../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Tools", path: "/tools" },
+  { name: "Loonsanctie-risicoscan", path: "/loonsanctie-risicoscan" },
+];
+const faq = [
+  {
+    q: "Is deze scan een oordeel van UWV?",
+    a: "Nee. Tien vragen geven een indicatie van gaten in één dossier. UWV toetst het re-integratieverslag. Wij voorspellen de uitkomst niet en garanderen niet dat een loonsanctie uitblijft.",
+  },
+  {
+    q: "Hoe lang kan een loonsanctie duren?",
+    a: "Maximaal 52 weken extra loon na de eerste 104 weken. U betaalt dat loon aan de medewerker. Het is geen boete die u aan UWV overmaakt.",
+  },
+  {
+    q: "Is een te late 42e-weeksmelding een loonsanctie?",
+    a: "Nee. UWV noemt bij een te late melding een boete van maximaal € 455. De loonsanctie gaat over de re-integratie en kan het loon met maximaal 52 weken verlengen.",
+  },
+  {
+    q: "Moet ik mijn e-mailadres geven om het advies te lezen?",
+    a: "Nee. Het advies per punt staat op het scherm. Het formulier stuurt diezelfde tekst naar uw e-mailadres en naar ons.",
+  },
+  {
+    q: "Voor wie is de scan?",
+    a: `Voor werkgevers, ${site.audience}. Het is algemene informatie over één dossier, geen advies op maat.`,
+  },
+];
+const howTo = {
+  "@type": "HowTo",
+  name: "Loonsanctie-risicoscan",
+  description: "Tien vragen over het re-integratieverslag van één zieke medewerker, langs de Wet verbetering poortwachter. De uitkomst is een indicatie, geen oordeel van UWV.",
+  totalTime: "PT5M",
+  step: scanItems.map((item, index) => ({
+    "@type": "HowToStep",
+    position: index + 1,
+    name: `Vraag ${index + 1}`,
+    text: item.question,
+  })),
+};
+---
+
+<Base
+  title="Loonsanctie-risicoscan voor werkgevers"
+  description="Tien vragen over het re-integratiedossier onder de Wet verbetering poortwachter. U ziet een laag, gemiddeld of hoog risico en per punt een advies. Geen oordeel van UWV."
+  jsonLd={[crumbsLd(crumbs), faqLd(faq), howTo]}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <article class="mx-auto max-w-3xl px-4 pt-6">
+    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-ochre-800">{site.audience}</p>
+    <h1 class="mt-3 font-serif text-4xl text-green-950 md:text-5xl">Loonsanctie-risicoscan</h1>
+    <Figure id="pagina-loonsanctie" eager class="mt-6" />
+    <p class="mt-4 text-lg">Tien vragen over het re-integratiedossier van één zieke medewerker, langs de stappen van de Wet verbetering poortwachter. U ziet een laag, gemiddeld of hoog risico, en per punt wat u deze week nog kunt doen.</p>
+    <p class="mt-4">{kernboodschap}</p>
+    <p class="mt-4">De scan is geen oordeel van UWV en geen voorspelling. Een loonsanctie is langer loon aan de medewerker, maximaal 52 weken, geen bedrag dat u aan UWV overmaakt. De kortere <a class="underline" href="/tools/loonsanctie-check">loonsanctie-check</a> laat zeven gaten zien. De <a class="underline" href="/verzuim-tijdlijn">verzuim-tijdlijn</a> rekent de data uit vanaf de eerste ziektedag. Meer over de 95 en de 5 procent staat bij <a class="underline" href="/arbodienst-of-arbopartner">het verschil met een arbodienst</a>.</p>
+
+    <form class="ap-scan mt-8 space-y-3" data-scan>
+      {scanItems.map((item, index) => (
+        <fieldset class="rounded-3xl border border-line bg-white/80 p-4">
+          <legend class="font-semibold text-green-950">{index + 1}. {item.question}</legend>
+          <p class="mt-2 text-sm text-ink-soft">{item.hint}</p>
+          <div class="mt-3 grid grid-cols-3 gap-2">
+            {(["ja", "deels", "nee"] as const).map((answer) => (
+              <label class="ap-choice">
+                <input name={item.id} required={answer === "ja"} type="radio" value={answer} />
+                <span>{answerLabel[answer]}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      ))}
+      <Button data-cta="scan-bereken" type="submit">Bekijk het risico</Button>
+    </form>
+
+    <div class="mt-8 scroll-mt-24" data-scan-out hidden tabindex="-1">
+      <div data-scan-head></div>
+      <div class="mt-4" data-scan-flag></div>
+      <ol class="mt-4 space-y-3" data-scan-list></ol>
+      <form class="mt-8 space-y-3 rounded-[2rem] border border-line bg-white/80 p-5" data-cta="risicoscan-mail" data-endpoint="/api/risicoscan" data-kind="risicoscan">
+        <h2 class="font-serif text-3xl text-green-950">Mail mij het volledige verslag</h2>
+        <p>Het advies staat hierboven. We sturen dezelfde tekst naar uw e-mailadres en naar ons. Telefoon mag, het hoeft niet.</p>
+        <label class="block">Naam<input class="ap-field" autocomplete="name" name="naam" required /></label>
+        <label class="block">E-mail<input class="ap-field" autocomplete="email" name="email" required type="email" /></label>
+        <label class="block">Telefoon, niet verplicht<input class="ap-field" autocomplete="tel" name="telefoon" type="tel" /></label>
+        <input name="rapport" type="hidden" />
+        <label class="flex items-start gap-2 text-sm">
+          <input name="toestemming" required type="checkbox" value="ja" />
+          <span>Mail mij dit verslag. <a class="underline" href="/privacy">Privacy</a></span>
+        </label>
+        <div class="absolute -left-[9999px]" aria-hidden="true">
+          <label>Website<input autocomplete="off" name="company_website" tabindex="-1" /></label>
+        </div>
+        <Button data-cta="risicoscan-mail-knop" type="submit">Stuur het verslag</Button>
+        <p class="text-sm" data-status role="status"></p>
+      </form>
+      <h2 class="mt-10 font-serif text-3xl text-green-950">Bespreek dit dossier</h2>
+      <p class="mt-2">Een gesprek van 30 minuten, of een offerte. Allebei vrijblijvend.</p>
+      <PlanOfOfferte gesprekCta="scan-gesprek" offerteCta="scan-offerte" phoneCta="scan-bel" whatsappCta="scan-whatsapp" />
+      <p class="mt-4 text-sm"><a class="underline" data-cta="scan-spoed" href="/spoedhulp">Loopt de WIA-aanvraag al? Naar spoedhulp.</a></p>
+    </div>
+
+    <h2 class="mt-10 font-serif text-3xl text-green-950">Bronnen</h2>
+    <ul class="mt-3 list-disc space-y-2 pl-5">
+      {scanSources.map((source) => (
+        <li><a class="underline" href={source.url} rel="noopener">{source.title}</a>. {source.note}</li>
+      ))}
+    </ul>
+    <FaqList items={faq} />
+  </article>
+  <CtaBand title="Dit dossier met iemand doornemen" text="De scan is geen oordeel van UWV. In het gesprek kijken we welk stuk nog ontbreekt." />
+</Base>
+
+<script>
+  import { scoreScan, answerLabel, levelLabel } from "../lib/verzuim-tools";
+  import { track } from "../scripts/track";
+  import "../scripts/forms.ts";
+
+  const form = document.querySelector<HTMLFormElement>("[data-scan]");
+  const out = document.querySelector<HTMLElement>("[data-scan-out]");
+  const head = document.querySelector<HTMLElement>("[data-scan-head]");
+  const flagHost = document.querySelector<HTMLElement>("[data-scan-flag]");
+  const list = document.querySelector<HTMLElement>("[data-scan-list]");
+  const rapport = out?.querySelector<HTMLInputElement>("[name=rapport]");
+
+  const tone: Record<string, string> = {
+    laag: "border border-green-800 bg-white",
+    gemiddeld: "bg-ochre-200",
+    hoog: "bg-green-950 text-sand-50",
+  };
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form || !out || !head || !list || !flagHost) return;
+    const answers = Object.fromEntries(new FormData(form).entries());
+    let result;
+    try {
+      result = scoreScan(answers);
+    } catch {
+      return;
+    }
+    head.className = `rounded-[2rem] p-6 ${tone[result.level]}`;
+    head.replaceChildren();
+    const eyebrow = document.createElement("p");
+    eyebrow.className = "text-sm font-semibold uppercase tracking-wide";
+    eyebrow.textContent = "Indicatie, geen oordeel van UWV";
+    const title = document.createElement("p");
+    title.className = "mt-2 font-serif text-4xl";
+    title.textContent = levelLabel[result.level];
+    const summary = document.createElement("p");
+    summary.className = "mt-3";
+    summary.textContent = result.summary;
+    const score = document.createElement("p");
+    score.className = "mt-3 text-sm";
+    score.textContent = `${result.points} van ${result.maxPoints} op de negen inhoudelijke punten. Ja telt 0, deels 1, nee 2. De 42e-weeksmelding staat apart.`;
+    head.append(eyebrow, title, summary, score);
+
+    flagHost.replaceChildren();
+    const flag = document.createElement("p");
+    flag.className = "rounded-3xl border border-line bg-white p-4";
+    flag.textContent = `42e-weeksmelding: ${answerLabel[result.melding.answer]}. ${result.melding.advice}`;
+    flagHost.append(flag);
+
+    list.replaceChildren();
+    for (const item of result.items) {
+      const row = document.createElement("li");
+      row.className = "rounded-3xl border border-line bg-white/80 p-4";
+      const question = document.createElement("p");
+      question.className = "font-semibold text-green-950";
+      question.textContent = item.question;
+      const given = document.createElement("p");
+      given.className = "mt-1 text-sm font-semibold uppercase tracking-wide text-ochre-800";
+      given.textContent = answerLabel[item.answer];
+      const advice = document.createElement("p");
+      advice.className = "mt-2";
+      advice.textContent = item.advice;
+      row.append(question, given, advice);
+      list.append(row);
+    }
+    if (rapport) rapport.value = result.report.slice(0, 8000);
+    out.hidden = false;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    out.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    out.focus({ preventScroll: true });
+    track("calculator_result", { calculator: "loonsanctie-risicoscan", risk: result.level });
+  });
+</script>

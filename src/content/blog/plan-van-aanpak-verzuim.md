@@ -65,7 +65,7 @@ Een andere fout: het plan is geschreven door een casemanager die de hal nooit he
 
 Het plan verwijst naar de probleemanalyse, niet andersom. De eerstejaarsevaluatie verwijst naar het plan: wat is ervan terechtgekomen. Het tweede spoor verwijst naar het plan: waarom eigen werk niet voldoende perspectief biedt. Als die documenten elkaar tegenspreken, heeft u geen dossier maar een stapel.
 
-De [tijdlijn](/tools/tijdlijn-ziekteverzuim) zet de momenten achter elkaar. De [zeven fouten rond een loonsanctie](/blog/loonsanctie-uwv-voorkomen) laten zien wat er gebeurt als het plan vaag blijft. Geen van beide vervangt het gesprek met uw medewerker deze week.
+De [tijdlijn](/tools/tijdlijn-ziekteverzuim) zet de momenten achter elkaar. De [verzuim-tijdlijn](/verzuim-tijdlijn) vult daar uw eigen eerste ziektedag in. De [zeven fouten rond een loonsanctie](/blog/loonsanctie-uwv-voorkomen) laten zien wat er gebeurt als het plan vaag blijft. Geen van beide vervangt het gesprek met uw medewerker deze week.
 
 ## Een minimale versie die al beter is dan niets
 

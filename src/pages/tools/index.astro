@@ -12,6 +12,8 @@ const crumbs = [
   { name: "Tools", path: "/tools" },
 ];
 const tools: { href: string; title: string; text: string; icon: "chart" | "clock" | "balance" | "route" | "alert" | "document" }[] = [
+  { href: "/loonsanctie-risicoscan", title: "Loonsanctie-risicoscan", text: "Tien vragen over één dossier. Risico laag, gemiddeld of hoog, met een advies per punt.", icon: "alert" },
+  { href: "/verzuim-tijdlijn", title: "Verzuim-tijdlijn", text: "Eerste ziektedag erin, de data eruit. Inclusief een agenda-bestand.", icon: "clock" },
   { href: "/welke-casemanager", title: "Welke casemanager", text: "Acht vragen naar niveau en uurblok.", icon: "chart" },
   { href: "/verzuimkosten-berekenen", title: "Verzuimkosten", text: "TNO-dagkosten en een scenario dat u zelf kiest.", icon: "chart" },
   { href: "/casemanager-inhuren-of-in-dienst", title: "Casemanager inhuren of in dienst nemen?", text: "Jaarkosten naast elkaar, met bronnen die u kunt aanpassen. Indicatie, geen offerte.", icon: "balance" },
@@ -22,7 +24,7 @@ const tools: { href: string; title: string; text: string; icon: "chart" | "clock
 ];
 ---
 
-<Base title="Tools" description="Calculators en checks voor verzuim: casemanager-match, verzuimkosten, detacheren versus dienstverband, tijdlijn, loonsanctie en CBS-vergelijking." jsonLd={[crumbsLd(crumbs)]}>
+<Base title="Tools" description="Calculators en checks voor verzuim: loonsanctie-risicoscan, verzuim-tijdlijn met data, casemanager-match, verzuimkosten, tijdlijn en CBS-vergelijking." jsonLd={[crumbsLd(crumbs)]}>
   <Breadcrumbs crumbs={crumbs} />
   <header class="mx-auto max-w-6xl px-4 pt-6">
     <h1 class="font-serif text-5xl text-green-950">Rekenhulpen met een bron</h1>

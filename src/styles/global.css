@@ -978,6 +978,59 @@ a > .ap-figure img {
   color: #14261c;
 }
 
+.ap-scan legend {
+  float: none;
+  width: 100%;
+  margin-bottom: 0.35rem;
+  padding: 0;
+  font-weight: 650;
+  color: #12382c;
+}
+
+.ap-choice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 44px;
+  border: 1.5px solid #d9ddd6;
+  border-radius: 999px;
+  background: #fff;
+  padding: 0.35rem 0.45rem;
+  font-weight: 650;
+  cursor: pointer;
+  text-align: center;
+}
+
+.ap-choice input {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  accent-color: #12382c;
+}
+
+.ap-choice:has(:checked) {
+  border-color: #145c45;
+  background: #eef5f1;
+  box-shadow: 0 0 0 3px rgb(216 160 61 / 35%);
+}
+
+.ap-status {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: #f3f2ec;
+  color: #7a4e12;
+}
+
+.ap-status-past {
+  color: #3a463f;
+}
+
 .ap-slider {
   display: block;
   width: 100%;
@@ -1195,11 +1248,12 @@ main a.underline {
   }
 
   .ap-field,
+  .ap-choice,
   input,
   textarea,
   select,
   summary {
-    transition: border-color 160ms ease, box-shadow 160ms ease, color 160ms ease;
+    transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease, color 160ms ease;
   }
 
   input:focus-visible,

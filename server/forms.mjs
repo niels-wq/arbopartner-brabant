@@ -46,6 +46,8 @@ const fields = {
   terugbel: ["naam", "telefoon", "medewerkers"],
   checklist: ["naam", "email", "medewerkers"],
   magnet: ["naam", "email"],
+  risicoscan: ["naam", "email", "rapport"],
+  tijdlijn: ["naam", "email", "rapport"],
 };
 
 const exitChoices = ["checklist", "terugbel", "gesprek", "besparing"];
@@ -84,9 +86,10 @@ function messageText(kind, body) {
   const lines = [`Formulier: ${kind}`, `Tijdstip: ${new Date().toISOString()}`, ""];
   for (const [key, value] of Object.entries(body || {})) {
     if (key === "company_website" || key === "toestemming") continue;
-    lines.push(`${key}: ${textBlock(value, 2000)}`);
+    const long = key === "rapport" || key === "checklist" || key === "vraag" || key === "wat";
+    lines.push(`${key}: ${textBlock(value, long ? 8000 : 2000)}`);
   }
-  return lines.join("\n").slice(0, 12000);
+  return lines.join("\n").slice(0, 20000);
 }
 
 export async function processSubmission(kind, body, ip) {
@@ -124,13 +127,30 @@ export async function processSubmission(kind, body, ip) {
       subject: `[Arbopartner Brabant] ${kind} — ${who || "nieuw bericht"}`,
       text: messageText(kind, body),
     });
-    const sendsCopy = kind === "rapport" || kind === "checklist" || (kind === "magnet" && oneLine(body.keuze, 40) === "checklist");
+    const copyByKind = {
+      rapport: {
+        subject: "Uw berekening",
+        intro: "Hier is de berekening die u op de site maakte. Het is een scenario, geen offerte.",
+      },
+      checklist: {
+        subject: "Uw verzuim-checklist",
+        intro: "Hier is de verzuim-checklist die u aanvroeg. Het is een geheugensteun, geen advies over één dossier.",
+      },
+      risicoscan: {
+        subject: "Uw loonsanctie-risicoscan",
+        intro: "Hier is de risicoscan die u op de site invulde. Het is een indicatie, geen oordeel van UWV en geen offerte.",
+      },
+      tijdlijn: {
+        subject: "Uw verzuim-tijdlijn",
+        intro: "Hier is de tijdlijn bij de eerste ziektedag die u invulde. Het is een geheugensteun, geen juridisch advies. Herinneringen zet u in uw agenda met het bestand op de site. Deze mail sturen we één keer.",
+      },
+    };
+    const sendsCopy = Boolean(copyByKind[kind]) || (kind === "magnet" && oneLine(body.keuze, 40) === "checklist");
     if (sendsCopy && validEmail(oneLine(body.email))) {
-      const subject = kind === "rapport" ? "Uw berekening" : "Uw verzuim-checklist";
-      const intro = kind === "rapport"
-        ? "Hier is de berekening die u op de site maakte. Het is een scenario, geen offerte."
-        : "Hier is de verzuim-checklist die u aanvroeg. Het is een geheugensteun, geen advies over één dossier.";
-      const content = textBlock(body.checklist || body.rapport, 4000);
+      const copy = copyByKind[kind] || copyByKind.checklist;
+      const subject = copy.subject;
+      const intro = copy.intro;
+      const content = textBlock(body.checklist || body.rapport, 8000);
       try {
         await transport.sendMail({
           from: process.env.SMTP_FROM || to,

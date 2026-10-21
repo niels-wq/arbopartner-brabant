@@ -61,6 +61,10 @@ const byPath: Record<string, FaqItem[]> = {
       q: "Zijn de tools een offerte?",
       a: "Nee. Het zijn rekenhulpen met bronnen. De uitkomst is een scenario, geen prijsafspraak.",
     },
+    {
+      q: "Welke tool gebruik ik bij een lopend dossier?",
+      a: "De loonsanctie-risicoscan stelt tien vragen over één dossier en geeft per punt een advies. De verzuim-tijdlijn rekent de data uit vanaf de eerste ziektedag en maakt een agenda-bestand. Geen van beide is een oordeel van UWV.",
+    },
     shared[0],
   ],
   "/blog": [

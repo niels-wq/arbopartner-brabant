@@ -36,7 +36,7 @@ Arbopartner Brabant levert de casemanager. Het onderzoek loopt via Matchvermogen
 
 ## Momenten waarop een onderzoek helpt
 
-Het eerste moment is een verschil van inzicht. De leidinggevende zegt dat er geen werk is. De medewerker zegt dat een collega vergelijkbaar werk doet. HR zit ertussen. Een onafhankelijk onderzoek maakt de functies expliciet: wat de functie vraagt, wat de belastbaarheid toelaat, en of aanpassing reëel is.
+Het eerste moment is een verschil van inzicht. De [loonsanctie-risicoscan](/loonsanctie-risicoscan) vraagt of dat onderzoek er ligt op het moment dat onduidelijk was welk werk nog kon. De leidinggevende zegt dat er geen werk is. De medewerker zegt dat een collega vergelijkbaar werk doet. HR zit ertussen. Een onafhankelijk onderzoek maakt de functies expliciet: wat de functie vraagt, wat de belastbaarheid toelaat, en of aanpassing reëel is.
 
 Het tweede moment is de voorbereiding op een WIA-aanvraag of op de eerstejaarsevaluatie, als u wilt kunnen laten zien dat u intern heeft gezocht. Een lijstje ‘we hebben gekeken’ zonder methode is dun. Een rapport met functie-eisen en een vergelijking is leesbaar voor UWV.
 

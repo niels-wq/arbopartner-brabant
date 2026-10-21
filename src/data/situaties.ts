@@ -84,12 +84,12 @@ export const situaties: Situatie[] = [
     probleem:
       "Een onvolledig dossier kan leiden tot een loonsanctie: UWV verlengt de loondoorbetaling, tot 52 extra weken loon.",
     oplossing:
-      "De casemanager houdt het re-integratiedossier bij. De loonsanctie-check laat zeven gaten zien. UWV beoordeelt, wij niet.",
+      "De casemanager houdt het re-integratiedossier bij. De loonsanctie-risicoscan laat tien punten zien, met een advies per punt. De kortere check laat zeven gaten zien. UWV beoordeelt, wij niet.",
     resultaat:
       "Minder gaten in het dossier. Geen belofte dat een sanctie uitblijft. Dat risico is per dossier te onzeker om weg te nemen.",
     icon: "alert",
-    href: "/tools/loonsanctie-check",
-    hrefLabel: "Loonsanctie-check",
+    href: "/loonsanctie-risicoscan",
+    hrefLabel: "Loonsanctie-risicoscan",
   },
   {
     slug: "onduidelijk-verslag",

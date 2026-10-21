@@ -35,8 +35,8 @@ export const arbodienstGevallen = [
     doen: "Een senior casemanager maakt het dossier leesbaar en vult aan wat nog kan. Waar de loonwaarde schuurt, kijkt een arbeidsdeskundige mee.",
     resultaat:
       "Een dossier dat de toets kan dragen. We garanderen niet dat UWV een loonsanctie achterwege laat. UWV beoordeelt.",
-    href: "/tools/loonsanctie-check",
-    hrefLabel: "Loonsanctie-check",
+    href: "/loonsanctie-risicoscan",
+    hrefLabel: "Loonsanctie-risicoscan",
   },
   {
     titel: "Een tweede spoor dat te laat of te mager is",

@@ -55,7 +55,7 @@ Koppel terug naar de leidinggevende wat die moet doen, zonder medische details d
 
 Er is geen probleemanalyse. Het plan is een alinea uit week negen en daarna niets. De medewerker zegt dat hij al maanden niemand heeft gesproken. U ontdekt de datum van week 52 pas als een systeem een seintje geeft op de dag zelf. Er is nooit naar ander werk gekeken terwijl de eigen functie al in maand vier onhaalbaar leek.
 
-In die situatie schrijft u geen vrolijk verslag. U beschrijft de gaten en het herstelplan. UWV heeft in publicaties laten zien dat te laat oppakken een hoofdreden is voor een loonsanctie. Repareren in week 52 is laat en nog steeds beter dan repareren in week 90. De [loonsanctie-check](/tools/loonsanctie-check) is een snelle spiegel. [Spoedhulp](/spoedhulp) is de route als de WIA-aanvraag al in zicht is.
+In die situatie schrijft u geen vrolijk verslag. U beschrijft de gaten en het herstelplan. UWV heeft in publicaties laten zien dat te laat oppakken een hoofdreden is voor een loonsanctie. Repareren in week 52 is laat en nog steeds beter dan repareren in week 90. De [loonsanctie-check](/tools/loonsanctie-check) is een snelle spiegel. De [loonsanctie-risicoscan](/loonsanctie-risicoscan) geeft per punt een advies. De [verzuim-tijdlijn](/verzuim-tijdlijn) zet week 52 op uw eigen kalender. [Spoedhulp](/spoedhulp) is de route als de WIA-aanvraag al in zicht is.
 
 ## Checklist in het kort
 
