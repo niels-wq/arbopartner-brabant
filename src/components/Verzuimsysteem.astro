@@ -1,0 +1,15 @@
+---
+import { verzuimsysteem } from "../data/verzuimsysteem";
+
+interface Props {
+  heading?: "h2" | "h3";
+}
+
+const { heading = "h2" } = Astro.props;
+const Tag = heading;
+---
+
+<section class="mt-8 rounded-2xl border border-line bg-sand-100 p-6" aria-labelledby="verzuimsysteem-kop">
+  <Tag id="verzuimsysteem-kop" class="font-serif text-2xl text-green-950">{verzuimsysteem.title}</Tag>
+  <p class="mt-2">{verzuimsysteem.text}</p>
+</section>

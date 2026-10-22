@@ -12,16 +12,22 @@ import { site, phoneHref, mailHref } from "../../data/site";
 import { fotoVoorPlaats } from "../../data/brabant-fotos";
 import { werkFotoVoorPlaats } from "../../data/fotos";
 import { getPlace, places } from "../../data/places";
-import { crumbsLd, faqLd, organizationLd } from "../../lib/schema";
+import { dienstLinks, getRegio } from "../../data/regios";
+import { getStad } from "../../data/steden";
+import { areaServiceLd, crumbsLd, faqLd, organizationLd } from "../../lib/schema";
+import Verzuimsysteem from "../../components/Verzuimsysteem.astro";
 
 export function getStaticPaths() {
   return places.map((place) => ({ params: { slug: place.slug } }));
 }
 
 const place = getPlace(Astro.params.slug)!;
+const dossier = getStad(place.slug);
+const regio = dossier ? getRegio(dossier.regio) : undefined;
 const crumbs = [
   { name: "Home", path: "/" },
   { name: "Werkgebied", path: "/werkgebied" },
+  ...(regio ? [{ name: regio.name, path: `/werkgebied/regio/${regio.slug}` }] : []),
   { name: place.name, path: `/werkgebied/${place.slug}` },
 ];
 const nearby = place.nearby.map((slug) => places.find((item) => item.slug === slug)).filter(Boolean);
@@ -33,16 +39,32 @@ const rit = place.reistijdInTarief === false
 ---
 
 <Base
-  title={`Casemanager ${place.in}`}
-  description={`Casemanager en verzuimbegeleiding ${place.in}, ${place.buitenBrabant ? "aan de rand van Brabant" : "Noord-Brabant"}. Nuchter en dichtbij. Kantoor in Uden, ${site.parent.street}. Voor organisaties met 35–500 medewerkers.`}
-  jsonLd={[crumbsLd(crumbs), faqLd(place.faq), organizationLd(place.name)]}
+  title={dossier?.seoTitle ?? `Casemanager ${place.in}`}
+  description={dossier?.seoDescription ?? `Casemanager en verzuimbegeleiding ${place.in}, ${place.buitenBrabant ? "aan de rand van Brabant" : "Noord-Brabant"}. Nuchter en dichtbij. Kantoor in Uden, ${site.parent.street}. Voor organisaties met 35–500 medewerkers.`}
+  jsonLd={[
+    crumbsLd(crumbs),
+    faqLd(place.faq),
+    organizationLd(place.name),
+    ...(dossier
+      ? [areaServiceLd({
+          name: dossier.h1,
+          path: `/werkgebied/${place.slug}`,
+          description: dossier.seoDescription,
+          areaName: place.name,
+        })]
+      : []),
+  ]}
 >
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto max-w-3xl px-4 pt-6">
     <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">{place.municipality} · ongeveer {place.minutes} minuten van het kantoor</p>
-    <h1 class="mt-2 font-serif text-5xl text-green-950">Casemanager {place.in}</h1>
+    <h1 class="mt-2 font-serif text-5xl text-green-950">{dossier?.h1 ?? `Casemanager ${place.in}`}</h1>
     <p class="mt-4 text-lg">Een vaste casemanager {place.in}, {gebied}. De thuisbasis is het kantoor van {site.name} in Uden. De rit is ongeveer {place.minutes} minuten buiten de spits. {rit} {place.lead}</p>
     <Actie cta={`plaats-${place.slug}`} />
+    <p class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm font-semibold">
+      <a class="underline" data-cta={`plaats-offerte-${place.slug}`} href="/offerte">Offerte aanvragen</a>
+      <a class="underline" data-cta={`plaats-contact-${place.slug}`} href="/contact">Contact</a>
+    </p>
     <Photo id={werkFotoVoorPlaats(place.slug)} class="mt-6" />
     {foto && <BrabantPhoto id={foto} class="mt-3 max-w-40" />}
     <address class="mt-4 rounded-3xl bg-sand-100 p-4 text-sm not-italic">
@@ -57,6 +79,36 @@ const rit = place.reistijdInTarief === false
     <ul class="mt-3 flex flex-wrap gap-2">
       {place.sectors.map((sector) => <li class="rounded-full bg-sand-200 px-3 py-1 text-sm font-semibold">{sector}</li>)}
     </ul>
+    {dossier && (
+      <>
+        {dossier.sections.map((section) => (
+          <section class="mt-8">
+            <h2 class="font-serif text-3xl text-green-950">{section.heading}</h2>
+            {section.paragraphs.map((paragraph) => <p class="mt-4">{paragraph}</p>)}
+          </section>
+        ))}
+        <p class="mt-6">{dossier.dienstenTekst}</p>
+        <ul class="mt-3 flex flex-wrap gap-2">
+          {dienstLinks.map((item) => (
+            <li><a class="inline-block rounded-full bg-white px-3 py-1 text-sm font-semibold text-green-950 ring-1 ring-line" href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+        {regio && (
+          <p class="mt-4">
+            <a class="font-semibold underline" href={`/werkgebied/regio/${regio.slug}`}>{regio.name}</a>
+          </p>
+        )}
+        <p class="mt-4 text-sm text-ink-soft">
+          Bronnen:
+          {dossier.sources.map((source, index) => (
+            <span>
+              {index > 0 && " · "}
+              <a class="underline" href={source.url}>{source.label}</a>
+            </span>
+          ))}
+        </p>
+      </>
+    )}
     <p class="mt-6">In de buurt:
       {nearby.map((item, index) => (
         <span>
@@ -66,10 +118,17 @@ const rit = place.reistijdInTarief === false
       ))}
     </p>
     <p class="mt-4"><a class="font-semibold underline" href="/welke-casemanager">Welke casemanager past bij uw dossiers?</a></p>
+    <Verzuimsysteem />
     <FaqList items={place.faq} />
   </article>
   <div class="mx-auto max-w-3xl px-4">
     <InlineLead source={`plaats-${place.slug}`} title={`Kort doorgeven voor ${place.name}`} text="Twee stappen. We bellen terug en zeggen ook of de rit binnen het gebied past. Dit formulier is nog geen offerte." />
   </div>
-  <CtaBand title={`Adviesgesprek voor ${place.name}`} text="We zeggen in dat gesprek ook of de rit echt binnen het gebied past." />
+  <CtaBand
+    title={dossier ? `Offerte voor ${place.name}` : `Adviesgesprek voor ${place.name}`}
+    text={dossier ? "U noemt de stad en de dossiers. Wij bevestigen de uren en of de rit in het tarief zit." : "We zeggen in dat gesprek ook of de rit echt binnen het gebied past."}
+    href={dossier ? "/offerte" : "/adviesgesprek"}
+    label={dossier ? "Vraag een offerte aan" : "Plan een adviesgesprek"}
+    proof={!dossier}
+  />
 </Base>

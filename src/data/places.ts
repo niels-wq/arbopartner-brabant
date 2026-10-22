@@ -130,6 +130,14 @@ export const places: Place[] = [
         q: "Is Rosmalen een aparte pagina?",
         a: "Nee. Rosmalen hoort bij 's-Hertogenbosch en valt onder deze pagina.",
       },
+      {
+        q: "Welke UWV-vestiging behandelt Den Bosch?",
+        a: "Vestiging Den Bosch, arbeidsmarktregio Noordoost-Brabant. Daaronder vallen ook Oss, Meierijstad, Maashorst, Boxtel, Bernheze, Sint-Michielsgestel, Vught, Boekel en Land van Cuijk. Uden en Veghel zitten bij dezelfde vestiging. Nijmegen niet. Heusden hoort bij UWV bij Tilburg.",
+      },
+      {
+        q: "Kan één casemanager Den Bosch en Oss doen?",
+        a: "Ja, als de uren en de dossiers dat toelaten. Beide steden liggen binnen ongeveer 45 minuten van Uden en horen bij dezelfde UWV-regio. In de offerte staat welk uur naar welke locatie gaat.",
+      },
     ],
   },
   {
@@ -159,6 +167,14 @@ export const places: Place[] = [
         q: "Is Eindhoven niet te ver voor een vaste casemanager?",
         a: "Nee. 35 minuten is de rand van ons gebied, en juist daarom plannen we een blok uren op één dag in plaats van losse uurtjes.",
       },
+      {
+        q: "Welke UWV-vestiging hoort bij een werkgever in Eindhoven?",
+        a: "De arbeidsmarktregio Zuidoost-Brabant, vestiging Eindhoven. Daarbij horen ook Best, Veldhoven, Son en Breugel, Nuenen, Gerwen en Nederwetten, Waalre, Valkenswaard, Heeze-Leende, Oirschot en de Kempengemeenten Bergeijk, Bladel, Eersel en Reusel-De Mierden. Helmond heeft een eigen vestiging. Bron: Besluit werkgebieden UWV 2024. De actuele indeling staat op uwv.nl.",
+      },
+      {
+        q: "Kan een gesprek online als iemand op de campus of thuis zit?",
+        a: "Ja. Een deel van de gesprekken kan online. De afstemming met de leidinggevende doen we het liefst op locatie, zodat we de werkplek zien. Wie naar het kantoor in Uden kan komen, is daar welkom.",
+      },
     ],
   },
   {
@@ -187,6 +203,14 @@ export const places: Place[] = [
       {
         q: "Hoe snel starten jullie in Helmond?",
         a: "Na het adviesgesprek zoeken we een casemanager die past. Een startdatum spreken we in de offerte af. Direct inzetbaar betekent: geen wervingsmaand, wel een kennismaking.",
+      },
+      {
+        q: "Is Helmond dezelfde UWV-regio als Eindhoven?",
+        a: "Nee. Helmond hoort bij de arbeidsmarktregio Helmond-De Peel, vestiging Helmond, samen met Asten, Deurne, Geldrop-Mierlo, Gemert-Bakel, Laarbeek en Someren. Eindhoven heeft vestiging Eindhoven. Bron: Besluit werkgebieden UWV 2024.",
+      },
+      {
+        q: "Komen jullie op de Automotive Campus?",
+        a: "Ja, als uw organisatie daar zit en tussen de 35 en 500 medewerkers heeft. De rit vanuit Uden is ongeveer 25 minuten en zit in het tarief. We plannen een dagdeel. Een gesprek kan ook online of op het kantoor in Uden.",
       },
     ],
   },
@@ -509,6 +533,14 @@ export const places: Place[] = [
         q: "Komen werknemers naar het kantoor in Uden?",
         a: "Dat kan, op Losplaats 16d. Wie daarheen komt, blijft in beweging. Wie de rit niet kan maken, spreken we in Tilburg of online.",
       },
+      {
+        q: "Welke UWV-regio is Tilburg?",
+        a: "Arbeidsmarktregio Midden-Brabant, vestiging Tilburg. Daarbij horen ook Waalwijk, Dongen, Gilze en Rijen, Goirle, Hilvarenbeek, Loon op Zand, Oisterwijk, Alphen-Chaam, Baarle-Nassau en Heusden. Heusden telt het CBS bij Noordoost-Brabant. UWV zet die gemeente bij Tilburg.",
+      },
+      {
+        q: "Doen jullie ook Goirle, Oisterwijk en Dongen?",
+        a: "Ja, binnen 35–500 medewerkers. Die gemeenten horen bij dezelfde UWV-regio als Tilburg. Een eigen pagina hebben ze niet. We plannen ze mee op een dagdeel. De rit toetsen we op het adres.",
+      },
     ],
   },
   {
@@ -598,6 +630,14 @@ export const places: Place[] = [
       {
         q: "Kunnen we ook op het kantoor in Uden afspreken?",
         a: "Ja. Losplaats 16d is de thuisbasis. Voor wie in Breda blijft, komen we naar het bedrijf of plannen we online.",
+      },
+      {
+        q: "Welke UWV-vestiging behandelt Breda?",
+        a: "Vestiging Breda, arbeidsmarktregio West-Brabant. Tot dat werkgebied horen onder meer Etten-Leur, Oosterhout, Moerdijk, Roosendaal, Bergen op Zoom, Altena en Zundert. De lijst staat op de pagina West-Brabant. Bron: Besluit werkgebieden UWV 2024.",
+      },
+      {
+        q: "Horen Etten-Leur en de haven van Moerdijk bij dezelfde regio als Breda?",
+        a: "Bij UWV wel: West-Brabant, vestiging Breda. Het zijn andere gemeenten. We werken er voor organisaties met 35–500 medewerkers. De reistijd zetten we in de offerte, op basis van het adres.",
       },
     ],
   },

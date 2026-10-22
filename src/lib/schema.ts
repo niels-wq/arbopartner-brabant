@@ -96,6 +96,46 @@ export function organizationLd(areaName?: string) {
   };
 }
 
+/** Lokale dienstpagina. NAP is het kantoor in Uden. Telefoon is alleen het vaste nummer. */
+export function areaServiceLd(input: {
+  name: string;
+  path: string;
+  description: string;
+  areaName: string;
+  areaType?: "City" | "AdministrativeArea";
+}) {
+  return {
+    "@type": ["ProfessionalService", "LocalBusiness"],
+    "@id": `${absoluteUrl(input.path)}#lokale-dienst`,
+    name: input.name,
+    description: input.description,
+    url: absoluteUrl(input.path),
+    telephone: site.parent.phoneTel,
+    email: site.parent.email,
+    image: absoluteUrl("/og.png"),
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: site.parent.street,
+      postalCode: site.parent.postalCode,
+      addressLocality: site.parent.city,
+      addressRegion: site.parent.region,
+      addressCountry: site.parent.country,
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: site.parent.geo.lat,
+      longitude: site.parent.geo.lon,
+    },
+    parentOrganization: { "@id": `${site.domain}/#organisatie` },
+    areaServed: [
+      { "@type": input.areaType ?? "City", name: input.areaName },
+      { "@type": "AdministrativeArea", name: "Noord-Brabant" },
+    ],
+    priceRange: "€€",
+    knowsLanguage: "nl",
+  };
+}
+
 export function audienceLd() {
   return {
     "@type": "BusinessAudience",

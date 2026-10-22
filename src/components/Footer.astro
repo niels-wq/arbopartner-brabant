@@ -1,6 +1,7 @@
 ---
 import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
 import { places } from "../data/places";
+import { regios } from "../data/regios";
 ---
 
 <footer class="mt-16 bg-green-950 text-sand-100">
@@ -39,7 +40,13 @@ import { places } from "../data/places";
     </div>
     <div>
       <p class="font-semibold text-ochre-200">Werkgebied</p>
-      <ul class="mt-2 columns-2 text-sm">
+      <ul class="mt-2 space-y-1 text-sm">
+        <li><a href="/werkgebied">Heel Noord-Brabant</a></li>
+        {regios.map((regio) => (
+          <li><a href={`/werkgebied/regio/${regio.slug}`}>{regio.name}</a></li>
+        ))}
+      </ul>
+      <ul class="mt-3 columns-2 text-sm">
         {places.map((place) => (
           <li class="mb-1"><a href={`/werkgebied/${place.slug}`}>{place.name}</a></li>
         ))}
