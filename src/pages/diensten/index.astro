@@ -11,6 +11,8 @@ import { reviews } from "../../data/reviews";
 import { services } from "../../data/services";
 import { site } from "../../data/site";
 import { crumbsLd } from "../../lib/schema";
+import Verzuimsysteem from "../../components/Verzuimsysteem.astro";
+import WerkgebiedLinks from "../../components/WerkgebiedLinks.astro";
 
 const crumbs = [
   { name: "Home", path: "/" },
@@ -72,6 +74,10 @@ const grouped = serviceGroups.map((group) => ({
       </div>
     </section>
 
+    <div class="mx-auto max-w-3xl px-4">
+      <Verzuimsysteem />
+      <WerkgebiedLinks />
+    </div>
     <Guarantees plaats="diensten" />
     <CtaBand
       title="Zeg welke dienst u nodig heeft"

@@ -9,6 +9,7 @@ import InlineLead from "../../components/InlineLead.astro";
 import { werkFotoVoorPlaats } from "../../data/fotos";
 import { gemeenten } from "../../data/gemeenten";
 import { places } from "../../data/places";
+import { regios } from "../../data/regios";
 import { crumbsLd } from "../../lib/schema";
 
 const crumbs = [
@@ -25,6 +26,20 @@ const crumbs = [
     <BrabantMap class="mt-6" />
     <Photo id="gesprek-werkgever" class="mt-6 max-w-3xl" />
   </header>
+  <section class="mx-auto max-w-6xl px-4 pt-8" aria-labelledby="regios-kop">
+    <h2 id="regios-kop" class="font-serif text-3xl text-green-950">Vier regio’s</h2>
+    <p class="mt-2 max-w-2xl text-sm text-ink-soft">De indeling volgt de UWV-arbeidsmarktregio’s. Zuidoost-Brabant en Helmond-De Peel staan op één pagina, omdat Brainport ze allebei dekt. De Kempen hoort daarbij.</p>
+    <ul class="mt-4 grid gap-4 sm:grid-cols-2">
+      {regios.map((regio) => (
+        <li>
+          <a class="block h-full rounded-[2rem] border border-line bg-white/80 p-5" href={`/werkgebied/regio/${regio.slug}`}>
+            <h3 class="font-serif text-2xl text-green-950">{regio.name}</h3>
+            <p class="mt-2 text-sm">{regio.card}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
   <ul class="mx-auto grid max-w-6xl gap-4 px-4 py-8 sm:grid-cols-2 lg:grid-cols-3">
     {places.map((place) => {
       return (

@@ -16,6 +16,8 @@ import { MARKET } from "../../lib/calc";
 import { euro } from "../../lib/format";
 import { levels, verzuimanalysePrijs } from "../../lib/rates";
 import { crumbsLd, faqLd } from "../../lib/schema";
+import Verzuimsysteem from "../../components/Verzuimsysteem.astro";
+import WerkgebiedLinks from "../../components/WerkgebiedLinks.astro";
 
 export function getStaticPaths() {
   return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
@@ -124,6 +126,8 @@ const crumbs = [
         </section>
       )}
 
+      <Verzuimsysteem />
+      <WerkgebiedLinks />
       <FaqList items={faq} />
 
       {related.length > 0 && (

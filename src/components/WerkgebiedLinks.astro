@@ -1,0 +1,44 @@
+---
+import { dienstLinks, regios } from "../data/regios";
+import { focusSteden } from "../data/steden";
+
+interface Props {
+  /** Op een stadspagina de eigen regio niet nog eens als lijst herhalen. */
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<nav class="mt-8" aria-labelledby="werkgebied-links-kop">
+  <h2 id="werkgebied-links-kop" class="font-serif text-2xl text-green-950">Waar we werken</h2>
+  <p class="mt-2 text-sm">Op locatie bij u, online, of op het kantoor in Uden. Het overzicht staat op <a class="font-semibold underline" href="/werkgebied">heel Noord-Brabant</a>.</p>
+  {compact ? (
+    <p class="mt-3 text-sm">
+      Diensten:
+      {dienstLinks.map((item, index) => (
+        <span>
+          {index > 0 && ", "}
+          <a class="underline" href={item.href}>{item.label}</a>
+        </span>
+      ))}
+    </p>
+  ) : (
+    <>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {regios.map((regio) => (
+          <li>
+            <a class="inline-block rounded-full bg-white px-3 py-1 text-sm font-semibold text-green-950 ring-1 ring-line" href={`/werkgebied/regio/${regio.slug}`}>{regio.name}</a>
+          </li>
+        ))}
+      </ul>
+      <ul class="mt-3 flex flex-wrap gap-2">
+        {focusSteden.map((stad) => (
+          <li>
+            <a class="inline-block rounded-full bg-sand-200 px-3 py-1 text-sm font-semibold" href={`/werkgebied/${stad.slug}`}>{stad.linkLabel}</a>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+</nav>
