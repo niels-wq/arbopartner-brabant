@@ -1,7 +1,7 @@
 ---
 import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
 import { places } from "../data/places";
-import { regios } from "../data/regios";
+import { footerDiensten, regios } from "../data/regios";
 ---
 
 <footer class="mt-16 bg-green-950 text-sand-100">
@@ -53,6 +53,17 @@ import { regios } from "../data/regios";
       </ul>
     </div>
   </div>
+  <nav class="border-t border-white/10" aria-label="Diensten">
+    <div class="mx-auto max-w-6xl px-4 py-6">
+      <p class="font-semibold text-ochre-200">Diensten</p>
+      <ul class="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+        {footerDiensten.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+        <li><a href="/diensten">Alle diensten</a></li>
+      </ul>
+    </div>
+  </nav>
   <div class="border-t border-white/10">
     <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-4 text-xs text-sand-200 sm:flex-row sm:justify-between">
       <p class="m-0">© {new Date().getFullYear()} {site.parent.legalName}. {site.labelStatement}. Illustraties zijn eigen ontwerp. Portretfoto’s komen van de teampagina van matchvermogen.nl.</p>

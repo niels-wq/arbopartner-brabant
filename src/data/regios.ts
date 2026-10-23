@@ -5,12 +5,28 @@ export const uwvRegios2026Url =
   "https://www.samenvoordeklant.nl/sites/default/files/bestandsbijlage/Arbeidsmarktregios_van_Nederland_per_01-01-2026_0.pdf";
 
 export const dienstLinks = [
-  { href: "/diensten/casemanager-detachering", label: "Casemanager detacheren" },
+  { href: "/diensten/casemanager-detachering", label: "Casemanagement" },
   { href: "/diensten/verzuimanalyse", label: "Verzuimanalyse" },
-  { href: "/diensten/verzuimbeleid-protocol", label: "Verzuimbeleid en protocol" },
+  { href: "/diensten/verzuimbeleid-protocol", label: "Verzuimprotocol" },
   { href: "/diensten/eerste-spoor", label: "Eerste spoor" },
-  { href: "/diensten/tweede-spoor", label: "Tweede spoor" },
+  { href: "/diensten/tweede-spoor", label: "Spoor 2" },
   { href: "/diensten/arbeidsdeskundig-onderzoek", label: "Arbeidsdeskundig onderzoek" },
+] as const;
+
+export const projectLinks = [
+  { href: "/diensten/functiehuis-opstellen", label: "Functiehuis opstellen" },
+  { href: "/diensten/verzuimbeleid-opstellen", label: "Verzuimbeleid opstellen" },
+  { href: "/diensten/verzuimsysteemanalyse", label: "Verzuimsysteemanalyse" },
+  { href: "/diensten/re-integratiebeleid-opstellen", label: "Re-integratiebeleid opstellen" },
+  { href: "/diensten/tender-arbodiensten", label: "Tender arbodiensten" },
+] as const;
+
+export const footerDiensten = [
+  { href: "/diensten/casemanager-detachering", label: "Casemanagement in Brabant" },
+  { href: "/diensten/tweede-spoor", label: "Spoor 2 in Brabant" },
+  { href: "/diensten/arbeidsdeskundig-onderzoek", label: "Arbeidsdeskundig onderzoek in Brabant" },
+  { href: "/diensten/verzuimbeleid-protocol", label: "Verzuimprotocol opstellen" },
+  ...projectLinks,
 ] as const;
 
 export type Regio = {
@@ -35,7 +51,7 @@ export const regios: Regio[] = [
     name: "West-Brabant",
     seoTitle: "Verzuimbegeleiding in West-Brabant",
     seoDescription:
-      "Casemanager in West-Brabant voor werkgevers met 35–500 medewerkers. Breda, Roosendaal, Bergen op Zoom en Oosterhout. UWV-vestiging Breda. Op locatie of online.",
+      "Verzuimbegeleiding in West-Brabant voor werkgevers met 35–500 medewerkers. Breda, Roosendaal, Bergen op Zoom en Oosterhout. UWV-vestiging Breda. Op locatie of online.",
     h1: "Verzuimbegeleiding in West-Brabant",
     card: "Breda, de grens en de haven van Moerdijk. UWV-vestiging Breda.",
     intro: [
@@ -85,7 +101,7 @@ export const regios: Regio[] = [
     name: "Midden-Brabant",
     seoTitle: "Verzuimbegeleiding in Midden-Brabant",
     seoDescription:
-      "Casemanager in Midden-Brabant en Hart van Brabant. Tilburg en Waalwijk, UWV-vestiging Tilburg. Logistiek, zorg en maak. Op locatie of online, voor 35–500 medewerkers.",
+      "Verzuimbegeleiding in Midden-Brabant en Hart van Brabant. Tilburg en Waalwijk, UWV-vestiging Tilburg. Logistiek, zorg en maak. Op locatie of online, voor 35–500 medewerkers.",
     h1: "Verzuimbegeleiding in Midden-Brabant",
     card: "Tilburg en de Langstraat. UWV-vestiging Tilburg. Ook Hart van Brabant genoemd.",
     intro: [
@@ -132,7 +148,7 @@ export const regios: Regio[] = [
     name: "Noordoost-Brabant",
     seoTitle: "Verzuimbegeleiding in Noordoost-Brabant",
     seoDescription:
-      "Casemanager in Noordoost-Brabant. Den Bosch, Oss, Uden, Veghel en Land van Cuijk. UWV-vestiging Den Bosch. Kantoor in Uden, op locatie of online.",
+      "Verzuimbegeleiding in Noordoost-Brabant. Den Bosch, Oss, Uden, Veghel en Land van Cuijk. UWV-vestiging Den Bosch. Kantoor in Uden, op locatie of online.",
     h1: "Verzuimbegeleiding in Noordoost-Brabant",
     card: "Den Bosch, Oss, de Meierij en Land van Cuijk. Het kantoor staat in Uden.",
     intro: [
@@ -178,7 +194,7 @@ export const regios: Regio[] = [
     name: "Zuidoost-Brabant en De Kempen",
     seoTitle: "Verzuimbegeleiding in Zuidoost-Brabant en De Kempen",
     seoDescription:
-      "Casemanager in Zuidoost-Brabant en De Kempen. Eindhoven en Helmond zijn twee UWV-regio’s: vestiging Eindhoven en Helmond-De Peel. Op locatie of online.",
+      "Verzuimbegeleiding in Zuidoost-Brabant en De Kempen. Eindhoven en Helmond zijn twee UWV-regio’s: vestiging Eindhoven en Helmond-De Peel. Op locatie of online.",
     h1: "Verzuimbegeleiding in Zuidoost-Brabant en De Kempen",
     card: "Brainport, Helmond-De Peel en De Kempen. Twee UWV-vestigingen: Eindhoven en Helmond.",
     intro: [

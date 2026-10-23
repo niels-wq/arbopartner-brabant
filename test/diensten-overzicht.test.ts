@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { describe, it } from "node:test";
+import { hrServices } from "../src/data/hr-projecten.ts";
 import { reviews } from "../src/data/reviews.ts";
 import { serviceGroups, serviceLayout } from "../src/data/service-layout.ts";
 
@@ -11,10 +12,12 @@ describe("dienstenoverzicht", () => {
       "Re-integratie en spoor 2",
       "Arbeidsdeskundig en WIA",
       "Verzuim voorkomen en beleid",
+      "HR-projecten",
     ]);
     const slugs = [...readFileSync("src/data/services.ts", "utf8").matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
     assert.equal(slugs.length, 11);
-    for (const slug of slugs) {
+    assert.equal(hrServices.length, 5);
+    for (const slug of [...slugs, ...hrServices.map((service) => service.slug)]) {
       const layout = serviceLayout[slug];
       assert.ok(layout, slug);
       assert.ok(serviceGroups.some((group) => group.id === layout.group), slug);
@@ -22,9 +25,21 @@ describe("dienstenoverzicht", () => {
       assert.ok(layout.problem.length > 20, slug);
       assert.ok(layout.steps.length >= 3, slug);
       assert.ok(layout.outcome.length > 20, slug);
-      assert.ok(reviews.some((review) => review.name === layout.reviewName), layout.reviewName);
+      if (layout.group === "projecten") {
+        assert.equal(layout.reviewName, "", slug);
+        assert.equal(layout.priceKind, "project", slug);
+        assert.match(layout.outcome, /verzuimsysteem/i, slug);
+      } else {
+        assert.ok(reviews.some((review) => review.name === layout.reviewName), layout.reviewName);
+      }
     }
-    const counts = Object.fromEntries(serviceGroups.map((group) => [group.id, slugs.filter((slug) => serviceLayout[slug].group === group.id).length]));
+    for (const service of hrServices) {
+      assert.match(service.h1 ?? "", /Brabant/, service.slug);
+      assert.match(service.seoTitle ?? "", /Brabant/, service.slug);
+      assert.ok((serviceLayout[service.slug].deliverables?.length ?? 0) >= 3, service.slug);
+    }
+    const allSlugs = [...slugs, ...hrServices.map((service) => service.slug)];
+    const counts = Object.fromEntries(serviceGroups.map((group) => [group.id, allSlugs.filter((slug) => serviceLayout[slug].group === group.id).length]));
     for (const count of Object.values(counts)) assert.ok(count >= 2);
   });
 
@@ -49,6 +64,11 @@ describe("dienstenoverzicht", () => {
     assert.match(page, /fotoVoorDienst/);
     assert.match(page, /FaqList/);
     assert.match(page, /Offerte binnen 24 uur/);
+    assert.match(page, /phoneHref/);
+    assert.match(page, /whatsappHref/);
+    assert.match(page, /Wat u krijgt/);
+    assert.match(page, /Voor wie/);
+    assert.doesNotMatch(page, /tel:\+316|tel:06/);
     assert.match(page, /id=\{service\.slug === "verzuimanalyse" \? "gratis"/);
     assert.equal(page.includes("HireBenefits"), false);
     assert.equal(/poortwachter/i.test(page + readFileSync("src/data/service-layout.ts", "utf8")), false);

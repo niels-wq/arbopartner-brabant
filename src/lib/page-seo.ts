@@ -44,7 +44,7 @@ const byPath: Record<string, FaqItem[]> = {
   "/diensten": [
     {
       q: "Welke dienst is de kern?",
-      a: "Een vaste gedetacheerde casemanager. Daaromheen: verzuimanalyse, protocol, training voor leidinggevenden, jobcoaching, mediation, eerste spoor, tweede spoor, WIA-dossier en arbeidsdeskundig onderzoek. Een preventief medisch onderzoek bieden de zustermerken niet als aparte dienst.",
+      a: "Een vaste gedetacheerde casemanager. Daaromheen: verzuimanalyse, protocol, training voor leidinggevenden, jobcoaching, mediation, eerste spoor, tweede spoor, WIA-dossier en arbeidsdeskundig onderzoek. Daarnaast afgebakende HR-projecten: functiehuis, verzuimbeleid, verzuimsysteemanalyse, re-integratiebeleid en begeleiding bij de keuze van een arbodienst. Een preventief medisch onderzoek bieden de zustermerken niet als aparte dienst.",
     },
     shared[0],
   ],
@@ -161,10 +161,10 @@ export function serviceNodesForPath(pathname: string) {
     : services.filter((service) => path === `/diensten/${service.slug}`);
   return list.map((service) => ({
     "@type": "Service",
-    name: service.title,
+    name: service.h1 ?? service.title,
     description: service.description,
     url: absoluteUrl(`/diensten/${service.slug}`),
-    serviceType: "Verzuimbegeleiding",
+    serviceType: service.serviceType ?? "Verzuimbegeleiding",
     provider: { "@id": `${site.domain}/#organisatie` },
     areaServed: { "@type": "AdministrativeArea", name: "Noord-Brabant" },
     audience: audienceLd(),

@@ -25,6 +25,8 @@ describe("lokale pagina's", () => {
     for (const stad of focusSteden) {
       assert.ok(stad.h1.includes(places.find((place) => place.slug === stad.slug)!.name) || stad.slug === "den-bosch");
       assert.match(stad.h1, /Casemanager en verzuimbegeleiding in /);
+      assert.match(stad.seoTitle, /Verzuimbegeleiding in /);
+      assert.match(stad.seoDescription, /Verzuimbegeleiding in /);
       assert.ok(stad.sections.length >= 3);
       const body = stad.sections.flatMap((section) => section.paragraphs).join(" ");
       assert.match(body, /UWV/);
@@ -70,6 +72,11 @@ describe("lokale pagina's", () => {
     assert.match(read("src/pages/diensten/[slug].astro"), /Verzuimsysteem/);
     assert.match(read("src/pages/diensten/[slug].astro"), /WerkgebiedLinks/);
     assert.match(read("src/pages/werkgebied/[slug].astro"), /Verzuimsysteem/);
+    assert.match(read("src/pages/werkgebied/[slug].astro"), /LokaleDiensten/);
+    assert.match(read("src/pages/werkgebied/regio/[slug].astro"), /LokaleDiensten/);
+    assert.match(read("src/data/regios.ts"), /functiehuis-opstellen/);
+    assert.match(read("src/data/regios.ts"), /tender-arbodiensten/);
+    assert.match(read("src/components/Footer.astro"), /footerDiensten/);
     assert.match(read("src/pages/werkgebied/regio/[slug].astro"), /Verzuimsysteem/);
   });
 

@@ -1,5 +1,7 @@
-export type ServiceGroupId = "begeleiden" | "reintegratie" | "onderzoek" | "voorkomen";
-export type PriceKind = "uren" | "analyse" | "spoor2" | "ad" | "offerte";
+import { hrLayouts } from "./hr-projecten.ts";
+
+export type ServiceGroupId = "begeleiden" | "reintegratie" | "onderzoek" | "voorkomen" | "projecten";
+export type PriceKind = "uren" | "analyse" | "spoor2" | "ad" | "offerte" | "project";
 
 export type ServiceLayout = {
   group: ServiceGroupId;
@@ -7,8 +9,13 @@ export type ServiceLayout = {
   problem: string;
   steps: { title: string; text: string }[];
   outcome: string;
+  /** Concrete oplevering. Alleen gevuld bij projectmatige diensten. */
+  deliverables?: string[];
+  audience?: string;
+  more?: { href: string; label: string }[];
   priceKind: PriceKind;
   priceNote: string;
+  /** Leeg bij projectpagina’s: daar plaatsen we geen review. */
   reviewName: string;
 };
 
@@ -16,7 +23,7 @@ export const serviceGroups: {
   id: ServiceGroupId;
   title: string;
   text: string;
-  icon: "calendar" | "route" | "shield" | "chart";
+  icon: "calendar" | "route" | "shield" | "chart" | "document";
 }[] = [
   {
     id: "begeleiden",
@@ -41,6 +48,12 @@ export const serviceGroups: {
     title: "Verzuim voorkomen en beleid",
     text: "Cijfers, een protocol en leidinggevenden die het gesprek voeren.",
     icon: "chart",
+  },
+  {
+    id: "projecten",
+    title: "HR-projecten",
+    text: "Beleid, functiehuis, systeem of een arbodienst kiezen.",
+    icon: "document",
   },
 ];
 
@@ -181,6 +194,11 @@ export const serviceLayout: Record<string, ServiceLayout> = {
       { title: "Uitleg", text: "Leidinggevenden krijgen een korte toelichting. Zonder die toelichting blijft het papier." },
     ],
     outcome: "Een protocol dat de afdeling gebruikt, plus een versie van één pagina.",
+    more: [
+      { href: "/diensten/verzuimbeleid-opstellen", label: "Verzuimbeleid opstellen" },
+      { href: "/diensten/re-integratiebeleid-opstellen", label: "Re-integratiebeleid opstellen" },
+      { href: "/diensten/verzuimsysteemanalyse", label: "Verzuimsysteemanalyse" },
+    ],
     priceKind: "uren",
     priceNote: "De uren komen uit het pakket of als losse opdracht. Een verzuimregeling kan instemmingsplichtig zijn. Dat toetst u met uw eigen adviseur.",
     reviewName: "Danine Gerritsen",
@@ -199,4 +217,5 @@ export const serviceLayout: Record<string, ServiceLayout> = {
     priceNote: "Duur en prijs publiceren we hier niet. Het bedrag staat in de offerte, of u leest het aanbod bij Matchvermogen.",
     reviewName: "Femke Aarts",
   },
+  ...hrLayouts,
 };

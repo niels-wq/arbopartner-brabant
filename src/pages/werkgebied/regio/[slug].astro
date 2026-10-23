@@ -5,7 +5,8 @@ import CtaBand from "../../../components/CtaBand.astro";
 import FaqList from "../../../components/FaqList.astro";
 import InlineLead from "../../../components/InlineLead.astro";
 import Verzuimsysteem from "../../../components/Verzuimsysteem.astro";
-import { dienstLinks, getRegio, regios, stedenInRegio, uwvBesluitUrl, uwvRegios2026Url } from "../../../data/regios";
+import LokaleDiensten from "../../../components/LokaleDiensten.astro";
+import { getRegio, regios, stedenInRegio, uwvBesluitUrl, uwvRegios2026Url } from "../../../data/regios";
 import { areaServiceLd, crumbsLd, faqLd } from "../../../lib/schema";
 
 export function getStaticPaths() {
@@ -70,13 +71,7 @@ const path = `/werkgebied/regio/${regio.slug}`;
         </li>
       ))}
     </ul>
-    <h2 class="mt-8 font-serif text-3xl text-green-950">Diensten</h2>
-    <ul class="mt-3 flex flex-wrap gap-2">
-      {dienstLinks.map((item) => (
-        <li><a class="inline-block rounded-full bg-white px-3 py-1 text-sm font-semibold text-green-950 ring-1 ring-line" href={item.href}>{item.label}</a></li>
-      ))}
-    </ul>
-    <p class="mt-4 text-sm"><a class="font-semibold underline" href="/diensten">Alle diensten</a></p>
+    <LokaleDiensten plaats={regio.name} />
     <Verzuimsysteem />
     <FaqList items={regio.faq} />
   </article>

@@ -27,10 +27,13 @@ describe("echte foto's", () => {
   });
 
   it("dekt elke dienst, elke situatie, elk artikel en elke plaats", async () => {
-    const services = [...(await readFile("src/data/services.ts", "utf8")).matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
+    const services = [
+      ...(await readFile("src/data/services.ts", "utf8")).matchAll(/slug: "([^"]+)"/g),
+      ...(await readFile("src/data/hr-projecten.ts", "utf8")).matchAll(/slug: "([^"]+)"/g),
+    ].map((match) => match[1]);
     const situaties = [...(await readFile("src/data/situaties.ts", "utf8")).matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
     const posts = (await readdir("src/content/blog")).filter((name) => name.endsWith(".md")).map((name) => name.replace(/\.md$/, ""));
-    assert.equal(services.length, 11);
+    assert.equal(services.length, 16);
     assert.equal(situaties.length, 7);
     assert.equal(posts.length, 20);
     for (const slug of services) assert.ok(slug in dienstFoto, slug);

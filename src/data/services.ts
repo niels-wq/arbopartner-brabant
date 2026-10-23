@@ -1,9 +1,15 @@
+import { hrServices } from "./hr-projecten.ts";
 import { site } from "./site";
 
 export type Service = {
   slug: string;
   title: string;
   menu: string;
+  /** Titel-tag, zonder de sitenaam. Zoekterm plus Brabant op converterende pagina’s. */
+  seoTitle?: string;
+  /** H1 met zoekintentie en regio. */
+  h1?: string;
+  serviceType?: string;
   description: string;
   lead: string;
   sections: { heading: string; paragraphs: string[] }[];
@@ -16,8 +22,11 @@ export const services: Service[] = [
     slug: "casemanager-detachering",
     title: "Casemanager detacheren",
     menu: "Casemanager detacheren",
+    seoTitle: "Casemanagement in Brabant",
+    h1: "Casemanagement en verzuimbegeleiding in Brabant",
+    serviceType: "Casemanagement",
     description:
-      `Een vaste gedetacheerde casemanager ${site.audience} in Noord-Brabant. Nuchter en dichtbij. Reistijd binnen 45 minuten van het kantoor in Uden zit in het tarief.`,
+      `Casemanagement en verzuimbegeleiding in Noord-Brabant. Een vaste gedetacheerde casemanager ${site.audience}. Nuchter en dichtbij. Reistijd binnen 45 minuten van het kantoor in Uden zit in het tarief.`,
     lead: "U krijgt één casemanager die de namen op de werkvloer kent. Geen loket, geen andere stem bij elk telefoontje.",
     sections: [
       {
@@ -99,16 +108,19 @@ export const services: Service[] = [
   },
   {
     slug: "verzuimbeleid-protocol",
-    title: "Verzuimbeleid en protocol",
-    menu: "Verzuimbeleid",
+    title: "Verzuimprotocol",
+    menu: "Verzuimprotocol",
+    seoTitle: "Verzuimprotocol opstellen in Brabant",
+    h1: "Verzuimprotocol opstellen in Brabant",
+    serviceType: "Verzuimprotocol",
     description:
-      "Een verzuimprotocol dat leidinggevenden echt gebruiken, afgestemd op uw cao en uw grootte.",
+      "Verzuimprotocol opstellen in Noord-Brabant: wie belt op dag één, wat u wel en niet vraagt, en wanneer de bedrijfsarts erbij komt. Voor organisaties met 35–500 medewerkers. Kantoor in Uden.",
     lead: "Een protocol dat in de la ligt, verlaagt geen enkele ziektedag.",
     sections: [
       {
         heading: "Voor wie het is",
         paragraphs: [
-          "We schrijven het protocol samen met HR en twee leidinggevenden. Daarin staat wie belt op dag één, wat u wel en niet vraagt, wanneer de bedrijfsarts erbij komt en hoe u een plan van aanpak vastlegt. De tekst volgt de geldende regels voor verzuim en re-integratie, in gewone taal.",
+          "We schrijven het protocol samen met HR en twee leidinggevenden. Het beleid, de keuzes van de directie, is een aparte opdracht. Dit document is het protocol: wie belt op dag één, wat u wel en niet vraagt, wanneer de bedrijfsarts erbij komt en hoe u een plan van aanpak vastlegt. De tekst volgt de geldende regels voor verzuim en re-integratie, in gewone taal.",
           "Het document sluit aan op uw cao. Een voedselproducent met ploegen heeft andere afspraken dan een accountantskantoor. We leveren geen model dat u alleen van de naam hoeft te ontdoen.",
         ],
       },
@@ -181,8 +193,11 @@ export const services: Service[] = [
     slug: "tweede-spoor",
     title: "Tweede spoor",
     menu: "Tweede spoor",
+    seoTitle: "Spoor 2 in Brabant",
+    h1: "Tweede spoor in Brabant",
+    serviceType: "Tweede spoor",
     description:
-      "Re-integratie bij een andere werkgever, uitgevoerd door zustermerk Best Match, met 10% korting voor klanten van Arbopartner Brabant.",
+      `Spoor 2 en tweede spoor in Noord-Brabant: re-integratie bij een andere werkgever, via Best Match, met ${site.discount.tweedeSpoor}% korting voor klanten van Arbopartner Brabant. Kantoor in Uden.`,
     lead: "Als terugkeer in eigen werk niet realistisch is, moet ander werk op tijd starten. Niet in de laatste maand.",
     sections: [
       {
@@ -224,8 +239,11 @@ export const services: Service[] = [
     slug: "arbeidsdeskundig-onderzoek",
     title: "Arbeidsdeskundig onderzoek",
     menu: "Arbeidsdeskundig onderzoek",
+    seoTitle: "Arbeidsdeskundig onderzoek in Brabant",
+    h1: "Arbeidsdeskundig onderzoek in Brabant",
+    serviceType: "Arbeidsdeskundig onderzoek",
     description:
-      "Een onafhankelijk arbeidsdeskundig onderzoek via Matchvermogen, met 8% korting als u klant bent van Arbopartner Brabant.",
+      `Arbeidsdeskundig onderzoek in Noord-Brabant, via Matchvermogen, met ${site.discount.arbeidsdeskundige}% korting voor klanten van Arbopartner Brabant. Onafhankelijk van de casemanager. Kantoor in Uden.`,
     lead: "Soms is een dossier te zwaar voor begeleiding alleen. Dan heeft u een arbeidsdeskundige nodig, geen extra overleg.",
     sections: [
       {
@@ -446,6 +464,7 @@ export const services: Service[] = [
       text: "WIA-rekentool, WHK-beschikking en premie bij het zustermerk.",
     },
   },
+  ...hrServices,
 ];
 
 export const serviceIcons = {
@@ -460,6 +479,11 @@ export const serviceIcons = {
   jobcoaching: "pin",
   mediation: "swap",
   "wia-begeleiding": "clock",
+  "functiehuis-opstellen": "building",
+  "verzuimbeleid-opstellen": "document",
+  verzuimsysteemanalyse: "chart",
+  "tender-arbodiensten": "balance",
+  "re-integratiebeleid-opstellen": "route",
 } as const;
 
 export function getService(slug: string): Service | undefined {

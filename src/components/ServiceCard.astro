@@ -17,6 +17,7 @@ const discount =
     : service.slug === "arbeidsdeskundig-onderzoek"
       ? `AD −${site.discount.arbeidsdeskundige}%`
       : "";
+const project = layout.priceKind === "project";
 ---
 
 <article class="flex h-full flex-col rounded-2xl border border-line bg-white p-5">
@@ -25,6 +26,7 @@ const discount =
       <Mark name={serviceIcons[service.slug]} class="ap-card-mark" />
     </span>
     {discount && <span class="rounded-full bg-ochre-200 px-3 py-1 text-sm font-semibold text-green-950">{discount}</span>}
+    {project && <span class="rounded-full bg-sand-200 px-3 py-1 text-sm font-semibold text-green-950">Project</span>}
   </div>
   <h3 class="mt-3 font-serif text-2xl text-green-950">{service.title}</h3>
   <p class="mt-2 flex-1 text-ink-soft">{layout.result}</p>

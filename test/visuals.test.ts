@@ -25,9 +25,12 @@ describe("beelden", () => {
     assert.equal(posts.length, 20);
     for (const name of posts) assert.ok(visualIds.includes(`blog-${name.replace(/\.md$/, "")}` as never), name);
     const placeSlugs = [...(await readFile(path.join(root, "src/data/places.ts"), "utf8")).matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
-    const serviceSlugs = [...(await readFile(path.join(root, "src/data/services.ts"), "utf8")).matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
+    const serviceSlugs = [
+      ...(await readFile(path.join(root, "src/data/services.ts"), "utf8")).matchAll(/slug: "([^"]+)"/g),
+      ...(await readFile(path.join(root, "src/data/hr-projecten.ts"), "utf8")).matchAll(/slug: "([^"]+)"/g),
+    ].map((match) => match[1]);
     assert.equal(placeSlugs.length, 22);
-    assert.equal(serviceSlugs.length, 11);
+    assert.equal(serviceSlugs.length, 16);
     for (const slug of placeSlugs) assert.ok(visualIds.includes(`plaats-${slug}` as never), slug);
     for (const slug of serviceSlugs) assert.ok(visualIds.includes(`dienst-${slug}` as never), slug);
   });

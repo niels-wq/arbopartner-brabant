@@ -18,9 +18,9 @@ const uwv = {
 export const focusSteden: StadDossier[] = [
   {
     slug: "eindhoven",
-    seoTitle: "Casemanager Eindhoven, Brainport",
+    seoTitle: "Verzuimbegeleiding in Eindhoven",
     seoDescription:
-      "Casemanager en verzuimbegeleiding in Eindhoven voor organisaties met 35–500 medewerkers. Hightech in Brainport, op locatie of online. UWV-vestiging Eindhoven.",
+      "Verzuimbegeleiding in Eindhoven, Noord-Brabant, voor organisaties met 35–500 medewerkers. Casemanagement in Brainport, op locatie of online. UWV-vestiging Eindhoven. Kantoor in Uden.",
     h1: "Casemanager en verzuimbegeleiding in Eindhoven",
     linkLabel: "Casemanager Eindhoven",
     regio: "zuidoost-brabant",
@@ -62,9 +62,9 @@ export const focusSteden: StadDossier[] = [
   },
   {
     slug: "tilburg",
-    seoTitle: "Casemanager Tilburg, Midden-Brabant",
+    seoTitle: "Verzuimbegeleiding in Tilburg",
     seoDescription:
-      "Casemanager en verzuimbegeleiding in Tilburg voor 35–500 medewerkers. Logistiek, zorg en onderwijs in Hart van Brabant. UWV-vestiging Tilburg. Rit in de offerte.",
+      "Verzuimbegeleiding in Tilburg, Midden-Brabant, voor 35–500 medewerkers. Casemanagement bij logistiek, zorg en onderwijs. UWV-vestiging Tilburg. De rit staat in de offerte.",
     h1: "Casemanager en verzuimbegeleiding in Tilburg",
     linkLabel: "Casemanager Tilburg",
     regio: "midden-brabant",
@@ -105,9 +105,9 @@ export const focusSteden: StadDossier[] = [
   },
   {
     slug: "breda",
-    seoTitle: "Casemanager Breda, West-Brabant",
+    seoTitle: "Verzuimbegeleiding in Breda",
     seoDescription:
-      "Casemanager en verzuimbegeleiding in Breda voor 35–500 medewerkers. Logistiek, kantoren en zorg in West-Brabant. UWV-vestiging Breda. Op locatie of online.",
+      "Verzuimbegeleiding in Breda, West-Brabant, voor 35–500 medewerkers. Casemanagement bij logistiek, kantoren en zorg. UWV-vestiging Breda. Op locatie of online.",
     h1: "Casemanager en verzuimbegeleiding in Breda",
     linkLabel: "Casemanager Breda",
     regio: "west-brabant",
@@ -145,9 +145,9 @@ export const focusSteden: StadDossier[] = [
   },
   {
     slug: "den-bosch",
-    seoTitle: "Casemanager 's-Hertogenbosch",
+    seoTitle: "Verzuimbegeleiding in Den Bosch",
     seoDescription:
-      "Casemanager en verzuimbegeleiding in 's-Hertogenbosch en Rosmalen. Kantoren, zorg en logistiek. UWV-vestiging Den Bosch. Op locatie, online of in Uden.",
+      "Verzuimbegeleiding in 's-Hertogenbosch en Rosmalen, Noord-Brabant. Casemanagement bij kantoren, zorg en logistiek. UWV-vestiging Den Bosch. Op locatie, online of in Uden.",
     h1: "Casemanager en verzuimbegeleiding in 's-Hertogenbosch",
     linkLabel: "Casemanager Den Bosch",
     regio: "noordoost-brabant",
@@ -188,9 +188,9 @@ export const focusSteden: StadDossier[] = [
   },
   {
     slug: "helmond",
-    seoTitle: "Casemanager Helmond, automotive en maak",
+    seoTitle: "Verzuimbegeleiding in Helmond",
     seoDescription:
-      "Casemanager en verzuimbegeleiding in Helmond voor 35–500 medewerkers. Automotive Campus en maakindustrie. UWV-regio Helmond-De Peel, niet Eindhoven.",
+      "Verzuimbegeleiding in Helmond, Noord-Brabant, voor 35–500 medewerkers. Casemanagement bij de Automotive Campus en maakindustrie. UWV-regio Helmond-De Peel, niet Eindhoven.",
     h1: "Casemanager en verzuimbegeleiding in Helmond",
     linkLabel: "Casemanager Helmond",
     regio: "zuidoost-brabant",

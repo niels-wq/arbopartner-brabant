@@ -170,6 +170,11 @@ export const dienstFoto = {
   jobcoaching: "gesprek-colbert",
   mediation: "gesprek-heren",
   "wia-begeleiding": "werkplek-laptop",
+  "functiehuis-opstellen": "gesprek-documenten",
+  "verzuimbeleid-opstellen": "gesprek-twee",
+  verzuimsysteemanalyse: "werkplek-notitie",
+  "tender-arbodiensten": "pexels-overleg",
+  "re-integratiebeleid-opstellen": "gesprek-coach",
 } as const satisfies Record<string, FotoId>;
 
 export const situatieFoto = {
