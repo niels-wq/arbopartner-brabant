@@ -71,7 +71,8 @@ test("nieuwe diensten komen van een zustermerk en PMO niet", () => {
   }
   assert.equal(slugs.includes("pmo"), false);
   assert.equal(source.includes("preventief-medisch-onderzoek"), false);
-  assert.equal(/poortwachter/i.test(source), false);
+  assert.match(source, /Wet verbetering poortwachter/);
+  assert.equal(/poortwachter/i.test(source.replaceAll("Wet verbetering poortwachter", "")), false);
   assert.match(source, /https:\/\/matchvermogen\.nl\/jobcoaching\//);
   assert.match(source, /https:\/\/matchvermogen\.nl\/arbeidsdeskundige-mediator\//);
   assert.match(source, /https:\/\/werkhervattingskas\.nl/);

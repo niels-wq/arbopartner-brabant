@@ -1,6 +1,7 @@
+import { extraLayouts } from "./dienst-extra.ts";
 import { hrLayouts } from "./hr-projecten.ts";
 
-export type ServiceGroupId = "begeleiden" | "reintegratie" | "onderzoek" | "voorkomen" | "projecten";
+export type ServiceGroupId = "begeleiden" | "toetsing" | "projecten" | "interim";
 export type PriceKind = "uren" | "analyse" | "spoor2" | "ad" | "offerte" | "project";
 
 export type ServiceLayout = {
@@ -23,37 +24,31 @@ export const serviceGroups: {
   id: ServiceGroupId;
   title: string;
   text: string;
-  icon: "calendar" | "route" | "shield" | "chart" | "document";
+  icon: "calendar" | "route" | "shield" | "chart" | "document" | "clock";
 }[] = [
   {
     id: "begeleiden",
-    title: "Verzuim begeleiden",
-    text: "Een vaste casemanager op de lopende dossiers.",
+    title: "Begeleiding",
+    text: "Een vaste casemanager, van de eerste week tot terugkeer of de WIA.",
     icon: "calendar",
   },
   {
-    id: "reintegratie",
-    title: "Re-integratie en spoor 2",
-    text: "Terugkeer in eigen werk, of op tijd naar ander werk.",
-    icon: "route",
-  },
-  {
-    id: "onderzoek",
-    title: "Arbeidsdeskundig en WIA",
-    text: "Onderzoek, en een dossier dat rond week 88 compleet is.",
+    id: "toetsing",
+    title: "Toetsing en bezwaar",
+    text: "Dossier toetsen, bezwaar begeleiden, of een tweede blik op een lopend traject.",
     icon: "shield",
-  },
-  {
-    id: "voorkomen",
-    title: "Verzuim voorkomen en beleid",
-    text: "Cijfers, een protocol en leidinggevenden die het gesprek voeren.",
-    icon: "chart",
   },
   {
     id: "projecten",
     title: "HR-projecten",
-    text: "Beleid, functiehuis, systeem of een arbodienst kiezen.",
+    text: "Cijfers, beleid, training, preventie, of een arbodienst kiezen.",
     icon: "document",
+  },
+  {
+    id: "interim",
+    title: "Interim",
+    text: "Een casemanager of verzuimcoördinator tijdelijk op locatie.",
+    icon: "clock",
   },
 ];
 
@@ -68,6 +63,11 @@ export const serviceLayout: Record<string, ServiceLayout> = {
       { title: "Achtervang", text: "Bij ziekte of vakantie neemt een collega het dossier over. U schaalt de uren mee. De wijzigingstermijn staat in de offerte." },
     ],
     outcome: "Een vast gezicht dat de namen op de werkvloer kent, zonder vacature en zonder loonlijst voor deze persoon.",
+    more: [
+      { href: "/diensten/interim-casemanager", label: "Interim casemanager" },
+      { href: "/diensten/verzuimanalyse", label: "Verzuimanalyse en rapportage" },
+      { href: "/diensten/wia-begeleiding", label: "WIA-begeleiding" },
+    ],
     priceKind: "uren",
     priceNote: "De bedrijfsarts blijft van u. Wij zijn geen arbodienst en geven geen medisch oordeel.",
     reviewName: "Raimonda Kasparaviciute",
@@ -101,7 +101,7 @@ export const serviceLayout: Record<string, ServiceLayout> = {
     reviewName: "Martijn Toussaint",
   },
   "eerste-spoor": {
-    group: "reintegratie",
+    group: "begeleiden",
     result: "Terugkeer in eigen werk, op tijd bewaakt.",
     problem: "Terugkeer strandt als niemand de aangepaste taken en de termijnen bewaakt.",
     steps: [
@@ -115,7 +115,7 @@ export const serviceLayout: Record<string, ServiceLayout> = {
     reviewName: "Peter Stekelmans",
   },
   "tweede-spoor": {
-    group: "reintegratie",
+    group: "begeleiden",
     result: "Ander werk starten vóór de laatste maand.",
     problem: "Ander werk start te laat, vaak pas als de twee jaar bijna om zijn.",
     steps: [
@@ -129,7 +129,7 @@ export const serviceLayout: Record<string, ServiceLayout> = {
     reviewName: "J. Mohabir",
   },
   jobcoaching: {
-    group: "reintegratie",
+    group: "begeleiden",
     result: "Een coach naast de medewerker.",
     problem: "Het dossier bestaat alleen nog uit termijnen, terwijl de medewerker een coach nodig heeft.",
     steps: [
@@ -137,13 +137,17 @@ export const serviceLayout: Record<string, ServiceLayout> = {
       { title: "Ook eerder", text: "Coaching kan vóór een lang dossier. Het is geen tweede spoor." },
       { title: "Geen behandeling", text: "De werkgever is opdrachtgever. We zijn geen behandelaar." },
     ],
-    outcome: "Coaching naar werk dat iemand kan volhouden, in de eigen functie of daarbuiten.",
+    outcome: "Coaching naar werk dat iemand kan volhouden, in de eigen functie of daarbuiten. Preventie voor de hele organisatie is een andere opdracht.",
+    more: [
+      { href: "/diensten/verzuimpreventie", label: "Verzuimpreventie" },
+      { href: "/diensten/leidinggevenden-training", label: "Training leidinggevenden" },
+    ],
     priceKind: "offerte",
     priceNote: "Besparingscijfers van de jobcoachingpagina van Matchvermogen zetten we hier niet neer. Duur en bedrag staan in de offerte.",
     reviewName: "Melisia Telepary",
   },
   "arbeidsdeskundig-onderzoek": {
-    group: "onderzoek",
+    group: "toetsing",
     result: "Helder welk werk iemand nog kan.",
     problem: "Het dossier is te zwaar voor begeleiding alleen: onduidelijk welk werk nog kan, of een WIA-aanvraag nadert.",
     steps: [
@@ -152,12 +156,16 @@ export const serviceLayout: Record<string, ServiceLayout> = {
       { title: "Rollen gescheiden", text: "De onderzoeker is niet de begeleider. De casemanager blijft het dossier houden." },
     ],
     outcome: "Een onafhankelijk beeld van wat iemand nog kan.",
+    more: [
+      { href: "/diensten/dossiertoets-wia", label: "Dossiertoets vóór de WIA" },
+      { href: "/diensten/second-opinion-verzuim", label: "Second opinion verzuim" },
+    ],
     priceKind: "ad",
     priceNote: "Matchvermogen publiceert een vaste prijs vanaf dit bedrag. Of dat voor uw vraag geldt, hoort u in de offerte. De onderzoeker is niet dezelfde persoon als de begeleider.",
     reviewName: "Heidi Wichems",
   },
   "wia-begeleiding": {
-    group: "onderzoek",
+    group: "begeleiden",
     result: "Het dossier compleet rond week 88.",
     problem: "Rond week 88 is het re-integratiedossier vaak nog niet compleet.",
     steps: [
@@ -166,26 +174,48 @@ export const serviceLayout: Record<string, ServiceLayout> = {
       { title: "Geen aanvraag", text: "De werknemer dient de aanvraag in. UWV beslist. Wij voorspellen de uitkomst niet." },
     ],
     outcome: "Een werkgeversdossier dat de re-integratie kan laten zien.",
+    more: [
+      { href: "/diensten/dossiertoets-wia", label: "Dossiertoets vóór de WIA" },
+      { href: "/diensten/eerstejaarsevaluatie", label: "Eerstejaarsevaluatie" },
+      { href: "/diensten/bezwaar-beroep", label: "Bezwaar en beroep" },
+      { href: "/loonsanctie-risicoscan", label: "Loonsanctie-risicoscan" },
+    ],
     priceKind: "uren",
-    priceNote: "Geen los tarief. De bewaking zit in de uren van de casemanager. Bezwaar en premie blijven bij Matchvermogen en werkhervattingskas.nl.",
+    priceNote: "Geen los tarief. De bewaking zit in de uren van de casemanager. Begeleiding bij bezwaar staat op een eigen pagina. Het bezwaar zelf en de premie blijven bij Matchvermogen en werkhervattingskas.nl.",
     reviewName: "Harry Limburg",
   },
   verzuimanalyse: {
-    group: "voorkomen",
-    result: "Eerst zien waar de dagen ontstaan.",
-    problem: "Uren inkopen zonder te weten waar de verzuimdagen ontstaan.",
+    group: "projecten",
+    result: "Een rapport over waar de dagen ontstaan.",
+    problem: "Uren inkopen zonder te weten waar de verzuimdagen ontstaan, en zonder een rapport dat HR en de directie naast elkaar kunnen leggen.",
     steps: [
       { title: "Lezen", text: "We lezen uw cijfers, een steekproef van dossiers en het protocol als dat er is." },
-      { title: "Rapport", text: "U ziet waar de dagen vandaan komen en welke dossiers zonder plan lopen." },
-      { title: "Daarna kiest u", text: "De analyse staat op zichzelf. Een blok uren is niet verplicht." },
+      { title: "Rapport", text: "U ziet waar de dagen vandaan komen, welke dossiers zonder plan lopen, en hoe uw percentage zich verhoudt tot de CBS-benchmark voor uw grootte." },
+      { title: "Borgen", text: "Ontbreekt een verzuimsysteem, dan leveren we er een en leggen we de uitkomsten en de trajecten daarin vast." },
+      { title: "Daarna kiest u", text: "De analyse staat op zichzelf. Een blok uren is niet verplicht. De systeemanalyse, over rollen en informatie, is een andere opdracht." },
     ],
-    outcome: "Zicht op hoe uw verzuimpercentage kan dalen, op basis van uw cijfers. Geen vast percentage vooraf.",
+    deliverables: [
+      "Rapport over waar de verzuimdagen ontstaan",
+      "Steekproef: welke dossiers zonder plan lopen",
+      "Plaatsing van uw percentage naast de CBS-benchmark voor uw grootte",
+      "Eerste stappen, zonder een verplicht uurblok",
+    ],
+    audience:
+      "Voor organisaties met 35–500 medewerkers in Noord-Brabant die eerst willen zien wat de cijfers en de dossiers zeggen. Het kantoor staat in Uden. Dit is niet de verzuimsysteemanalyse. Kleinere organisaties verwijzen we naar Matchvermogen.",
+    outcome: "Zicht op hoe uw verzuimpercentage kan dalen, op basis van uw cijfers. Geen vast percentage vooraf. Ontbreekt een verzuimsysteem, dan leveren we er een en borgen daarin de informatie en de trajecten.",
+    more: [
+      { href: "/diensten/verzuimsysteemanalyse", label: "Verzuimsysteemanalyse" },
+      { href: "/diensten/verzuimbeleid-protocol", label: "Verzuimprotocol" },
+      { href: "/diensten/verzuimpreventie", label: "Verzuimpreventie" },
+      { href: "/diensten/casemanager-detachering", label: "Casemanagement in Brabant" },
+      { href: "/werkgebied", label: "Werkgebied Noord-Brabant" },
+    ],
     priceKind: "analyse",
     priceNote: "De gratis aanvraag is die eerste blik. Het uitgewerkte rapport blijft een aparte opdracht, of zit het eerste jaar in het Premium-blok van twintig uur per week.",
     reviewName: "Michel Krijne",
   },
   "verzuimbeleid-protocol": {
-    group: "voorkomen",
+    group: "projecten",
     result: "Afspraken die de afdeling echt gebruikt.",
     problem: "Een protocol in de la verlaagt geen enkele ziektedag.",
     steps: [
@@ -204,18 +234,35 @@ export const serviceLayout: Record<string, ServiceLayout> = {
     reviewName: "Danine Gerritsen",
   },
   "leidinggevenden-training": {
-    group: "voorkomen",
-    result: "Leidinggevenden die het gesprek aandurven.",
-    problem: "Het protocol werkt pas als de leidinggevende het verzuimgesprek aandurft.",
+    group: "projecten",
+    result: "Leidinggevenden die het gesprek, de momenten en de signalen kennen.",
+    problem: "Het protocol werkt pas als de leidinggevende het verzuimgesprek aandurft, de momenten in het dossier kent, en vroeg ziet dat een patroon ontstaat.",
     steps: [
       { title: "Wie meedoet", text: "Meestal de leidinggevenden die de ziekmeldingen doen." },
-      { title: "Het aanbod", text: "Oorzaken, beleid, het gesprek, patronen in verzuim, en het moment om een arbeidsdeskundige te bellen. Zo staat het bij Matchvermogen." },
-      { title: "Uw situaties", text: "We oefenen met situaties uit uw organisatie. De training vervangt de casemanager niet." },
+      { title: "Verzuimgesprek", text: "Wat u vraagt over werk en terugkeer, en wat u niet vraagt over de diagnose." },
+      { title: "De wet", text: "De momenten uit de Wet verbetering poortwachter die bij de leidinggevende horen, in gewone taal. Geen juridisch advies." },
+      { title: "Vroegsignalering", text: "Patronen vóór een lang dossier, en het moment om de casemanager of een arbeidsdeskundige te bellen." },
     ],
-    outcome: "Leidinggevenden die het gesprek over verzuim zelf kunnen voeren.",
-    priceKind: "offerte",
-    priceNote: "Duur en prijs publiceren we hier niet. Het bedrag staat in de offerte, of u leest het aanbod bij Matchvermogen.",
+    deliverables: [
+      "Programma over het verzuimgesprek, de Wet verbetering poortwachter en vroegsignalering",
+      "Oefening met situaties uit uw organisatie",
+      "Korte geheugensteun voor na de bijeenkomst",
+      "Afspraken wat de leidinggevende zelf doet en wanneer de casemanager erbij komt",
+    ],
+    audience:
+      "Voor leidinggevenden van organisaties met 35–500 medewerkers in Noord-Brabant. Het kantoor staat in Uden. De training vervangt de casemanager niet. Kleinere organisaties verwijzen we naar Matchvermogen.",
+    outcome: "Leidinggevenden die het verzuimgesprek voeren, de momenten kennen en signalen eerder zien. Ontbreekt een verzuimsysteem, dan leveren we er een en borgen daarin de informatie en de trajecten.",
+    more: [
+      { href: "/diensten/verzuimbeleid-protocol", label: "Verzuimprotocol" },
+      { href: "/diensten/verzuimpreventie", label: "Verzuimpreventie" },
+      { href: "/diensten/verzuimbeleid-opstellen", label: "Verzuimbeleid opstellen" },
+      { href: "/diensten/casemanager-detachering", label: "Casemanagement in Brabant" },
+      { href: "/werkgebied", label: "Werkgebied Noord-Brabant" },
+    ],
+    priceKind: "project",
+    priceNote: "Duur en prijs publiceren we hier niet. De offerte noemt de groep, de dagdelen en het bedrag. Het aanbod bij Matchvermogen blijft de inhoudelijke bron. De training is geen juridisch advies.",
     reviewName: "Femke Aarts",
   },
   ...hrLayouts,
+  ...extraLayouts,
 };

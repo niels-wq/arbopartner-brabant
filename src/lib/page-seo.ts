@@ -44,7 +44,7 @@ const byPath: Record<string, FaqItem[]> = {
   "/diensten": [
     {
       q: "Welke dienst is de kern?",
-      a: "Een vaste gedetacheerde casemanager. Daaromheen: verzuimanalyse, protocol, training voor leidinggevenden, jobcoaching, mediation, eerste spoor, tweede spoor, WIA-dossier en arbeidsdeskundig onderzoek. Daarnaast afgebakende HR-projecten: functiehuis, verzuimbeleid, verzuimsysteemanalyse, re-integratiebeleid en begeleiding bij de keuze van een arbodienst. Een preventief medisch onderzoek bieden de zustermerken niet als aparte dienst.",
+      a: "Vier groepen. Begeleiding: een vaste casemanager, re-integratie, jobcoaching en het WIA-dossier. Toetsing en bezwaar: dossiertoets, eerstejaarsevaluatie, bezwaar en beroep, een second opinion, arbeidsdeskundig onderzoek en eigenrisicodragerschap. HR-projecten: verzuimanalyse en rapportage, protocol, training, verzuimpreventie, functiehuis, verzuimbeleid, verzuimsysteemanalyse, re-integratiebeleid en de keuze van een arbodienst. Interim: een casemanager of verzuimcoördinator tijdelijk op locatie. Een preventief medisch onderzoek bieden we niet als aparte dienst.",
     },
     shared[0],
   ],

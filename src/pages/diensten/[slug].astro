@@ -28,7 +28,7 @@ const layout = serviceLayout[service.slug];
 const group = serviceGroups.find((item) => item.id === layout.group);
 const review = layout.reviewName ? reviews.find((item) => item.name === layout.reviewName) : undefined;
 const faq = service.slug === "casemanager-detachering" ? [...service.faq, zzpFaq] : service.faq;
-const related = services.filter((item) => item.slug !== service.slug && serviceLayout[item.slug]?.group === layout.group);
+const related = services.filter((item) => item.slug !== service.slug && serviceLayout[item.slug]?.group === layout.group).slice(0, 3);
 const h1 = service.h1 ?? service.title;
 const seoTitle = service.seoTitle ?? h1;
 const medior = levels.medior.rates;

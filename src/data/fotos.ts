@@ -175,6 +175,13 @@ export const dienstFoto = {
   verzuimsysteemanalyse: "werkplek-notitie",
   "tender-arbodiensten": "pexels-overleg",
   "re-integratiebeleid-opstellen": "gesprek-coach",
+  eigenrisicodragerschap: "gesprek-documenten",
+  "dossiertoets-wia": "werkplek-notitie",
+  "bezwaar-beroep": "gesprek-plant",
+  eerstejaarsevaluatie: "gesprek-documenten",
+  verzuimpreventie: "gesprek-twee",
+  "interim-casemanager": "gesprek-advies",
+  "second-opinion-verzuim": "gesprek-heren",
 } as const satisfies Record<string, FotoId>;
 
 export const situatieFoto = {

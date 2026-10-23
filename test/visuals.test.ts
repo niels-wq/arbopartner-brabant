@@ -28,9 +28,10 @@ describe("beelden", () => {
     const serviceSlugs = [
       ...(await readFile(path.join(root, "src/data/services.ts"), "utf8")).matchAll(/slug: "([^"]+)"/g),
       ...(await readFile(path.join(root, "src/data/hr-projecten.ts"), "utf8")).matchAll(/slug: "([^"]+)"/g),
+      ...(await readFile(path.join(root, "src/data/dienst-extra.ts"), "utf8")).matchAll(/slug: "([^"]+)"/g),
     ].map((match) => match[1]);
     assert.equal(placeSlugs.length, 22);
-    assert.equal(serviceSlugs.length, 16);
+    assert.equal(serviceSlugs.length, 23);
     for (const slug of placeSlugs) assert.ok(visualIds.includes(`plaats-${slug}` as never), slug);
     for (const slug of serviceSlugs) assert.ok(visualIds.includes(`dienst-${slug}` as never), slug);
   });

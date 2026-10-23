@@ -1,5 +1,5 @@
 ---
-import { dienstLinks, projectLinks } from "../data/regios";
+import { dienstLinks, interimLinks, projectLinks, toetsLinks } from "../data/regios";
 
 interface Props {
   plaats?: string;
@@ -11,15 +11,29 @@ const waar = plaats ? ` in ${plaats}` : "";
 
 <section class="mt-8" aria-labelledby="lokale-diensten">
   <h2 id="lokale-diensten" class="font-serif text-3xl text-green-950">Diensten{waar}</h2>
+  <h3 class="mt-4 font-serif text-2xl text-green-950">Begeleiding</h3>
   <ul class="mt-3 flex flex-wrap gap-2">
     {dienstLinks.map((item) => (
       <li><a class="inline-block rounded-full bg-white px-3 py-1 text-sm font-semibold text-green-950 ring-1 ring-line" href={item.href}>{item.label}</a></li>
     ))}
   </ul>
+  <h3 class="mt-6 font-serif text-2xl text-green-950">Toetsing en bezwaar</h3>
+  <ul class="mt-3 flex flex-wrap gap-2">
+    {toetsLinks.map((item) => (
+      <li><a class="inline-block rounded-full bg-white px-3 py-1 text-sm font-semibold text-green-950 ring-1 ring-line" href={item.href}>{item.label}</a></li>
+    ))}
+  </ul>
   <h3 class="mt-6 font-serif text-2xl text-green-950">HR-projecten{waar}</h3>
-  <p class="mt-2">Een functiehuis, verzuimbeleid, een verzuimsysteemanalyse, re-integratiebeleid, of begeleiding bij de keuze van een arbodienst. Los van een uurblok. Geen verzuimsysteem? Wij leveren er een en borgen daarin de informatie en de trajecten.</p>
+  <p class="mt-2">Cijfers en een rapport, protocol, training, preventie, een functiehuis, verzuimbeleid, een verzuimsysteemanalyse, re-integratiebeleid, of begeleiding bij de keuze van een arbodienst. Geen verzuimsysteem? Wij leveren er een en borgen daarin de informatie en de trajecten.</p>
   <ul class="mt-3 flex flex-wrap gap-2">
     {projectLinks.map((item) => (
+      <li><a class="inline-block rounded-full bg-white px-3 py-1 text-sm font-semibold text-green-950 ring-1 ring-line" href={item.href}>{item.label}</a></li>
+    ))}
+  </ul>
+  <h3 class="mt-6 font-serif text-2xl text-green-950">Interim</h3>
+  <p class="mt-2">Een casemanager of verzuimcoördinator tijdelijk op locatie, als de vaste bezetting wegvalt of een piek de termijnen niet bijhoudt.</p>
+  <ul class="mt-3 flex flex-wrap gap-2">
+    {interimLinks.map((item) => (
       <li><a class="inline-block rounded-full bg-white px-3 py-1 text-sm font-semibold text-green-950 ring-1 ring-line" href={item.href}>{item.label}</a></li>
     ))}
   </ul>

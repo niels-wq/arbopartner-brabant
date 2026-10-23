@@ -6,14 +6,25 @@ export const uwvRegios2026Url =
 
 export const dienstLinks = [
   { href: "/diensten/casemanager-detachering", label: "Casemanagement" },
-  { href: "/diensten/verzuimanalyse", label: "Verzuimanalyse" },
-  { href: "/diensten/verzuimbeleid-protocol", label: "Verzuimprotocol" },
   { href: "/diensten/eerste-spoor", label: "Eerste spoor" },
   { href: "/diensten/tweede-spoor", label: "Spoor 2" },
+  { href: "/diensten/wia-begeleiding", label: "WIA-begeleiding" },
+] as const;
+
+export const toetsLinks = [
+  { href: "/diensten/dossiertoets-wia", label: "Dossiertoets vóór WIA" },
+  { href: "/diensten/eerstejaarsevaluatie", label: "Eerstejaarsevaluatie" },
+  { href: "/diensten/bezwaar-beroep", label: "Bezwaar en beroep" },
+  { href: "/diensten/second-opinion-verzuim", label: "Second opinion" },
   { href: "/diensten/arbeidsdeskundig-onderzoek", label: "Arbeidsdeskundig onderzoek" },
+  { href: "/diensten/eigenrisicodragerschap", label: "Eigenrisicodragerschap" },
 ] as const;
 
 export const projectLinks = [
+  { href: "/diensten/verzuimanalyse", label: "Verzuimanalyse en rapportage" },
+  { href: "/diensten/verzuimbeleid-protocol", label: "Verzuimprotocol" },
+  { href: "/diensten/leidinggevenden-training", label: "Training leidinggevenden" },
+  { href: "/diensten/verzuimpreventie", label: "Verzuimpreventie" },
   { href: "/diensten/functiehuis-opstellen", label: "Functiehuis opstellen" },
   { href: "/diensten/verzuimbeleid-opstellen", label: "Verzuimbeleid opstellen" },
   { href: "/diensten/verzuimsysteemanalyse", label: "Verzuimsysteemanalyse" },
@@ -21,12 +32,29 @@ export const projectLinks = [
   { href: "/diensten/tender-arbodiensten", label: "Tender arbodiensten" },
 ] as const;
 
+export const interimLinks = [
+  { href: "/diensten/interim-casemanager", label: "Interim casemanager" },
+] as const;
+
 export const footerDiensten = [
   { href: "/diensten/casemanager-detachering", label: "Casemanagement in Brabant" },
   { href: "/diensten/tweede-spoor", label: "Spoor 2 in Brabant" },
+  { href: "/diensten/interim-casemanager", label: "Interim casemanager in Brabant" },
+  { href: "/diensten/verzuimanalyse", label: "Verzuimanalyse en rapportage" },
+  { href: "/diensten/leidinggevenden-training", label: "Training leidinggevenden" },
+  { href: "/diensten/dossiertoets-wia", label: "Dossiertoets vóór WIA" },
+  { href: "/diensten/eerstejaarsevaluatie", label: "Eerstejaarsevaluatie" },
+  { href: "/diensten/bezwaar-beroep", label: "Bezwaar en beroep" },
+  { href: "/diensten/second-opinion-verzuim", label: "Second opinion verzuim" },
   { href: "/diensten/arbeidsdeskundig-onderzoek", label: "Arbeidsdeskundig onderzoek in Brabant" },
+  { href: "/diensten/eigenrisicodragerschap", label: "Eigenrisicodragerschap WGA" },
+  { href: "/diensten/verzuimpreventie", label: "Verzuimpreventie" },
   { href: "/diensten/verzuimbeleid-protocol", label: "Verzuimprotocol opstellen" },
-  ...projectLinks,
+  { href: "/diensten/functiehuis-opstellen", label: "Functiehuis opstellen" },
+  { href: "/diensten/verzuimbeleid-opstellen", label: "Verzuimbeleid opstellen" },
+  { href: "/diensten/verzuimsysteemanalyse", label: "Verzuimsysteemanalyse" },
+  { href: "/diensten/re-integratiebeleid-opstellen", label: "Re-integratiebeleid" },
+  { href: "/diensten/tender-arbodiensten", label: "Tender arbodiensten" },
 ] as const;
 
 export type Regio = {

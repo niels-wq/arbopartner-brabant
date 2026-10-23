@@ -1,3 +1,4 @@
+import { extraServices } from "./dienst-extra.ts";
 import { hrServices } from "./hr-projecten.ts";
 import { site } from "./site";
 
@@ -69,9 +70,12 @@ export const services: Service[] = [
     slug: "verzuimanalyse",
     title: "Verzuimanalyse",
     menu: "Verzuimanalyse",
+    seoTitle: "Verzuimanalyse en rapportage in Brabant",
+    h1: "Verzuimanalyse en rapportage in Brabant",
+    serviceType: "Verzuimanalyse",
     description:
-      "Een verzuimanalyse van uw dossiers en cijfers, voor €995. In het Premium-pakket zit de analyse het eerste jaar inbegrepen.",
-    lead: "Eerst kijken wat er echt speelt. Dan pas uren inkopen.",
+      "Verzuimanalyse en rapportage in Noord-Brabant. We lezen cijfers, een steekproef van dossiers en het protocol. Het uitgewerkte rapport kost €995 exclusief btw. In het Premium-pakket zit de analyse het eerste jaar inbegrepen. Kantoor in Uden.",
+    lead: "Eerst een rapport over waar de dagen ontstaan. Dan pas uren inkopen.",
     sections: [
       {
         heading: "Wat u krijgt",
@@ -99,6 +103,10 @@ export const services: Service[] = [
       {
         q: "Moet ik daarna een pakket afnemen?",
         a: "Nee. De analyse staat op zichzelf. Veel werkgevers gebruiken hem wel als start van een Basis- of Premium-blok.",
+      },
+      {
+        q: "Is dit de verzuimsysteemanalyse?",
+        a: "Nee. Die kijkt naar rollen, gaten en waar de informatie staat. Deze opdracht is het rapport over cijfers en dossiers. Ontbreekt een verzuimsysteem, dan leveren we er een en borgen daarin de informatie en de trajecten.",
       },
       {
         q: "Delen jullie medische gegevens in het rapport?",
@@ -322,15 +330,18 @@ export const services: Service[] = [
     slug: "leidinggevenden-training",
     title: "Training voor leidinggevenden",
     menu: "Training leidinggevenden",
+    seoTitle: "Training leidinggevenden verzuim in Brabant",
+    h1: "Training leidinggevenden verzuim in Brabant",
+    serviceType: "Training leidinggevenden",
     description:
-      "Verzuimtraining voor leidinggevenden, zoals Matchvermogen die aanbiedt: oorzaken, beleid, verzuimgesprekken en het moment om een arbeidsdeskundige te bellen.",
-    lead: "Een protocol werkt pas als de leidinggevende het gesprek aandurft.",
+      "Training voor leidinggevenden in Noord-Brabant: het verzuimgesprek, de Wet verbetering poortwachter en vroegsignalering. Voor organisaties met 35–500 medewerkers. Kantoor in Uden. Offerte binnen 24 uur.",
+    lead: "Het verzuimgesprek, de momenten uit de wet, en signalen vóórdat een dossier vastloopt.",
     sections: [
       {
         heading: "Wat de training behandelt",
         paragraphs: [
-          "Matchvermogen biedt een verzuimtraining voor leidinggevenden. Onderwerpen die daar staan: oorzaken van verzuim, het beleid, het gesprek met de medewerker, patronen in het verzuim, en wanneer een arbeidsdeskundige erbij komt.",
-          "Duur en prijs publiceren we hier niet. Die hoort u in de offerte, of u leest het aanbod bij Matchvermogen. De training vervangt de casemanager niet.",
+          "Drie onderwerpen: het verzuimgesprek, de momenten uit de Wet verbetering poortwachter die bij de leidinggevende horen, en vroegsignalering. Daarnaast oorzaken, het beleid en het moment om een arbeidsdeskundige te bellen, zoals Matchvermogen die training beschrijft.",
+          "Duur en prijs publiceren we hier niet. Die hoort u in de offerte, of u leest het aanbod bij Matchvermogen. De training vervangt de casemanager niet en is geen juridisch advies.",
         ],
       },
       {
@@ -348,6 +359,10 @@ export const services: Service[] = [
       {
         q: "Staat de prijs hier?",
         a: "Nee. Matchvermogen biedt de training. Het bedrag bevestigen we in de offerte.",
+      },
+      {
+        q: "Behandelen jullie de Wet verbetering poortwachter?",
+        a: "Ja, in gewone taal: welke momenten in het dossier bij de leidinggevende horen, en wat vroegsignalering daarbij is. De training is geen juridisch advies en vervangt de casemanager niet.",
       },
     ],
     sister: {
@@ -438,7 +453,7 @@ export const services: Service[] = [
         heading: "Wat we wel doen",
         paragraphs: [
           "De casemanager houdt de datum in de gaten waarop de WIA in beeld komt, grofweg week 88 tot 93, en kijkt of de stukken er zijn: plannen, evaluaties, inzet op eigen werk en, waar nodig, tweede spoor. Arbeidsdeskundig.com beschrijft dat een arbeidsdeskundige vlak voor die aanvraag helpt bij een onderbouwde beoordeling. Dat onderzoek doet Matchvermogen.",
-          "Werkhervattingskas.nl heeft een rekenhulp voor een WIA-uitkering en hulp bij een WHK-beschikking, bezwaar en premie. Die producten blijven daar. We plakken hun uitkomsten niet op dit label.",
+          "Werkhervattingskas.nl heeft een rekenhulp voor een WIA-uitkering en hulp bij een WHK-beschikking, bezwaar en premie. De begeleiding vanuit Brabant staat op de pagina Bezwaar en beroep. Het bezwaar zelf loopt via Matchvermogen. We plakken uitkomsten van het zustermerk hier niet over.",
         ],
       },
       {
@@ -455,7 +470,7 @@ export const services: Service[] = [
       },
       {
         q: "Waar regel ik bezwaar of de premie?",
-        a: "Bij Matchvermogen en op werkhervattingskas.nl. Dit label detacheert de casemanager.",
+        a: "U spreekt de begeleiding hier af, op de pagina Bezwaar en beroep. Het bezwaar zelf loopt via Matchvermogen. Premie en de WGA-beschikking horen bij werkhervattingskas.nl. Wij zijn geen advocatenkantoor en beloven de uitkomst van UWV niet.",
       },
     ],
     sister: {
@@ -465,6 +480,7 @@ export const services: Service[] = [
     },
   },
   ...hrServices,
+  ...extraServices,
 ];
 
 export const serviceIcons = {
@@ -484,6 +500,13 @@ export const serviceIcons = {
   verzuimsysteemanalyse: "chart",
   "tender-arbodiensten": "balance",
   "re-integratiebeleid-opstellen": "route",
+  eigenrisicodragerschap: "shield",
+  "dossiertoets-wia": "document",
+  "bezwaar-beroep": "balance",
+  eerstejaarsevaluatie: "calendar",
+  verzuimpreventie: "chart",
+  "interim-casemanager": "clock",
+  "second-opinion-verzuim": "swap",
 } as const;
 
 export function getService(slug: string): Service | undefined {
