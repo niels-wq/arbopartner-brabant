@@ -17,6 +17,7 @@ import { euro } from "../../lib/format";
 import { levels, verzuimanalysePrijs } from "../../lib/rates";
 import { crumbsLd, faqLd } from "../../lib/schema";
 import Afnamevormen from "../../components/Afnamevormen.astro";
+import PraktijkTeasers from "../../components/PraktijkTeasers.astro";
 import Verzuimsysteem from "../../components/Verzuimsysteem.astro";
 import WerkgebiedLinks from "../../components/WerkgebiedLinks.astro";
 
@@ -176,6 +177,9 @@ const crumbs = [
           <p class="mt-3">{item.a}</p>
         </section>
       ))}
+      {service.slug === "reorganisatie-verzuim" && <PraktijkTeasers eerst="fietsfabrikant-reorganisatie" />}
+      {service.slug === "integrale-verzuimaanpak" && <PraktijkTeasers />}
+      {service.slug === "eigenrisicodragerschap" && <PraktijkTeasers eerst="totaalanalyse-verzuim-erd" />}
       <FaqList items={baseFaq} />
 
       {related.length > 0 && (

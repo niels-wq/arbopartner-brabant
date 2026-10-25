@@ -2,6 +2,8 @@
 import Figure from "../components/Figure.astro";
 import MedewerkersVeld from "../components/MedewerkersVeld.astro";
 import Afnamevormen from "../components/Afnamevormen.astro";
+import PraktijkTeasers from "../components/PraktijkTeasers.astro";
+import { ervaring } from "../data/praktijk";
 import FaqList from "../components/FaqList.astro";
 import Verzuimsysteem from "../components/Verzuimsysteem.astro";
 import Base from "../layouts/Base.astro";
@@ -68,7 +70,7 @@ const checks = [
         </ol>
         <p class="mt-4">Wilt u eerst zelf kijken? De <a class="underline" href="/loonsanctie-risicoscan">loonsanctie-risicoscan</a> of de <a class="underline" href="/verzuim-tijdlijn">verzuim-tijdlijn met data</a>.</p>
       </div>
-      <form class="space-y-3 rounded-[2rem] bg-green-950 p-5 text-sand-50" data-endpoint="/api/spoed" data-kind="spoed">
+      <form id="melding" class="space-y-3 rounded-[2rem] bg-green-950 p-5 text-sand-50" data-endpoint="/api/spoed" data-kind="spoed">
         <h2 class="font-serif text-3xl">Laat uw nummer achter</h2>
         <label class="block text-sm">Naam<input class="field" name="naam" required /></label>
         <label class="block text-sm">Telefoon<input class="field" name="telefoon" type="tel" required /></label>
@@ -113,10 +115,17 @@ const checks = [
         <h2 id="spoed-voorwie" class="font-serif text-3xl text-green-950">Voor wie</h2>
         <p class="mt-3">Voor organisaties met 35–500 medewerkers in Noord-Brabant waar HR of de casemanager wegvalt, of waar een dossier acuut vastloopt. Het kantoor staat in Uden. Kleinere organisaties verwijzen we naar Matchvermogen.</p>
       </section>
+      <section class="mt-10" id="spoedscan" aria-labelledby="spoedscan-kop">
+        <h2 id="spoedscan-kop" class="font-serif text-3xl text-green-950">Gratis spoedscan van 30 minuten</h2>
+        <p class="mt-3">Acuut verzuimprobleem? Bel of app vandaag. De scan duurt 30 minuten. We kijken wat acuut is: lopende dossiers en termijnen. U zit nergens aan vast. {site.responsePromise} Een kortere reactietijd publiceren we niet.</p>
+        <p class="mt-3">{ervaring} Een percentage verzuimreductie publiceren we niet.</p>
+        <p class="mt-3"><a class="font-semibold underline" href="#melding">Laat uw nummer achter</a> voor de scan.</p>
+      </section>
       <section class="mt-10">
         <h2 class="font-serif text-3xl text-green-950">{vertrek.q}</h2>
         <p class="mt-3">{vertrek.a}</p>
       </section>
+      <PraktijkTeasers eerst="fietsfabrikant-reorganisatie" />
       <Afnamevormen />
       <Verzuimsysteem />
       <p class="mt-6 text-sm">

@@ -1,0 +1,25 @@
+---
+import Button from "./Button.astro";
+import { phoneHref, site, whatsappHref } from "../data/site";
+import { ervaring } from "../data/praktijk";
+
+interface Props {
+  id?: string;
+  scanHref?: string;
+}
+
+const { id = "acuut", scanHref = "/spoedhulp#spoedscan" } = Astro.props;
+---
+
+<section class="mx-auto max-w-6xl px-4 py-8" id={id} aria-labelledby={`${id}-kop`}>
+  <div class="rounded-[2rem] bg-green-950 px-6 py-8 text-sand-50 md:px-10">
+    <h2 id={`${id}-kop`} class="max-w-3xl font-serif text-3xl md:text-4xl">Acuut verzuimprobleem? Bel of app vandaag</h2>
+    <p class="mt-4 max-w-2xl text-lg text-sand-100">Gratis spoedscan van 30 minuten. {ervaring} Een percentage verzuimreductie publiceren we niet. {site.responsePromise}</p>
+    <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+      <Button data-cta="spoedband-bel" data-channel="phone" href={phoneHref}>Bel {site.parent.phoneDisplay}</Button>
+      <Button variant="ghost-light" data-cta="spoedband-app" data-channel="whatsapp" href={whatsappHref} rel="noopener">WhatsApp</Button>
+      <Button variant="ghost-light" data-cta="spoedband-scan" href={scanHref}>Gratis spoedscan van 30 minuten</Button>
+    </div>
+    <p class="mt-3 text-sm text-sand-100">U zit nergens aan vast. De scan duurt 30 minuten. Een kortere reactietijd dan 24 uur publiceren we niet.</p>
+  </div>
+</section>

@@ -1,0 +1,80 @@
+---
+import AuthorBlock from "../../components/AuthorBlock.astro";
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import FaqList from "../../components/FaqList.astro";
+import SpoedBand from "../../components/SpoedBand.astro";
+import { absoluteUrl } from "../../data/site";
+import { ervaring, praktijkCases } from "../../data/praktijk";
+import { crumbsLd, faqLd } from "../../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Praktijkvoorbeelden", path: "/praktijkvoorbeelden" },
+];
+const lijst = {
+  "@type": "ItemList",
+  name: "Praktijkvoorbeelden verzuim in Brabant",
+  itemListElement: praktijkCases.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.title,
+    url: absoluteUrl(`/praktijkvoorbeelden/${item.slug}`),
+  })),
+};
+const faq = [
+  {
+    q: "Zijn dit reviews?",
+    a: "Nee. Een review is een citaat van een opdrachtgever, met bron en datum, van Matchvermogen. Een praktijkvoorbeeld is ons eigen verslag. De werkgever blijft anoniem. Er staat geen verzonnen citaat bij.",
+  },
+  {
+    q: "Waarom staat er geen bedrijfsnaam bij?",
+    a: "De werkgevers blijven anoniem. We noemen geen bedrijfsnaam.",
+  },
+  {
+    q: "Hoe lang doen jullie dit werk?",
+    a: ervaring,
+  },
+  {
+    q: "Geldt de besparing of het voorkomen van een loonsanctie ook voor mij?",
+    a: "Nee. De besparing van meer dan 4 ton en het voorkomen van zeer veel loonsancties horen bij deze twee voorbeelden. Voor een andere organisatie beloven we die uitkomst niet.",
+  },
+];
+---
+
+<Base
+  title="Praktijkvoorbeelden verzuim in Brabant"
+  description="Twee anonieme praktijkvoorbeelden uit Noord-Brabant: verzuim bij een reorganisatie, en een totaalanalyse van verzuim en eigenrisicodragerschap. Geen review en geen bedrijfsnaam."
+  jsonLd={[crumbsLd(crumbs), lijst, faqLd(faq)]}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <article class="mx-auto max-w-3xl px-4 pt-6">
+    <h1 class="font-serif text-4xl text-green-950 md:text-5xl">Praktijkvoorbeelden verzuim in Brabant</h1>
+    <p class="mt-4 text-lg">Twee voorbeelden uit ons werk. De feiten komen van Niels Alderding. De werkgevers blijven anoniem. Dit zijn geen reviews.</p>
+    <p class="mt-4">{ervaring} Een percentage verzuimreductie publiceren we niet.</p>
+    <div class="mt-8 grid gap-4">
+      {praktijkCases.map((item) => (
+        <article class="rounded-2xl border border-line bg-white p-5">
+          <h2 class="font-serif text-2xl text-green-950"><a class="underline" href={`/praktijkvoorbeelden/${item.slug}`}>{item.title}</a></h2>
+          <p class="mt-3"><span class="font-semibold">Situatie.</span> {item.situatie}</p>
+          <p class="mt-3"><span class="font-semibold">Resultaat.</span> {item.resultaat}</p>
+          <a class="mt-4 inline-block font-semibold text-green-800 underline" href={`/praktijkvoorbeelden/${item.slug}`}>Situatie, aanpak en resultaat</a>
+        </article>
+      ))}
+    </div>
+    <p class="mt-8 text-sm">
+      <a class="font-semibold underline" href="/diensten/reorganisatie-verzuim">Reorganisatie en verzuim</a>
+      <span class="px-2 text-ink-soft">·</span>
+      <a class="font-semibold underline" href="/diensten/eigenrisicodragerschap">Eigenrisicodragerschap</a>
+      <span class="px-2 text-ink-soft">·</span>
+      <a class="font-semibold underline" href="/diensten/integrale-verzuimaanpak">Integrale verzuimaanpak</a>
+      <span class="px-2 text-ink-soft">·</span>
+      <a class="font-semibold underline" href="/spoedhulp">Spoedhulp</a>
+      <span class="px-2 text-ink-soft">·</span>
+      <a class="font-semibold underline" href="/werkgebied">Werkgebied Noord-Brabant</a>
+    </p>
+    <AuthorBlock />
+    <FaqList items={faq} />
+  </article>
+  <SpoedBand />
+</Base>

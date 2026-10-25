@@ -1,0 +1,97 @@
+---
+import AuthorBlock from "../../components/AuthorBlock.astro";
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Button from "../../components/Button.astro";
+import FaqList from "../../components/FaqList.astro";
+import { phoneHref, site, whatsappHref } from "../../data/site";
+import { praktijkBySlug, praktijkCases, praktijkDatum, praktijkDatumLabel } from "../../data/praktijk";
+import { articleLd, crumbsLd, faqLd } from "../../lib/schema";
+
+export function getStaticPaths() {
+  return praktijkCases.map((item) => ({ params: { slug: item.slug } }));
+}
+
+const { slug } = Astro.params;
+const item = praktijkBySlug(slug)!;
+const path = `/praktijkvoorbeelden/${item.slug}`;
+const others = praktijkCases.filter((other) => other.slug !== item.slug);
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Praktijkvoorbeelden", path: "/praktijkvoorbeelden" },
+  { name: item.title, path },
+];
+---
+
+<Base
+  title={item.h1}
+  description={item.description}
+  jsonLd={[
+    crumbsLd(crumbs),
+    articleLd({
+      title: item.h1,
+      description: item.description,
+      path,
+      date: praktijkDatum,
+      updated: praktijkDatum,
+      section: "Praktijkvoorbeeld",
+    }),
+    faqLd(item.faq),
+  ]}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <article class="mx-auto max-w-3xl px-4 pt-6">
+    <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">Praktijkvoorbeeld, anoniem</p>
+    <h1 class="mt-2 font-serif text-4xl text-green-950 md:text-5xl">{item.h1}</h1>
+    <p class="mt-4 text-sm text-ink-soft">Tekst gepubliceerd op {praktijkDatumLabel}. Dat is de datum van dit verslag, niet een datum van de opdracht. De feiten komen van Niels Alderding. Geen review.</p>
+
+    <section class="mt-8" aria-labelledby="situatie-kop">
+      <h2 id="situatie-kop" class="font-serif text-3xl text-green-950">Situatie</h2>
+      <p class="mt-3">{item.situatie}</p>
+    </section>
+
+    <section class="mt-8" aria-labelledby="aanpak-kop">
+      <h2 id="aanpak-kop" class="font-serif text-3xl text-green-950">Wat we deden</h2>
+      <ol class="mt-4 grid gap-3">
+        {item.stappen.map((stap) => (
+          <li class="rounded-2xl border border-line bg-white p-4">
+            <strong>{stap.title}.</strong> {stap.text}
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="mt-8" aria-labelledby="resultaat-kop">
+      <h2 id="resultaat-kop" class="font-serif text-3xl text-green-950">Resultaat</h2>
+      <p class="mt-3 text-lg">{item.resultaat}</p>
+      <p class="mt-3">{item.grens}</p>
+    </section>
+
+    <nav class="mt-8" aria-label="Verwante diensten">
+      <h2 class="font-serif text-2xl text-green-950">Lees ook</h2>
+      <ul class="mt-3 flex flex-wrap gap-2">
+        {item.related.map((link) => (
+          <li><a class="inline-block rounded-full bg-white px-3 py-1 text-sm font-semibold text-green-950 ring-1 ring-line" href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    {others.length > 0 && (
+      <p class="mt-8">
+        Ander praktijkvoorbeeld:
+        {others.map((other) => (
+          <a class="font-semibold underline" href={`/praktijkvoorbeelden/${other.slug}`}>{other.title}</a>
+        ))}
+      </p>
+    )}
+
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+      <Button data-cta={`praktijk-offerte-${item.slug}`} href={`/offerte?dienst=${item.slug}`}>Offerte binnen 24 uur</Button>
+      <Button variant="ghost" data-cta={`praktijk-bel-${item.slug}`} data-channel="phone" href={phoneHref}>Bel {site.parent.phoneDisplay}</Button>
+      <Button variant="ghost" data-cta={`praktijk-app-${item.slug}`} data-channel="whatsapp" href={whatsappHref} rel="noopener">WhatsApp</Button>
+    </div>
+
+    <AuthorBlock />
+    <FaqList items={item.faq} />
+  </article>
+</Base>

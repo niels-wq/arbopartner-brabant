@@ -156,6 +156,8 @@ export function articleLd(input: {
   date: string;
   updated: string;
   image?: string;
+  /** Zet een praktijkvoorbeeld apart van een blogartikel, zonder er een review van te maken. */
+  section?: string;
 }) {
   return {
     "@type": "Article",
@@ -165,6 +167,7 @@ export function articleLd(input: {
     datePublished: input.date,
     dateModified: input.updated,
     mainEntityOfPage: absoluteUrl(input.path),
+    ...(input.section ? { articleSection: input.section, genre: input.section } : {}),
     author: { "@id": `${site.domain}/#niels-alderding` },
     publisher: {
       "@type": "Organization",
