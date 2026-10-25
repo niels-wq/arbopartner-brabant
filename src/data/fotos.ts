@@ -182,6 +182,11 @@ export const dienstFoto = {
   verzuimpreventie: "gesprek-twee",
   "interim-casemanager": "gesprek-advies",
   "second-opinion-verzuim": "gesprek-heren",
+  "verzuimsysteem-implementatie": "werkplek-laptop",
+  verzuimverzekeringen: "gesprek-documenten",
+  "reorganisatie-verzuim": "pexels-overleg",
+  verzuimreductie: "werkplek-notitie",
+  "integrale-verzuimaanpak": "gesprek-drie",
 } as const satisfies Record<string, FotoId>;
 
 export const situatieFoto = {

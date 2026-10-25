@@ -1,0 +1,17 @@
+---
+import { euro } from "../lib/format";
+import { levels } from "../lib/rates";
+
+const basis = euro(levels.medior.rates[10]);
+---
+
+<section class="mt-10" id="afname" aria-labelledby="afname-kop">
+  <h2 id="afname-kop" class="font-serif text-3xl text-green-950">Los of samen</h2>
+  <p class="mt-3">
+    U neemt deze dienst los af, of u combineert hem met andere diensten in een
+    <a class="font-semibold underline" href="/diensten/integrale-verzuimaanpak">integrale verzuimaanpak</a>.
+    Twee vormen. Op uurbasis, met een basistarief van {basis} per uur voor een medior bij tien uur per week, exclusief btw.
+    Of als kant-en-klaar product, met een vaste prijs. Waar we die prijs publiceren, staat hij op deze pagina. Anders bevestigt de offerte het bedrag en welke vorm bij de opdracht past.
+  </p>
+  <p class="mt-3 text-sm"><a class="font-semibold underline" href="/tarieven">Alle uurtarieven</a>.</p>
+</section>

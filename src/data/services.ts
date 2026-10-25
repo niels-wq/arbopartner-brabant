@@ -507,6 +507,11 @@ export const serviceIcons = {
   verzuimpreventie: "chart",
   "interim-casemanager": "clock",
   "second-opinion-verzuim": "swap",
+  "verzuimsysteem-implementatie": "chart",
+  verzuimverzekeringen: "shield",
+  "reorganisatie-verzuim": "building",
+  verzuimreductie: "route",
+  "integrale-verzuimaanpak": "calendar",
 } as const;
 
 export function getService(slug: string): Service | undefined {

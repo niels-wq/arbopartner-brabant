@@ -44,7 +44,7 @@ const byPath: Record<string, FaqItem[]> = {
   "/diensten": [
     {
       q: "Welke dienst is de kern?",
-      a: "Vier groepen. Begeleiding: een vaste casemanager, re-integratie, jobcoaching en het WIA-dossier. Toetsing en bezwaar: dossiertoets, eerstejaarsevaluatie, bezwaar en beroep, een second opinion, arbeidsdeskundig onderzoek en eigenrisicodragerschap. HR-projecten: verzuimanalyse en rapportage, protocol, training, verzuimpreventie, functiehuis, verzuimbeleid, verzuimsysteemanalyse, re-integratiebeleid en de keuze van een arbodienst. Interim: een casemanager of verzuimcoördinator tijdelijk op locatie. Een preventief medisch onderzoek bieden we niet als aparte dienst.",
+      a: "Vier groepen, los af te nemen of gebundeld in een integrale verzuimaanpak. De instap is de risicoanalyse. Begeleiding: een vaste casemanager, re-integratie en verzuim tijdens een reorganisatie. Toetsing en bezwaar: dossiertoets, eerstejaarsevaluatie, bezwaar, een second opinion, arbeidsdeskundig onderzoek en eigenrisicodragerschap, ook als losse consultatie. HR-projecten: verzuimanalyse, verzuimsysteem en de implementatie daarvan, protocol, training, preventie, verzuimverzekeringen, verzuimreductie en advies bij een arbodienst-tender. Interim en spoedhulp: tijdelijk op locatie, of dossiers op orde als het acuut is. Op uurbasis of als vaste prijs na offerte. Een preventief medisch onderzoek bieden we niet als aparte dienst.",
     },
     shared[0],
   ],
@@ -151,6 +151,18 @@ export function serviceNodesForPath(pathname: string) {
       description: site.description,
       url: absoluteUrl("/diensten"),
       serviceType: "Verzuimbegeleiding",
+      provider: { "@id": `${site.domain}/#organisatie` },
+      areaServed: { "@type": "AdministrativeArea", name: "Noord-Brabant" },
+      audience: audienceLd(),
+    }];
+  }
+  if (path === "/spoedhulp") {
+    return [{
+      "@type": "Service",
+      name: "Spoedhulp verzuim in Brabant",
+      description: "Spoedhulp bij verzuim in Noord-Brabant als HR of de casemanager wegvalt, of als een dossier acuut vastloopt. Reactie binnen 24 uur. Dossiers op orde en termijnen bewaken.",
+      url: absoluteUrl("/spoedhulp"),
+      serviceType: "Spoedhulp verzuim",
       provider: { "@id": `${site.domain}/#organisatie` },
       areaServed: { "@type": "AdministrativeArea", name: "Noord-Brabant" },
       audience: audienceLd(),

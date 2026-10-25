@@ -118,7 +118,11 @@ export const hrServices: Service[] = [
       },
       {
         q: "Leveren jullie een systeem als we er geen hebben?",
-        a: "Ja. Ontbreekt bij u een verzuimsysteem, dan leveren we er een. Informatie, dossiers en trajecten staan daar bij elkaar. Een productnaam publiceren we hier niet.",
+        a: "Ja. Ontbreekt bij u een verzuimsysteem, dan leveren we er een. De inrichting, de migratie, een koppeling en de training staan op de pagina Verzuimsysteem implementatie. Een productnaam publiceren we hier niet.",
+      },
+      {
+        q: "Welk verzuimsysteem past bij ons?",
+        a: "Dat hangt af van wie de dossiers vasthoudt en waar de informatie nu staat. Deze analyse zet dat op papier. Past ons systeem, dan richten we dat in op de pagina Verzuimsysteem implementatie. Een productnaam van een softwarehuis publiceren we niet.",
       },
       {
         q: "Moet ik daarna een casemanager afnemen?",
@@ -132,14 +136,14 @@ export const hrServices: Service[] = [
   },
   {
     slug: "tender-arbodiensten",
-    title: "Tender arbodiensten uitzetten",
-    menu: "Tender arbodiensten",
-    seoTitle: "Tender arbodiensten uitzetten in Brabant",
-    h1: "Tender arbodiensten uitzetten in Brabant",
+    title: "Advies arbodienst-tender",
+    menu: "Arbodienst-tender",
+    seoTitle: "Advies arbodienst-tender in Brabant",
+    h1: "Advies en begeleiding bij een arbodienst-tender in Brabant",
     serviceType: "Selectie arbodienst",
     description:
-      "Tender arbodiensten uitzetten in Noord-Brabant: begeleiding bij de uitvraag en de selectie van een arbodienst. Wij zijn zelf geen arbodienst. Voor organisaties met 35–500 medewerkers. Kantoor in Uden.",
-    lead: "U houdt de arbodienst. Wij helpen de uitvraag en de keuze, zodat u niet op een brochure afgaat.",
+      "Advies en begeleiding bij een arbodienst-tender in Noord-Brabant: uitvraag, weging en keuze. Wij zijn zelf geen arbodienst en schrijven ons niet in. Voor organisaties met 35–500 medewerkers. Kantoor in Uden.",
+    lead: "Advies en begeleiding bij de keuze van een arbodienst. U houdt de arbodienst. Wij schrijven ons niet in.",
     sections: [
       {
         heading: "Selectie, geen inschrijving",
@@ -164,6 +168,10 @@ export const hrServices: Service[] = [
       {
         q: "Kan dit naast een casemanager?",
         a: "Ja. De casemanager begeleidt dossiers. De keuze van de arbodienst is een apart project.",
+      },
+      {
+        q: "Hoe kies ik een arbodienst?",
+        a: "Zet op papier wat de arbodienst moet doen en wat u zelf houdt: de bedrijfsarts, bereikbaarheid, rapportage en termijnen. Vraag offertes uit en weeg ze naast elkaar. Wij begeleiden die uitvraag en de keuze. Wij zijn geen arbodienst en schrijven ons niet in. Valt u onder de Aanbestedingswet, dan voert uw inkoper of jurist de procedure.",
       },
     ],
   },
@@ -279,7 +287,7 @@ export const hrLayouts: Record<string, ServiceLayout> = {
     steps: [
       { title: "Hoe het nu loopt", text: "We lopen de keten na: ziekmelding, registratie, bedrijfsarts, plan, evaluatie, en waar elk stuk staat." },
       { title: "De gaten", text: "Welke rol ontbreekt, welk moment niemand bewaakt, en welke informatie nergens terug te vinden is." },
-      { title: "Het systeem", text: "Is er een bruikbaar systeem, dan zeggen we wat erin moet. Ontbreekt het, dan leveren we een verzuimsysteem en zetten we de informatie en de trajecten daarin." },
+      { title: "Het systeem", text: "Is er een bruikbaar systeem, dan zeggen we wat erin moet. Ontbreekt het, dan leveren we een verzuimsysteem. Inrichting, migratie, koppeling en training zijn de vervolgopdracht." },
       { title: "Advies op papier", text: "U krijgt een kort rapport met de gaten en de eerstvolgende stappen. Geen medisch oordeel." },
     ],
     deliverables: [
@@ -291,11 +299,18 @@ export const hrLayouts: Record<string, ServiceLayout> = {
     audience:
       "Voor werkgevers met 35–500 medewerkers in Noord-Brabant die het gevoel hebben dat verzuim erbij wordt gedaan. Los van de verzuimanalyse van cijfers en dossiers. Die blijft een aparte opdracht. Het kantoor staat in Uden.",
     outcome: `U weet of uw verzuimaanpak een systeem is. ${usp}`,
+    answers: [
+      {
+        q: "Welk verzuimsysteem past bij ons?",
+        a: "Dat hangt af van wie de dossiers vasthoudt en waar de informatie nu staat. Deze analyse zet dat op papier. Past ons systeem, dan richten we dat in. De inrichting, de migratie, een koppeling en de training staan op de pagina Verzuimsysteem implementatie. Een productnaam van een softwarehuis publiceren we niet.",
+      },
+    ],
     more: [
+      { href: "/diensten/verzuimsysteem-implementatie", label: "Verzuimsysteem implementatie" },
       { href: "/diensten/verzuimanalyse", label: "Verzuimanalyse" },
       { href: "/diensten/verzuimbeleid-opstellen", label: "Verzuimbeleid opstellen" },
       { href: "/diensten/casemanager-detachering", label: "Casemanagement in Brabant" },
-      { href: "/diensten/tender-arbodiensten", label: "Tender arbodiensten" },
+      { href: "/diensten/tender-arbodiensten", label: "Arbodienst-tender" },
       { href: "/werkgebied/uden", label: "Verzuimbegeleiding in Uden" },
     ],
     priceKind: "project",
@@ -323,6 +338,12 @@ export const hrLayouts: Record<string, ServiceLayout> = {
     audience:
       "Voor werkgevers met 35–500 medewerkers in Noord-Brabant die een arbodienst kiezen, verlengen of vervangen. Het kantoor staat in Uden. Organisaties die onder de Aanbestedingswet vallen, houden hun eigen inkoper of jurist voor de procedure. Wij begeleiden de inhoudelijke selectie.",
     outcome: `Een keuze die u kunt uitleggen, met eisen op papier. ${usp} Dat staat los van welk arbocontract u tekent.`,
+    answers: [
+      {
+        q: "Hoe kies ik een arbodienst?",
+        a: "Zet op papier wat de arbodienst moet doen en wat u zelf houdt: de bedrijfsarts, bereikbaarheid, rapportage en termijnen. Vraag offertes uit en weeg ze naast elkaar. Wij geven advies en begeleiding bij die uitvraag en de keuze. Wij zijn geen arbodienst en schrijven ons niet in. Valt u onder de Aanbestedingswet, dan voert uw inkoper of jurist de procedure.",
+      },
+    ],
     more: [
       { href: "/arbodienst-of-arbopartner", label: "Anders dan een arbodienst" },
       { href: "/diensten/casemanager-detachering", label: "Casemanagement in Brabant" },

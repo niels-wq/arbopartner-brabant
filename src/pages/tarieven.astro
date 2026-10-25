@@ -1,4 +1,5 @@
 ---
+import Afnamevormen from "../components/Afnamevormen.astro";
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import Button from "../components/Button.astro";
@@ -132,7 +133,8 @@ const faq = [
           </tbody>
         </table>
       </div>
-      <p class="mt-4 text-sm text-ink-soft">Per uur, exclusief btw. Het blok volgt de uren per week: 10, 20 of 24 en meer. Dit is geen offerte.</p>
+      <p class="mt-4 text-sm text-ink-soft">Per uur, exclusief btw. Het blok volgt de uren per week: 10, 20 of 24 en meer. Het basistarief is het medior-tarief bij tien uur per week. Dit is geen offerte.</p>
+      <Afnamevormen />
     </section>
 
     <section class="mt-24 rounded-[2rem] bg-white px-6 py-12 md:mt-32 md:px-12 md:py-16" aria-labelledby="meekijken-titel">

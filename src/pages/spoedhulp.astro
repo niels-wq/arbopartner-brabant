@@ -1,6 +1,9 @@
 ---
 import Figure from "../components/Figure.astro";
 import MedewerkersVeld from "../components/MedewerkersVeld.astro";
+import Afnamevormen from "../components/Afnamevormen.astro";
+import FaqList from "../components/FaqList.astro";
+import Verzuimsysteem from "../components/Verzuimsysteem.astro";
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import { site, phoneHref, whatsappHref } from "../data/site";
@@ -10,14 +13,23 @@ const crumbs = [
   { name: "Home", path: "/" },
   { name: "Spoedhulp", path: "/spoedhulp" },
 ];
+const vertrek = {
+  q: "Wat moet ik doen als mijn HR-medewerker vertrekt en er lopen verzuimdossiers?",
+  a: "Bel of app vandaag. We reageren binnen 24 uur. We zetten de lopende dossiers op een rij, bewaken de termijnen en zeggen wat deze week nog moet. Een langere vervanging op locatie is de interim-casemanager, een andere opdracht. Een kortere reactietijd dan die 24 uur noemen we niet.",
+};
 const faq = [
+  vertrek,
   {
     q: "Bellen jullie vandaag terug?",
     a: site.responsePromise,
   },
   {
     q: "Wat als het dossier al bijna twee jaar loopt?",
-    a: "Bel vandaag. Een WIA-aanvraag of een dreigende loonsanctie wacht niet op een kennismakingstraject van een maand. We zeggen eerlijk of we nog kunnen helpen.",
+    a: "Bel vandaag. Een WIA-aanvraag of een dreigende loonsanctie wacht niet op een kennismakingstraject van een maand. We zeggen eerlijk of we nog kunnen helpen. Een loonsanctie nemen we niet weg.",
+  },
+  {
+    q: "Is dit hetzelfde als een interim-casemanager?",
+    a: "Nee. Spoedhulp zet de dossiers op orde en bewaakt de termijnen die nu lopen. Interim is een afgesproken periode op locatie. Die kan volgen, als aparte opdracht.",
   },
 ];
 const checks = [
@@ -30,41 +42,94 @@ const checks = [
 ];
 ---
 
-<Base title="Spoedhulp bij verzuim" description="Zieke medewerker of een vastgelopen dossier? Bel of app Arbopartner Brabant vandaag nog." jsonLd={[crumbsLd(crumbs), faqLd(faq)]}>
+<Base
+  title="Spoedhulp verzuim in Brabant"
+  description="Spoedhulp verzuim in Noord-Brabant als HR of de casemanager wegvalt, of als een dossier acuut vastloopt. Reactie binnen 24 uur. Dossiers op orde en termijnen bewaken. Kantoor in Uden."
+  jsonLd={[crumbsLd(crumbs), faqLd(faq)]}
+>
   <Breadcrumbs crumbs={crumbs} />
-  <article class="mx-auto grid max-w-6xl gap-8 px-4 pt-6 lg:grid-cols-2">
-    <div>
-      <h1 class="font-serif text-5xl text-green-950">Zieke medewerker? Bel vandaag.</h1>
-      <Figure id="pagina-spoed" eager class="mt-6" />
-      <p class="mt-4 text-lg">Geen keuzemenu. U spreekt iemand van Matchvermogen B.V., het moederbedrijf achter dit label.</p>
-      <p class="mt-4 text-sm">{site.responsePromise}</p>
-      <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-        <a class="rounded-full bg-ochre-500 px-5 py-3 text-center font-semibold" data-cta="spoed-bel" data-channel="phone" href={phoneHref}>Bel {site.parent.phoneDisplay}</a>
-        <a class="btn-ghost text-center" data-cta="spoed-app" data-channel="whatsapp" href={whatsappHref}>App {site.parent.whatsappDisplay}</a>
+  <article>
+    <div class="mx-auto grid max-w-6xl gap-8 px-4 pt-6 lg:grid-cols-2">
+      <div>
+        <h1 class="font-serif text-5xl text-green-950">Spoedhulp verzuim in Brabant</h1>
+        <Figure id="pagina-spoed" eager class="mt-6" />
+        <p class="mt-4 text-lg">Zieke medewerker? Bel vandaag. Geen keuzemenu. U spreekt iemand van Matchvermogen B.V., het moederbedrijf achter dit label.</p>
+        <p class="mt-4">HR vertrekt, de casemanager valt uit, of een dossier loopt acuut vast. We starten op korte termijn: dossiers op een rij en de termijnen die nu lopen in de gaten. Hoe kort die start is, spreken we in het gesprek af.</p>
+        <p class="mt-4 text-sm">{site.responsePromise} Een kortere reactietijd publiceren we niet.</p>
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+          <a class="rounded-full bg-ochre-500 px-5 py-3 text-center font-semibold" data-cta="spoed-offerte" href="/offerte?dienst=spoedhulp">Offerte binnen 24 uur</a>
+          <a class="rounded-full bg-ochre-500 px-5 py-3 text-center font-semibold" data-cta="spoed-bel" data-channel="phone" href={phoneHref}>Bel {site.parent.phoneDisplay}</a>
+          <a class="btn-ghost text-center" data-cta="spoed-app" data-channel="whatsapp" href={whatsappHref} rel="noopener">WhatsApp</a>
+        </div>
+        <p class="mt-2 text-sm text-ink-soft">U zit nergens aan vast door te bellen.</p>
+        <h2 class="mt-8 font-serif text-3xl">Eerste zes weken, een korte lijst</h2>
+        <ol class="mt-3 list-decimal space-y-2 pl-5">
+          {checks.map((item) => <li>{item}</li>)}
+        </ol>
+        <p class="mt-4">Wilt u eerst zelf kijken? De <a class="underline" href="/loonsanctie-risicoscan">loonsanctie-risicoscan</a> of de <a class="underline" href="/verzuim-tijdlijn">verzuim-tijdlijn met data</a>.</p>
       </div>
-      <p class="mt-2 text-sm text-ink-soft">U zit nergens aan vast door te bellen.</p>
-      <h2 class="mt-8 font-serif text-3xl">Eerste zes weken, een korte lijst</h2>
-      <ol class="mt-3 list-decimal space-y-2 pl-5">
-        {checks.map((item) => <li>{item}</li>)}
-      </ol>
-      <p class="mt-4">Wilt u eerst zelf kijken? De <a class="underline" href="/loonsanctie-risicoscan">loonsanctie-risicoscan</a> of de <a class="underline" href="/verzuim-tijdlijn">verzuim-tijdlijn met data</a>.</p>
+      <form class="space-y-3 rounded-[2rem] bg-green-950 p-5 text-sand-50" data-endpoint="/api/spoed" data-kind="spoed">
+        <h2 class="font-serif text-3xl">Laat uw nummer achter</h2>
+        <label class="block text-sm">Naam<input class="field" name="naam" required /></label>
+        <label class="block text-sm">Telefoon<input class="field" name="telefoon" type="tel" required /></label>
+        <label class="block text-sm">Organisatie<input class="field" name="organisatie" required /></label>
+        <MedewerkersVeld />
+        <label class="block text-sm">Wat is er aan de hand?<textarea class="field min-h-28" name="wat" required></textarea></label>
+        <label class="flex items-start gap-2 text-sm">
+          <input type="checkbox" name="toestemming" value="ja" required />
+          <span>U mag mij bellen over deze melding.</span>
+        </label>
+        <div class="absolute -left-[9999px]" aria-hidden="true"><label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label></div>
+        <button class="rounded-full bg-ochre-500 px-5 py-3 font-semibold text-ink" type="submit">Vraag een terugbelverzoek</button>
+        <p class="text-sm">U zit nergens aan vast. We bellen over deze melding.</p>
+        <p data-status class="text-sm" role="status"></p>
+      </form>
     </div>
-    <form class="space-y-3 rounded-[2rem] bg-green-950 p-5 text-sand-50" data-endpoint="/api/spoed" data-kind="spoed">
-      <h2 class="font-serif text-3xl">Laat uw nummer achter</h2>
-      <label class="block text-sm">Naam<input class="field" name="naam" required /></label>
-      <label class="block text-sm">Telefoon<input class="field" name="telefoon" type="tel" required /></label>
-      <label class="block text-sm">Organisatie<input class="field" name="organisatie" required /></label>
-      <MedewerkersVeld />
-      <label class="block text-sm">Wat is er aan de hand?<textarea class="field min-h-28" name="wat" required></textarea></label>
-      <label class="flex items-start gap-2 text-sm">
-        <input type="checkbox" name="toestemming" value="ja" required />
-        <span>U mag mij bellen over deze melding.</span>
-      </label>
-      <div class="absolute -left-[9999px]" aria-hidden="true"><label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label></div>
-      <button class="rounded-full bg-ochre-500 px-5 py-3 font-semibold text-ink" type="submit">Vraag een terugbelverzoek</button>
-      <p class="text-sm">U zit nergens aan vast. We bellen over deze melding.</p>
-      <p data-status class="text-sm" role="status"></p>
-    </form>
+
+    <div class="mx-auto max-w-3xl px-4 pb-8">
+      <section class="mt-10" aria-labelledby="spoed-probleem">
+        <h2 id="spoed-probleem" class="font-serif text-3xl text-green-950">Probleem</h2>
+        <p class="mt-3">De persoon die de dossiers kende, is weg. Of een ziekmelding van vandaag heeft niemand die de eerste week bewaakt. Termijnen lopen door, ook als de bezetting dat niet doet.</p>
+      </section>
+      <section class="mt-10" aria-labelledby="spoed-aanpak">
+        <h2 id="spoed-aanpak" class="font-serif text-3xl text-green-950">Aanpak</h2>
+        <ol class="mt-4 grid gap-3">
+          <li class="rounded-2xl border border-line bg-white p-4"><strong>Vandaag de vraag.</strong> U belt, appt of laat een nummer achter. We reageren binnen 24 uur.</li>
+          <li class="rounded-2xl border border-line bg-white p-4"><strong>De dossiers.</strong> Eerste ziektedag, laatste advies van de bedrijfsarts, plan van aanpak, open termijnen.</li>
+          <li class="rounded-2xl border border-line bg-white p-4"><strong>Deze week.</strong> Wat nog moet gebeuren, en wat kan wachten. Geen medisch oordeel. De bedrijfsarts blijft van u.</li>
+          <li class="rounded-2xl border border-line bg-white p-4"><strong>Daarna.</strong> Blijft de bezetting weg, dan is een interim-casemanager de vervolgstap. Die spreekt u apart af.</li>
+        </ol>
+      </section>
+      <section class="mt-10" aria-labelledby="spoed-oplevering">
+        <h2 id="spoed-oplevering" class="font-serif text-3xl text-green-950">Wat u krijgt</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5">
+          <li>Een eerste ordening van de lopende dossiers</li>
+          <li>De termijnen die deze week aandacht vragen</li>
+          <li>Een voorstel voor de dagen daarna, als de bezetting weg blijft</li>
+          <li>Eén aanspreekpunt, vanuit het kantoor in Uden</li>
+        </ul>
+      </section>
+      <section class="mt-10" aria-labelledby="spoed-voorwie">
+        <h2 id="spoed-voorwie" class="font-serif text-3xl text-green-950">Voor wie</h2>
+        <p class="mt-3">Voor organisaties met 35–500 medewerkers in Noord-Brabant waar HR of de casemanager wegvalt, of waar een dossier acuut vastloopt. Het kantoor staat in Uden. Kleinere organisaties verwijzen we naar Matchvermogen.</p>
+      </section>
+      <section class="mt-10">
+        <h2 class="font-serif text-3xl text-green-950">{vertrek.q}</h2>
+        <p class="mt-3">{vertrek.a}</p>
+      </section>
+      <Afnamevormen />
+      <Verzuimsysteem />
+      <p class="mt-6 text-sm">
+        <a class="font-semibold underline" href="/diensten/interim-casemanager">Interim casemanager</a>
+        <span class="px-2 text-ink-soft">·</span>
+        <a class="font-semibold underline" href="/diensten/integrale-verzuimaanpak">Integrale verzuimaanpak</a>
+        <span class="px-2 text-ink-soft">·</span>
+        <a class="font-semibold underline" href="/diensten/wia-begeleiding">WIA-begeleiding</a>
+        <span class="px-2 text-ink-soft">·</span>
+        <a class="font-semibold underline" href="/werkgebied">Werkgebied Noord-Brabant</a>
+      </p>
+      <FaqList items={faq.filter((item) => item.q !== vertrek.q)} />
+    </div>
   </article>
 </Base>
 

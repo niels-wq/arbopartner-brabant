@@ -11,6 +11,8 @@ import { reviews } from "../../data/reviews";
 import { services } from "../../data/services";
 import { site } from "../../data/site";
 import { crumbsLd } from "../../lib/schema";
+import Afnamevormen from "../../components/Afnamevormen.astro";
+import Button from "../../components/Button.astro";
 import Verzuimsysteem from "../../components/Verzuimsysteem.astro";
 import WerkgebiedLinks from "../../components/WerkgebiedLinks.astro";
 
@@ -26,13 +28,14 @@ const grouped = serviceGroups.map((group) => ({
 }));
 ---
 
-<Base title="Diensten voor verzuim in Brabant" description="Begeleiding, toetsing en bezwaar, HR-projecten en interim casemanagement in Noord-Brabant. Voor organisaties met 35–500 medewerkers. Kantoor in Uden." jsonLd={[crumbsLd(crumbs)]}>
+<Base title="Diensten voor verzuim in Brabant" description="Begeleiding, toetsing en bezwaar, HR-projecten en interim in Noord-Brabant. Los af te nemen of als integrale verzuimaanpak, op uurbasis of als vaste prijs na offerte. Kantoor in Uden." jsonLd={[crumbsLd(crumbs)]}>
   <div class="ap-diensten">
     <Breadcrumbs crumbs={crumbs} />
     <header class="mx-auto max-w-6xl px-4 pt-4">
       <h1 class="font-serif text-3xl text-green-950 md:text-5xl">Diensten</h1>
       <p class="mt-2 max-w-2xl md:mt-3 md:text-lg">Een vaste casemanager {site.audience} in Noord-Brabant. Kies waar u hulp bij nodig heeft. Wij zijn geen arbodienst.</p>
       <p class="mt-4 max-w-2xl">Een arbodienst richt zich op verzuimbegeleiding en de bedrijfsarts. Wij vullen aan. <a class="font-semibold text-green-900 underline decoration-ochre-500" href="/arbodienst-of-arbopartner">Lees het verschil</a>.</p>
+      <p class="mt-4 max-w-2xl">Elke dienst is los af te nemen, of u bundelt ze in een <a class="font-semibold underline" href="/diensten/integrale-verzuimaanpak">integrale verzuimaanpak</a>. De instap is de risicoanalyse. Op uurbasis, of als kant-en-klaar product met een vaste prijs na offerte.</p>
     </header>
 
     <nav class="mx-auto max-w-6xl px-4 pt-5" aria-labelledby="keuzehulp">
@@ -54,6 +57,16 @@ const grouped = serviceGroups.map((group) => ({
         <p class="mt-2 max-w-2xl text-ink-soft">{group.text}</p>
         <div class="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {group.services.map((service) => <ServiceCard service={service} />)}
+          {group.id === "interim" && (
+            <article class="flex h-full flex-col rounded-2xl border border-line bg-white p-5">
+              <h3 class="font-serif text-2xl text-green-950">Spoedhulp verzuim</h3>
+              <p class="mt-2 flex-1 text-ink-soft">Dossiers op orde als HR of de casemanager wegvalt, of als een dossier acuut vastloopt. Reactie binnen 24 uur.</p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <Button data-cta="dienst-bekijk-spoedhulp" href="/spoedhulp">Bekijk</Button>
+                <Button variant="ghost" data-cta="dienst-offerte-spoedhulp" href="/offerte?dienst=spoedhulp">Offerte binnen 24 uur</Button>
+              </div>
+            </article>
+          )}
         </div>
       </section>
     ))}
@@ -75,6 +88,7 @@ const grouped = serviceGroups.map((group) => ({
     </section>
 
     <div class="mx-auto max-w-3xl px-4">
+      <Afnamevormen />
       <Verzuimsysteem />
       <WerkgebiedLinks />
     </div>

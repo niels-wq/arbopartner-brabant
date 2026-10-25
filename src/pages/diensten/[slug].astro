@@ -16,6 +16,7 @@ import { MARKET } from "../../lib/calc";
 import { euro } from "../../lib/format";
 import { levels, verzuimanalysePrijs } from "../../lib/rates";
 import { crumbsLd, faqLd } from "../../lib/schema";
+import Afnamevormen from "../../components/Afnamevormen.astro";
 import Verzuimsysteem from "../../components/Verzuimsysteem.astro";
 import WerkgebiedLinks from "../../components/WerkgebiedLinks.astro";
 
@@ -27,7 +28,8 @@ const { service } = Astro.props;
 const layout = serviceLayout[service.slug];
 const group = serviceGroups.find((item) => item.id === layout.group);
 const review = layout.reviewName ? reviews.find((item) => item.name === layout.reviewName) : undefined;
-const faq = service.slug === "casemanager-detachering" ? [...service.faq, zzpFaq] : service.faq;
+const baseFaq = service.slug === "casemanager-detachering" ? [...service.faq, zzpFaq] : service.faq;
+const faq = [...baseFaq, ...(layout.answers ?? [])];
 const related = services.filter((item) => item.slug !== service.slug && serviceLayout[item.slug]?.group === layout.group).slice(0, 3);
 const h1 = service.h1 ?? service.title;
 const seoTitle = service.seoTitle ?? h1;
@@ -140,6 +142,7 @@ const crumbs = [
             <p class="mt-3 text-sm"><a class="font-semibold underline" href="/tarieven">Alle uurtarieven</a>. Exclusief btw. Dit is geen offerte.</p>
           </>
         )}
+        <Afnamevormen />
       </section>
 
       {review && (
@@ -167,7 +170,13 @@ const crumbs = [
         </nav>
       )}
       <WerkgebiedLinks />
-      <FaqList items={faq} />
+      {layout.answers?.map((item) => (
+        <section class="mt-10">
+          <h2 class="font-serif text-3xl text-green-950">{item.q}</h2>
+          <p class="mt-3">{item.a}</p>
+        </section>
+      ))}
+      <FaqList items={baseFaq} />
 
       {related.length > 0 && (
         <section class="mt-12" aria-labelledby="verwant-kop">

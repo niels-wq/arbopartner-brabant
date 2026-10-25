@@ -17,7 +17,7 @@ describe("dienstenoverzicht", () => {
     const slugs = [...readFileSync("src/data/services.ts", "utf8").matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
     assert.equal(slugs.length, 11);
     assert.equal(hrServices.length, 5);
-    assert.equal(extraServices.length, 7);
+    assert.equal(extraServices.length, 12);
     const projectSlugs = new Set([...hrServices, ...extraServices].map((service) => service.slug));
     const allSlugs = [...slugs, ...projectSlugs];
     for (const slug of allSlugs) {
@@ -73,6 +73,9 @@ describe("dienstenoverzicht", () => {
     assert.match(readFileSync("src/components/ServiceCard.astro", "utf8"), />Bekijk</);
     assert.match(readFileSync("src/components/OfferBar.astro", "utf8"), /Offerte binnen 24 uur/);
     assert.equal(/poortwachter/i.test(page), false);
+    assert.match(page, /Afnamevormen/);
+    assert.match(page, /href="\/spoedhulp"/);
+    assert.match(page, /integrale-verzuimaanpak/);
   });
 
   it("volgt op elke dienst hetzelfde sjabloon", () => {
@@ -93,5 +96,19 @@ describe("dienstenoverzicht", () => {
     const layout = readFileSync("src/data/service-layout.ts", "utf8").replaceAll("Wet verbetering poortwachter", "");
     assert.equal(/poortwachter/i.test(page + layout), false);
     assert.match(readFileSync("src/data/service-layout.ts", "utf8"), /Wet verbetering poortwachter/);
+    assert.match(page, /Afnamevormen/);
+    const vragen = [
+      ["src/pages/spoedhulp.astro", "Wat moet ik doen als mijn HR-medewerker vertrekt en er lopen verzuimdossiers?"],
+      ["src/data/dienst-extra.ts", "Is eigenrisicodrager worden voordelig?"],
+      ["src/data/dienst-extra.ts", "Mag ik een zieke werknemer ontslaan bij reorganisatie?"],
+      ["src/data/hr-projecten.ts", "Welk verzuimsysteem past bij ons?"],
+      ["src/data/hr-projecten.ts", "Hoe kies ik een arbodienst?"],
+    ] as const;
+    for (const [file, vraag] of vragen) assert.match(readFileSync(file, "utf8"), new RegExp(vraag.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+    assert.match(readFileSync("src/pages/tarieven.astro", "utf8"), /Afnamevormen/);
+    assert.match(readFileSync("src/pages/spoedhulp.astro", "utf8"), /Afnamevormen/);
+    assert.match(readFileSync("src/components/Afnamevormen.astro", "utf8"), /levels\.medior\.rates\[10\]/);
+    assert.match(readFileSync("src/data/dienst-extra.ts", "utf8"), /geen verzekeraar en geen bemiddelaar/i);
+    assert.doesNotMatch(readFileSync("src/data/dienst-extra.ts", "utf8"), /\d+\s*%/);
   });
 });

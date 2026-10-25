@@ -9,6 +9,7 @@ export const dienstLinks = [
   { href: "/diensten/eerste-spoor", label: "Eerste spoor" },
   { href: "/diensten/tweede-spoor", label: "Spoor 2" },
   { href: "/diensten/wia-begeleiding", label: "WIA-begeleiding" },
+  { href: "/diensten/reorganisatie-verzuim", label: "Reorganisatie en verzuim" },
 ] as const;
 
 export const toetsLinks = [
@@ -28,17 +29,28 @@ export const projectLinks = [
   { href: "/diensten/functiehuis-opstellen", label: "Functiehuis opstellen" },
   { href: "/diensten/verzuimbeleid-opstellen", label: "Verzuimbeleid opstellen" },
   { href: "/diensten/verzuimsysteemanalyse", label: "Verzuimsysteemanalyse" },
+  { href: "/diensten/verzuimsysteem-implementatie", label: "Verzuimsysteem implementatie" },
   { href: "/diensten/re-integratiebeleid-opstellen", label: "Re-integratiebeleid opstellen" },
-  { href: "/diensten/tender-arbodiensten", label: "Tender arbodiensten" },
+  { href: "/diensten/tender-arbodiensten", label: "Arbodienst-tender" },
+  { href: "/diensten/verzuimverzekeringen", label: "Verzuimverzekeringen" },
+  { href: "/diensten/verzuimreductie", label: "Verzuimreductie" },
+  { href: "/diensten/integrale-verzuimaanpak", label: "Integrale verzuimaanpak" },
 ] as const;
 
 export const interimLinks = [
   { href: "/diensten/interim-casemanager", label: "Interim casemanager" },
+  { href: "/spoedhulp", label: "Spoedhulp verzuim" },
 ] as const;
 
 export const footerDiensten = [
+  { href: "/diensten/integrale-verzuimaanpak", label: "Integrale verzuimaanpak" },
+  { href: "/spoedhulp", label: "Spoedhulp verzuim" },
   { href: "/diensten/casemanager-detachering", label: "Casemanagement in Brabant" },
   { href: "/diensten/tweede-spoor", label: "Spoor 2 in Brabant" },
+  { href: "/diensten/reorganisatie-verzuim", label: "Reorganisatie en verzuim" },
+  { href: "/diensten/verzuimsysteem-implementatie", label: "Verzuimsysteem implementatie" },
+  { href: "/diensten/verzuimverzekeringen", label: "Verzuimverzekeringen" },
+  { href: "/diensten/verzuimreductie", label: "Verzuimreductie" },
   { href: "/diensten/interim-casemanager", label: "Interim casemanager in Brabant" },
   { href: "/diensten/verzuimanalyse", label: "Verzuimanalyse en rapportage" },
   { href: "/diensten/leidinggevenden-training", label: "Training leidinggevenden" },

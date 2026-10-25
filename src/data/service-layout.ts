@@ -14,6 +14,8 @@ export type ServiceLayout = {
   deliverables?: string[];
   audience?: string;
   more?: { href: string; label: string }[];
+  /** Vragen van werkgevers, zichtbaar als kop en in het FAQ-schema. */
+  answers?: { q: string; a: string }[];
   priceKind: PriceKind;
   priceNote: string;
   /** Leeg bij projectpagina’s: daar plaatsen we geen review. */
@@ -192,7 +194,7 @@ export const serviceLayout: Record<string, ServiceLayout> = {
       { title: "Lezen", text: "We lezen uw cijfers, een steekproef van dossiers en het protocol als dat er is." },
       { title: "Rapport", text: "U ziet waar de dagen vandaan komen, welke dossiers zonder plan lopen, en hoe uw percentage zich verhoudt tot de CBS-benchmark voor uw grootte." },
       { title: "Borgen", text: "Ontbreekt een verzuimsysteem, dan leveren we er een en leggen we de uitkomsten en de trajecten daarin vast." },
-      { title: "Daarna kiest u", text: "De analyse staat op zichzelf. Een blok uren is niet verplicht. De systeemanalyse, over rollen en informatie, is een andere opdracht." },
+      { title: "Daarna kiest u", text: "De analyse staat op zichzelf. Een blok uren is niet verplicht. Een reductietraject waarbij de betaling van het resultaat afhangt, is een vervolg. Het percentage en de voorwaarden staan niet hier, maar in die offerte." },
     ],
     deliverables: [
       "Rapport over waar de verzuimdagen ontstaan",
@@ -204,6 +206,8 @@ export const serviceLayout: Record<string, ServiceLayout> = {
       "Voor organisaties met 35–500 medewerkers in Noord-Brabant die eerst willen zien wat de cijfers en de dossiers zeggen. Het kantoor staat in Uden. Dit is niet de verzuimsysteemanalyse. Kleinere organisaties verwijzen we naar Matchvermogen.",
     outcome: "Zicht op hoe uw verzuimpercentage kan dalen, op basis van uw cijfers. Geen vast percentage vooraf. Ontbreekt een verzuimsysteem, dan leveren we er een en borgen daarin de informatie en de trajecten.",
     more: [
+      { href: "/diensten/verzuimreductie", label: "Verzuimreductie" },
+      { href: "/diensten/integrale-verzuimaanpak", label: "Integrale verzuimaanpak" },
       { href: "/diensten/verzuimsysteemanalyse", label: "Verzuimsysteemanalyse" },
       { href: "/diensten/verzuimbeleid-protocol", label: "Verzuimprotocol" },
       { href: "/diensten/verzuimpreventie", label: "Verzuimpreventie" },

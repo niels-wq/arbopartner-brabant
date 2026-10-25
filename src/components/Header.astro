@@ -55,6 +55,7 @@ const more = [
                     {services.filter((service) => serviceLayout[service.slug]?.group === group.id).map((service) => (
                       <a class="block py-1 text-sm" href={`/diensten/${service.slug}`}>{service.menu}</a>
                     ))}
+                    {group.id === "interim" && <a class="block py-1 text-sm" href="/spoedhulp">Spoedhulp verzuim</a>}
                   </div>
                 ))}
               </div>
@@ -92,6 +93,7 @@ const more = [
               {services.filter((service) => serviceLayout[service.slug]?.group === group.id).map((service) => (
                 <a class="block py-1 text-sm" href={`/diensten/${service.slug}`}>{service.menu}</a>
               ))}
+              {group.id === "interim" && <a class="block py-1 text-sm" href="/spoedhulp">Spoedhulp verzuim</a>}
             </>
           ))}
         </div>
