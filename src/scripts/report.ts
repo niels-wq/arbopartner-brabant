@@ -80,6 +80,7 @@ export function mountReport(host: HTMLElement, input: { calculator: string; titl
     <label class="flex items-start gap-2 text-sm"><input type="checkbox" name="toestemming" value="ja" required /> <span>Mail mij dit rapport. <a href="/privacy">Privacy</a></span></label>
     <input type="hidden" name="rapport" />
     <input type="hidden" name="calculator" />
+    <div class="absolute -left-[9999px]" aria-hidden="true"><label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label></div>
     <div class="ap-actions">
       <button class="btn" type="submit">${label}</button>
       ${book}

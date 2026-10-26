@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { describe, it } from "node:test";
 import werken from "../server/werken.json" with { type: "json" };
+import { signStamp } from "../server/spam.mjs";
 import {
   AIRTABLE_CV_LIMIT,
   CANDIDATE_EMAIL,
@@ -95,6 +96,7 @@ describe("werken bij", () => {
     delete process.env.AIRTABLE_TABLE;
     delete process.env.SMTP_HOST;
     resetUploads();
+    const stamp = signStamp(Date.now() - 10_000);
     const full = Buffer.concat([
       Buffer.from(
         `--${boundary}\r\nContent-Disposition: form-data; name="traject"\r\n\r\ndienst\r\n` +
@@ -112,6 +114,8 @@ describe("werken bij", () => {
           `--${boundary}\r\nContent-Disposition: form-data; name="verzekering"\r\n\r\nNee\r\n` +
           `--${boundary}\r\nContent-Disposition: form-data; name="specialisaties"\r\n\r\nMKB\r\n` +
           `--${boundary}\r\nContent-Disposition: form-data; name="toestemming"\r\n\r\nja\r\n` +
+          `--${boundary}\r\nContent-Disposition: form-data; name="form_ts"\r\n\r\n${stamp.form_ts}\r\n` +
+          `--${boundary}\r\nContent-Disposition: form-data; name="form_sig"\r\n\r\n${stamp.form_sig}\r\n` +
           `--${boundary}\r\nContent-Disposition: form-data; name="cv"; filename="cv.pdf"\r\nContent-Type: application/pdf\r\n\r\n%PDF-1.4 demo\r\n` +
           `--${boundary}--\r\n`,
       ),
@@ -131,7 +135,8 @@ describe("werken bij", () => {
     assert.equal(uploadLimited("198.51.100.4", now + 1), false);
     assert.equal(uploadLimited("198.51.100.4", now + 2), false);
     assert.equal(uploadLimited("198.51.100.4", now + 3), false);
-    assert.equal(uploadLimited("198.51.100.4", now + 4), true);
+    assert.equal(uploadLimited("198.51.100.4", now + 4), false);
+    assert.equal(uploadLimited("198.51.100.4", now + 5), true);
   });
 
   it("staat in het menu, de footer en het vacatureschema, zonder salaris", async () => {

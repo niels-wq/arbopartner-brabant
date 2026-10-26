@@ -2,6 +2,7 @@ import { calendlyKennismaking } from "../data/calendly";
 import { site } from "../data/site";
 import { checklistText } from "../lib/checklist";
 import { openCalendlyPopup } from "./calendly";
+import { armForm, prepareSubmission } from "./form-guard";
 import { mailtoHref } from "./forms";
 import { downloadPdf } from "./report";
 import { track } from "./track";
@@ -141,9 +142,11 @@ if (root && !root.dataset.ready) {
   lead?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const status = lead.querySelector<HTMLElement>("[data-status]");
-    const payload = Object.fromEntries(new FormData(lead).entries());
     if (status) status.textContent = "Versturen…";
     try {
+      if (!lead) return;
+      await prepareSubmission(lead);
+      const payload = Object.fromEntries(new FormData(lead).entries());
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -218,6 +221,8 @@ if (root && !root.dataset.ready) {
     if (event.target === exit) closeExit();
   });
   const magnet = exit?.querySelector<HTMLFormElement>("[data-magnet]");
+  if (lead) void armForm(lead).catch(() => {});
+  if (magnet) void armForm(magnet).catch(() => {});
   const checklistField = magnet?.querySelector<HTMLInputElement>("[data-checklist-body]");
   if (checklistField) checklistField.value = checklistText;
   const fileName = "arbopartner-verzuim-checklist.pdf";
@@ -262,14 +267,15 @@ if (root && !root.dataset.ready) {
     if (!magnet) return;
     const status = magnet.querySelector<HTMLElement>("[data-status]");
     const choice = currentChoice();
-    const payload: Record<string, string> = {};
-    for (const [key, value] of new FormData(magnet).entries()) payload[key] = String(value);
-    payload.keuze = choice;
-    if (choice !== "checklist") delete payload.checklist;
-    if (choice !== "terugbel") delete payload.wanneer;
-    track("exit_intent_choice", { keuze: choice });
     if (status) status.textContent = "Versturen…";
     try {
+      await prepareSubmission(magnet);
+      const payload: Record<string, string> = {};
+      for (const [key, value] of new FormData(magnet).entries()) payload[key] = String(value);
+      payload.keuze = choice;
+      if (choice !== "checklist") delete payload.checklist;
+      if (choice !== "terugbel") delete payload.wanneer;
+      track("exit_intent_choice", { keuze: choice });
       const response = await fetch("/api/magnet", {
         method: "POST",
         headers: { "content-type": "application/json" },

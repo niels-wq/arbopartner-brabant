@@ -1,3 +1,4 @@
+import { armForm, prepareSubmission } from "./form-guard";
 import { track } from "./track";
 
 const MAX_CV = 10 * 1024 * 1024;
@@ -71,6 +72,7 @@ export function bindWerken() {
   const form = document.querySelector<HTMLFormElement>("form[data-werken]");
   if (!form || form.dataset.werkenBound === "1") return;
   form.dataset.werkenBound = "1";
+  void armForm(form).catch(() => {});
   const status = form.querySelector<HTMLElement>("[data-status]");
   form.addEventListener("change", () => syncGroups(form));
   form.addEventListener("click", (event) => {
@@ -91,6 +93,7 @@ export function bindWerken() {
     const submit = form.querySelector<HTMLButtonElement>("button[type=submit]");
     if (submit) submit.disabled = true;
     try {
+      await prepareSubmission(form);
       const response = await fetch("/api/werken", { method: "POST", body: new FormData(form) });
       const result = await response.json();
       if (!response.ok || result.ok === false) {

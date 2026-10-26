@@ -1,10 +1,11 @@
 import { site } from "../data/site";
+import { armForm, prepareSubmission } from "./form-guard";
 import { track } from "./track";
 
 export function mailtoHref(kind: string, entries: Iterable<[string, FormDataEntryValue]>): string {
   const lines = [`Formulier: ${kind}`, ""];
   for (const [key, value] of entries) {
-    if (key === "company_website" || key === "checklist") continue;
+    if (key === "company_website" || key === "checklist" || key === "form_ts" || key === "form_sig") continue;
     lines.push(`${key}: ${String(value)}`);
   }
   const subject = encodeURIComponent(`[Arbopartner Brabant] ${kind}`);
@@ -20,12 +21,14 @@ export function bindForms() {
   document.querySelectorAll<HTMLFormElement>("form[data-endpoint]").forEach((form) => {
     if (form.dataset.bound === "1") return;
     form.dataset.bound = "1";
+    void armForm(form).catch(() => {});
     const status = form.querySelector<HTMLElement>("[data-status]");
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (status) status.textContent = "Versturen…";
-      const payload = Object.fromEntries(new FormData(form).entries());
       try {
+        await prepareSubmission(form);
+        const payload = Object.fromEntries(new FormData(form).entries());
         const response = await fetch(form.dataset.endpoint || "", {
           method: "POST",
           headers: { "content-type": "application/json" },

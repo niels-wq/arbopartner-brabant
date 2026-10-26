@@ -38,10 +38,13 @@ Kopieer `.env.example` naar `.env`.
 | `SMTP_SECURE` | `true` bij poort 465. |
 | `SMTP_USER` / `SMTP_PASS` | Inlog van de mailbox. |
 | `SMTP_FROM` | Afzender, bijvoorbeeld `Arbopartner Brabant <info@matchvermogen.nl>`. |
+| `FORM_HMAC_SECRET` | Geheim voor het formulierstempel, minimaal 16 tekens. Zonder deze variabele werkt de site met een vaste afleiding uit de broncode. |
 | `PORT` | Poort. Railway zet deze zelf. |
 | `HOST` | Bind-adres. In de container `0.0.0.0`. |
 
-Endpoints: `POST /api/offerte`, `POST /api/advies`, `POST /api/spoed` met JSON. Een verborgen veld `company_website` is een honeypot. Zonder SMTP antwoordt de server met `delivered: false` en maakt de pagina een mailto-link naar `info@matchvermogen.nl`.
+De pagina haalt bij openen `GET /api/form-token` op. Dat antwoord is een HMAC-ondertekend tijdstip. Verzenden korter dan 3 seconden daarna, een stempel ouder dan 4 uur, of een ongeldige handtekening geldt als spam. Het verborgen veld `company_website` is de honeypot (`aria-hidden`, `tabindex="-1"`, `autocomplete="off"`). Per IP gaan maximaal 5 geldige inzendingen per 10 minuten door, in het geheugen van dit proces, gedeeld door alle formulieren inclusief `/api/werken`. Spam krijgt HTTP 200 met `delivered: true` en wordt niet gemaild. Een ongeldig formulier blijft HTTP 400 en telt niet mee voor die limiet.
+
+Endpoints, allemaal JSON naar de eigen server: `POST /api/offerte`, `/api/advies` (contact en adviesgesprek), `/api/spoed`, `/api/chat`, `/api/rapport`, `/api/scan`, `/api/terugbel`, `/api/checklist`, `/api/magnet` (exit-intent), `/api/risicoscan`, `/api/tijdlijn`. Zonder SMTP antwoordt een echte inzending met `delivered: false` en maakt de pagina een mailto-link naar `info@matchvermogen.nl`.
 
 ## Railway
 
@@ -78,7 +81,7 @@ KvK 85849618, btw NL863765993B01, Losplaats 16d, 5404 NJ Uden, telefoon 085-0870
 
 ## Werken bij
 
-`/werken-bij` heeft twee trajecten: zzp-casemanager en een baan in dienst. Het formulier loopt in zes stappen en post multipart naar `POST /api/werken`. Honeypot-veld `company_website`. Per IP maximaal 4 aanmeldingen per 10 minuten. Een CV is pdf of docx, maximaal 10 MB.
+`/werken-bij` heeft twee trajecten: zzp-casemanager en een baan in dienst. Het formulier loopt in zes stappen en post multipart naar `POST /api/werken`. Hetzelfde honeypotveld, stempel en dezelfde limiet van 5 inzendingen per IP per 10 minuten als de andere formulieren. Een CV is pdf of docx, maximaal 10 MB.
 
 Ontvanger van de mailfallback is vast `info@matchvermogen.nl`. Zonder `SMTP_HOST` én zonder Airtable antwoordt de site dat de aanmelding niet is opgeslagen en noemt dat adres. Een mailto met het CV kan de browser niet maken.
 

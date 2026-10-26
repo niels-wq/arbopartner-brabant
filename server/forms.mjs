@@ -1,21 +1,10 @@
 import { handleWerken } from "./werken.mjs";
-
-const WINDOW_MS = 10 * 60 * 1000;
-const MAX_HITS = 8;
-const hits = new Map();
+import { rateAllows, signStamp, spamSignal } from "./spam.mjs";
 
 function clientIp(req) {
   const forwarded = req.headers["x-forwarded-for"];
   if (typeof forwarded === "string" && forwarded.length) return forwarded.split(",")[0].trim();
   return req.socket?.remoteAddress || "unknown";
-}
-
-function limited(ip) {
-  const now = Date.now();
-  const recent = (hits.get(ip) || []).filter((stamp) => now - stamp < WINDOW_MS);
-  recent.push(now);
-  hits.set(ip, recent);
-  return recent.length > MAX_HITS;
 }
 
 function oneLine(value, max = 180) {
@@ -85,47 +74,61 @@ export function validate(kind, body) {
 function messageText(kind, body) {
   const lines = [`Formulier: ${kind}`, `Tijdstip: ${new Date().toISOString()}`, ""];
   for (const [key, value] of Object.entries(body || {})) {
-    if (key === "company_website" || key === "toestemming") continue;
+    if (key === "company_website" || key === "toestemming" || key === "form_ts" || key === "form_sig") continue;
     const long = key === "rapport" || key === "checklist" || key === "vraag" || key === "wat";
     lines.push(`${key}: ${textBlock(value, long ? 8000 : 2000)}`);
   }
   return lines.join("\n").slice(0, 20000);
 }
 
-export async function processSubmission(kind, body, ip) {
-  if (limited(ip)) {
-    return { status: 429, payload: { ok: false, errors: ["Te veel berichten. Bel ons gerust even."] } };
-  }
-  if (oneLine(body?.company_website, 200)) {
-    return { status: 200, payload: { ok: true, delivered: true } };
-  }
+function dropped() {
+  return { status: 200, payload: { ok: true, delivered: true } };
+}
+
+export async function processSubmission(kind, body, ip, now = Date.now(), options = {}) {
+  if (spamSignal(body, now)) return dropped();
   const errors = validate(kind, body);
   if (errors.length) return { status: 400, payload: { ok: false, errors } };
+  if (!rateAllows(ip, now)) return dropped();
 
   const to = process.env.FORM_TO_EMAIL;
   const host = process.env.SMTP_HOST;
-  if (!to || !host) {
+  const who = oneLine(body.organisatie || body.naam, 80);
+  const subject = `[Arbopartner Brabant] ${kind} — ${who || "nieuw bericht"}`;
+  const text = messageText(kind, body);
+  const replyTo = body.email ? oneLine(body.email) : undefined;
+
+  if (typeof options.sendMail !== "function" && (!to || !host)) {
     return { status: 200, payload: { ok: true, delivered: false, reason: "smtp-niet-geconfigureerd" } };
   }
 
   try {
-    const nodemailer = await import("nodemailer");
-    const port = Number(process.env.SMTP_PORT || 587);
-    const transport = nodemailer.default.createTransport({
-      host,
-      port,
-      secure: process.env.SMTP_SECURE === "true" || port === 465,
-      auth: process.env.SMTP_USER
-        ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS || "" }
-        : undefined,
-    });
-    const who = oneLine(body.organisatie || body.naam, 80);
-    await transport.sendMail({
+    let transport;
+    async function deliver(mail) {
+      if (typeof options.sendMail === "function") {
+        await options.sendMail(mail);
+        return;
+      }
+      if (!transport) {
+        const nodemailer = await import("nodemailer");
+        const port = Number(process.env.SMTP_PORT || 587);
+        transport = nodemailer.default.createTransport({
+          host,
+          port,
+          secure: process.env.SMTP_SECURE === "true" || port === 465,
+          auth: process.env.SMTP_USER
+            ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS || "" }
+            : undefined,
+        });
+      }
+      await transport.sendMail(mail);
+    }
+    await deliver({
       from: process.env.SMTP_FROM || to,
       to,
-      replyTo: body.email ? oneLine(body.email) : undefined,
-      subject: `[Arbopartner Brabant] ${kind} — ${who || "nieuw bericht"}`,
-      text: messageText(kind, body),
+      replyTo,
+      subject,
+      text,
     });
     const copyByKind = {
       rapport: {
@@ -152,7 +155,7 @@ export async function processSubmission(kind, body, ip) {
       const intro = copy.intro;
       const content = textBlock(body.checklist || body.rapport, 8000);
       try {
-        await transport.sendMail({
+        await deliver({
           from: process.env.SMTP_FROM || to,
           to: oneLine(body.email),
           replyTo: to,
@@ -186,6 +189,20 @@ export async function handleApi(req, res) {
   const host = req.headers.host || "localhost";
   const url = new URL(req.url || "/", `http://${host}`);
   if (!url.pathname.startsWith("/api/")) return false;
+
+  if (url.pathname === "/api/form-token") {
+    if (req.method !== "GET") {
+      res.writeHead(405, { "content-type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ ok: false, errors: ["Alleen GET."] }));
+      return true;
+    }
+    res.writeHead(200, {
+      "content-type": "application/json; charset=utf-8",
+      "cache-control": "no-store",
+    });
+    res.end(JSON.stringify(signStamp()));
+    return true;
+  }
 
   if (req.method !== "POST") {
     res.writeHead(405, { "content-type": "application/json; charset=utf-8" });

@@ -1,23 +1,17 @@
 import werken from "./werken.json" with { type: "json" };
+import { rateAllows, resetRateLimit, spamSignal } from "./spam.mjs";
 
-const WINDOW_MS = 10 * 60 * 1000;
-const MAX_HITS = 4;
 const MAX_BODY = 11 * 1024 * 1024;
 const MAX_CV = 10 * 1024 * 1024;
 export const AIRTABLE_CV_LIMIT = 5 * 1024 * 1024;
 export const CANDIDATE_EMAIL = "info@matchvermogen.nl";
 
-const hits = new Map();
-
 export function resetUploads() {
-  hits.clear();
+  resetRateLimit();
 }
 
 export function uploadLimited(ip, now = Date.now()) {
-  const recent = (hits.get(ip) || []).filter((stamp) => now - stamp < WINDOW_MS);
-  recent.push(now);
-  hits.set(ip, recent);
-  return recent.length > MAX_HITS;
+  return !rateAllows(ip, now);
 }
 
 function oneLine(value, max = 180) {
@@ -344,14 +338,11 @@ async function readBody(req) {
   return Buffer.concat(chunks);
 }
 
-export async function handleWerken(req, ip) {
-  if (uploadLimited(ip)) {
-    req.resume();
-    return {
-      status: 429,
-      payload: { ok: false, errors: [`Te veel aanmeldingen. Mail uw CV naar ${CANDIDATE_EMAIL}.`] },
-    };
-  }
+function droppedWerken() {
+  return { status: 200, payload: { ok: true, delivered: true, via: "email", cv: "email" } };
+}
+
+export async function handleWerken(req, ip, now = Date.now()) {
   let body;
   try {
     body = await readBody(req);
@@ -367,11 +358,10 @@ export async function handleWerken(req, ip) {
   } catch {
     return { status: 400, payload: { ok: false, errors: ["De aanmelding kon niet worden gelezen."] } };
   }
-  if (oneLine(parsed.fields.company_website, 200)) {
-    return { status: 200, payload: { ok: true, delivered: true, via: "email", cv: "email" } };
-  }
+  if (spamSignal(parsed.fields, now)) return droppedWerken();
   const { errors, application } = assessWerken(parsed.fields, parsed.file);
   if (errors.length) return { status: 400, payload: { ok: false, errors } };
+  if (!rateAllows(ip, now)) return droppedWerken();
 
   const cvFitsAirtable = application.cv.buffer.length <= AIRTABLE_CV_LIMIT;
   if (airtableOn()) {
