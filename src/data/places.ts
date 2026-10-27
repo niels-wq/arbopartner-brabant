@@ -1,3 +1,5 @@
+import { site } from "./site";
+
 export type Place = {
   slug: string;
   name: string;
@@ -86,7 +88,7 @@ export const places: Place[] = [
     body: [
       "Vanuit Uden is Oss ongeveer twintig minuten via de A50. Op de industrieterreinen zitten productiebedrijven met ploegen, en op Pivot Park onderzoeks- en farmabedrijven met hoogopgeleide specialisten. Beide typen verzuim vragen iets anders: bij productie telt fysieke belasting, bij de labs telt langdurige psychische uitval en een krappe vervangingsmarkt.",
       "Een senior casemanager is hier vaker de juiste match dan een medior, vooral als er al een WIA-aanvraag speelt of een verschil van inzicht met de bedrijfsarts. De bedrijfsarts en de arbodienst blijven bij u. Wij houden het dossier bij, zodat de bedrijfsarts, de leidinggevende en de medewerker hetzelfde plan volgen.",
-      "Werkgevers in Oss die al met Matchvermogen werken voor een arbeidsdeskundig onderzoek, kunnen de begeleiding en het onderzoek bij één club laten. Het onderzoek loopt via het zustermerk, de wekelijkse regie via Arbopartner Brabant. U krijgt korting op dat onderzoek.",
+      `Werkgevers in Oss die al met Matchvermogen werken voor een arbeidsdeskundig onderzoek, kunnen de begeleiding en het onderzoek bij één club laten. Het onderzoek loopt via het zustermerk, de wekelijkse regie via Arbopartner Brabant. U krijgt ${site.discount.arbeidsdeskundige}% korting op dat onderzoek.`,
     ],
     faq: [
       {
@@ -556,7 +558,7 @@ export const places: Place[] = [
     body: [
       "Waalwijk, Sprang-Capelle en Waspik vormen één gemeente tussen Den Bosch en Tilburg. Distributiecentra, leerbedrijven en winkels hebben fysiek werk naast een kantoorlaag. Frequent verzuim en rug- of schouderklachten komen we hier vaker tegen dan een puur beeldschermdossier.",
       "Of de rit binnen de ongeveer 45 minuten valt waarin de reistijd in het tarief zit, toetsen we op het adres. Een bedrijventerrein aan de ene kant van de A59 is een andere rit dan een kern aan de andere kant. We gokken dat niet vanaf de plaatsnaam.",
-      "De casemanager is dezelfde persoon elke week. Een arbeidsdeskundige van Matchvermogen is de achtervang, met korting. Die onderzoeker is niet de begeleider.",
+      `De casemanager is dezelfde persoon elke week. Een arbeidsdeskundige van Matchvermogen is de achtervang, met ${site.discount.arbeidsdeskundige}% korting op dat onderzoek. Die onderzoeker is niet de begeleider.`,
     ],
     faq: [
       {

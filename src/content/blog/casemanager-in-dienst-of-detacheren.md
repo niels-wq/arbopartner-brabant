@@ -52,7 +52,7 @@ Werving is eenmalig. Intelligence Group, aangehaald door het AD, noemt directe k
 
 ## Wat detacheren daar tegenover zet
 
-U betaalt het staffeltarief over de uren die u afneemt. Medior vanaf €102,50 tot €112,50, afhankelijk van het blok. Medior+ en senior liggen hoger. Zie de [tarieven](/tarieven). Reistijd binnen 45 minuten van Uden zit erin. Wordt de casemanager ziek, dan regelen wij vervanging. U bouwt geen transitievergoeding op. U kunt de uren meebewegen met de dossiers. U werft niet. Een senior of een arbeidsdeskundige is de achtervang, met korting via de zustermerken.
+U betaalt het staffeltarief over de uren die u afneemt. Medior vanaf €102,50 tot €112,50, afhankelijk van het blok. Medior+ en senior liggen hoger. Zie de [tarieven](/tarieven). Reistijd binnen 45 minuten van Uden zit erin. Wordt de casemanager ziek, dan regelen wij vervanging. U bouwt geen transitievergoeding op. U kunt de uren meebewegen met de dossiers. U werft niet. Een senior of een arbeidsdeskundige is de achtervang, met 8% korting op het onderzoek via Matchvermogen.
 
 Die zin is het aanbod. Hij duikt niet bij elke caseload onder het dienstverband. Heeft u structureel bijna een volle werkweek nodig, dan kan het dienstverband in euro’s lager zijn. De calculator laat dat zien. Dan blijven de andere verschillen staan: vervanging, geen werving en geen transitievergoeding. Een fractie van een fte, omdat u maar tien uur per week nodig heeft, is op papier een deeltijdbaan en in de praktijk moeilijk te werven. De tool rekent daarom het volle contract, niet een stukje fte. UWV zag in het najaar van 2025 dat 45 procent van de vacatures moeilijk vervulbaar was. Die moeite staat niet als extra euro in het model. Hij staat er als tekst, omdat hij echt is.
 
