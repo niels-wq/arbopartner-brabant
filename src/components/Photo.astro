@@ -4,7 +4,6 @@ import { fotos, type FotoId } from "../data/fotos";
 interface Props {
   id: FotoId;
   eager?: boolean;
-  caption?: boolean;
   plain?: boolean;
   class?: string;
   sizes?: string;
@@ -12,7 +11,7 @@ interface Props {
   kader?: "cover" | "natuurlijk";
 }
 
-const { id, eager = false, caption = true, plain = false, class: className, sizes = "(min-width: 1024px) 42rem, 100vw", kader = "cover" } = Astro.props;
+const { id, eager = false, plain = false, class: className, sizes = "(min-width: 1024px) 42rem, 100vw", kader = "cover" } = Astro.props;
 const foto = fotos[id];
 const base = `/fotos/${id}`;
 ---
@@ -31,9 +30,4 @@ const base = `/fotos/${id}`;
       class={kader === "natuurlijk" ? "h-auto w-full" : "aspect-[3/2] w-full object-cover"}
     />
   </picture>
-  {caption && (
-    <figcaption class="px-3 py-2 text-xs leading-snug text-ink-soft">
-      {foto.caption} Foto: {foto.author}, <a class="underline" href={foto.licenseUrl} rel="license noopener">{foto.license}</a>. <a class="underline" href={foto.sourceUrl}>Bron</a>.
-    </figcaption>
-  )}
 </figure>

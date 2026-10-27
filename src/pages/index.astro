@@ -59,7 +59,7 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
     <div>
       <p class="text-sm font-semibold uppercase tracking-[0.16em] text-ochre-800">{site.labelStatement}</p>
       <h1 class="mt-3 max-w-xl text-4xl text-green-950 md:text-6xl">Casemanager en arbo in Brabant.</h1>
-      <p class="mt-5 max-w-xl text-lg text-ink-soft">Nuchter, dichtbij, Brabants. Arbopartner Brabant hoort bij Matchvermogen B.V. en detacheert een vaste casemanager {site.audience} in heel Noord-Brabant. Het kantoor staat in Uden, aan de Losplaats 16d. Uw arbodienst en bedrijfsarts blijven. Een arbeidsdeskundige van Matchvermogen staat als achtervang klaar, met korting.</p>
+      <p class="mt-5 max-w-xl text-lg text-ink-soft">Nuchter, dichtbij, Brabants. Arbopartner Brabant hoort bij Matchvermogen B.V. en detacheert een vaste casemanager {site.audience} in heel Noord-Brabant. Het kantoor staat in Uden, aan de Losplaats 16d. Uw arbodienst en bedrijfsarts blijven. Een arbeidsdeskundige van Matchvermogen staat als achtervang klaar, met {site.discount.arbeidsdeskundige}% korting op dat onderzoek.</p>
       <div class="mt-8">
         <Button data-cta="home-advies" href="/adviesgesprek">Plan een adviesgesprek</Button>
         <p class="mt-2 text-sm text-ink-soft">Het gesprek van 30 minuten verplicht u tot niets.</p>
@@ -87,7 +87,6 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
           <p>{site.founder.quote}</p>
         </blockquote>
         <p class="mt-3 text-sm text-ink-soft">
-          Foto: <a class="underline" href={site.founder.photoSource}>matchvermogen.nl</a>.
           Citaat: <a class="underline" href={site.founder.quoteUrl}>arbeidsdeskundig.com</a>.
         </p>
       </div>
@@ -116,7 +115,7 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
 
   <section class="mx-auto grid max-w-6xl gap-6 px-4 pb-8 md:grid-cols-3" aria-label="Keuzehulp">
     <a class="overflow-hidden rounded-2xl border border-line bg-white" data-cta="home-kaart-spoed" href="/spoedhulp">
-      <Photo id="gesprek-documenten" plain caption={false} sizes="(min-width: 768px) 20rem, 100vw" />
+      <Photo id="gesprek-documenten" plain sizes="(min-width: 768px) 20rem, 100vw" />
       <div class="p-6">
       <h2 class="font-serif text-2xl text-green-950">Ik heb nu een verzuimprobleem</h2>
       <p class="mt-2 text-ink-soft">Een zieke medewerker, een vastgelopen dossier of een sanctierisico. Bel, app of laat u terugbellen.</p>
@@ -124,7 +123,7 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
       </div>
     </a>
     <a class="overflow-hidden rounded-2xl border border-line bg-white" data-cta="home-kaart-pakket" href="/pakketten">
-      <Photo id="gesprek-drie" plain caption={false} sizes="(min-width: 768px) 20rem, 100vw" />
+      <Photo id="gesprek-drie" plain sizes="(min-width: 768px) 20rem, 100vw" />
       <div class="p-6">
       <h2 class="font-serif text-2xl text-green-950">Ik wil verzuim structureel regelen</h2>
       <p class="mt-2 text-ink-soft">Basis, Premium of Pro. Eén niveau casemanager, een vast aantal uren, een vast gezicht.</p>
@@ -132,7 +131,7 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
       </div>
     </a>
     <a class="overflow-hidden rounded-2xl border border-line bg-white" data-cta="home-kaart-kosten" href="/verzuimkosten-berekenen">
-      <Photo id="werkplek-notitie" plain caption={false} sizes="(min-width: 768px) 20rem, 100vw" />
+      <Photo id="werkplek-notitie" plain sizes="(min-width: 768px) 20rem, 100vw" />
       <div class="p-6">
       <h2 class="font-serif text-2xl text-green-950">Wat kost verzuim mij?</h2>
       <p class="mt-2 text-ink-soft">Reken met de TNO-dagkosten en kies zelf een scenario. Geen belofte, wel een bedrag.</p>
@@ -199,7 +198,7 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
     <div class="mt-6 grid items-start gap-6 lg:grid-cols-2">
       <BrabantMap pins="kantoor" />
       <article class="overflow-hidden rounded-2xl border border-line bg-white">
-        <Photo id="gesprek-werkgever" plain caption={false} kader="natuurlijk" sizes="(min-width: 1024px) 36rem, 100vw" />
+        <Photo id="gesprek-werkgever" plain kader="natuurlijk" sizes="(min-width: 1024px) 36rem, 100vw" />
         <div class="p-5">
           <p class="text-sm font-semibold uppercase tracking-[0.14em] text-ochre-800">Hoofdkantoor</p>
           <h3 class="mt-1 font-serif text-2xl text-green-950">{site.parent.city}</h3>

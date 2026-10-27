@@ -58,7 +58,7 @@ const crumbs = [
         {layout.priceKind !== "project" && <p class="mt-2 text-sm"><a class="font-semibold underline" data-cta={`dienst-hero-tarief-${service.slug}`} href="/tarieven">Uurtarieven</a></p>}
         <p class="mt-2 text-sm text-ink-soft">{site.responsePromise}</p>
       </div>
-      <Photo id={fotoVoorDienst(service.slug)} eager caption={false} class="max-md:max-h-48" />
+      <Photo id={fotoVoorDienst(service.slug)} eager class="max-md:max-h-48" />
     </header>
 
     <div class="mx-auto max-w-3xl px-4">

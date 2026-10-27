@@ -74,5 +74,12 @@ describe("echte foto's", () => {
     assert.equal(plaats.includes("Figure"), false);
     assert.match(plaats, /BrabantPhoto/);
     assert.equal(/poortwachter/i.test(await readFile("src/data/fotos.ts", "utf8")), false);
+    const photo = await readFile("src/components/Photo.astro", "utf8");
+    const brabant = await readFile("src/components/BrabantPhoto.astro", "utf8");
+    assert.match(photo, /alt=\{foto\.alt\}/);
+    assert.match(brabant, /alt=\{foto\.alt\}/);
+    assert.equal(photo.includes("figcaption"), false);
+    assert.equal(brabant.includes("figcaption"), false);
+    assert.equal(home.includes("Foto:"), false);
   });
 });

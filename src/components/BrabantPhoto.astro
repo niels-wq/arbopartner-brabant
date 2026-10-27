@@ -4,13 +4,12 @@ import { brabantFotos, type FotoId } from "../data/brabant-fotos";
 interface Props {
   id: FotoId;
   eager?: boolean;
-  caption?: boolean;
   plain?: boolean;
   class?: string;
   sizes?: string;
 }
 
-const { id, eager = false, caption = true, plain = false, class: className, sizes = "(min-width: 1024px) 22rem, 100vw" } = Astro.props;
+const { id, eager = false, plain = false, class: className, sizes = "(min-width: 1024px) 22rem, 100vw" } = Astro.props;
 const foto = brabantFotos[id];
 ---
 
@@ -27,9 +26,4 @@ const foto = brabantFotos[id];
       class="aspect-[3/2] w-full object-cover"
     />
   </picture>
-  {caption && (
-    <figcaption class="px-3 py-2 text-xs leading-snug text-ink-soft">
-      {foto.caption} Foto: {foto.author}, <a class="underline" href={foto.licenseUrl} rel="license noopener">{foto.license}</a>. <a class="underline" href={foto.sourceUrl}>Wikimedia Commons</a>.
-    </figcaption>
-  )}
 </figure>
