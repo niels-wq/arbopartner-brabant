@@ -1,6 +1,7 @@
 import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
+import { handleChatMessage } from "./chat-ai.mjs";
 import { handleApi } from "./forms.mjs";
 import { applySecurityHeaders } from "./headers.mjs";
 import { wwwRedirectLocation } from "./redirect.mjs";
@@ -57,6 +58,11 @@ async function fileFor(urlPath) {
 const server = createServer(async (req, res) => {
   applySecurityHeaders(res);
   try {
+    const apiUrl = new URL(req.url || "/", `http://${req.headers.host || "localhost"}`);
+    if (apiUrl.pathname === "/api/chat/message") {
+      await handleChatMessage(req, res);
+      return;
+    }
     if (await handleApi(req, res)) return;
     const url = new URL(req.url || "/", "http://localhost");
     const canonical = wwwRedirectLocation(url.pathname, url.search, req.headers.host, req.headers["x-forwarded-host"]);

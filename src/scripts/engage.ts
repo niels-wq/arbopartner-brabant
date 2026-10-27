@@ -79,16 +79,74 @@ if (root && !root.dataset.ready) {
       text: "We werken in heel Noord-Brabant: Den Bosch, Eindhoven, Tilburg, Breda, Helmond, Oss, Uden, Veghel, Roosendaal, Bergen op Zoom en de gemeenten eromheen. Het kantoor staat in Uden, Losplaats 16d. Reistijd binnen ongeveer 45 minuten van dat kantoor zit in het tarief. Verder in Brabant staat de rit in de offerte.",
     },
     {
-      test: /spoed|ziek|vandaag|terugbel/,
-      text: `Bel ${phone} of app. U kunt hier ook uw nummer achterlaten. ${site.responsePromise}`,
+      test: /loonsanctie/,
+      text: "Een loonsanctie beslist UWV. Wij maken het dossier leesbaar en bewaken termijnen. We garanderen niet dat een sanctie uitblijft. Kijk op de loonsanctie-risicoscan, of bij acuut verzuim op /spoedhulp.",
+    },
+    {
+      test: /acuut|spoedscan|spoed|ziek|vandaag|terugbel/,
+      text: `Bel ${phone} of app via WhatsApp. Een gratis spoedscan van 30 minuten staat op /spoedhulp. U kunt hier ook uw nummer achterlaten. ${site.responsePromise}`,
     },
   ];
 
-  function reply(question: string) {
+  const messages: { role: "user" | "assistant"; content: string }[] = [];
+
+  function sessionId() {
+    const key = "ap_chat_session";
+    try {
+      const current = sessionStorage.getItem(key) || "";
+      if (/^[A-Za-z0-9_-]{12,64}$/.test(current)) return current;
+      const bytes = new Uint8Array(18);
+      crypto.getRandomValues(bytes);
+      const id = [...bytes].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+      sessionStorage.setItem(key, id);
+      return id;
+    } catch {
+      return "ap-chat-sessie-lokaal";
+    }
+  }
+
+  function openLead() {
+    lead?.removeAttribute("hidden");
+    lead?.querySelector<HTMLInputElement>("input[name=naam]")?.focus();
+    track("chat_lead_open");
+  }
+
+  function scripted(question: string) {
     const hit = answers.find((item) => item.test.test(question.toLowerCase()));
-    say(hit?.text || "Die vraag kan ik niet zelf afmaken. Laat uw naam, bedrijf, telefoon en vraag achter, dan belt Matchvermogen B.V. u. Of kijk bij diensten, tarieven en het werkgebied.", "bot");
-    if (!hit) lead?.removeAttribute("hidden");
+    const text = hit?.text || "Die vraag kan ik niet zelf afmaken. Laat uw naam, bedrijf, telefoon en vraag achter, dan belt Matchvermogen B.V. u. Of kijk bij diensten, tarieven en het werkgebied.";
+    say(text, "bot");
+    messages.push({ role: "assistant", content: text });
+    if (!hit) openLead();
     track("chat_message", { matched: Boolean(hit) });
+  }
+
+  async function ask(question: string) {
+    const text = question.trim().slice(0, 500);
+    if (!text) return;
+    say(text, "user");
+    messages.push({ role: "user", content: text });
+    try {
+      const response = await fetch("/api/chat/message", {
+        method: "POST",
+        headers: { "content-type": "application/json", accept: "application/json" },
+        body: JSON.stringify({
+          session: sessionId(),
+          messages: messages.slice(-10),
+          page: { title: document.title, path: location.pathname },
+        }),
+      });
+      const result = (await response.json().catch(() => ({}))) as { reply?: unknown; fallback?: boolean; action?: string };
+      if (!response.ok || result.fallback || typeof result.reply !== "string" || !result.reply.trim()) {
+        scripted(text);
+        return;
+      }
+      say(result.reply, "bot");
+      messages.push({ role: "assistant", content: result.reply });
+      if (result.action === "lead_form") openLead();
+      track("chat_message", { matched: true });
+    } catch {
+      scripted(text);
+    }
   }
 
   function openChat() {
@@ -96,7 +154,7 @@ if (root && !root.dataset.ready) {
     chat.hidden = false;
     launch.setAttribute("aria-expanded", "true");
     if (!log?.childElementCount) {
-      say("Hoi. Ik ben de assistent van Arbopartner Brabant, een label van Matchvermogen. Ik beantwoord korte vragen over detachering, tarieven en het werkgebied. Geen medisch advies.", "bot");
+      say("Hoi. Ik ben de verzuimpartner van Arbopartner Brabant, een label van Matchvermogen. Ik help werkgevers in Brabant met 35 tot 500 medewerkers. De dossiers die misgaan, veroorzaken loonsancties. Wat is jouw verzuimprobleem?", "bot");
     }
     chat.querySelector<HTMLInputElement>("input[name=q]")?.focus();
     track("chat_open");
@@ -119,15 +177,13 @@ if (root && !root.dataset.ready) {
     const button = (event.target as HTMLElement).closest("button");
     if (!button || button.dataset.calendly) return;
     const label = button.textContent || "";
-    say(label, "user");
     if (button.dataset.lead === "1") {
+      say(label, "user");
       say("Laat uw gegevens hieronder achter. We gebruiken ze alleen om contact op te nemen.", "bot");
-      lead?.removeAttribute("hidden");
-      lead?.querySelector<HTMLInputElement>("input[name=naam]")?.focus();
-      track("chat_lead_open");
+      openLead();
       return;
     }
-    reply(label);
+    void ask(label);
     track("chat_chip", { chip: label.slice(0, 80) });
   });
   chat?.querySelector<HTMLFormElement>("[data-ask]")?.addEventListener("submit", (event) => {
@@ -135,9 +191,8 @@ if (root && !root.dataset.ready) {
     const input = chat.querySelector<HTMLInputElement>("input[name=q]");
     const question = input?.value.trim() || "";
     if (!question) return;
-    say(question, "user");
     if (input) input.value = "";
-    reply(question);
+    void ask(question);
   });
   lead?.addEventListener("submit", async (event) => {
     event.preventDefault();

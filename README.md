@@ -39,12 +39,18 @@ Kopieer `.env.example` naar `.env`.
 | `SMTP_USER` / `SMTP_PASS` | Inlog van de mailbox. |
 | `SMTP_FROM` | Afzender, bijvoorbeeld `Arbopartner Brabant <info@matchvermogen.nl>`. |
 | `FORM_HMAC_SECRET` | Geheim voor het formulierstempel, minimaal 16 tekens. Zonder deze variabele werkt de site met een vaste afleiding uit de broncode. |
+| `CHAT_AI_ENABLED` | `true` zet de AI-chat aan. Zonder deze vlag, of zonder `XAI_API_KEY`, blijven de gescripte antwoorden. |
+| `XAI_API_KEY` | Sleutel voor de chat. Alleen op de server. Nooit in de browser of in een log. |
+| `XAI_API_BASE` | Standaard `https://api.x.ai/v1`. |
+| `XAI_MODEL` | Standaard `grok-4.20-0309-non-reasoning`. |
 | `PORT` | Poort. Railway zet deze zelf. |
 | `HOST` | Bind-adres. In de container `0.0.0.0`. |
 
 De pagina haalt bij openen `GET /api/form-token` op. Dat antwoord is een HMAC-ondertekend tijdstip. Verzenden korter dan 3 seconden daarna, een stempel ouder dan 4 uur, of een ongeldige handtekening geldt als spam. Het verborgen veld `company_website` is de honeypot (`aria-hidden`, `tabindex="-1"`, `autocomplete="off"`). Per IP gaan maximaal 5 geldige inzendingen per 10 minuten door, in het geheugen van dit proces, gedeeld door alle formulieren inclusief `/api/werken`. Spam krijgt HTTP 200 met `delivered: true` en wordt niet gemaild. Een ongeldig formulier blijft HTTP 400 en telt niet mee voor die limiet.
 
-Endpoints, allemaal JSON naar de eigen server: `POST /api/offerte`, `/api/advies` (contact en adviesgesprek), `/api/spoed`, `/api/chat`, `/api/rapport`, `/api/scan`, `/api/terugbel`, `/api/checklist`, `/api/magnet` (exit-intent), `/api/risicoscan`, `/api/tijdlijn`. Zonder SMTP antwoordt een echte inzending met `delivered: false` en maakt de pagina een mailto-link naar `info@matchvermogen.nl`.
+Endpoints, allemaal JSON naar de eigen server: `POST /api/offerte`, `/api/advies` (contact en adviesgesprek), `/api/spoed`, `/api/chat` (terugbelverzoek uit de chat), `/api/rapport`, `/api/scan`, `/api/terugbel`, `/api/checklist`, `/api/magnet` (exit-intent), `/api/risicoscan`, `/api/tijdlijn`. Zonder SMTP antwoordt een echte inzending met `delivered: false` en maakt de pagina een mailto-link naar `info@matchvermogen.nl`.
+
+`POST /api/chat/message` is de AI-chat. De browser stuurt de geschiedenis en een sessie-id. De server houdt 20 berichten per sessie, 60 per IP per uur en 1500 per dag bij, in het geheugen van dit proces. Een e-mailadres of 06-nummer in het gesprek gaat één keer per sessie mee als mail met onderwerp `Nieuwe chatlead arbopartnerbrabant.nl`, via dezelfde SMTP-weg als de formulieren. Ontbreekt de sleutel, of antwoordt de provider niet, dan krijgt de pagina `fallback: true` en gebruikt ze de gescripte antwoorden. Het bestaande formulier in de chat blijft `POST /api/chat`.
 
 ## Railway
 

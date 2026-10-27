@@ -48,9 +48,10 @@ import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
   </div>
   <div class="ap-log" data-log aria-live="polite"></div>
   <div class="ap-chips" data-chips>
+    <button type="button">Acuut verzuimprobleem?</button>
     <button type="button">Wat kost een casemanager?</button>
+    <button type="button">Loonsanctie voorkomen</button>
     <button type="button">Zijn jullie een arbodienst?</button>
-    <button type="button">Waar werken jullie?</button>
     <button type="button" data-calendly={calendlyKennismaking.id} data-calendly-url={calendlyKennismaking.url} data-cta="chat-calendly">{calendlyKennismaking.label}</button>
     <button type="button" data-lead="1">Ik wil teruggebeld worden</button>
   </div>
@@ -65,6 +66,7 @@ import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
     <label>Telefoon<input name="telefoon" type="tel" required autocomplete="tel" /></label>
     <label>Aantal medewerkers<input name="medewerkers" type="number" min="35" max="500" required inputmode="numeric" /></label>
     <label>Vraag<textarea name="vraag" required maxlength="1000"></textarea></label>
+    <input type="hidden" name="bron" value="chat" />
     <label class="flex items-start gap-2 text-sm"><input type="checkbox" name="toestemming" value="ja" required /> <span>U mag contact opnemen. <a href="/privacy">Privacy</a></span></label>
     <div class="absolute -left-[9999px]" aria-hidden="true"><label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label></div>
     <button class="btn" type="submit">Verstuur</button>

@@ -85,6 +85,36 @@ function dropped() {
   return { status: 200, payload: { ok: true, delivered: true } };
 }
 
+/** Zelfde SMTP-weg als de formulieren. Zonder host of ontvanger wordt er niets verstuurd. */
+export async function sendPlainMail(mail, options = {}) {
+  const to = mail.to || process.env.FORM_TO_EMAIL;
+  const message = {
+    from: mail.from || process.env.SMTP_FROM || to,
+    to,
+    replyTo: mail.replyTo,
+    subject: mail.subject,
+    text: mail.text,
+  };
+  if (typeof options.sendMail === "function") {
+    await options.sendMail(message);
+    return { delivered: true };
+  }
+  const host = process.env.SMTP_HOST;
+  if (!to || !host) return { delivered: false, reason: "smtp-niet-geconfigureerd" };
+  const nodemailer = await import("nodemailer");
+  const port = Number(process.env.SMTP_PORT || 587);
+  const transport = nodemailer.default.createTransport({
+    host,
+    port,
+    secure: process.env.SMTP_SECURE === "true" || port === 465,
+    auth: process.env.SMTP_USER
+      ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS || "" }
+      : undefined,
+  });
+  await transport.sendMail(message);
+  return { delivered: true };
+}
+
 export async function processSubmission(kind, body, ip, now = Date.now(), options = {}) {
   if (spamSignal(body, now)) return dropped();
   const errors = validate(kind, body);
@@ -103,33 +133,16 @@ export async function processSubmission(kind, body, ip, now = Date.now(), option
   }
 
   try {
-    let transport;
-    async function deliver(mail) {
-      if (typeof options.sendMail === "function") {
-        await options.sendMail(mail);
-        return;
-      }
-      if (!transport) {
-        const nodemailer = await import("nodemailer");
-        const port = Number(process.env.SMTP_PORT || 587);
-        transport = nodemailer.default.createTransport({
-          host,
-          port,
-          secure: process.env.SMTP_SECURE === "true" || port === 465,
-          auth: process.env.SMTP_USER
-            ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS || "" }
-            : undefined,
-        });
-      }
-      await transport.sendMail(mail);
-    }
-    await deliver({
+    const sent = await sendPlainMail({
       from: process.env.SMTP_FROM || to,
       to,
       replyTo,
       subject,
       text,
-    });
+    }, options);
+    if (!sent.delivered) {
+      return { status: 200, payload: { ok: true, delivered: false, reason: sent.reason || "smtp-niet-geconfigureerd" } };
+    }
     const copyByKind = {
       rapport: {
         subject: "Uw berekening",
@@ -155,13 +168,13 @@ export async function processSubmission(kind, body, ip, now = Date.now(), option
       const intro = copy.intro;
       const content = textBlock(body.checklist || body.rapport, 8000);
       try {
-        await deliver({
+        await sendPlainMail({
           from: process.env.SMTP_FROM || to,
           to: oneLine(body.email),
           replyTo: to,
           subject: `[Arbopartner Brabant] ${subject}`,
           text: `${intro}\n\n${content}\n\nArbopartner Brabant, een label van Matchvermogen B.V.\nLosplaats 16d, 5404 NJ Uden\n085-0870307\ninfo@matchvermogen.nl\n`,
-        });
+        }, options);
       } catch {
         /* De interne mail is al weg. Een mislukte kopie naar de bezoeker blokkeert dat niet. */
       }
@@ -189,6 +202,12 @@ export async function handleApi(req, res) {
   const host = req.headers.host || "localhost";
   const url = new URL(req.url || "/", `http://${host}`);
   if (!url.pathname.startsWith("/api/")) return false;
+
+  if (url.pathname === "/api/chat/message") {
+    const { handleChatMessage } = await import("./chat-ai.mjs");
+    await handleChatMessage(req, res);
+    return true;
+  }
 
   if (url.pathname === "/api/form-token") {
     if (req.method !== "GET") {
