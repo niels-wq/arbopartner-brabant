@@ -1,5 +1,3 @@
-import { site } from "./site";
-
 export type StadDossier = {
   slug: string;
   seoTitle: string;
@@ -154,7 +152,7 @@ export const focusSteden: StadDossier[] = [
     linkLabel: "Casemanager Den Bosch",
     regio: "noordoost-brabant",
     dienstenTekst:
-      `In Den Bosch is de casemanager vaak de persoon naast een kleine HR-afdeling of een ambtelijke organisatie. Verzuimbeleid schrijven we als het protocol ontbreekt. Een arbeidsdeskundig onderzoek loopt via Matchvermogen, met ${site.discount.arbeidsdeskundige}% korting op dat onderzoek voor klanten van Arbopartner Brabant.`,
+      "In Den Bosch is de casemanager vaak de persoon naast een kleine HR-afdeling of een ambtelijke organisatie. Verzuimbeleid schrijven we als het protocol ontbreekt. Een arbeidsdeskundig onderzoek loopt via Matchvermogen, met 8% korting op dat onderzoek voor klanten van Arbopartner Brabant.",
     sections: [
       {
         heading: "Provinciehoofdstad, niet alleen de binnenstad",
