@@ -1,13 +1,25 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { publicError } from "./public-error.mjs";
 
 /**
  * Kennisbank alleen uit deze site: diensten, spoedhulp, de twee praktijkvoorbeelden
  * en de tarieven die de pagina's letterlijk publiceren. Geen externe content.
  */
 
-const ROOT = process.cwd();
 const USP = "Ontbreekt een verzuimsysteem, dan leveren we er een en borgen daarin de informatie en de trajecten.";
+
+function sourceRoot() {
+  const override = String(process.env.CHAT_SOURCE_ROOT || "").trim();
+  return override || process.cwd();
+}
+
+function snapshotFile() {
+  const override = String(process.env.CHAT_KNOWLEDGE_FILE || "").trim();
+  if (override) return override;
+  return path.join(path.dirname(fileURLToPath(import.meta.url)), "chat-knowledge.json");
+}
 
 const SYSTEM_PROMPT = `Je bent de verzuimpartner in de chat van Arbopartner Brabant (arbopartnerbrabant.nl), een label van Matchvermogen B.V. Je bent een AI-assistent. Zeg dat eerlijk als iemand ernaar vraagt. Je bent geen generieke bot van een arbeidsdeskundigenbureau en je bent geen arbodienst.
 
@@ -49,7 +61,7 @@ Regels:
 - Alleen links naar paden op arbopartnerbrabant.nl en de WhatsApp-link hierboven.`;
 
 function read(rel) {
-  return readFileSync(path.join(ROOT, rel), "utf8");
+  return readFileSync(path.join(sourceRoot(), rel), "utf8");
 }
 
 function clip(text, max) {
@@ -147,10 +159,41 @@ export function buildKnowledge() {
 }
 
 let cached = null;
+let loggedSnapshot = false;
+
+export function resetKnowledgeCache() {
+  cached = null;
+  loggedSnapshot = false;
+}
+
+function readSnapshot() {
+  const raw = readFileSync(snapshotFile(), "utf8");
+  const parsed = JSON.parse(raw);
+  const text = typeof parsed === "string" ? parsed : parsed?.text;
+  if (typeof text !== "string" || !text.trim()) throw new Error("kennisbank-snapshot is leeg");
+  return text;
+}
 
 export function knowledgeBase() {
-  if (cached === null) cached = buildKnowledge();
-  return cached;
+  if (cached !== null) return cached;
+  try {
+    cached = buildKnowledge();
+    return cached;
+  } catch (error) {
+    try {
+      cached = readSnapshot();
+    } catch (snapshotError) {
+      const reason = snapshotError instanceof Error ? snapshotError.message : String(snapshotError);
+      const wrapped = error instanceof Error ? error : new Error(String(error));
+      wrapped.message = `${wrapped.message}; snapshot: ${reason}`;
+      throw wrapped;
+    }
+    if (!loggedSnapshot) {
+      loggedSnapshot = true;
+      console.error("[chat] kennisbank uit snapshot:", publicError(error));
+    }
+    return cached;
+  }
 }
 
 export function systemMessage({ pageTitle = "", pagePath = "" } = {}) {

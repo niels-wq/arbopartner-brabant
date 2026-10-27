@@ -52,6 +52,8 @@ Endpoints, allemaal JSON naar de eigen server: `POST /api/offerte`, `/api/advies
 
 `POST /api/chat/message` is de AI-chat. De browser stuurt de geschiedenis en een sessie-id. De server houdt 20 berichten per sessie, 60 per IP per uur en 1500 per dag bij, in het geheugen van dit proces. Een e-mailadres of 06-nummer in het gesprek gaat één keer per sessie mee als mail met onderwerp `Nieuwe chatlead arbopartnerbrabant.nl`, via dezelfde SMTP-weg als de formulieren. Ontbreekt de sleutel, of antwoordt de provider niet, dan krijgt de pagina `fallback: true` en gebruikt ze de gescripte antwoorden. Het bestaande formulier in de chat blijft `POST /api/chat`.
 
+`npm run build` schrijft `server/chat-knowledge.json` uit de bronpagina's. De productie-image heeft die snapshot en geen `src/`. Lukt het opbouwen van de kennisbank niet, dan logt de server één korte regel zonder geheimen en antwoordt het verzoek met `fallback: true`.
+
 ## Railway
 
 De repository bevat een `Dockerfile` en `railway.toml`. Railway bouwt de image, draait `node server/index.mjs` en injecteert `PORT`.

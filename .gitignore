@@ -8,3 +8,4 @@ dist/
 agent-tools/
 uploads/
 *.log
+server/chat-knowledge.json

@@ -14,5 +14,6 @@ COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
 COPY --from=build /app/dist ./dist
 COPY server ./server
+COPY --from=build /app/server/chat-knowledge.json ./server/chat-knowledge.json
 EXPOSE 4327
 CMD ["node", "server/index.mjs"]

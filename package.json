@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev --host 0.0.0.0 --port 4327",
-    "build": "astro build",
+    "build": "node server/write-chat-knowledge.mjs && astro build",
     "start": "node server/index.mjs",
     "preview": "node server/index.mjs",
     "test": "node --experimental-strip-types --test test/**/*.test.ts"

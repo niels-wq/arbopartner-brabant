@@ -1,6 +1,7 @@
 import { createHash, randomBytes } from "node:crypto";
 import { readJson, sendPlainMail } from "./forms.mjs";
 import { systemMessage } from "./chat-prompt.mjs";
+import { publicError } from "./public-error.mjs";
 
 export const FALLBACK_TEXT = "Bel 085-0870307 of laat je gegevens achter.";
 export const LEAD_SUBJECT = "Nieuwe chatlead arbopartnerbrabant.nl";
@@ -296,13 +297,18 @@ export async function handleChatMessage(req, res, options = {}) {
     write(res, 400, { reply: FALLBACK_TEXT, fallback: true });
     return;
   }
-  const result = await processChat({
-    origin: typeof req.headers.origin === "string" ? req.headers.origin : "",
-    host: req.headers.host || "",
-    ip: clientIp(req),
-    session: body.session,
-    messages: body.messages,
-    page: body.page,
-  }, options);
-  write(res, result.status, result.payload);
+  try {
+    const result = await processChat({
+      origin: typeof req.headers.origin === "string" ? req.headers.origin : "",
+      host: req.headers.host || "",
+      ip: clientIp(req),
+      session: body.session,
+      messages: body.messages,
+      page: body.page,
+    }, options);
+    write(res, result.status, result.payload);
+  } catch (error) {
+    console.error("[chat] verzoek mislukt:", publicError(error));
+    if (!res.headersSent) write(res, 200, { reply: FALLBACK_TEXT, fallback: true });
+  }
 }

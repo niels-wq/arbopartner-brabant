@@ -2,6 +2,7 @@ import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { handleChatMessage } from "./chat-ai.mjs";
+import { publicError } from "./public-error.mjs";
 import { handleApi } from "./forms.mjs";
 import { applySecurityHeaders } from "./headers.mjs";
 import { wwwRedirectLocation } from "./redirect.mjs";
@@ -111,7 +112,8 @@ const server = createServer(async (req, res) => {
       "cache-control": cache,
     });
     res.end(body);
-  } catch {
+  } catch (error) {
+    console.error("[server]", publicError(error));
     if (res.headersSent) return;
     res.writeHead(500, { "content-type": "text/plain; charset=utf-8" });
     res.end("Er ging iets mis.");
