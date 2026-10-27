@@ -50,7 +50,7 @@ export function organizationLd(areaName?: string) {
       "@id": `${site.domain}/#logo`,
       url: absoluteUrl("/logo.png"),
       contentUrl: absoluteUrl("/logo.svg"),
-      width: 892,
+      width: 1052,
       height: 256,
       caption: `${site.name}, van Matchvermogen`,
     },

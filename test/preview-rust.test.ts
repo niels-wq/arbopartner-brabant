@@ -107,24 +107,37 @@ test("koffiefoto blijft klein en contact toont één portret", () => {
   assert.ok(existsSync("public/mensen/niels-koffie-400.avif"));
 });
 
-test("logo is een woordmerk zonder het oude beeld", () => {
+test("logo is het gekozen beeldmerk, zonder lettertype", () => {
   const svg = readFileSync("public/logo.svg", "utf8");
   const light = readFileSync("public/logo-light.svg", "utf8");
   const fav = readFileSync("public/favicon.svg", "utf8");
   for (const file of [svg, light]) {
     assert.match(file, /Arbopartner Brabant/);
-    assert.match(file, /viewBox="0 0 [\d.]+ 64"/);
+    assert.match(file, /viewBox="0 0 263 64"/);
+    assert.equal(file.includes("<text"), false);
+    assert.equal(/font-family/i.test(file), false);
     assert.equal(file.includes("M15 33c1-14"), false);
     assert.equal(file.includes("1490"), false);
+    assert.match(file, /M32 3L61 32L32 61L3 32Z/);
     const paths = [...file.matchAll(/d="([^"]+)"/g)].map((match) => match[1]);
     assert.ok(new Set(paths).size >= 8, "woordmerk moet verschillende letters bevatten");
   }
+  assert.match(svg, /#14261C/);
+  assert.match(light, /#F4F1E8/);
   assert.match(fav, /Arbopartner Brabant/);
+  assert.match(fav, /viewBox="0 0 32 32"/);
+  assert.match(fav, /stroke-width="3\.2"/);
+  assert.match(fav, /M16 1\.2L30\.8 16L16 30\.8L1\.2 16Z/);
+  assert.equal(fav.includes("<text"), false);
+  assert.equal(fav.includes("M11 7.5"), false);
   assert.equal(fav.includes("M32 15"), false);
   assert.equal(fav.includes("M15 33c1-14"), false);
-  assert.match(readFileSync("src/components/Header.astro", "utf8"), /logo-light\.png\?v=20261016b/);
-  assert.match(readFileSync("public/favicon.svg", "utf8"), /M11 7\.5 V20/);
-  assert.match(readFileSync("src/components/Footer.astro", "utf8"), /width="223" height="64"/);
+  assert.match(readFileSync("src/components/Header.astro", "utf8"), /logo-light\.png\?v=20261027/);
+  assert.match(readFileSync("src/components/Footer.astro", "utf8"), /width="263" height="64"/);
+  assert.match(readFileSync("src/lib/schema.ts", "utf8"), /width: 1052/);
+  const ico = readFileSync("public/favicon.ico");
+  assert.equal(ico.readUInt16LE(2), 1);
+  assert.equal(ico.readUInt16LE(4), 3);
   for (const file of [
     "public/logo.png",
     "public/logo-light.png",

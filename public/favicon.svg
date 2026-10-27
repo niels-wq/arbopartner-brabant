@@ -1,9 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" role="img">
-  <title>Arbopartner Brabant</title>
-  <rect width="32" height="32" rx="7" fill="#12382C"/>
-  <g fill="none" stroke-linecap="round">
-    <path d="M11 7.5 V20" stroke="#F4F1E8" stroke-width="2.8"/>
-    <path d="M21 11 V20" stroke="#F4F1E8" stroke-width="2.8"/>
-    <path d="M7 23.5 H25" stroke="#D8A03D" stroke-width="2.8"/>
-  </g>
+<title>Arbopartner Brabant</title>
+<path d="M16 1.2L30.8 16L16 30.8L1.2 16Z" fill="#12382C"/>
+<path d="M7.2 21.6L12.4 15L15.8 18.6L23.6 9.4" fill="none" stroke="#F4F1E8" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="23.6" cy="9.4" r="2.7" fill="#D8A03D"/>
+<path d="M8.2 24.4H22.6" fill="none" stroke="#D8A03D" stroke-width="2.8" stroke-linecap="round"/>
 </svg>
