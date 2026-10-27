@@ -2,11 +2,12 @@
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ClusterNav from "../../components/ClusterNav.astro";
+import BrabantPhoto from "../../components/BrabantPhoto.astro";
 import Photo from "../../components/Photo.astro";
 import BrabantMap from "../../components/BrabantMap.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import InlineLead from "../../components/InlineLead.astro";
-import { werkFotoVoorPlaats } from "../../data/fotos";
+import { fotoVoorPlaats } from "../../data/brabant-fotos";
 import { gemeenten } from "../../data/gemeenten";
 import { places } from "../../data/places";
 import { regios } from "../../data/regios";
@@ -45,7 +46,7 @@ const crumbs = [
       return (
         <li>
           <a class="block h-full overflow-hidden rounded-[2rem] border border-line bg-white/80" href={`/werkgebied/${place.slug}`}>
-            <Photo id={werkFotoVoorPlaats(place.slug)} caption={false} plain sizes="(min-width: 1024px) 22rem, 100vw" />
+            {fotoVoorPlaats(place.slug) && <BrabantPhoto id={fotoVoorPlaats(place.slug)!} caption={false} plain sizes="(min-width: 1024px) 22rem, 100vw" />}
             <div class="p-5">
               <h2 class="font-serif text-2xl text-green-950">{place.name}</h2>
               <p class="text-sm text-ochre-800">{place.buitenBrabant ? "Rand, Gelderland" : place.municipality} · ongeveer {place.minutes} minuten</p>

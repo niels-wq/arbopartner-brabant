@@ -64,7 +64,7 @@ Blijft iemand onder de drempel duiken en toch de planning ontregelen, en levert 
 
 Frequent verzuim daalt zelden door een brief van HR. Het daalt als de leidinggevende het gesprek durft te voeren en daarna het werk aanpast. Veel leidinggevenden stellen het uit omdat ze aardig gevonden willen worden, of omdat ze bang zijn voor een beschuldiging van discriminatie. Een protocol met een vaste drempel haalt die willekeur eruit. Iedereen met vier meldingen krijgt hetzelfde gesprek, in dezelfde vorm.
 
-Een casemanager kan die gesprekken de eerste keren voorbereiden of bijwonen, vooral als de leidinggevende en de medewerker al gespannen tegenover elkaar staan. Daarna moet de leidinggevende het zelf kunnen. Wij zijn geen permanente buffer voor elk kort telefoontje, tenzij u daar bewust uren voor inkoopt. Tien uur per week is eerder voor de patronen en de lange dossiers dan voor elke maandagochtendmelding.
+Een casemanager kan die gesprekken de eerste keren voorbereiden of bijwonen, vooral als de leidinggevende en de medewerker al gespannen tegenover elkaar staan. Daarna moet de leidinggevende het zelf kunnen. We zitten niet bij elk kort telefoontje, tenzij u daar bewust uren voor inkoopt. Tien uur per week is eerder voor de patronen en de lange dossiers dan voor elke maandagochtendmelding.
 
 ## Meten zonder afrekenen
 

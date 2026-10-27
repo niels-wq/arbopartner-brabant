@@ -6,7 +6,7 @@ import { audienceLd, type FaqItem } from "./schema";
 const shared: FaqItem[] = [
   {
     q: "Wat is Arbopartner Brabant?",
-    a: `Arbopartner Brabant is een label van Matchvermogen B.V. Het detacheert een vaste casemanager ${site.audience} in Noord-Brabant. Nuchter, dichtbij, Brabants. Het kantoor staat in Uden. Het label is geen arbodienst. Kleinere organisaties verwijzen we naar Matchvermogen. Meer dan ${site.maxEmployees} medewerkers valt buiten dit label.`,
+    a: `Arbopartner Brabant hoort bij Matchvermogen B.V. en detacheert een vaste casemanager ${site.audience} in Noord-Brabant. Nuchter, dichtbij, Brabants. Het kantoor staat in Uden. De arbodienst en de bedrijfsarts blijven bij u. Kleinere organisaties verwijzen we naar Matchvermogen. Meer dan ${site.maxEmployees} medewerkers valt buiten Arbopartner Brabant.`,
   },
   {
     q: "Hoe neemt u contact op?",
@@ -84,7 +84,7 @@ const byPath: Record<string, FaqItem[]> = {
   "/reviews": [
     {
       q: "Van wie zijn de reviews?",
-      a: "Van Matchvermogen, het moederbedrijf. Ze staan letterlijk op matchvermogen.nl en gaan niet over dit nieuwe label.",
+      a: "Van Matchvermogen, het moederbedrijf. Ze staan letterlijk op matchvermogen.nl en gaan niet over Arbopartner Brabant.",
     },
     shared[0],
   ],

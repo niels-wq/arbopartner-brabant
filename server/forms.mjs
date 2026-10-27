@@ -173,7 +173,7 @@ export async function processSubmission(kind, body, ip, now = Date.now(), option
           to: oneLine(body.email),
           replyTo: to,
           subject: `[Arbopartner Brabant] ${subject}`,
-          text: `${intro}\n\n${content}\n\nArbopartner Brabant, een label van Matchvermogen B.V.\nLosplaats 16d, 5404 NJ Uden\n085-0870307\ninfo@matchvermogen.nl\n`,
+          text: `${intro}\n\n${content}\n\nArbopartner Brabant, van Matchvermogen B.V.\nLosplaats 16d, 5404 NJ Uden\n085-0870307\ninfo@matchvermogen.nl\n`,
         }, options);
       } catch {
         /* De interne mail is al weg. Een mislukte kopie naar de bezoeker blokkeert dat niet. */

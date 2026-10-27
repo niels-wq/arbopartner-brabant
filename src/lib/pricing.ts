@@ -76,7 +76,7 @@ export const riskReversal =
   "Vrijblijvend kennismaken: een adviesgesprek van 30 minuten. U hoeft niets af te nemen. De wijzigingstermijn van de uren staat in de offerte.";
 
 export const centerStage =
-  "Premium staat in het midden omdat we dat blok als eerste voorleggen als de omvang nog niet vaststaat. We noemen het niet het meest gekozen pakket: dit label heeft nog geen eigen klanten, dus dat cijfer bestaat niet.";
+  "Premium staat in het midden omdat we dat blok als eerste voorleggen als de omvang nog niet vaststaat. We noemen het niet het meest gekozen pakket. Dat cijfer hebben we niet, omdat Arbopartner Brabant nog geen eigen opdrachten heeft om het op te baseren.";
 
 export function savingLine(level: LevelId, block: Block): string | null {
   if (block === 10) return null;

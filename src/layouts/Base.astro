@@ -20,7 +20,7 @@ interface Props {
 
 const { title, description, jsonLd = [], home = false, image, imageAlt } = Astro.props;
 const ogImage = image ?? absoluteUrl("/og.png?v=20261016b");
-const ogAlt = imageAlt ?? "Arbopartner Brabant, een label van Matchvermogen";
+const ogAlt = imageAlt ?? "Arbopartner Brabant, van Matchvermogen";
 const canonical = new URL(Astro.url.pathname, Astro.site).toString().replace(/\/$/, "") || site.domain;
 const fullTitle = home ? `${title}` : `${title} | ${site.name}`;
 const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";

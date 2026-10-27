@@ -18,11 +18,11 @@ const crumbs = [
 const faq = [
   {
     q: "Zijn jullie een aparte bv?",
-    a: "Nee. Arbopartner Brabant is een label van Matchvermogen B.V., KvK 85849618, Losplaats 16d, 5404 NJ Uden.",
+    a: "Nee. Arbopartner Brabant is van Matchvermogen B.V., KvK 85849618, Losplaats 16d, 5404 NJ Uden.",
   },
   {
     q: "Werken jullie in heel Nederland?",
-    a: "De casemanager van dit label werkt in Noord-Brabant. Het kantoor staat in Uden. Arbeidsdeskundig onderzoek doet Matchvermogen landelijk.",
+    a: "De casemanager van Arbopartner Brabant werkt in Noord-Brabant. Het kantoor staat in Uden. Arbeidsdeskundig onderzoek doet Matchvermogen landelijk.",
   },
   zzpFaq,
 ];
@@ -30,11 +30,11 @@ const niels = team.find((person) => person.slug === "niels-alderding");
 const nielsReviews = reviewsAboutNiels().slice(0, 2);
 ---
 
-  <Base title="Over ons" description="Arbopartner Brabant is een label van Matchvermogen B.V. Casemanager en arbo in Noord-Brabant, met het kantoor in Uden." jsonLd={[crumbsLd(crumbs), faqLd(faq)]}>
+  <Base title="Over ons" description="Arbopartner Brabant is van Matchvermogen B.V. Casemanager en arbo in Noord-Brabant, met het kantoor in Uden." jsonLd={[crumbsLd(crumbs), faqLd(faq)]}>
   <Breadcrumbs crumbs={crumbs} />
   <article class="mx-auto max-w-3xl px-4 pt-6">
-    <h1 class="font-serif text-5xl text-green-950">Een label, geen loket</h1>
-    <p class="mt-4 text-lg">{site.name} is een label van {site.parent.legalName}, KvK {site.parent.kvk}, {site.parent.street}, {site.parent.postalCode} {site.parent.city}. Het moederbedrijf werkt als register-arbeidsdeskundig bureau. Dit label doet iets anders: een vaste casemanager op locatie, nuchter en dichtbij, {site.audience} in Noord-Brabant. Het kantoor in Uden is de thuisbasis. Reistijd binnen ongeveer {site.travelMinutes} minuten van dat kantoor zit in het tarief.</p>
+    <h1 class="font-serif text-5xl text-green-950">Een vast gezicht, geen loket</h1>
+    <p class="mt-4 text-lg">{site.name} is van {site.parent.legalName}, KvK {site.parent.kvk}, {site.parent.street}, {site.parent.postalCode} {site.parent.city}. Het moederbedrijf werkt als register-arbeidsdeskundig bureau. Arbopartner Brabant doet iets anders: een vaste casemanager op locatie, nuchter en dichtbij, {site.audience} in Noord-Brabant. Het kantoor in Uden is de thuisbasis. Reistijd binnen ongeveer {site.travelMinutes} minuten van dat kantoor zit in het tarief.</p>
     <Actie cta="over-ons-advies" />
     <Figure id="pagina-over-ons" class="mt-6" />
     <figure class="mt-8 flex items-start gap-4">
@@ -43,22 +43,22 @@ const nielsReviews = reviewsAboutNiels().slice(0, 2);
         <blockquote class="font-serif text-2xl leading-snug text-green-950">
           <p>{site.founder.quote}</p>
         </blockquote>
-        <p class="mt-3">{site.founder.name} is oprichter en directeur van Matchvermogen, en arbeidsdeskundige. De foto is die waarop hij een kop koffie vasthoudt, van <a class="underline" href={site.founder.photoSource}>matchvermogen.nl</a>. Het portret op de teampagina blijft de teamfoto. {niels?.bio}</p>
-        <p class="mt-3">De regel bij de foto staat ook op <a class="underline" href={site.founder.quoteUrl}>arbeidsdeskundig.com</a>. De overige portretten op deze site komen van de teampagina van matchvermogen.nl. Illustraties zijn eigen ontwerp. Er is geen rechtenvrije foto van het kantoor aan de Losplaats gevonden.</p>
+        <p class="mt-3">{site.founder.name} is oprichter en directeur van Matchvermogen, en arbeidsdeskundige. De foto komt van <a class="underline" href={site.founder.photoSource}>matchvermogen.nl</a>. Het portret op de teampagina is de teamfoto. {niels?.bio}</p>
+        <p class="mt-3">De zin bij de foto staat ook op <a class="underline" href={site.founder.quoteUrl}>arbeidsdeskundig.com</a>. De andere portretten komen van de teampagina van matchvermogen.nl. De illustraties zijn van ons.</p>
       </figcaption>
     </figure>
     <h2 class="mt-8 font-serif text-3xl">Vaste kern en zzp-casemanagers</h2>
     <p class="mt-3">{zzpFaq.a}</p>
     <h2 class="mt-8 font-serif text-3xl">Wat opdrachtgevers over hem schreven</h2>
-    <p class="mt-3 text-sm">Letterlijke citaten van matchvermogen.nl waarin Niels wordt genoemd. Ze gaan over Matchvermogen, niet over dit label.</p>
+    <p class="mt-3 text-sm">Letterlijke citaten van matchvermogen.nl waarin Niels wordt genoemd. Ze gaan over Matchvermogen, niet over Arbopartner Brabant.</p>
     <div class="mt-4 grid gap-4">
       {nielsReviews.map((review) => <ReviewCard review={review} />)}
     </div>
     <p class="mt-3"><a class="font-semibold underline" href="/reviews">Alle citaten, met bron en datum</a></p>
     <h2 class="mt-8 font-serif text-3xl">Waarom een eigen gezicht</h2>
     <p class="mt-3">Werkgevers die bellen, hebben meestal geen behoefte aan een portal. Ze willen iemand die morgen op de plant staat, de leidinggevende kent en het dossier bijhoudt. De arbeidsdeskundige blijft beschikbaar als het dossier vastloopt, met {site.discount.arbeidsdeskundige}% korting. Tweede spoor loopt via <a class="underline" href="https://bestmatchbv.nl">Best Match</a>, met {site.discount.tweedeSpoor}% korting. WHK-vragen horen bij <a class="underline" href="https://werkhervattingskas.nl">werkhervattingskas.nl</a>.</p>
-    <h2 class="mt-8 font-serif text-3xl">Wat we niet zijn</h2>
-    <p class="mt-3">Geen arbodienst. Geen bedrijfsarts. Geen advocatenkantoor. We begeleiden verzuim en re-integratie volgens de geldende wet, en we zeggen het als een ander specialisme nodig is.</p>
+    <h2 class="mt-8 font-serif text-3xl">Wat bij u blijft</h2>
+    <p class="mt-3">De arbodienst, de bedrijfsarts en de advocaat blijven bij u. We begeleiden verzuim en re-integratie volgens de geldende wet, en we zeggen het als een ander specialisme nodig is.</p>
     <p class="mt-6"><a class="font-semibold underline" href="/team">Het team, met foto en functie</a></p>
     <AuthorBlock />
   </article>

@@ -14,7 +14,7 @@ faq:
 sources:
   - title: "Matchvermogen"
     url: "https://matchvermogen.nl/"
-    note: "Register-arbeidsdeskundigen. Het moederbedrijf van dit label."
+    note: "Register-arbeidsdeskundigen. Het moederbedrijf van Arbopartner Brabant."
   - title: "UWV, toets van het re-integratieverslag"
     url: "https://www.uwv.nl/nl/ziek/re-integratie/beoordeling-re-integratieverslag"
     note: "Een onderbouwde zoektocht naar passend werk hoort bij voldoende inspanningen."
@@ -32,7 +32,7 @@ related:
 
 Een arbeidsdeskundige schakelt u in als de vraag niet meer is ‘hoe bellen we elke week’, maar ‘welk werk kan deze persoon nog doen, hier of ergens anders’. De bedrijfsarts beschrijft de medische beperkingen. De arbeidsdeskundige vertaalt die naar functies, taken en een conclusie over passend werk. De casemanager begeleidt het proces eromheen. Drie rollen, drie verschillende brillen. Ze door elkaar halen, levert een dossier op dat vriendelijk oogt en bij een toets scheef staat.
 
-Arbopartner Brabant levert de casemanager. Het onderzoek loopt via Matchvermogen, ons moederbedrijf. Klanten van het label krijgen 8 procent korting. De onderzoeker is niet de persoon die wekelijks op uw plant staat. Die scheiding is het punt.
+Arbopartner Brabant levert de casemanager. Het onderzoek loopt via Matchvermogen, ons moederbedrijf. Klanten van Arbopartner Brabant krijgen 8 procent korting. De onderzoeker is niet de persoon die wekelijks op uw plant staat. Die scheiding is het punt.
 
 ## Momenten waarop een onderzoek helpt
 
@@ -58,7 +58,7 @@ Een actuele functieomschrijving, het organigram of een lijst met functies in de 
 
 Het rapport adviseert. Het ontslaat u niet van de beslissing om werk aan te bieden of een traject te starten. Het is geen medische second opinion en geen advocaat. Het is wel een stuk dat u in het re-integratieverslag kunt leggen, mits u er iets mee doet. Een rapport in een la is geld uitgeven zonder de Wet verbetering poortwachter te dienen.
 
-Ervaringen van opdrachtgevers staan op de [referenties van Matchvermogen](/reviews). Die citaten gaan over dat bureau, letterlijk, met datum en naam. We plakken ze niet op dit label alsof Arbopartner al een stapel eigen reviews heeft. Dat zou onzin zijn. Het label is nieuw.
+Ervaringen van opdrachtgevers staan op de [referenties van Matchvermogen](/reviews). Die citaten gaan over dat bureau, letterlijk, met datum en naam. We zetten ze niet op Arbopartner Brabant alsof dit al een stapel eigen reviews is. Arbopartner Brabant is nieuw.
 
 ## Samen met de casemanager
 

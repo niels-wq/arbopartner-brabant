@@ -33,7 +33,7 @@ export const services: Service[] = [
       {
         heading: "Wat de casemanager doet",
         paragraphs: [
-          "De casemanager begeleidt zieke medewerkers van de eerste week tot terugkeer of een nette afronding. Hij of zij plant de gesprekken, houdt de termijnen bij, schrijft het plan van aanpak bij en stemt af met de leidinggevende. De bedrijfsarts blijft van u. Wij zijn geen arbodienst en geven geen medisch oordeel.",
+          "De casemanager begeleidt zieke medewerkers van de eerste week tot terugkeer of een nette afronding. Hij of zij plant de gesprekken, houdt de termijnen bij, schrijft het plan van aanpak bij en stemt af met de leidinggevende. De bedrijfsarts blijft van u. Een medisch oordeel geven wij niet.",
           "U kiest het niveau: medior, medior+ of senior met een specialisatie, bijvoorbeeld psychisch verzuim of een arbeidsrechtelijke component. Het niveau hangt af van uw dossiers, niet van een standaardpakket. De matchcalculator helpt daar een eerste richting in te kiezen.",
         ],
       },
@@ -41,20 +41,20 @@ export const services: Service[] = [
         heading: "Waarom detacheren in plaats van een loket",
         paragraphs: [
           "Een vast gezicht betekent dat een medewerker niet telkens opnieuw zijn verhaal doet. De casemanager weet welk werk er op de afdeling ligt en welke leidinggevende terughoudend is met aangepaste taken. Dat scheelt weken in een dossier dat anders blijft liggen.",
-          "Detacheren geeft u zekerheid die een dienstverband niet vanzelf heeft. Wordt de casemanager ziek of gaat die met vakantie, dan neemt een collega het dossier over. U werft niet, u bouwt geen transitievergoeding op, en u schaalt de uren mee met het aantal dossiers. De wijzigingstermijn staat in de offerte. We garanderen dat inhuren goedkoper is dan een fulltime kracht in dienst: u betaalt de afgenomen uren. De vergelijking onderbouwt dat met bronnen. Bij een bijna volle werkweek kan een dienstverband in euro's lager zijn. Dan zegt de tool dat, en blijven continuïteit en onafhankelijkheid staan.",
+          "Detacheren geeft u zekerheid die een dienstverband niet vanzelf heeft. Wordt de casemanager ziek of gaat die met vakantie, dan neemt een collega het dossier over. U werft niet, u bouwt geen transitievergoeding op, en u schaalt de uren mee met het aantal dossiers. De wijzigingstermijn staat in de offerte. U betaalt de afgenomen uren. De vergelijking onderbouwt dat met bronnen. Bij een bijna volle werkweek kan een dienstverband in euro's lager zijn. Dan zegt de tool dat, en blijven continuïteit en onafhankelijkheid staan.",
         ],
       },
       {
         heading: "Achtervang",
         paragraphs: [
-          `Loopt een dossier vast, dan staat een arbeidsdeskundige van Matchvermogen klaar. Klanten van dit label krijgen ${site.discount.arbeidsdeskundige}% korting op dat onderzoek. Tweede spoor loopt via Best Match, met ${site.discount.tweedeSpoor}% korting. U houdt één opdrachtgever, twee specialismen.`,
+          `Loopt een dossier vast, dan staat een arbeidsdeskundige van Matchvermogen klaar. Klanten van Arbopartner Brabant krijgen ${site.discount.arbeidsdeskundige}% korting op dat onderzoek. Tweede spoor loopt via Best Match, met ${site.discount.tweedeSpoor}% korting. U houdt één opdrachtgever, twee specialismen.`,
         ],
       },
     ],
     faq: [
       {
         q: "Vanaf hoeveel medewerkers kan ik detacheren?",
-        a: `We werken ${site.audience} in Noord-Brabant. Het kantoor staat in Uden. Kleinere organisaties verwijzen we naar een gerichte opdracht bij Matchvermogen. Meer dan ${site.maxEmployees} medewerkers valt buiten dit label.`,
+        a: `We werken ${site.audience} in Noord-Brabant. Het kantoor staat in Uden. Kleinere organisaties verwijzen we naar een gerichte opdracht bij Matchvermogen. Meer dan ${site.maxEmployees} medewerkers valt buiten Arbopartner Brabant.`,
       },
       {
         q: "Zit reistijd in het tarief?",
@@ -171,7 +171,7 @@ export const services: Service[] = [
       {
         heading: "Wat we wel en niet doen",
         paragraphs: [
-          "We zijn geen advocatenkantoor. We zorgen dat de tijdlijn klopt: ziekmelding, adviezen van de bedrijfsarts, plannen, evaluaties en de inzet op ander werk. Een jurist kan daarmee een vaststellingsovereenkomst of een ontslagroute onderbouwen zonder gaten.",
+          "De advocaat schakelt u zelf in. We zorgen dat de tijdlijn klopt: ziekmelding, adviezen van de bedrijfsarts, plannen, evaluaties en de inzet op ander werk. Een jurist kan daarmee een vaststellingsovereenkomst of een ontslagroute onderbouwen zonder gaten.",
           "Tijdens ziekte geldt een opzegverbod. Een vertrek regelen terwijl iemand ziek is, vraagt zorgvuldigheid. We werken alleen mee aan een route die de medewerker en uw jurist allebei begrijpen. Druk op een zieke medewerker om te tekenen, doen we niet.",
         ],
       },
@@ -212,7 +212,7 @@ export const services: Service[] = [
         heading: "Wie het doet",
         paragraphs: [
           "Het traject zelf voert Best Match uit, het zustermerk voor re-integratie. Arbopartner Brabant houdt de regie in het dossier en de afstemming met HR. U heeft één aanspreekpunt en een coach die het dagelijkse traject doet.",
-          `Klanten van dit label krijgen ${site.discount.tweedeSpoor}% korting op het tweede spoor bij Best Match. De prijs van het traject hangt af van duur en vorm. Een actueel overzicht van richtprijzen staat bij Matchvermogen. We plakken die bedragen hier niet over als ware het onze prijslijst.`,
+          `Klanten van Arbopartner Brabant krijgen ${site.discount.tweedeSpoor}% korting op het tweede spoor bij Best Match. De prijs van het traject hangt af van duur en vorm. Een actueel overzicht van richtprijzen staat bij Matchvermogen. Die bedragen zijn van Matchvermogen. We zetten ze hier niet neer als onze prijslijst.`,
         ],
       },
       {
@@ -400,7 +400,7 @@ export const services: Service[] = [
       },
       {
         q: "Wie is de opdrachtgever?",
-        a: "De werkgever. De coach blijft correct naar de medewerker. We zijn geen behandelaar.",
+        a: "De werkgever. De coach blijft correct naar de medewerker. Behandelen doen we niet.",
       },
     ],
     sister: {
@@ -420,7 +420,7 @@ export const services: Service[] = [
       {
         heading: "Wat de mediator doet",
         paragraphs: [
-          "Matchvermogen werkt met een arbeidsdeskundige mediator. Die scheidt het verzuim van het conflict en kan een vaststellingsovereenkomst bespreken. Wij zijn geen advocatenkantoor. De jurist of advocaat blijft van u. Druk op een zieke medewerker om te tekenen, doen we niet.",
+          "Matchvermogen werkt met een arbeidsdeskundige mediator. Die scheidt het verzuim van het conflict en kan een vaststellingsovereenkomst bespreken. De advocaat schakelt u zelf in. De jurist of advocaat blijft van u. Druk op een zieke medewerker om te tekenen, doen we niet.",
           "De casemanager houdt het dossier bij. De mediator is een andere rol. Zo blijft het gesprek over het conflict los van de termijnen.",
         ],
       },
@@ -470,7 +470,7 @@ export const services: Service[] = [
       },
       {
         q: "Waar regel ik bezwaar of de premie?",
-        a: "U spreekt de begeleiding hier af, op de pagina Bezwaar en beroep. Het bezwaar zelf loopt via Matchvermogen. Premie en de WGA-beschikking horen bij werkhervattingskas.nl. Wij zijn geen advocatenkantoor en beloven de uitkomst van UWV niet.",
+        a: "U spreekt de begeleiding hier af, op de pagina Bezwaar en beroep. Het bezwaar zelf loopt via Matchvermogen. Premie en de WGA-beschikking horen bij werkhervattingskas.nl. De advocaat schakelt u zelf in. De uitkomst van UWV beloven we niet.",
       },
     ],
     sister: {

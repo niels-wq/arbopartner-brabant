@@ -52,7 +52,7 @@ export function organizationLd(areaName?: string) {
       contentUrl: absoluteUrl("/logo.svg"),
       width: 892,
       height: 256,
-      caption: `${site.name}, een label van Matchvermogen`,
+      caption: `${site.name}, van Matchvermogen`,
     },
     founder: { "@id": `${site.domain}/#niels-alderding` },
     priceRange: "€€",
@@ -187,7 +187,7 @@ function personNode(member: TeamMember) {
     name: member.name,
     jobTitle: member.role,
     description: niels
-      ? `${member.bio} Hij is verantwoordelijk voor de kennisartikelen van het label Arbopartner Brabant. Algemene informatie voor werkgevers, geen advies over één dossier.`
+      ? `${member.bio} Hij is verantwoordelijk voor de kennisartikelen van Arbopartner Brabant. Algemene informatie voor werkgevers, geen advies over één dossier.`
       : `${member.name} staat op de teampagina van matchvermogen.nl als ${member.role}. Een langere bio publiceert die pagina niet.`,
     image: absoluteUrl(`/mensen/${member.slug}-${largest}.webp`),
     url: absoluteUrl(niels ? "/over-ons" : "/team"),

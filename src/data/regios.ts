@@ -96,7 +96,7 @@ export const regios: Regio[] = [
     card: "Breda, de grens en de haven van Moerdijk. UWV-vestiging Breda.",
     intro: [
       "West-Brabant is bij UWV de arbeidsmarktregio met vestiging Breda. De regio loopt van de Belgische grens en de Zeeuwse rand tot Altena, en van de haven van Moerdijk tot de binnenstad van Breda. REWIN is de ontwikkelingsmaatschappij die hier ondernemers, onderwijs en overheid bij elkaar brengt.",
-      "De economie hangt aan de weg en het water. De A16, de A58 en de A4 verbinden distributiecentra, de industrie rond Moerdijk en de steden. In Breda zit daar een laag kantoren, zorg, horeca en de hogeschool naast. In Roosendaal telt het spoor. In Bergen op Zoom zit industrie naast de binnenstad. Verzuim in een ploeg is ander werk dan verzuim op een hoofdkantoor. De casemanager stemt het plan daarop af. De bedrijfsarts blijft van u. Wij zijn geen arbodienst.",
+      "De economie hangt aan de weg en het water. De A16, de A58 en de A4 verbinden distributiecentra, de industrie rond Moerdijk en de steden. In Breda zit daar een laag kantoren, zorg, horeca en de hogeschool naast. In Roosendaal telt het spoor. In Bergen op Zoom zit industrie naast de binnenstad. Verzuim in een ploeg is ander werk dan verzuim op een hoofdkantoor. De casemanager stemt het plan daarop af. De bedrijfsarts en de arbodienst blijven bij u.",
     ],
     werken: [
       "We werken op locatie bij u en online. De thuisbasis blijft het kantoor aan de Losplaats 16d in Uden. West-Brabant ligt verder dan de ring van ongeveer 45 minuten waarin de reistijd in het tarief zit. De rit staat daarom in de offerte, op basis van het adres. We komen met een dagdeel, zodat de reis de begeleiding niet opsoupeert.",
@@ -225,7 +225,7 @@ export const regios: Regio[] = [
       },
       {
         q: "Is Nijmegen Noordoost-Brabant?",
-        a: "Nee. Nijmegen ligt in Gelderland en hoort bij de UWV-regio Rijk van Nijmegen. Voor dit label is het randgebied, geen onderdeel van Noordoost-Brabant.",
+        a: "Nee. Nijmegen ligt in Gelderland en hoort bij de UWV-regio Rijk van Nijmegen. Voor Arbopartner Brabant is het randgebied, geen onderdeel van Noordoost-Brabant.",
       },
     ],
   },

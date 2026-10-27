@@ -60,7 +60,7 @@ if (root && !root.dataset.ready) {
     },
     {
       test: /dienstverband|in dienst|goedkoper|inhuren/,
-      text: "We garanderen dat inhuren goedkoper is dan een casemanager in dienst nemen. U betaalt de uren die u afneemt. De vergelijking met bronnen staat op de pagina Casemanager inhuren of in dienst nemen en rekent eerlijk. Bij een bijna volle werkweek kan een dienstverband in euro's lager zijn. Dan blijven continuïteit, onafhankelijkheid en het ontbreken van werkgeversrisico staan.",
+      text: "U betaalt de uren die u afneemt. De vergelijking met bronnen staat op de pagina Casemanager inhuren of in dienst nemen en rekent eerlijk. Bij een bijna volle werkweek kan een dienstverband in euro's lager zijn. Dan blijven continuïteit, onafhankelijkheid en het ontbreken van werkgeversrisico staan.",
     },
     {
       test: /kost|tarief|prijs|uur|premium|basis/,
@@ -72,7 +72,7 @@ if (root && !root.dataset.ready) {
     },
     {
       test: /arbodienst|bedrijfsarts|arts/,
-      text: "Nee. Een arbodienst richt zich op verzuimbegeleiding, de bedrijfsarts en de stappen in de eerste twee ziektejaren. Wij vullen aan, met senior casemanagers, en gaan verder tot en met 12 jaar WGA en de Ziektewet. Het verschil staat op /arbodienst-of-arbopartner. De bedrijfsarts blijft u zelf organiseren.",
+      text: "Een arbodienst richt zich op verzuimbegeleiding, de bedrijfsarts en de stappen in de eerste twee ziektejaren. Wij vullen aan, met senior casemanagers, en gaan verder tot en met 12 jaar WGA en de Ziektewet. Het verschil staat op /arbodienst-of-arbopartner. De bedrijfsarts blijft u zelf organiseren.",
     },
     {
       test: /werkgebied|uden|brabant|reistijd|waar werken/,
@@ -154,7 +154,7 @@ if (root && !root.dataset.ready) {
     chat.hidden = false;
     launch.setAttribute("aria-expanded", "true");
     if (!log?.childElementCount) {
-      say("Hoi. Ik ben de verzuimpartner van Arbopartner Brabant, een label van Matchvermogen. Ik help werkgevers in Brabant met 35 tot 500 medewerkers. De dossiers die misgaan, veroorzaken loonsancties. Wat is jouw verzuimprobleem?", "bot");
+      say("Hoi. Ik ben de verzuimpartner van Arbopartner Brabant, van Matchvermogen. Ik help werkgevers in Brabant met 35 tot 500 medewerkers. De dossiers die misgaan, veroorzaken loonsancties. Wat is jouw verzuimprobleem?", "bot");
     }
     chat.querySelector<HTMLInputElement>("input[name=q]")?.focus();
     track("chat_open");

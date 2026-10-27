@@ -10,7 +10,7 @@ Dit zijn bestaande platforms en verenigingen. Het document vermeldt geen portals
 | --- | --- |
 | Handelsnaam | Arbopartner Brabant |
 | Juridische naam | Matchvermogen B.V. |
-| Label | Arbopartner Brabant is een label van Matchvermogen |
+| Label | Arbopartner Brabant is van Matchvermogen |
 | Straat | Losplaats 16d |
 | Postcode en plaats | 5404 NJ Uden |
 | Land | Nederland |
@@ -32,7 +32,7 @@ Vul de NAP letterlijk over. Controleer na een paar weken of de gids de naam, het
 - [ ] [Apple Business Connect](https://business.apple.com/) — dezelfde NAP. Apple stuurt businessconnect.apple.com hierheen.
 - [ ] [Bing voor bedrijven](https://www.bing.com/forbusiness/) — dezelfde NAP.
 - [ ] [OpenStreetMap](https://www.openstreetmap.org/) — de pin hoort op Losplaats 16d. Naam Arbopartner Brabant, website en het vaste nummer. Het kantoor staat er al als coördinaat op de site; controleer of de kaartnaam klopt.
-- [ ] [Kamer van Koophandel, Handelsregister](https://www.kvk.nl/) — Matchvermogen B.V., KvK 85849618. Controleer of de handelsnaam Arbopartner Brabant daar staat, met hetzelfde adres en 085-0870307. Geen tweede inschrijving voor het label.
+- [ ] [Kamer van Koophandel, Handelsregister](https://www.kvk.nl/) — Matchvermogen B.V., KvK 85849618. Controleer of de handelsnaam Arbopartner Brabant daar staat, met hetzelfde adres en 085-0870307. Geen tweede inschrijving voor Arbopartner Brabant.
 - [ ] [Ondernemersplein](https://ondernemersplein.overheid.nl/) — achtergrond bij inschrijven en wijzigen. De registratie zelf loopt via de KvK.
 - [ ] [Telefoonboek.nl](https://www.telefoonboek.nl/) — vermelding met het vaste nummer.
 - [ ] [De Telefoongids](https://www.detelefoongids.nl/) — dezelfde NAP.
@@ -53,7 +53,7 @@ Vul de NAP letterlijk over. Controleer na een paar weken of de gids de naam, het
 
 Lidmaatschap is een keuze. Als je een profiel aanmaakt, gebruik dan de NAP hierboven.
 
-- [ ] [OVAL](https://www.oval.nl/) — brancheorganisatie voor arbodienstverlening en re-integratie. Arbopartner Brabant is geen arbodienst. Kijk of een lidmaatschap van Matchvermogen B.V. past, en zet op het profiel niet een andere categorie dan je waarmaakt.
+- [ ] [OVAL](https://www.oval.nl/) — brancheorganisatie voor arbodienstverlening en re-integratie. Arbopartner Brabant doet het casemanagement naast de arbodienst. Kijk of een lidmaatschap van Matchvermogen B.V. past, en zet op het profiel de categorie die daarbij past.
 - [ ] [Nederlandse Vereniging van Arbeidsdeskundigen](https://www.arbeidsdeskundigen.nl/) — beroepsvereniging. Relevant voor het arbeidsdeskundige werk van Matchvermogen, niet als vervanging van de bedrijfsvermelding.
 
 ## Verenigingen en netwerken in Brabant

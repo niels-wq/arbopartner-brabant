@@ -48,7 +48,7 @@ Rond week 52 kijkt u terug en vooruit. Veel organisaties doen het gesprek wel en
 
 ## 4. Tweede spoor te laat
 
-Eerste spoor is terugkeer bij u, in de eigen of een andere functie. Tweede spoor is werk elders. U start het tweede niet pas als het eerste ‘helemaal is uitgesloten’ in de laatste maand. Zodra structurele terugkeer niet waarschijnlijk is, horen beide sporen naast elkaar. Te laat starten is precies de categorie ‘te laat opgepakt’ uit het UWV-overzicht. Best Match voert het traject uit voor klanten van dit label, met 10 procent korting. De casemanager bewaakt de datum.
+Eerste spoor is terugkeer bij u, in de eigen of een andere functie. Tweede spoor is werk elders. U start het tweede niet pas als het eerste ‘helemaal is uitgesloten’ in de laatste maand. Zodra structurele terugkeer niet waarschijnlijk is, horen beide sporen naast elkaar. Te laat starten is precies de categorie ‘te laat opgepakt’ uit het UWV-overzicht. Best Match voert het traject uit voor klanten van Arbopartner Brabant, met 10 procent korting. De casemanager bewaakt de datum.
 
 ## 5. De bedrijfsarts te laat of helemaal niet
 

@@ -22,7 +22,7 @@ export const arbodienstRows = [
   {
     onderwerp: "Expertise",
     arbodienst: "De medische beoordeling hoort bij de bedrijfsarts.",
-    wij: "Arbeidsdeskundige expertise in huis, en kennis van bezwaar en beroep via Matchvermogen. Wij zijn geen advocatenkantoor en geven geen medisch oordeel.",
+    wij: "Arbeidsdeskundige expertise in huis, en kennis van bezwaar en beroep via Matchvermogen. De advocaat schakelt u zelf in. Een medisch oordeel geven wij niet.",
   },
 ] as const;
 
@@ -90,7 +90,7 @@ export const arbodienstGevallen = [
 export const arbodienstFaq = [
   {
     q: "Zijn jullie een arbodienst?",
-    a: "Nee. Een arbodienst richt zich op verzuimbegeleiding, de bedrijfsarts en de verplichte stappen in de eerste twee ziektejaren. Wij vullen dat aan en gaan verder op de keten tot en met 12 jaar WGA en de Ziektewet. De bedrijfsarts blijft u zelf organiseren.",
+    a: "Een arbodienst richt zich op verzuimbegeleiding, de bedrijfsarts en de verplichte stappen in de eerste twee ziektejaren. Wij vullen dat aan en gaan verder op de keten tot en met 12 jaar WGA en de Ziektewet. De bedrijfsarts blijft u zelf organiseren.",
   },
   {
     q: "Werken jullie met beginnende casemanagers?",
@@ -102,7 +102,7 @@ export const arbodienstFaq = [
   },
   {
     q: "Doen jullie het bezwaar zelf?",
-    a: "Kennis van bezwaar en beroep zit in huis, via Matchvermogen. Het bezwaar zelf loopt via dat zustermerk. Wij zijn geen advocatenkantoor. De uitkomst beloven we niet.",
+    a: "Kennis van bezwaar en beroep zit in huis, via Matchvermogen. Het bezwaar zelf loopt via dat zustermerk. De advocaat schakelt u zelf in. De uitkomst beloven we niet.",
   },
   {
     q: "Voor wie is dit?",

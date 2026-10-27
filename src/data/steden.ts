@@ -30,7 +30,7 @@ export const focusSteden: StadDossier[] = [
       {
         heading: "Brainport: specialistisch werk, schaarse vervanging",
         paragraphs: [
-          "Eindhoven is de kern van Brainport. Die naam dekt het zuidoosten van Brabant: 21 gemeenten, met hightech, ontwerp en maakindustrie door elkaar. In de stad zelf staan de High Tech Campus en de Technische Universiteit Eindhoven. De keten van toelevering en kenniswerk loopt door naar Veldhoven, Best en Son en Breugel. We noemen geen bedrijven als klant. Het type functie is genoeg: een specialist is niet de volgende dag vervangen.",
+          "Eindhoven is de kern van Brainport. Die naam dekt het zuidoosten van Brabant: 21 gemeenten, met hightech, ontwerp en maakindustrie door elkaar. In de stad zelf staan de High Tech Campus en de Technische Universiteit Eindhoven. De keten van toelevering en kenniswerk loopt door naar Veldhoven, Best en Son en Breugel. Een specialist is niet de volgende dag vervangen.",
           "UWV beschrijft de arbeidsmarkt in Zuidoost-Brabant als zeer krap. We hangen daar geen eigen percentage aan. Verzuim in kenniswerk duurt vaak lang en is vaker psychisch dan een korte blessure. Op de maakbedrijven aan de rand van de stad zit die fysieke kant er juist wel. Aangepast werk in een cleanroom of aan een lijn is iets anders dan een ochtend lichte taken op een kantoor. De casemanager leest het functiehuis voordat er een plan komt. De bedrijfsarts blijft van u. Wij vertalen het advies naar taken die er echt zijn.",
         ],
       },
@@ -152,7 +152,7 @@ export const focusSteden: StadDossier[] = [
     linkLabel: "Casemanager Den Bosch",
     regio: "noordoost-brabant",
     dienstenTekst:
-      "In Den Bosch is de casemanager vaak de persoon naast een kleine HR-afdeling of een ambtelijke organisatie. Verzuimbeleid schrijven we als het protocol ontbreekt. Een arbeidsdeskundig onderzoek loopt via Matchvermogen, met korting voor klanten van dit label. Het percentage bevestigen we in de offerte.",
+      "In Den Bosch is de casemanager vaak de persoon naast een kleine HR-afdeling of een ambtelijke organisatie. Verzuimbeleid schrijven we als het protocol ontbreekt. Een arbeidsdeskundig onderzoek loopt via Matchvermogen, met korting voor klanten van Arbopartner Brabant. Het percentage bevestigen we in de offerte.",
     sections: [
       {
         heading: "Provinciehoofdstad, niet alleen de binnenstad",
@@ -165,7 +165,7 @@ export const focusSteden: StadDossier[] = [
         heading: "Een vaste dag, de rit zit in het tarief",
         paragraphs: [
           "Buiten de spits is Den Bosch ongeveer 25 minuten vanaf Uden. Die rit zit binnen de ongeveer 45 minuten en dus in het tarief. We plannen niet de enige afspraak van de dag om half zes in de avondspits. De casemanager heeft een vaste dag. HR hoeft niet elke week opnieuw uit te leggen hoe besluiten in de organisatie lopen. Dat geldt voor een familiebedrijf en voor een overheidsorganisatie binnen 35–500 medewerkers.",
-          "Gesprekken kunnen op het kantorenpark, in Rosmalen, online, of aan de Losplaats 16d in Uden. Wie naar het kantoor komt, blijft in beweging. Wie niet kan reizen, spreken we in Den Bosch of online. De bedrijfsarts organiseren u zelf. Wij zijn geen arbodienst en geven geen medisch oordeel.",
+          "Gesprekken kunnen op het kantorenpark, in Rosmalen, online, of aan de Losplaats 16d in Uden. Wie naar het kantoor komt, blijft in beweging. Wie niet kan reizen, spreken we in Den Bosch of online. De bedrijfsarts blijft van u. Een medisch oordeel geven wij niet.",
         ],
       },
       {

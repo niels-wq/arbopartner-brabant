@@ -5,7 +5,7 @@ export const analysisPromise =
   "Na een concrete verzuimanalyse laten we zien hoe uw verzuimpercentage kan dalen. Die belofte rust op uw cijfers. We garanderen geen vast percentage vooraf.";
 
 export const pricePromise =
-  "We garanderen dat inhuren goedkoper is dan een casemanager in dienst nemen. De vergelijking onderbouwt dat met loon, premies, verlof en de uren die u nodig heeft. Elke post blijft zichtbaar.";
+  "U betaalt de uren die u afneemt. De vergelijking onderbouwt dat met loon, premies, verlof en de uren die u nodig heeft. Elke post blijft zichtbaar.";
 
 export const priceFinePrint =
   "De calculator rekent eerlijk. Bij een bijna volle werkweek kan een dienstverband in euro's lager uitvallen. Dan toont de berekening dat, en blijven continuïteit en het ontbreken van werkgeversrisico staan.";

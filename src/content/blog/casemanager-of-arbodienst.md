@@ -10,7 +10,7 @@ faq:
   - q: "Moet ik mijn arbodienst opzeggen als ik een casemanager detacheer?"
     a: "Nee. De arbodienst blijft nodig voor de bedrijfsarts. De casemanager werkt met die arts samen."
   - q: "Doet Arbopartner Brabant ook arbodienstwerk?"
-    a: "Nee. We zijn geen arbodienst. Bedrijfsarts en basistaken uit de Arbowet blijven bij uw eigen contract."
+    a: "Nee. De bedrijfsarts en de arbodienst blijven bij u. Bedrijfsarts en basistaken uit de Arbowet blijven bij uw eigen contract."
 sources:
   - title: "Arbowet"
     url: "https://wetten.overheid.nl/BWBR0010346/"
@@ -32,13 +32,13 @@ related:
 
 De termen casemanager en arbodienst lopen in offertes door elkaar. Dat is begrijpelijk, want beide hebben met zieke medewerkers te maken. Het zijn verschillende rollen. Een arbodienst is de organisatie waarmee u de wettelijke deskundige bijstand regelt, in het bijzonder de bedrijfsarts. Een casemanager is de persoon die het dossier begeleidt: gesprekken, plannen, termijnen en de terugkeer naar werk. U heeft de arts nodig van rechtswege. De casemanager heeft u nodig zodra de regie te zwaar wordt voor HR of voor de leidinggevende.
 
-Arbopartner Brabant levert het tweede. We zijn geen arbodienst en we gaan die rol ook niet claimen. Wie een bedrijfsarts zoekt, houdt zijn huidige contract of sluit een nieuw contract met een partij die die taak wél heeft.
+Arbopartner Brabant levert het tweede. De bedrijfsarts blijft bij uw arbodienst. Die rol nemen we niet over. Wie een bedrijfsarts zoekt, houdt zijn huidige contract of sluit een nieuw contract met een partij die die taak wél heeft.
 
 ## Wat de arbodienst typisch doet
 
 De Arbowet verplicht u werknemers toegang te geven tot een bedrijfsarts. Die arts beoordeelt of iemand medisch gezien beperkt is in het werk, hoe lang dat ongeveer duurt, en welk werk nog kan. De arts deelt met u geen diagnose, wel een belastbaarheidsprofiel: uren, tillen, concentreren, samenwerken.
 
-Daarnaast bieden arbodiensten vaak een verzuimloket, preventief spreekuur, periodiek arbeidsgezondheidskundig onderzoek en soms een casemanager uit hun eigen pool. Die pool is precies het punt waarop werkgevers afhaken. De ene week spreekt u Sanne, de week erop Jamal, en geen van beiden is op de werkvloer in Veghel geweest. Voor een eenvoudige griep is dat genoeg. Voor een dossier van acht maanden met een ploegleider die het conflict ontwijkt, is het te dun.
+Daarnaast bieden arbodiensten vaak een verzuimloket, een preventief spreekuur, een periodiek arbeidsgezondheidskundig onderzoek en soms een casemanager uit hun eigen pool. Die persoon kan wisselen. Voor een korte ziekmelding is dat vaak genoeg. Voor een lang dossier wilt u één casemanager die de werkvloer en de leidinggevende kent.
 
 ## Wat de casemanager doet
 

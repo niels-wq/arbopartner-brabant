@@ -45,7 +45,7 @@ export const hrServices: Service[] = [
       },
       {
         q: "Voor welke organisaties is dit?",
-        a: "Voor organisaties met 35–500 medewerkers in Noord-Brabant. Het kantoor staat in Uden. Kleinere organisaties verwijzen we naar Matchvermogen. Meer dan 500 medewerkers valt buiten dit label.",
+        a: "Voor organisaties met 35–500 medewerkers in Noord-Brabant. Het kantoor staat in Uden. Kleinere organisaties verwijzen we naar Matchvermogen. Meer dan 500 medewerkers valt buiten Arbopartner Brabant.",
       },
     ],
   },
@@ -69,7 +69,7 @@ export const hrServices: Service[] = [
       {
         heading: "Wat we wel en niet beslissen",
         paragraphs: [
-          "We schrijven de keuzes in uw woorden, langs uw cao waar die verzuim raakt. Of de ondernemingsraad moet instemmen, toetst u met uw eigen adviseur. Wij vervangen die toets niet. De bedrijfsarts blijft van u. Wij zijn geen arbodienst.",
+          "We schrijven de keuzes in uw woorden, langs uw cao waar die verzuim raakt. Of de ondernemingsraad moet instemmen, toetst u met uw eigen adviseur. Wij vervangen die toets niet. De bedrijfsarts en de arbodienst blijven bij u.",
         ],
       },
     ],
@@ -142,13 +142,13 @@ export const hrServices: Service[] = [
     h1: "Advies en begeleiding bij een arbodienst-tender in Brabant",
     serviceType: "Selectie arbodienst",
     description:
-      "Advies en begeleiding bij een arbodienst-tender in Noord-Brabant: uitvraag, weging en keuze. Wij zijn zelf geen arbodienst en schrijven ons niet in. Voor organisaties met 35–500 medewerkers. Kantoor in Uden.",
+      "Advies en begeleiding bij een arbodienst-tender in Noord-Brabant: uitvraag, weging en keuze. U houdt uw arbodienst. Wij schrijven ons niet in. Voor organisaties met 35–500 medewerkers. Kantoor in Uden.",
     lead: "Advies en begeleiding bij de keuze van een arbodienst. U houdt de arbodienst. Wij schrijven ons niet in.",
     sections: [
       {
         heading: "Selectie, geen inschrijving",
         paragraphs: [
-          "We begeleiden de uitvraag en de vergelijking. We schrijven ons niet in en we worden geen arbodienst. De bedrijfsarts blijft van u. Valt uw organisatie onder de Aanbestedingswet, dan voert uw inkoper of jurist de procedure. Die rol nemen we niet over.",
+          "We begeleiden de uitvraag en de vergelijking. We schrijven ons niet in en de arbodienst blijft van u. De bedrijfsarts blijft van u. Valt uw organisatie onder de Aanbestedingswet, dan voert uw inkoper of jurist de procedure. Die rol nemen we niet over.",
         ],
       },
     ],
@@ -171,7 +171,7 @@ export const hrServices: Service[] = [
       },
       {
         q: "Hoe kies ik een arbodienst?",
-        a: "Zet op papier wat de arbodienst moet doen en wat u zelf houdt: de bedrijfsarts, bereikbaarheid, rapportage en termijnen. Vraag offertes uit en weeg ze naast elkaar. Wij begeleiden die uitvraag en de keuze. Wij zijn geen arbodienst en schrijven ons niet in. Valt u onder de Aanbestedingswet, dan voert uw inkoper of jurist de procedure.",
+        a: "Zet op papier wat de arbodienst moet doen en wat u zelf houdt: de bedrijfsarts, bereikbaarheid, rapportage en termijnen. Vraag offertes uit en weeg ze naast elkaar. Wij begeleiden die uitvraag en de keuze. U houdt uw arbodienst. Wij schrijven ons niet in. Valt u onder de Aanbestedingswet, dan voert uw inkoper of jurist de procedure.",
       },
     ],
   },
@@ -233,7 +233,7 @@ export const hrLayouts: Record<string, ServiceLayout> = {
       "Werkbestand dat u zelf kunt bijwerken",
     ],
     audience:
-      "Voor organisaties met 35–500 medewerkers in Noord-Brabant, met name waar functies uit elkaar lopen: productie, logistiek, zorg, techniek en kantoren door elkaar. Het kantoor staat in Uden. Een organisatie kleiner dan 35 medewerkers verwijzen we naar Matchvermogen. Meer dan 500 valt buiten dit label.",
+      "Voor organisaties met 35–500 medewerkers in Noord-Brabant, met name waar functies uit elkaar lopen: productie, logistiek, zorg, techniek en kantoren door elkaar. Het kantoor staat in Uden. Een organisatie kleiner dan 35 medewerkers verwijzen we naar Matchvermogen. Meer dan 500 valt buiten Arbopartner Brabant.",
     outcome: `Een functiehuis dat leidinggevenden gebruiken als iemand uitvalt, in plaats van een map die niemand opent. ${usp}`,
     more: [
       { href: "/diensten/verzuimbeleid-opstellen", label: "Verzuimbeleid opstellen" },
@@ -325,7 +325,7 @@ export const hrLayouts: Record<string, ServiceLayout> = {
       "Het contract met de arbodienst loopt af, of de begeleiding stelt teleur, en niemand in huis heeft een programma van eisen. Een overstap wordt dan een gevoel, geen vergelijking.",
     steps: [
       { title: "Wat u nu heeft", text: "Contract, bereikbaarheid, wat de arbodienst doet en wat u zelf doet. De pijnpunten in gewone taal." },
-      { title: "Eisen", text: "Verzuimbegeleiding, de bedrijfsarts, rapportage, termijnen en wat u per se zelf wilt houden. Wij zijn geen arbodienst en schrijven ons niet in." },
+      { title: "Eisen", text: "Verzuimbegeleiding, de bedrijfsarts, rapportage, termijnen en wat u per se zelf wilt houden. U houdt uw arbodienst. Wij schrijven ons niet in." },
       { title: "Uitvraag", text: "U vraagt offertes uit bij arbodiensten. Wij helpen de vragen en de weging, zodat de antwoorden naast elkaar kunnen." },
       { title: "Keuze", text: "Een beslisnotitie met aandachtspunten voor het gesprek en het contract. De jurist en de inkoper blijven van u." },
     ],
@@ -341,7 +341,7 @@ export const hrLayouts: Record<string, ServiceLayout> = {
     answers: [
       {
         q: "Hoe kies ik een arbodienst?",
-        a: "Zet op papier wat de arbodienst moet doen en wat u zelf houdt: de bedrijfsarts, bereikbaarheid, rapportage en termijnen. Vraag offertes uit en weeg ze naast elkaar. Wij geven advies en begeleiding bij die uitvraag en de keuze. Wij zijn geen arbodienst en schrijven ons niet in. Valt u onder de Aanbestedingswet, dan voert uw inkoper of jurist de procedure.",
+        a: "Zet op papier wat de arbodienst moet doen en wat u zelf houdt: de bedrijfsarts, bereikbaarheid, rapportage en termijnen. Vraag offertes uit en weeg ze naast elkaar. Wij geven advies en begeleiding bij die uitvraag en de keuze. U houdt uw arbodienst. Wij schrijven ons niet in. Valt u onder de Aanbestedingswet, dan voert uw inkoper of jurist de procedure.",
       },
     ],
     more: [

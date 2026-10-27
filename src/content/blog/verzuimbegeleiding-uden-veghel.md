@@ -32,7 +32,7 @@ related:
 
 Uden en Veghel liggen een kwartier uit elkaar en delen een soort economie: voedsel, logistiek, techniek en een schil van zorg en zakelijke diensten. Het verzuim lijkt op papier op het Nederlandse gemiddelde. Op de werkvloer is het anders. Een ploeg die om zes uur begint, mist een zieke operator meteen. Een kantoor boven de fabriek merkt dezelfde ziekmelding pas bij de koffie. Verzuimbegeleiding die alleen vanuit een landelijk loket belt, mist dat verschil.
 
-Arbopartner Brabant zit in Uden, aan de Losplaats, als label van Matchvermogen. Veghel is geen buitenpost. Het is de eerste ring. Daarom schrijven we reistijd niet apart als u binnen ongeveer 45 minuten van dat kantoor zit.
+Arbopartner Brabant zit in Uden, aan de Losplaats, en hoort bij Matchvermogen. Veghel is geen buitenpost. Het is de eerste ring. Daarom schrijven we reistijd niet apart als u binnen ongeveer 45 minuten van dat kantoor zit.
 
 ## Wat lokaal hier betekent
 

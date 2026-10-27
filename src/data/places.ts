@@ -57,7 +57,7 @@ export const places: Place[] = [
     body: [
       "Veghel hoort bij Meierijstad. De voedselketen is er groot, van productie tot de groothandel die de rest van het land belevert. Dat betekent seizoenspieken, uitzendkrachten naast vaste ploegen, en verzuim dat snel oploopt als een teamleider ook de dossiers moet bijhouden.",
       "Een casemanager uit Uden staat hier binnen een kwartier op de stoep, buiten de spits. We plannen de uren zo dat de casemanager een vaste ochtend of middag op locatie is, niet een los uur tussen twee andere klanten door. Medewerkers zien hetzelfde gezicht bij het plan van aanpak en bij de vervolggesprekken.",
-      "Voor een plant van tachtig tot tweehonderd mensen is twintig uur per week een gangbare start. Kleinere voedselbedrijven in de band van 35–500 medewerkers beginnen vaak met tien uur, plus een arbeidsdeskundige op de dossiers die richting het tweede jaar gaan. Die arbeidsdeskundige komt via Matchvermogen, met 8% korting voor klanten van dit label.",
+      "Voor een plant van tachtig tot tweehonderd mensen is twintig uur per week een gangbare start. Kleinere voedselbedrijven in de band van 35–500 medewerkers beginnen vaak met tien uur, plus een arbeidsdeskundige op de dossiers die richting het tweede jaar gaan. Die arbeidsdeskundige komt via Matchvermogen, met 8% korting voor klanten van Arbopartner Brabant.",
     ],
     faq: [
       {
@@ -85,7 +85,7 @@ export const places: Place[] = [
     lead: "Oss combineert life sciences rond Pivot Park met klassieke industrie en een groot zorgcluster. De dossiers zijn daardoor vaker medisch complex dan in een gemiddeld mkb-bedrijf.",
     body: [
       "Vanuit Uden is Oss ongeveer twintig minuten via de A50. Op de industrieterreinen zitten productiebedrijven met ploegen, en op Pivot Park onderzoeks- en farmabedrijven met hoogopgeleide specialisten. Beide typen verzuim vragen iets anders: bij productie telt fysieke belasting, bij de labs telt langdurige psychische uitval en een krappe vervangingsmarkt.",
-      "Een senior casemanager is hier vaker de juiste match dan een medior, vooral als er al een WIA-aanvraag speelt of een verschil van inzicht met de bedrijfsarts. De bedrijfsarts blijft van u. Wij zijn geen arbodienst. Wel houden we het dossier bij, zodat de bedrijfsarts, de leidinggevende en de medewerker hetzelfde plan volgen.",
+      "Een senior casemanager is hier vaker de juiste match dan een medior, vooral als er al een WIA-aanvraag speelt of een verschil van inzicht met de bedrijfsarts. De bedrijfsarts en de arbodienst blijven bij u. Wij houden het dossier bij, zodat de bedrijfsarts, de leidinggevende en de medewerker hetzelfde plan volgen.",
       "Werkgevers in Oss die al met Matchvermogen werken voor een arbeidsdeskundig onderzoek, kunnen de begeleiding en het onderzoek bij één club laten. Het onderzoek loopt via het zustermerk, de wekelijkse regie via Arbopartner Brabant. U krijgt korting op dat onderzoek.",
     ],
     faq: [
@@ -255,7 +255,7 @@ export const places: Place[] = [
     body: [
       "Cuijk is de scharnier tussen Noordoost-Brabant en Nijmegen. Over de Maas zit de logistiek, in het dorp en op de terreinen het mkb: bouw, metaal, groothandel. Verzuim is er vaak een zaak van de eigenaar of een office-manager. Een formeel HR-team is er lang niet altijd. In de matchcalculator telt dat mee: zonder HR adviseren we eerder een ervaren casemanager dan een junior.",
       "De haven en de bedrijven eromheen hebben fysiek werk en een veiligheidsrisico als iemand te vroeg terugkeert. We duwen niet op aanwezigheid. We vragen de bedrijfsarts om een belastbaarheidsprofiel en vertalen dat naar taken. Ontbreekt dat profiel, dan is dat het eerste gat in het dossier.",
-      "Werkgevers met vestigingen in Cuijk én Nijmegen kunnen beide locaties in één opdracht zetten. Nijmegen rekenen we als rand van het gebied. Verder Gelderland in is het label niet bedoeld; arbeidsdeskundig onderzoek kan Matchvermogen daar wel landelijk doen.",
+      "Werkgevers met vestigingen in Cuijk én Nijmegen kunnen beide locaties in één opdracht zetten. Nijmegen rekenen we als rand van het gebied. Verder Gelderland in werken we niet met een vaste casemanager; arbeidsdeskundig onderzoek kan Matchvermogen daar wel landelijk doen.",
     ],
     faq: [
       {
@@ -406,7 +406,7 @@ export const places: Place[] = [
     faq: [
       {
         q: "Werken jullie in heel Gelderland?",
-        a: "Nee. Nijmegen is de rand. Verder de provincie in is dit label niet de juiste vorm. Voor een arbeidsdeskundig onderzoek kunt u bij Matchvermogen terecht, dat landelijk werkt.",
+        a: "Nee. Nijmegen is de rand. Verder de provincie in is Arbopartner Brabant niet de juiste vorm. Voor een arbeidsdeskundig onderzoek kunt u bij Matchvermogen terecht, dat landelijk werkt.",
       },
       {
         q: "Geldt de korting op een arbeidsdeskundige ook in Nijmegen?",
@@ -517,7 +517,7 @@ export const places: Place[] = [
     lead: "Tilburg is een van de grote steden van Brabant. Textiel is de geschiedenis, logistiek, zorg en de campus bepalen nu het werk. De rit vanuit het kantoor in Uden is ongeveer 55 minuten buiten de spits.",
     body: [
       "Tilburg ligt in Midden-Brabant, aan de A58 en het spoor naar Breda en Eindhoven. Bedrijventerreinen als Vossenberg en Katsbogte hebben magazijnen, technische bedrijven en een kantoorlaag. In de stad zelf zitten zorg, onderwijs en gemeentelijke organisaties. Verzuim ziet er daar anders uit dan in een ploegendienst: meer langdurige uitval, meer gesprekken over passend werk.",
-      "Een vaste casemanager komt met dagdelen, niet met een los uur tussen twee steden. Medewerkers zien hetzelfde gezicht bij het plan van aanpak en bij de vervolggesprekken. De bedrijfsarts blijft van de werkgever. Wij zijn geen arbodienst.",
+      "Een vaste casemanager komt met dagdelen, niet met een los uur tussen twee steden. Medewerkers zien hetzelfde gezicht bij het plan van aanpak en bij de vervolggesprekken. De bedrijfsarts blijft van de werkgever. De bedrijfsarts en de arbodienst blijven bij u.",
       "Voor een organisatie binnen 35–500 medewerkers is tien uur per week vaak de start. Grotere werkgevers met meerdere langdurige dossiers schuiven door naar twintig of vierentwintig uur. De vergelijking met iemand in dienst blijft eerlijk: bij een bijna volle werkweek kan een dienstverband in euro's lager uitvallen.",
     ],
     faq: [

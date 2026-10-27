@@ -4,13 +4,11 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import FaqList from "../../components/FaqList.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import BrabantPhoto from "../../components/BrabantPhoto.astro";
-import Photo from "../../components/Photo.astro";
 import Mark from "../../components/Mark.astro";
 import Actie from "../../components/Actie.astro";
 import InlineLead from "../../components/InlineLead.astro";
 import { site, phoneHref, mailHref } from "../../data/site";
 import { fotoVoorPlaats } from "../../data/brabant-fotos";
-import { werkFotoVoorPlaats } from "../../data/fotos";
 import { getPlace, places } from "../../data/places";
 import LokaleDiensten from "../../components/LokaleDiensten.astro";
 import { getRegio } from "../../data/regios";
@@ -66,10 +64,9 @@ const rit = place.reistijdInTarief === false
       <a class="underline" data-cta={`plaats-offerte-${place.slug}`} href="/offerte">Offerte aanvragen</a>
       <a class="underline" data-cta={`plaats-contact-${place.slug}`} href="/contact">Contact</a>
     </p>
-    <Photo id={werkFotoVoorPlaats(place.slug)} class="mt-6" />
-    {foto && <BrabantPhoto id={foto} class="mt-3 max-w-40" />}
+    {foto && <BrabantPhoto id={foto} class="mt-6" />}
     <address class="mt-4 rounded-3xl bg-sand-100 p-4 text-sm not-italic">
-      <strong>{site.name}</strong>, label van {site.parent.legalName}<br />
+      <strong>{site.name}</strong>, van {site.parent.legalName}<br />
       {site.parent.street}, {site.parent.postalCode} {site.parent.city}<br />
       <a class="font-semibold underline" data-channel="phone" href={phoneHref}>{site.parent.phoneDisplay}</a>
       · <a class="font-semibold underline" data-channel="email" href={mailHref}>{site.parent.email}</a><br />

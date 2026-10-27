@@ -5,7 +5,7 @@ const usp =
   "Ontbreekt een verzuimsysteem, dan leveren we er een en borgen daarin de informatie en de trajecten.";
 
 const voorWie =
-  "Voor organisaties met 35–500 medewerkers in Noord-Brabant. Het kantoor staat in Uden. Een organisatie kleiner dan 35 medewerkers verwijzen we naar Matchvermogen. Meer dan 500 medewerkers valt buiten dit label.";
+  "Voor organisaties met 35–500 medewerkers in Noord-Brabant. Het kantoor staat in Uden. Een organisatie kleiner dan 35 medewerkers verwijzen we naar Matchvermogen. Meer dan 500 medewerkers valt buiten Arbopartner Brabant.";
 
 export const extraServices: Service[] = [
   {
@@ -23,7 +23,7 @@ export const extraServices: Service[] = [
         heading: "Advies en beheer",
         paragraphs: [
           "We zetten op een rij wat eigenrisico voor de WGA en voor de Ziektewet voor uw organisatie betekent: welke dossiers bij u blijven, wie de re-integratie doet, en wat u zelf moet kunnen organiseren. De keuze om over te stappen of bij het publieke bestel te blijven, neemt u.",
-          "Zet u de stap, dan kunnen we het beheer van die dossiers doen. De premie, de WGA-beschikking en het bezwaar blijven bij Matchvermogen en werkhervattingskas.nl. Wij zijn geen uitvoerder van UWV en geen advocatenkantoor.",
+          "Zet u de stap, dan kunnen we het beheer van die dossiers doen. De premie, de WGA-beschikking en het bezwaar blijven bij Matchvermogen en werkhervattingskas.nl. UWV blijft de uitvoerder. De advocaat schakelt u zelf in.",
         ],
       },
     ],
@@ -97,21 +97,21 @@ export const extraServices: Service[] = [
     h1: "Bezwaar en beroep bij loonsanctie en WIA in Brabant",
     serviceType: "Bezwaar en beroep",
     description:
-      "Begeleiding bij bezwaar en beroep in Noord-Brabant: loonsanctie, WIA-besluit en WGA-beschikking. Eén aanspreekpunt. Het bezwaar loopt via Matchvermogen. Wij zijn geen advocatenkantoor. Kantoor in Uden.",
+      "Begeleiding bij bezwaar en beroep in Noord-Brabant: loonsanctie, WIA-besluit en WGA-beschikking. Eén aanspreekpunt. Het bezwaar loopt via Matchvermogen. De advocaat schakelt u zelf in. Kantoor in Uden.",
     lead: "U wilt weten of bezwaar de moeite is, en iemand die de termijn bewaakt. De uitkomst beslist UWV.",
     sections: [
       {
         heading: "Wat we begeleiden",
         paragraphs: [
           "Een loonsanctie, een WIA-besluit of een WGA-beschikking. We lezen het besluit met de arbeidsdeskundige kennis van Matchvermogen en zeggen of bezwaar zinvol lijkt. Het bezwaar zelf loopt via dat zustermerk. Premie en beschikking horen bij werkhervattingskas.nl.",
-          "Wij zijn geen advocatenkantoor. Wordt het een juridische procedure, dan schakelt u zelf een advocaat in. De uitkomst beloven we niet.",
+          "Wordt het een juridische procedure, dan schakelt u zelf een advocaat in. De uitkomst beloven we niet.",
         ],
       },
     ],
     faq: [
       {
         q: "Dienen jullie het bezwaar zelf in?",
-        a: "Het bezwaar loopt via Matchvermogen. Arbopartner Brabant is het aanspreekpunt voor de werkgever in Brabant. Wij zijn geen advocatenkantoor.",
+        a: "Het bezwaar loopt via Matchvermogen. Arbopartner Brabant is het aanspreekpunt voor de werkgever in Brabant. De advocaat schakelt u zelf in.",
       },
       {
         q: "Voor welke beslissingen is dit?",
@@ -185,7 +185,7 @@ export const extraServices: Service[] = [
         heading: "Organisatie, niet één medewerker",
         paragraphs: [
           "We kijken naar frequent verzuim, de rol van de leidinggevende, en wat HR vastlegt zonder medische details. Het resultaat is een korte lijn: signalen, het gesprek, en wanneer u opschaalt naar de casemanager of de bedrijfsarts.",
-          "Een coach naast één medewerker is jobcoaching. Een preventief medisch onderzoek bieden we niet. De bedrijfsarts blijft van u. Wij zijn geen arbodienst.",
+          "Een coach naast één medewerker is jobcoaching. Een preventief medisch onderzoek bieden we niet. De bedrijfsarts en de arbodienst blijven bij u.",
         ],
       },
     ],
@@ -268,7 +268,7 @@ export const extraServices: Service[] = [
     faq: [
       {
         q: "Geven jullie een medische second opinion?",
-        a: "Nee. We zijn geen arts en geen arbodienst. De bedrijfsarts blijft van u. Wij lezen de route, het dossier en het plan.",
+        a: "De bedrijfsarts blijft van u. Wij lezen de route, het dossier en het plan.",
       },
       {
         q: "Is dit een deskundigenoordeel van UWV?",
@@ -336,7 +336,7 @@ export const extraServices: Service[] = [
       {
         heading: "Dekking, geen polis",
         paragraphs: [
-          "We kijken wat uw verzuim vraagt van een dekking: lopende dossiers, eigenrisico, en wat u zelf organiseert. Dat stemmen we af met onze verzekeringspartners. Wij zijn geen verzekeraar en geen bemiddelaar. Een polis sluiten en een premie innen doen we niet.",
+          "We kijken wat uw verzuim vraagt van een dekking: lopende dossiers, eigenrisico, en wat u zelf organiseert. Dat stemmen we af met onze verzekeringspartners. De polis en de premie lopen bij de verzekeraar.",
           "Een premiebedrag, een vergelijking van polissen en een naam van een partner publiceren we niet. De offerte beschrijft het advies, niet een verzekering.",
         ],
       },
@@ -344,7 +344,7 @@ export const extraServices: Service[] = [
     faq: [
       {
         q: "Sluiten jullie de verzekering?",
-        a: "Nee. Wij zijn geen verzekeraar en geen bemiddelaar. We adviseren over de dekking en stemmen de aanpak af met onze verzekeringspartners. De polis en de premie lopen niet via deze pagina.",
+        a: "Nee. De polis en de premie lopen bij de verzekeraar. We adviseren over de dekking en stemmen de aanpak af met onze verzekeringspartners.",
       },
       {
         q: "Welke partners zijn dat?",
@@ -368,7 +368,7 @@ export const extraServices: Service[] = [
     h1: "Reorganisatie en verzuim in Brabant",
     serviceType: "Reorganisatie en verzuim",
     description:
-      "Verzuim tijdens en na een reorganisatie in Noord-Brabant. Dossiers, re-integratie en het functiehuis op orde naast het opzegverbod bij ziekte. Wij zijn geen advocatenkantoor. Kantoor in Uden.",
+      "Verzuim tijdens en na een reorganisatie in Noord-Brabant. Dossiers, re-integratie en het functiehuis op orde naast het opzegverbod bij ziekte. De advocaat schakelt u zelf in. Kantoor in Uden.",
     lead: "Een reorganisatie en een ziekmelding lopen door elkaar. Het dossier, de re-integratie en het functiehuis moeten dat uit elkaar houden.",
     sections: [
       {
@@ -511,7 +511,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
     ],
     priceKind: "project",
     priceNote:
-      "Een premiebedrag of een besparing publiceren we niet. De offerte zegt of het een losse consultatie is, het uitgebreide advies, het beheer, of een combinatie, en voor welke regeling. Wij zijn geen uitvoerder van UWV.",
+      "Een premiebedrag of een besparing publiceren we niet. De offerte zegt of het een losse consultatie is, het uitgebreide advies, het beheer, of een combinatie, en voor welke regeling. UWV blijft de uitvoerder.",
     reviewName: "",
   },
   "dossiertoets-wia": {
@@ -574,7 +574,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
     ],
     priceKind: "project",
     priceNote:
-      "Geen prijs van een procedure op deze pagina. De offerte noemt de lezing en de begeleiding. Het bezwaar zelf loopt via Matchvermogen. Wij zijn geen advocatenkantoor.",
+      "Geen prijs van een procedure op deze pagina. De offerte noemt de lezing en de begeleiding. Het bezwaar zelf loopt via Matchvermogen. De advocaat schakelt u zelf in.",
     reviewName: "",
   },
   eerstejaarsevaluatie: {
@@ -747,7 +747,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
       { title: "De dekking", text: "Wat u nu heeft of zoekt, in gewone taal: wat wel en niet onder de dekking valt, voor zover u die stukken deelt." },
       { title: "De dossiers", text: "Welke lopende trajecten die dekking raken. Geen medisch oordeel." },
       { title: "Afstemming", text: "We stemmen het advies af met onze verzekeringspartners. Hun namen zetten we hier niet neer." },
-      { title: "De grens", text: "Wij zijn geen verzekeraar en geen bemiddelaar. Een polis en een premie lopen niet via ons." },
+      { title: "De grens", text: "De polis en de premie lopen bij de verzekeraar, niet via ons." },
     ],
     deliverables: [
       "Advies over de dekking, zonder een premiebedrag",
@@ -760,7 +760,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
     answers: [
       {
         q: "Adviseren jullie over een verzuimverzekering?",
-        a: "Ja, over de dekking en over de afstemming met onze verzekeringspartners. Wij zijn geen verzekeraar en geen bemiddelaar. Een polis sluiten en een premie innen doen we niet. Partnernamen, premies en een vergelijking van polissen staan niet op deze pagina.",
+        a: "Ja, over de dekking en over de afstemming met onze verzekeringspartners. De polis en de premie lopen bij de verzekeraar. Partnernamen, premies en een vergelijking van polissen staan niet op deze pagina.",
       },
     ],
     more: [
@@ -772,7 +772,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
     ],
     priceKind: "project",
     priceNote:
-      "Geen premie en geen polisprijs. De offerte beschrijft het advies over de dekking. Wij zijn geen verzekeraar en geen bemiddelaar.",
+      "Geen premie en geen polisprijs. De offerte beschrijft het advies over de dekking. De polis en de premie lopen bij de verzekeraar.",
     reviewName: "",
   },
   "reorganisatie-verzuim": {
@@ -797,7 +797,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
     answers: [
       {
         q: "Mag ik een zieke werknemer ontslaan bij reorganisatie?",
-        a: "Tijdens ziekte geldt een opzegverbod. Of in uw geval een uitzondering geldt, toetst uw jurist of advocaat. Wij zijn geen advocatenkantoor en voeren het ontslag niet uit. Wij ordenen het verzuimdossier, de re-integratie en het functiehuis, zodat de reorganisatie en de ziekte niet door elkaar lopen.",
+        a: "Tijdens ziekte geldt een opzegverbod. Of in uw geval een uitzondering geldt, toetst uw jurist of advocaat. Het ontslag voert uw jurist of advocaat uit. Wij ordenen het verzuimdossier, de re-integratie en het functiehuis, zodat de reorganisatie en de ziekte niet door elkaar lopen.",
       },
     ],
     more: [

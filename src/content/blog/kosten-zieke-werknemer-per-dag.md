@@ -10,7 +10,7 @@ faq:
   - q: "Zit de bedrijfsarts in dat bedrag?"
     a: "TNO rekent een arbocomponent van ongeveer €60 per verzuimdag in de puntsschatting. Uw eigen contract kan hoger of lager zijn."
   - q: "Mag ik dit bedrag als besparing in een businesscase zetten?"
-    a: "Alleen als u het labelt als scenario. Er is geen bron die garandeert dat een casemanager het verzuim met een vast percentage verlaagt."
+    a: "Alleen als u Arbopartner Brabantt als scenario. Er is geen bron die garandeert dat een casemanager het verzuim met een vast percentage verlaagt."
 sources:
   - title: "TNO, Verzuimkosten 2026"
     url: "https://publications.tno.nl/publication/34646745/vbrmvNib/TNO-2026-17537.pdf"

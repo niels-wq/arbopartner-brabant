@@ -44,7 +44,7 @@ Te vroeg starten, terwijl terugkeer in de eigen functie nog reëel is en de mede
 
 De werkgever betaalt het traject. Het is geen eigen bijdrage van de medewerker en het is niet iets wat u ‘even door UWV laat doen’ tijdens de twee jaar loon. Na de WIA kunnen andere regels gelden, vooral voor eigenrisicodragers. Tijdens de loondoorbetaling is de factuur van u.
 
-De prijs hangt af van de vorm en de duur. Matchvermogen publiceert richtprijzen voor modulair en digitaal tweede spoor en voor langere trajecten. Die tabel is van het moederbedrijf, niet een tariefkaart van Arbopartner Brabant. Klanten van dit label krijgen 10 procent korting op tweede spoor via Best Match. De offerte van Best Match noemt het bedrag. Wij herhalen hier geen range alsof die onze verkoopprijs is, omdat de range breed is en de situatie het traject bepaalt.
+De prijs hangt af van de vorm en de duur. Matchvermogen publiceert richtprijzen voor modulair en digitaal tweede spoor en voor langere trajecten. Die tabel is van het moederbedrijf, niet een tariefkaart van Arbopartner Brabant. Klanten van Arbopartner Brabant krijgen 10 procent korting op tweede spoor via Best Match. De offerte van Best Match noemt het bedrag. Wij herhalen hier geen range alsof die onze verkoopprijs is, omdat de range breed is en de situatie het traject bepaalt.
 
 Naast het traject betaalt u het loon door, minstens volgens wet en cao. Het traject komt erbovenop. Dat voelt dubbel. Het alternatief, niets doen en daarna 52 weken extra loon riskeren, is meestal duurder en altijd slordiger naar de medewerker.
 
@@ -62,7 +62,7 @@ Past het werk niet bij de belastbaarheid, dan is weigeren terecht. De arbeidsdes
 
 ## Samenhang met ontslag
 
-Een geslaagd tweede spoor eindigt soms in een nieuwe baan en een beëindiging bij u. Soms eindigt het zonder plaatsing, en dan moet het verslag laten zien dat de inspanningen deugden. Een plaatsingspercentage is geen garantie. Matchvermogen noemt op de eigen site een plaatsingspercentage van 29 procent in spoor 2. Dat is een cijfer van het moederbedrijf over zijn trajecten, geen belofte voor uw medewerker en geen cijfer van dit label.
+Een geslaagd tweede spoor eindigt soms in een nieuwe baan en een beëindiging bij u. Soms eindigt het zonder plaatsing, en dan moet het verslag laten zien dat de inspanningen deugden. Een plaatsingspercentage is geen garantie. Matchvermogen noemt op de eigen site een plaatsingspercentage van 29 procent in spoor 2. Dat is een cijfer van het moederbedrijf over zijn trajecten, geen belofte voor uw medewerker en geen cijfer van Arbopartner Brabant.
 
 Ontslag na twee jaar ziekte heeft eigen voorwaarden. Tijdens een loonsanctie kunt u niet opzeggen vanwege de ziekte. Tweede spoor is dus geen sluiproute om het opzegverbod te omzeilen. Het is een route naar werk.
 

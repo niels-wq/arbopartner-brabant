@@ -42,7 +42,7 @@ Een tweede keerpunt is afwezigheid van HR. In Gemert, Schijndel of Grave doet de
 
 ## Wat u inhuurt, en wat niet
 
-U huurt tijd en vakmanschap in, geen medisch oordeel. De casemanager spreekt de medewerker en de leidinggevende, bewaakt de stappen uit de Wet verbetering poortwachter, en houdt het dossier leesbaar. De bedrijfsarts blijft van uw arbodienst. Een arbeidsdeskundig onderzoek, als dat nodig is, doet een ander persoon. Bij ons is dat Matchvermogen, met 8 procent korting voor klanten van dit label. Tweede spoor doet Best Match, met 10 procent korting.
+U huurt tijd en vakmanschap in, geen medisch oordeel. De casemanager spreekt de medewerker en de leidinggevende, bewaakt de stappen uit de Wet verbetering poortwachter, en houdt het dossier leesbaar. De bedrijfsarts blijft van uw arbodienst. Een arbeidsdeskundig onderzoek, als dat nodig is, doet een ander persoon. Bij ons is dat Matchvermogen, met 8 procent korting voor klanten van Arbopartner Brabant. Tweede spoor doet Best Match, met 10 procent korting.
 
 Die scheiding is bewust. Een begeleider die ook het ‘onafhankelijke’ onderzoek schrijft, is niet onafhankelijk. UWV leest dat verschil.
 

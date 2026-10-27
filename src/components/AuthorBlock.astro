@@ -11,11 +11,11 @@ import { site } from "../data/site";
     </div>
   </div>
   <p class="mt-3">
-    {site.name} is een label van {site.parent.legalName}, KvK {site.parent.kvk}, {site.parent.street}, {site.parent.postalCode} {site.parent.city}.
+    {site.name} is van {site.parent.legalName}, KvK {site.parent.kvk}, {site.parent.street}, {site.parent.postalCode} {site.parent.city}.
     {site.founder.name} is verantwoordelijk voor deze tekst. Het is algemene informatie voor werkgevers, geen medisch oordeel en geen advies over één dossier.
   </p>
   <p class="mt-2">
-    Reviews op deze site zijn van Matchvermogen, niet van dit label.
+    Reviews op deze site zijn van Matchvermogen, niet van Arbopartner Brabant.
     <a class="font-semibold underline" href="/reviews">Bron en datum</a>.
     Telefoon <a class="font-semibold underline" href={`tel:${site.parent.phoneTel}`}>{site.parent.phoneDisplay}</a>.
   </p>

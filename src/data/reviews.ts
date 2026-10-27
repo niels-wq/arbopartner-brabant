@@ -332,5 +332,5 @@ export function reviewsAboutNiels(): Review[] {
 }
 
 export const reviewNotice =
-  "Review van Matchvermogen, het moederbedrijf. Arbopartner Brabant heeft nog geen eigen reviews. De tekst staat letterlijk op matchvermogen.nl/referenties/ en is geen beoordeling van dit label.";
+  "Review van Matchvermogen, het moederbedrijf. Arbopartner Brabant heeft nog geen eigen reviews. De tekst staat letterlijk op matchvermogen.nl/referenties/ en is geen beoordeling van Arbopartner Brabant.";
 

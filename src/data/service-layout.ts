@@ -71,7 +71,7 @@ export const serviceLayout: Record<string, ServiceLayout> = {
       { href: "/diensten/wia-begeleiding", label: "WIA-begeleiding" },
     ],
     priceKind: "uren",
-    priceNote: "De bedrijfsarts blijft van u. Wij zijn geen arbodienst en geven geen medisch oordeel.",
+    priceNote: "De bedrijfsarts blijft van u. Een medisch oordeel geven wij niet.",
     reviewName: "Raimonda Kasparaviciute",
   },
   mediation: {
@@ -99,7 +99,7 @@ export const serviceLayout: Record<string, ServiceLayout> = {
     ],
     outcome: "Een feitenoverzicht waarmee een vertrek zorgvuldig kan, tijdens het opzegverbod bij ziekte.",
     priceKind: "uren",
-    priceNote: "De uren komen uit het blok, of we offreren een afgebakend aantal uren voor één dossier. We zijn geen advocatenkantoor.",
+    priceNote: "De uren komen uit het blok, of we offreren een afgebakend aantal uren voor één dossier. De advocaat schakelt u zelf in.",
     reviewName: "Martijn Toussaint",
   },
   "eerste-spoor": {
@@ -137,7 +137,7 @@ export const serviceLayout: Record<string, ServiceLayout> = {
     steps: [
       { title: "Werk dat vol te houden is", text: "Een geregistreerde coach van Matchvermogen kijkt naar de eigen functie of naar ander werk." },
       { title: "Ook eerder", text: "Coaching kan vóór een lang dossier. Het is geen tweede spoor." },
-      { title: "Geen behandeling", text: "De werkgever is opdrachtgever. We zijn geen behandelaar." },
+      { title: "Geen behandeling", text: "De werkgever is opdrachtgever. Behandelen doen we niet." },
     ],
     outcome: "Coaching naar werk dat iemand kan volhouden, in de eigen functie of daarbuiten. Preventie voor de hele organisatie is een andere opdracht.",
     more: [

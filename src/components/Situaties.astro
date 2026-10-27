@@ -23,7 +23,7 @@ const { compact = false } = Astro.props;
   <div class="mt-8 grid gap-4 md:grid-cols-2">
     {situaties.map((item) => (
       <article id={compact ? undefined : item.slug} class="overflow-hidden rounded-2xl border border-line bg-white">
-        <Photo id={fotoVoorSituatie(item.slug)} sizes="(min-width: 768px) 28rem, 100vw" />
+        {!compact && <Photo id={fotoVoorSituatie(item.slug)} sizes="(min-width: 768px) 28rem, 100vw" />}
         <div class="p-6">
           <h3 class="font-serif text-2xl text-green-950"><Mark name={item.icon} />{item.title}</h3>
           <h4 class="mt-4 text-sm font-semibold uppercase tracking-wide text-ochre-800">Het probleem</h4>

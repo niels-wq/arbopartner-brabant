@@ -108,7 +108,7 @@ describe("dienstenoverzicht", () => {
     assert.match(readFileSync("src/pages/tarieven.astro", "utf8"), /Afnamevormen/);
     assert.match(readFileSync("src/pages/spoedhulp.astro", "utf8"), /Afnamevormen/);
     assert.match(readFileSync("src/components/Afnamevormen.astro", "utf8"), /levels\.medior\.rates\[10\]/);
-    assert.match(readFileSync("src/data/dienst-extra.ts", "utf8"), /geen verzekeraar en geen bemiddelaar/i);
+    assert.match(readFileSync("src/data/dienst-extra.ts", "utf8"), /polis en de premie lopen bij de verzekeraar/i);
     assert.doesNotMatch(readFileSync("src/data/dienst-extra.ts", "utf8"), /\d+\s*%/);
   });
 });

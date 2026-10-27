@@ -47,7 +47,7 @@ export const situaties: Situatie[] = [
     oplossing:
       "De casemanager werkt de dossiers zelf bij en stemt af met de leidinggevende. De vakmatige aansturing zit bij ons. Besluiten die bij de werkgever horen, blijven bij u.",
     resultaat:
-      "U hoeft geen casemanager te managen. De bedrijfsarts blijft u zelf organiseren. We zijn geen arbodienst.",
+      "U hoeft geen casemanager te managen. De bedrijfsarts en de arbodienst blijven bij u.",
     icon: "chairs",
     href: "/diensten/casemanager-detachering",
     hrefLabel: "Wat de casemanager zelf doet",

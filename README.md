@@ -1,6 +1,6 @@
 # Arbopartner Brabant
 
-Nederlandstalige site voor Arbopartner Brabant, een label van Matchvermogen. Het label detacheert een vaste casemanager bij werkgevers met 35 of meer medewerkers in Noord-Brabant. Het kantoor staat in Uden. Reistijd binnen ongeveer 45 minuten van dat kantoor zit in het tarief.
+Nederlandstalige site voor Arbopartner Brabant, van Matchvermogen. Arbopartner Brabant detacheert een vaste casemanager bij werkgevers met 35 of meer medewerkers in Noord-Brabant. Het kantoor staat in Uden. Reistijd binnen ongeveer 45 minuten van dat kantoor zit in het tarief.
 
 De site is statische HTML (Astro) met interactieve calculators. Formulieren lopen via een kleine Node-server. Canonicals, sitemap en structured data wijzen naar `https://www.arbopartnerbrabant.nl`.
 
@@ -79,7 +79,7 @@ Het blok “Onze garanties” staat op de homepage, de pakketten en de vergelijk
 
 - Na een concrete verzuimanalyse laten we zien hoe het verzuimpercentage kan dalen. Geen vast percentage. De knop heet “Gratis verzuimanalyse”.
 - Kwaliteitsgarantie als de adviezen worden gevolgd: kosteloos bijsturen of wisselen van casemanager. Geen geld-terug-bedrag.
-- Goedkoper dan iemand in dienst, onderbouwd met de vergelijkingscalculator. De rekenregels veranderen niet.
+- Eerlijk vergeleken met in dienst, onderbouwd met de vergelijkingscalculator. De rekenregels veranderen niet.
 
 Bellen gaat via het vaste nummer 085-0870307 (`tel:` en schema). Het 06-nummer staat alleen op WhatsApp-links (`wa.me`).
 

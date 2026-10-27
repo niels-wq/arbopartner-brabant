@@ -64,7 +64,8 @@ describe("echte foto's", () => {
     assert.equal(home.includes("werkFotoVoorPlaats"), false);
     assert.equal((await readFile("src/pages/blog/index.astro", "utf8")).includes("BrabantPhoto"), false);
     assert.equal((await readFile("src/pages/werkgebied/index.astro", "utf8")).includes("unsplash-eindhoven"), false);
-    assert.match(await readFile("src/pages/werkgebied/[slug].astro", "utf8"), /max-w-40/);
+    assert.equal(plaats.includes("werkFotoVoorPlaats"), false);
+    assert.equal((plaats.match(/<BrabantPhoto/g) ?? []).length, 1);
     assert.match(home, /site\.founder\.avatar/);
     assert.equal(dienst.includes("Figure"), false);
     assert.match(dienst, /fotoVoorDienst/);
