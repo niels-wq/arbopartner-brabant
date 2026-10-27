@@ -33,7 +33,7 @@ export const praktijkCases: PraktijkCase[] = [
     teaser:
       "Door een reorganisatie liep het verzuim extreem op. Dossiers en termijnen bleven liggen. Snel handelen en op de bal zitten voorkwam zeer veel loonsancties.",
     situatie:
-      "Bij een grote fietsfabrikant in Brabant liep het verzuim door een reorganisatie extreem op. Er bleef van alles liggen: dossiers en termijnen. De bedrijfsnaam publiceren we niet.",
+      "Bij een grote fietsfabrikant in Brabant liep het verzuim door een reorganisatie extreem op. Er bleef van alles liggen: dossiers en termijnen.",
     stappen: [
       {
         title: "Wat er lag",
@@ -62,11 +62,11 @@ export const praktijkCases: PraktijkCase[] = [
     faq: [
       {
         q: "Welke fietsfabrikant was dit?",
-        a: "De bedrijfsnaam publiceren we niet. Het gaat om een grote fietsfabrikant in Brabant.",
+        a: "Het gaat om een grote fietsfabrikant in Brabant.",
       },
       {
         q: "Hoeveel loonsancties zijn voorkomen?",
-        a: "Zeer veel. Een aantal zetten we er niet bij. Dat cijfer hebben we hier niet gepubliceerd.",
+        a: "Zeer veel.",
       },
       {
         q: "Is dit een review?",
@@ -87,7 +87,7 @@ export const praktijkCases: PraktijkCase[] = [
     teaser:
       "Totaalanalyse van verzuim, systemen, processen en alle kosten op ERD-vlak (WGA, Ziektewet en interventies). Besparing van meer dan 4 ton.",
     situatie:
-      "Het verzuimstuk, de infrastructuur en de kosten van eigenrisicodragerschap vroegen om één totaalanalyse. De werkgever blijft anoniem. Een bedrijfsnaam publiceren we niet.",
+      "Het verzuimstuk, de infrastructuur en de kosten van eigenrisicodragerschap vroegen om één totaalanalyse. De werkgever blijft anoniem.",
     stappen: [
       {
         title: "Het verzuim",
@@ -104,7 +104,7 @@ export const praktijkCases: PraktijkCase[] = [
     ],
     resultaat: "De besparing was meer dan €400.000. Meer dan 4 ton.",
     grens:
-      "Meer dan 4 ton hoort bij deze totaalanalyse. We rekenen dat bedrag niet om naar een belofte voor een andere organisatie. Een uitsplitsing publiceren we niet.",
+      "Meer dan 4 ton hoort bij deze totaalanalyse. We rekenen dat bedrag niet om naar een belofte voor een andere organisatie.",
     related: [
       { href: "/diensten/eigenrisicodragerschap", label: "Eigenrisicodragerschap" },
       { href: "/diensten/verzuimanalyse", label: "Verzuimanalyse en rapportage" },
@@ -115,11 +115,11 @@ export const praktijkCases: PraktijkCase[] = [
     faq: [
       {
         q: "Waar komt meer dan 4 ton vandaan?",
-        a: "Uit deze totaalanalyse: het verzuimstuk, de infrastructuur van systemen en processen, en alle kosten op ERD-vlak, de WGA, de Ziektewet en de interventies. De besparing was meer dan €400.000. Een uitsplitsing publiceren we niet.",
+        a: "Uit deze totaalanalyse: het verzuimstuk, de infrastructuur van systemen en processen, en alle kosten op ERD-vlak, de WGA, de Ziektewet en de interventies. De besparing was meer dan €400.000.",
       },
       {
         q: "Welke werkgever was dit?",
-        a: "De bedrijfsnaam publiceren we niet. Dit voorbeeld blijft anoniem.",
+        a: "Dit voorbeeld blijft anoniem.",
       },
       {
         q: "Is dit een review?",

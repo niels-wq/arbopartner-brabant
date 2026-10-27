@@ -13,6 +13,8 @@ describe("knop en afstand", () => {
     assert.match(css, /margin-top:\s*var\(--spacing-cta\)/);
     assert.match(css, /gap:\s*var\(--spacing-cta\)/);
     assert.match(css, /padding:\s*var\(--spacing-card\)/);
+    assert.match(css, /\.bg-green-950 a\.btn\.btn-ghost-light[\s\S]*color:\s*#f4f1e8/);
+    assert.match(css, /\.btn-ghost-light:focus-visible[\s\S]*background-color:\s*#f4f1e8/);
   });
 
   it("laat knoppen via één component lopen", async () => {

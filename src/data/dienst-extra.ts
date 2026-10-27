@@ -16,7 +16,7 @@ export const extraServices: Service[] = [
     h1: "Eigenrisicodragerschap WGA en Ziektewet in Brabant",
     serviceType: "Eigenrisicodragerschap",
     description:
-      "Advies over eigenrisicodragerschap voor de WGA en de Ziektewet in Noord-Brabant. Losse consultatie, of advies en beheer als u de stap zet. Geen besparing op deze pagina. Kantoor in Uden. Offerte binnen 24 uur.",
+      "Advies over eigenrisicodragerschap voor de WGA en de Ziektewet in Noord-Brabant. Losse consultatie, of advies en beheer als u de stap zet. Kantoor in Uden. Offerte binnen 24 uur.",
     lead: "Een losse consultatie voor de keuze, of beheer als u overstapt. Geen rekensom die wij hier invullen.",
     sections: [
       {
@@ -223,7 +223,7 @@ export const extraServices: Service[] = [
         heading: "Tijdelijk op locatie",
         paragraphs: [
           "De interim-casemanager pakt de lopende dossiers op, spreekt leidinggevenden en houdt de termijnen bij. Zit het werk vooral in coördineren, registreren en de lijn bewaken, dan is dezelfde opdracht een verzuimcoördinator. We openen daar geen tweede pagina voor.",
-          "Een vaste gedetacheerde casemanager, met uren die meeschalen, is een andere afspraak. De offerte van deze opdracht noemt de periode, de dagen op locatie en het tarief. Een dagprijs publiceren we hier niet.",
+          "Een vaste gedetacheerde casemanager, met uren die meeschalen, is een andere afspraak. De offerte van deze opdracht noemt de periode, de dagen op locatie en het tarief.",
         ],
       },
     ],
@@ -299,7 +299,7 @@ export const extraServices: Service[] = [
         heading: "Na de analyse",
         paragraphs: [
           "De verzuimsysteemanalyse kijkt naar rollen, gaten en waar de informatie staat. Deze pagina is het vervolg: inrichten, bestaande dossiers overzetten, afspreken wie wat ziet, en leidinggevenden en HR trainen.",
-          "Een productnaam van een softwarehuis publiceren we niet. Ontbreekt een systeem, dan leveren we er een. Een technische koppeling met loonadministratie of de arbodienst nemen we alleen op als dat systeem het toelaat. De offerte zegt of die koppeling in de opdracht zit.",
+          "Ontbreekt een systeem, dan leveren we er een. Een technische koppeling met loonadministratie of de arbodienst nemen we alleen op als dat systeem het toelaat. De offerte zegt of die koppeling in de opdracht zit.",
         ],
       },
     ],
@@ -331,13 +331,13 @@ export const extraServices: Service[] = [
     serviceType: "Advies verzuimverzekeringen",
     description:
       "Advies over de dekking van verzuimverzekeringen in Noord-Brabant, in afstemming met onze verzekeringspartners. Wij sluiten geen polis en innen geen premie. Kantoor in Uden. Offerte binnen 24 uur.",
-    lead: "Het advies gaat over de dekking en over de afstemming met onze verzekeringspartners. Hun namen zetten we hier niet neer.",
+    lead: "Het advies gaat over de dekking en over de afstemming met onze verzekeringspartners.",
     sections: [
       {
         heading: "Dekking, geen polis",
         paragraphs: [
           "We kijken wat uw verzuim vraagt van een dekking: lopende dossiers, eigenrisico, en wat u zelf organiseert. Dat stemmen we af met onze verzekeringspartners. De polis en de premie lopen bij de verzekeraar.",
-          "Een premiebedrag, een vergelijking van polissen en een naam van een partner publiceren we niet. De offerte beschrijft het advies, niet een verzekering.",
+          "De offerte beschrijft het advies, niet een verzekering.",
         ],
       },
     ],
@@ -348,15 +348,15 @@ export const extraServices: Service[] = [
       },
       {
         q: "Welke partners zijn dat?",
-        a: "Die namen zetten we hier niet neer. In het gesprek hoort u met wie we afstemmen. Een partner is geen reden om een premie op deze site te zetten.",
+        a: "In het gesprek hoort u met wie we afstemmen.",
       },
       {
         q: "Is dit een advies over eigenrisicodragerschap?",
         a: "Nee. Eigenrisico voor de WGA en de Ziektewet heeft een eigen pagina, met een losse consultatie. Een verzuimverzekering is een andere vraag. Ze kunnen wel in één offerte naast elkaar staan.",
       },
       {
-        q: "Staat er een premie op deze pagina?",
-        a: "Nee. Geen premie, geen dekkingsbedrag en geen vergelijking van polissen.",
+        q: "Waar staat de premie?",
+        a: "De premie loopt bij de verzekeraar. De offerte beschrijft het advies.",
       },
     ],
   },
@@ -406,21 +406,21 @@ export const extraServices: Service[] = [
     h1: "No cure no pay verzuimreductie in Brabant",
     serviceType: "Verzuimreductie",
     description:
-      "Verzuimreductie in Noord-Brabant na een risicoanalyse. Eerst de verzuimanalyse, daarna een traject waarbij betaling afhangt van het resultaat. Voorwaarden in overleg, in de offerte. Geen percentage op deze pagina. Kantoor in Uden.",
+      "Verzuimreductie in Noord-Brabant na een risicoanalyse. Eerst de verzuimanalyse, daarna een traject waarbij betaling afhangt van het resultaat. Voorwaarden in overleg, in de offerte. Kantoor in Uden.",
     lead: "Eerst de risicoanalyse. Daarna een reductietraject waarbij de betaling afhangt van het resultaat dat we samen afspreken.",
     sections: [
       {
         heading: "Analyse eerst",
         paragraphs: [
           "De risicoanalyse is de verzuimanalyse: cijfers, een steekproef van dossiers en het protocol. Die heeft een eigen pagina. Zonder die analyse is een reductietraject een belofte zonder basis.",
-          "Daarna kan een traject waarin de betaling afhangt van het resultaat. Welk resultaat telt, hoe we het meten, en hoe de betaling daarvan afhangt, spreken we in overleg af. Dat staat in de offerte. Een percentage publiceren we niet. Een daling garanderen we niet.",
+          "Daarna kan een traject waarin de betaling afhangt van het resultaat. Welk resultaat telt, hoe we het meten, en hoe de betaling daarvan afhangt, spreken we in overleg af. Dat staat in de offerte.",
         ],
       },
     ],
     faq: [
       {
         q: "Welk percentage daling spreken jullie af?",
-        a: "Geen enkel percentage op deze pagina. Het resultaat en de manier van meten staan in de offerte, in overleg. We garanderen geen daling vooraf.",
+        a: "Het resultaat en de manier van meten staan in de offerte, in overleg.",
       },
       {
         q: "Is de risicoanalyse dezelfde als de verzuimanalyse?",
@@ -428,7 +428,7 @@ export const extraServices: Service[] = [
       },
       {
         q: "Betaal ik niets als het resultaat uitblijft?",
-        a: "Hoe de betaling van het resultaat afhangt, inclusief wat er gebeurt als het resultaat uitblijft, staat in de offerte. Dat spreken we in overleg af. Het staat niet vast op deze pagina.",
+        a: "Hoe de betaling van het resultaat afhangt, inclusief wat er gebeurt als het resultaat uitblijft, staat in de offerte. Dat spreken we in overleg af.",
       },
       {
         q: "Kan ik alleen de analyse doen?",
@@ -497,7 +497,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
     answers: [
       {
         q: "Is eigenrisicodrager worden voordelig?",
-        a: "Dat zeggen we niet op voorhand. Op deze pagina staat geen besparing en geen premiebedrag. Of het voordelig is, hangt af van uw dossiers en of u het beheer aankunt. Een losse consultatie is één gesprek met een korte beslisnotitie. Het uitgebreide advies en het beheer daarna zijn een grotere opdracht. De prijs en de omvang staan in de offerte.",
+        a: "Of het voordelig is, hangt af van uw dossiers en of u het beheer aankunt. Een losse consultatie is één gesprek met een korte beslisnotitie. Het uitgebreide advies en het beheer daarna zijn een grotere opdracht. De prijs en de omvang staan in de offerte.",
       },
     ],
     audience: `${voorWie} Voor directie en HR die een overstap overwegen of het beheer daarna willen beleggen. Een lopende WIA van één medewerker hoort bij WIA-begeleiding.`,
@@ -511,7 +511,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
     ],
     priceKind: "project",
     priceNote:
-      "Een premiebedrag of een besparing publiceren we niet. De offerte zegt of het een losse consultatie is, het uitgebreide advies, het beheer, of een combinatie, en voor welke regeling. UWV blijft de uitvoerder.",
+      "De offerte zegt of het een losse consultatie is, het uitgebreide advies, het beheer, of een combinatie, en voor welke regeling. UWV blijft de uitvoerder.",
     reviewName: "",
   },
   "dossiertoets-wia": {
@@ -574,7 +574,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
     ],
     priceKind: "project",
     priceNote:
-      "Geen prijs van een procedure op deze pagina. De offerte noemt de lezing en de begeleiding. Het bezwaar zelf loopt via Matchvermogen. De advocaat schakelt u zelf in.",
+      "De offerte noemt de lezing en de begeleiding. Het bezwaar zelf loopt via Matchvermogen. De advocaat schakelt u zelf in.",
     reviewName: "",
   },
   eerstejaarsevaluatie: {
@@ -667,7 +667,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
     ],
     priceKind: "project",
     priceNote:
-      "Een dagprijs publiceren we niet. De offerte noemt de periode, de dagen op locatie en het tarief. De uurtarieven op de tarievenpagina horen bij een lopend blok, niet bij deze interim-inzet.",
+      "De offerte noemt de periode, de dagen op locatie en het tarief. De uurtarieven op de tarievenpagina horen bij een lopend blok, niet bij deze interim-inzet.",
     reviewName: "",
   },
   "second-opinion-verzuim": {
@@ -723,7 +723,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
     answers: [
       {
         q: "Hoe richt ik een verzuimsysteem in?",
-        a: "Eerst de verzuimsysteemanalyse: welk systeem past, en waar de informatie nu staat. Daarna deze opdracht: inrichting, migratie van de dossiers, een koppeling alleen als de offerte die noemt, en een training. Welk systeem past, beantwoordt de analyse. Een productnaam van een softwarehuis publiceren we niet.",
+        a: "Eerst de verzuimsysteemanalyse: welk systeem past, en waar de informatie nu staat. Daarna deze opdracht: inrichting, migratie van de dossiers, een koppeling alleen als de offerte die noemt, en een training. Welk systeem past, beantwoordt de analyse.",
       },
     ],
     more: [
@@ -735,7 +735,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
     ],
     priceKind: "project",
     priceNote:
-      "Geen softwareprijs en geen productnaam op deze pagina. De offerte zegt of het om inrichting, migratie, een koppeling, training of het geheel gaat.",
+      "De offerte zegt of het om inrichting, migratie, een koppeling, training of het geheel gaat.",
     reviewName: "",
   },
   verzuimverzekeringen: {
@@ -746,7 +746,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
     steps: [
       { title: "De dekking", text: "Wat u nu heeft of zoekt, in gewone taal: wat wel en niet onder de dekking valt, voor zover u die stukken deelt." },
       { title: "De dossiers", text: "Welke lopende trajecten die dekking raken. Geen medisch oordeel." },
-      { title: "Afstemming", text: "We stemmen het advies af met onze verzekeringspartners. Hun namen zetten we hier niet neer." },
+      { title: "Afstemming", text: "We stemmen het advies af met onze verzekeringspartners." },
       { title: "De grens", text: "De polis en de premie lopen bij de verzekeraar, niet via ons." },
     ],
     deliverables: [
@@ -760,7 +760,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
     answers: [
       {
         q: "Adviseren jullie over een verzuimverzekering?",
-        a: "Ja, over de dekking en over de afstemming met onze verzekeringspartners. De polis en de premie lopen bij de verzekeraar. Partnernamen, premies en een vergelijking van polissen staan niet op deze pagina.",
+        a: "Ja, over de dekking en over de afstemming met onze verzekeringspartners. De polis en de premie lopen bij de verzekeraar.",
       },
     ],
     more: [
@@ -819,9 +819,9 @@ export const extraLayouts: Record<string, ServiceLayout> = {
       "Iemand belooft dat het verzuim daalt, zonder eerst de cijfers en de dossiers te lezen. De betaling staat los van wat er daarna gebeurt, of juist vast aan een percentage dat niemand kan onderbouwen.",
     steps: [
       { title: "Risicoanalyse", text: "De verzuimanalyse: cijfers, een steekproef van dossiers en het protocol. Die opdracht staat op een eigen pagina en kan los blijven." },
-      { title: "Het resultaat", text: "Welk resultaat telt en hoe we het meten, spreken we in overleg af. Een percentage publiceren we niet." },
+      { title: "Het resultaat", text: "Welk resultaat telt en hoe we het meten, spreken we in overleg af." },
       { title: "Het traject", text: "De stappen die uit de analyse volgen: dossiers, leidinggevenden, beleid of het systeem. Elk onderdeel kan ook los." },
-      { title: "De betaling", text: "De betaling hangt af van het afgesproken resultaat. Wat er gebeurt als dat resultaat uitblijft, staat in de offerte, niet op deze pagina." },
+      { title: "De betaling", text: "De betaling hangt af van het afgesproken resultaat. Wat er gebeurt als dat resultaat uitblijft, staat in de offerte." },
     ],
     deliverables: [
       "Start via de verzuimanalyse, de risicoanalyse",
@@ -834,7 +834,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
     answers: [
       {
         q: "Hoe werkt no cure no pay bij verzuimreductie?",
-        a: "Eerst de risicoanalyse, dat is de verzuimanalyse. Daarna een traject waarbij de betaling afhangt van het resultaat. Welk resultaat telt, hoe we meten, en hoe de betaling daarvan afhangt, spreken we in overleg af. Een percentage zetten we hier niet neer. Een daling garanderen we niet.",
+        a: "Eerst de risicoanalyse, dat is de verzuimanalyse. Daarna een traject waarbij de betaling afhangt van het resultaat. Welk resultaat telt, hoe we meten, en hoe de betaling daarvan afhangt, spreken we in overleg af.",
       },
     ],
     more: [
@@ -846,7 +846,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
     ],
     priceKind: "project",
     priceNote:
-      "Geen percentage en geen vaste succesfee op deze pagina. De offerte noemt het resultaat, de meting en hoe de betaling daarvan afhangt. De verzuimanalyse blijft een eigen opdracht.",
+      "De offerte noemt het resultaat, de meting en hoe de betaling daarvan afhangt. De verzuimanalyse blijft een eigen opdracht.",
     reviewName: "",
   },
   "integrale-verzuimaanpak": {
@@ -889,7 +889,7 @@ export const extraLayouts: Record<string, ServiceLayout> = {
     ],
     priceKind: "project",
     priceNote:
-      "Geen pakketprijs op deze pagina. De offerte noemt de onderdelen, en per onderdeel de uurbasis of een vaste prijs. De verzuimanalyse houdt de prijs die op die pagina staat.",
+      "De offerte noemt de onderdelen, en per onderdeel de uurbasis of een vaste prijs. De verzuimanalyse houdt de prijs die op die pagina staat.",
     reviewName: "",
   },
 };

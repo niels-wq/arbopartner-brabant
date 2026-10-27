@@ -18,7 +18,7 @@ const byPath: Record<string, FaqItem[]> = {
   "/adviesgesprek": [
     {
       q: "Is het adviesgesprek gratis?",
-      a: "Ja. Het gesprek duurt 30 minuten. U hoeft geen pakket af te nemen. Het kan op het kantoor aan de Losplaats 16d in Uden, bij u op het bedrijf of online. Voor de begeleiding zelf komen werknemers naar dat kantoor. Wie daarheen komt, blijft in beweging. Dat verhoogt de drempel om zich ziek te melden en kan verzuim minder en korter maken. We noemen geen percentage. Wie echt niet kan reizen, spreken we op het bedrijf of online.",
+      a: "Ja. Het gesprek duurt 30 minuten. U hoeft geen pakket af te nemen. Het kan op het kantoor aan de Losplaats 16d in Uden, bij u op het bedrijf of online. Voor de begeleiding zelf komen werknemers naar dat kantoor. Wie daarheen komt, blijft in beweging. Dat verhoogt de drempel om zich ziek te melden en kan verzuim minder en korter maken. Wie echt niet kan reizen, spreken we op het bedrijf of online.",
     },
     ...shared,
   ],

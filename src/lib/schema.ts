@@ -33,7 +33,7 @@ export function organizationLd(areaName?: string) {
     "@type": ["ProfessionalService", "LocalBusiness"],
     "@id": `${site.domain}/#organisatie`,
     name: site.name,
-    description: `${site.description} Werknemers en werkgevers kunnen voor gesprekken terecht op het kantoor ${site.parent.street}, ${site.parent.postalCode} ${site.parent.city}. Wie daarheen komt, blijft in beweging. Dat kan verzuim minder en korter maken. We noemen geen percentage. Wie niet kan reizen, spreken we op het bedrijf of online.`,
+    description: `${site.description} Werknemers en werkgevers kunnen voor gesprekken terecht op het kantoor ${site.parent.street}, ${site.parent.postalCode} ${site.parent.city}. Wie daarheen komt, blijft in beweging. Dat kan verzuim minder en korter maken. Wie niet kan reizen, spreken we op het bedrijf of online.`,
     url: site.domain,
     // Vast nummer. Het 06-nummer is alleen een WhatsApp-link en hoort hier niet.
     telephone: site.parent.phoneTel,

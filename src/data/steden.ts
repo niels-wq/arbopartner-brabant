@@ -38,7 +38,7 @@ export const focusSteden: StadDossier[] = [
         heading: "Op de plant, online, of aan de Losplaats",
         paragraphs: [
           "De rit vanuit het kantoor aan de Losplaats 16d in Uden is ongeveer 35 minuten buiten de spits. Eindhoven zit daarmee binnen de ring van ongeveer 45 minuten. Die reistijd zit in het tarief. We plannen een dagdeel, niet een los uur tussen twee andere steden. Een uurtje heen en weer is voor niemand productief, ook niet als de file meevalt.",
-          "Het gesprek kan bij u op het bedrijf, online, of op ons kantoor in Uden. Wie daarheen komt, blijft in beweging. Dat verhoogt de drempel om zich ziek te melden. We noemen geen percentage. Wie de rit niet kan maken, spreken we in Eindhoven of online. De afstemming met de leidinggevende doen we het liefst op de werkplek, zodat het plan over echte taken gaat.",
+          "Het gesprek kan bij u op het bedrijf, online, of op ons kantoor in Uden. Wie daarheen komt, blijft in beweging. Dat verhoogt de drempel om zich ziek te melden. Wie de rit niet kan maken, spreken we in Eindhoven of online. De afstemming met de leidinggevende doen we het liefst op de werkplek, zodat het plan over echte taken gaat.",
         ],
       },
       {

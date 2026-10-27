@@ -118,11 +118,11 @@ export const hrServices: Service[] = [
       },
       {
         q: "Leveren jullie een systeem als we er geen hebben?",
-        a: "Ja. Ontbreekt bij u een verzuimsysteem, dan leveren we er een. De inrichting, de migratie, een koppeling en de training staan op de pagina Verzuimsysteem implementatie. Een productnaam publiceren we hier niet.",
+        a: "Ja. Ontbreekt bij u een verzuimsysteem, dan leveren we er een. De inrichting, de migratie, een koppeling en de training staan op de pagina Verzuimsysteem implementatie.",
       },
       {
         q: "Welk verzuimsysteem past bij ons?",
-        a: "Dat hangt af van wie de dossiers vasthoudt en waar de informatie nu staat. Deze analyse zet dat op papier. Past ons systeem, dan richten we dat in op de pagina Verzuimsysteem implementatie. Een productnaam van een softwarehuis publiceren we niet.",
+        a: "Dat hangt af van wie de dossiers vasthoudt en waar de informatie nu staat. Deze analyse zet dat op papier. Past ons systeem, dan richten we dat in op de pagina Verzuimsysteem implementatie.",
       },
       {
         q: "Moet ik daarna een casemanager afnemen?",
@@ -244,7 +244,7 @@ export const hrLayouts: Record<string, ServiceLayout> = {
     ],
     priceKind: "project",
     priceNote:
-      "Een vaste prijs publiceren we niet. De offerte noemt de omvang, het aantal functies dat we uitwerken en de doorlooptijd. Dit is geen cao-indeling en geen arbeidsdeskundig onderzoek.",
+      "De offerte noemt de omvang, het aantal functies dat we uitwerken en de doorlooptijd. Dit is geen cao-indeling en geen arbeidsdeskundig onderzoek.",
     reviewName: "",
   },
   "verzuimbeleid-opstellen": {
@@ -276,7 +276,7 @@ export const hrLayouts: Record<string, ServiceLayout> = {
     ],
     priceKind: "project",
     priceNote:
-      "Geen vaste prijs op deze pagina. De offerte bevestigt of we nieuw schrijven of een bestaand stuk aanscherpen, en of het protocol erbij hoort. Een verzuimregeling kan instemmingsplichtig zijn. Die toets doet u met uw eigen adviseur.",
+      "De offerte bevestigt of we nieuw schrijven of een bestaand stuk aanscherpen, en of het protocol erbij hoort. Een verzuimregeling kan instemmingsplichtig zijn. Die toets doet u met uw eigen adviseur.",
     reviewName: "",
   },
   verzuimsysteemanalyse: {
@@ -302,7 +302,7 @@ export const hrLayouts: Record<string, ServiceLayout> = {
     answers: [
       {
         q: "Welk verzuimsysteem past bij ons?",
-        a: "Dat hangt af van wie de dossiers vasthoudt en waar de informatie nu staat. Deze analyse zet dat op papier. Past ons systeem, dan richten we dat in. De inrichting, de migratie, een koppeling en de training staan op de pagina Verzuimsysteem implementatie. Een productnaam van een softwarehuis publiceren we niet.",
+        a: "Dat hangt af van wie de dossiers vasthoudt en waar de informatie nu staat. Deze analyse zet dat op papier. Past ons systeem, dan richten we dat in. De inrichting, de migratie, een koppeling en de training staan op de pagina Verzuimsysteem implementatie.",
       },
     ],
     more: [
@@ -315,7 +315,7 @@ export const hrLayouts: Record<string, ServiceLayout> = {
     ],
     priceKind: "project",
     priceNote:
-      "Dit is niet de verzuimanalyse van cijfers en dossiers. Een vaste prijs voor de systeemanalyse publiceren we niet. De offerte noemt de opdracht. De analyse van cijfers blijft los te koop, of zit het eerste jaar in het Premium-blok.",
+      "Dit is de analyse van rollen en systemen, niet de analyse van cijfers en dossiers. De offerte noemt de opdracht. De analyse van cijfers blijft los te koop, of zit het eerste jaar in het Premium-blok.",
     reviewName: "",
   },
   "tender-arbodiensten": {
@@ -353,7 +353,7 @@ export const hrLayouts: Record<string, ServiceLayout> = {
     ],
     priceKind: "project",
     priceNote:
-      "We publiceren geen tarieven van arbodiensten en geen prijs voor deze begeleiding. De offerte noemt de uren of de afgebakende opdracht. Wij dingen niet mee als arbodienst.",
+      "De offerte noemt de uren of de afgebakende opdracht. De arbodienst blijft de partij die de aanbesteding ingaat.",
     reviewName: "",
   },
   "re-integratiebeleid-opstellen": {

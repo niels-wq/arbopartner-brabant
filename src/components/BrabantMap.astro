@@ -11,7 +11,9 @@ const { class: className, pins = "alle" } = Astro.props;
 const alleenKantoor = pins === "kantoor";
 const titelId = alleenKantoor ? "brabant-ontvangst-titel" : "brabant-kaart-titel";
 const uitlegId = alleenKantoor ? "brabant-ontvangst-uitleg" : "brabant-kaart-uitleg";
-const viewBox = alleenKantoor ? "20 150 680 250" : `0 0 ${brabantKaart.width} ${brabantKaart.height}`;
+// Het pad zit rond y 177–383 in een canvas van 560. De volle viewBox liet
+// boven en onder de provincie een lege band van ruim een kwart van de kaart.
+const viewBox = alleenKantoor ? "20 150 680 250" : "24 148 676 260";
 ---
 
 <figure class:list={["rounded-[2rem] bg-white p-4 ring-1 ring-line sm:p-6", className]}>

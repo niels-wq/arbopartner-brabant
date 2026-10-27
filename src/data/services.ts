@@ -264,7 +264,7 @@ export const services: Service[] = [
       {
         heading: "Korting",
         paragraphs: [
-          `Klanten van Arbopartner Brabant krijgen ${site.discount.arbeidsdeskundige}% korting op het arbeidsdeskundig onderzoek bij Matchvermogen. De prijs van een onderzoek hangt af van de vraag. U ontvangt een offerte van Matchvermogen, niet een vast bedrag op deze pagina.`,
+          `Klanten van Arbopartner Brabant krijgen ${site.discount.arbeidsdeskundige}% korting op het arbeidsdeskundig onderzoek bij Matchvermogen. De prijs van een onderzoek hangt af van de vraag. U ontvangt een offerte van Matchvermogen.`,
         ],
       },
     ],
@@ -341,7 +341,7 @@ export const services: Service[] = [
         heading: "Wat de training behandelt",
         paragraphs: [
           "Drie onderwerpen: het verzuimgesprek, de momenten uit de Wet verbetering poortwachter die bij de leidinggevende horen, en vroegsignalering. Daarnaast oorzaken, het beleid en het moment om een arbeidsdeskundige te bellen, zoals Matchvermogen die training beschrijft.",
-          "Duur en prijs publiceren we hier niet. Die hoort u in de offerte, of u leest het aanbod bij Matchvermogen. De training vervangt de casemanager niet en is geen juridisch advies.",
+          "De duur en de prijs hoort u in de offerte, of u leest het aanbod bij Matchvermogen. De training vervangt de casemanager niet en is geen juridisch advies.",
         ],
       },
       {
@@ -387,9 +387,9 @@ export const services: Service[] = [
         ],
       },
       {
-        heading: "Wat we niet overnemen",
+        heading: "Hoe wij de kosten rekenen",
         paragraphs: [
-          "Besparingscijfers van die pagina, zoals een bedrag per dag of een percentage korter verzuim, zetten we hier niet neer. Onze verzuimkosten rekenen met de TNO-dagkosten en een scenario dat u zelf kiest. Geen garantie vooraf.",
+          "Onze verzuimkosten rekenen met de TNO-dagkosten en een scenario dat u zelf kiest.",
         ],
       },
     ],

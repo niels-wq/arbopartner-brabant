@@ -145,7 +145,7 @@ export const serviceLayout: Record<string, ServiceLayout> = {
       { href: "/diensten/leidinggevenden-training", label: "Training leidinggevenden" },
     ],
     priceKind: "offerte",
-    priceNote: "Besparingscijfers van de jobcoachingpagina van Matchvermogen zetten we hier niet neer. Duur en bedrag staan in de offerte.",
+    priceNote: "Duur en bedrag staan in de offerte.",
     reviewName: "Melisia Telepary",
   },
   "arbeidsdeskundig-onderzoek": {
@@ -264,7 +264,7 @@ export const serviceLayout: Record<string, ServiceLayout> = {
       { href: "/werkgebied", label: "Werkgebied Noord-Brabant" },
     ],
     priceKind: "project",
-    priceNote: "Duur en prijs publiceren we hier niet. De offerte noemt de groep, de dagdelen en het bedrag. Het aanbod bij Matchvermogen blijft de inhoudelijke bron. De training is geen juridisch advies.",
+    priceNote: "De offerte noemt de groep, de dagdelen en het bedrag. Het aanbod bij Matchvermogen blijft de inhoudelijke bron. De training is geen juridisch advies.",
     reviewName: "Femke Aarts",
   },
   ...hrLayouts,

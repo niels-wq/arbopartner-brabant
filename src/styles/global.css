@@ -184,8 +184,8 @@ summary.rounded-full.border-green-800:focus-visible,
 .bg-green-900 button.rounded-full.border,
 .btn-ghost-light {
   background-color: transparent;
-  color: #ffffff;
-  border: 2px solid #ffffff;
+  color: #f4f1e8;
+  border: 2px solid #f4f1e8;
   border-radius: 8px;
 }
 .bg-green-900 a.rounded-full.border:hover,
@@ -218,6 +218,29 @@ summary.rounded-full.border-green-800:focus-visible,
 .bg-green-900 a.btn:focus-visible,
 .bg-green-950 a.btn:focus-visible {
   color: #14261c;
+  text-decoration: none;
+}
+/* Ghost op groen: de regel hierboven zet elke .btn op donkere tekst.
+   De lijnknop hoort zandkleurig te blijven, met een lichte vulling bij hover. */
+.bg-green-900 a.btn.btn-ghost-light,
+.bg-green-950 a.btn.btn-ghost-light,
+.bg-green-900 button.btn.btn-ghost-light,
+.bg-green-950 button.btn.btn-ghost-light {
+  background-color: transparent;
+  color: #f4f1e8;
+  border-color: #f4f1e8;
+}
+.bg-green-900 a.btn.btn-ghost-light:hover,
+.bg-green-950 a.btn.btn-ghost-light:hover,
+.bg-green-900 a.btn.btn-ghost-light:focus-visible,
+.bg-green-950 a.btn.btn-ghost-light:focus-visible,
+.bg-green-900 button.btn.btn-ghost-light:hover,
+.bg-green-950 button.btn.btn-ghost-light:hover,
+.bg-green-900 button.btn.btn-ghost-light:focus-visible,
+.bg-green-950 button.btn.btn-ghost-light:focus-visible {
+  background-color: #f4f1e8;
+  color: #14261c;
+  border-color: #f4f1e8;
   text-decoration: none;
 }
 .bg-green-950 a:hover,
