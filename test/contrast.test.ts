@@ -19,6 +19,8 @@ const pairs: [string, string, number, string][] = [
   ["#f4f1e8", "#12382c", 4.5, "ghostknop hover"],
   ["#ffffff", "#12382c", 4.5, "tekst op groen vlak"],
   ["#f4f1e8", "#12382c", 4.5, "lopende tekst op groen"],
+  ["#f4f1e8", "#12382c", 4.5, "categoriekaart"],
+  ["#f4f1e8", "#145c45", 4.5, "categoriekaart hover"],
   ["#f4f1e8", "#163f32", 4.5, "tekst op groen-900"],
   ["#f4f1e8", "#12382c", 4.5, "balk bovenin"],
   ["#8a5a12", "#f3f2ec", 3, "focusring op papier"],
