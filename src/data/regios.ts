@@ -43,6 +43,7 @@ export const interimLinks = [
 ] as const;
 
 export const footerDiensten = [
+  { href: "/arbeid-ai", label: "arbeid.ai" },
   { href: "/diensten/integrale-verzuimaanpak", label: "Integrale verzuimaanpak" },
   { href: "/spoedhulp", label: "Spoedhulp verzuim" },
   { href: "/diensten/casemanager-detachering", label: "Casemanagement in Brabant" },
