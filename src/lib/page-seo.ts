@@ -30,7 +30,7 @@ const byPath: Record<string, FaqItem[]> = {
     },
     {
       q: "Staat het salaris van de baan in dienst hier?",
-      a: "Nee. Salaris en uren spreken we af in de procedure. Deze pagina noemt geen bedrag.",
+      a: "Nee. Fulltime of parttime is bespreekbaar. Het salaris spreken we af in de procedure. Deze pagina noemt geen bedrag.",
     },
     shared[0],
   ],

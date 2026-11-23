@@ -215,8 +215,10 @@ export function jobPostingLd() {
     "@type": "JobPosting",
     title: "Casemanager verzuim, in dienst",
     description:
-      "Casemanager in loondienst bij Matchvermogen B.V. voor verzuimbegeleiding bij werkgevers in Noord-Brabant. Het kantoor en de thuisbasis staan aan de Losplaats 16d in Uden. Het werk kan daar, bij de werkgever of online. Salaris en uren per week staan niet in deze vacature. Die spreken we af in de procedure. Solliciteren kan direct op de pagina Werken bij.",
+      "Casemanager in loondienst bij Matchvermogen B.V. voor verzuimbegeleiding bij werkgevers in Noord-Brabant. Het kantoor en de thuisbasis staan aan de Losplaats 16d in Uden. Het werk kan daar, bij de werkgever of online. Fulltime of parttime is bespreekbaar. Salaris spreken we af in de procedure. Solliciteren kan direct op de pagina Werken bij.",
     datePosted: "2026-10-15",
+    validThrough: "2027-04-15T23:59:59+02:00",
+    employmentType: ["FULL_TIME", "PART_TIME"],
     directApply: true,
     hiringOrganization: {
       "@type": "Organization",
