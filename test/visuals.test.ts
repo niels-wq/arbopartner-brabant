@@ -22,7 +22,7 @@ describe("beelden", () => {
 
   it("dekt elk artikel, elke plaats en elke dienst", async () => {
     const posts = (await readdir(path.join(root, "src/content/blog"))).filter((name) => name.endsWith(".md"));
-    assert.equal(posts.length, 20);
+    assert.equal(posts.length, 21);
     for (const name of posts) assert.ok(visualIds.includes(`blog-${name.replace(/\.md$/, "")}` as never), name);
     const placeSlugs = [...(await readFile(path.join(root, "src/data/places.ts"), "utf8")).matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
     const serviceSlugs = [

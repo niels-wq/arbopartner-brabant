@@ -220,6 +220,7 @@ export const blogFoto = {
   "frequent-verzuim-aanpakken": "gesprek-coach",
   "casemanager-of-arbodienst": "pexels-tafel",
   "loonsanctie-uwv-voorkomen": "gesprek-bank",
+  "arbodienst-bezwaar-tegen-de-wia": "gesprek-werkgever",
 } as const satisfies Record<string, FotoId>;
 
 export function fotoVoorDienst(slug: string): FotoId {

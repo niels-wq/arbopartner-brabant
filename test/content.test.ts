@@ -20,7 +20,7 @@ describe("artikelen", () => {
   it("telt twintig stukken van minstens 900 woorden", async () => {
     const dir = path.join(root, "content/blog");
     const names = (await readdir(dir)).filter((name) => name.endsWith(".md"));
-    assert.equal(names.length, 20);
+    assert.equal(names.length, 21);
     for (const name of names) {
       const raw = await readFile(path.join(dir, name), "utf8");
       const body = raw.replace(/^---[\s\S]*?---/, "");

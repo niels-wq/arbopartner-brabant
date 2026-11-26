@@ -36,7 +36,7 @@ describe("echte foto's", () => {
     const posts = (await readdir("src/content/blog")).filter((name) => name.endsWith(".md")).map((name) => name.replace(/\.md$/, ""));
     assert.equal(services.length, 28);
     assert.equal(situaties.length, 7);
-    assert.equal(posts.length, 20);
+    assert.equal(posts.length, 21);
     for (const slug of services) assert.ok(slug in dienstFoto, slug);
     for (const slug of situaties) assert.ok(slug in situatieFoto, slug);
     for (const id of posts) assert.ok(id in blogFoto, id);

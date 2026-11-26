@@ -111,6 +111,7 @@ export const visuals = {
   "blog-frequent-verzuim-aanpakken": page("Illustratie bij de aanpak van frequent verzuim, zonder wantrouwen, in Brabant."),
   "blog-casemanager-of-arbodienst": page("Illustratie bij het verschil tussen een casemanager en een arbodienst, voor werkgevers in Brabant."),
   "blog-loonsanctie-uwv-voorkomen": page("Illustratie bij het voorkomen van een loonsanctie van UWV, voor werkgevers rond Uden."),
+  "blog-arbodienst-bezwaar-tegen-de-wia": page("Illustratie bij de rolverdeling tussen arbodienst, bedrijfsarts en arbeidsdeskundige bij een WIA-beslissing."),
   "blog-burn-out-medewerker-werkgever": page("Illustratie bij wat een werkgever in Brabant doet als een medewerker uitvalt met burn-outklachten."),
 } as const satisfies Record<string, Visual>;
 
