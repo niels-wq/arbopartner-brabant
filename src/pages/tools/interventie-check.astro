@@ -1,0 +1,83 @@
+---
+import InterventieCheck from "../../components/calculators/InterventieCheck.astro";
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import FaqList from "../../components/FaqList.astro";
+import { site } from "../../data/site";
+import { MARKET } from "../../lib/calc";
+import { euro } from "../../lib/format";
+import { spoor2BandTot } from "../../lib/interventie-tarief";
+import { crumbsLd, faqLd } from "../../lib/schema";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Tools", path: "/tools" },
+  { name: "Interventietarief", path: "/tools/interventie-check" },
+];
+
+const faq = [
+  {
+    q: "Wat vergelijkt de interventietariefchecker?",
+    a: "Het bedrag dat u nu betaalt of aangeboden krijgt, naast een richttarief. Voor arbeidsdeskundig onderzoek en tweede spoor is dat ons vanaf-tarief. Voor coaching, psychologische begeleiding, loopbaancoaching, outplacement en verzuimconsultancy is dat een gangbaar tarief in de markt. De uitkomst is een indicatie, geen offerte.",
+  },
+  {
+    q: "Voor wie is deze vergelijking?",
+    a: `Voor werkgevers in Noord-Brabant ${site.audience.replace("voor organisaties ", "")}. Kleinere organisaties verwijzen we naar Matchvermogen. Meer dan ${site.maxEmployees} medewerkers valt buiten Arbopartner Brabant.`,
+  },
+  {
+    q: "Waarom is het richttarief voor een combinatraject en een volledig tweede spoor hetzelfde?",
+    a: `Op deze site staat één vanaf-bedrag voor tweede spoor: ${euro(MARKET.spoor2Price, true)} exclusief btw. De band voor een modulair traject loopt tot ${euro(spoor2BandTot, true)}. Een langer traject kan daarboven liggen. Dat hogere bedrag staat hier niet als apart tarief. Tweede spoor loopt via Best Match.`,
+  },
+  {
+    q: "Wat betekent de vink over een UWV-garantie?",
+    a: "Een UWV-garantie betekent dat het traject zo is opgezet dat de re-integratie-inspanningen bij een WIA-beoordeling worden geaccepteerd. De vink zegt alleen of uw huidige tarief dat noemt. Het richttarief verandert daardoor niet.",
+  },
+  {
+    q: "Hoe werkt het bulkvoordeel?",
+    a: "De staffel is indicatief: vanaf 5 medewerkers circa 10%, vanaf 10 circa 15% en vanaf 20 circa 20% op het individuele tarief. De definitieve korting hangt af van de groep en het type traject. De vink bij één traject rekent apart 10% van het richttarief af, ook indicatief.",
+  },
+  {
+    q: "Vraagt de checker om mijn gegevens?",
+    a: "Nee. De vergelijking blijft op deze pagina. Persoonsgegevens vraagt alleen het formulier als u zelf een vrijblijvend gesprek aanvraagt. Dat formulier heeft een vink voor toestemming en een link naar de privacyverklaring.",
+  },
+];
+---
+
+<Base
+  title="Interventietarief checker"
+  description="Vergelijk uw tarief voor onderzoek, tweede spoor of coaching met het richttarief. Voor werkgevers in Brabant met 35 tot 500 medewerkers. Indicatie, geen offerte."
+  jsonLd={[crumbsLd(crumbs), faqLd(faq)]}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <article class="mx-auto max-w-3xl px-4 pb-8 pt-10 md:pt-14">
+    <header>
+      <h1 class="font-serif text-4xl text-green-950 md:text-5xl">Betaalt u te veel voor een interventie?</h1>
+      <p class="mt-5 text-lg">
+        Voor werkgevers in Noord-Brabant met 35 tot 500 medewerkers. Vul het type traject in en het bedrag dat u nu betaalt of aangeboden krijgt. U ziet hoe dat zich verhoudt tot het richttarief.
+      </p>
+      <p class="mt-4">
+        Arbeidsdeskundig onderzoek loopt via Matchvermogen.
+        Tweede spoor loopt via Best Match.
+      </p>
+      <p class="mt-4 text-sm">
+        <a class="underline" href="/diensten/arbeidsdeskundig-onderzoek">Arbeidsdeskundig onderzoek</a>
+        {" · "}
+        <a class="underline" href="/diensten/tweede-spoor">Tweede spoor</a>
+        {" · "}
+        <a class="underline" href="/tarieven">Uurtarieven van de casemanager</a>
+      </p>
+    </header>
+    <div class="mt-10">
+      <InterventieCheck modus="volledig" />
+    </div>
+    <FaqList items={faq} title="Vragen over de vergelijking" />
+  </article>
+  <CtaBand
+    title="Het richttarief naast uw offerte leggen"
+    text="De vergelijking is een indicatie. In het gesprek kijken we welk traject bij uw dossiers past."
+    proof={false}
+    cta="interventie-check-onder"
+    risk="Het gesprek van 30 minuten verplicht u tot niets. Dit is geen offerte."
+  />
+</Base>
