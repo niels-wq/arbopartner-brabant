@@ -1,0 +1,223 @@
+---
+import Base from "../layouts/Base.astro";
+import { crumbsLd, faqLd } from "../lib/schema";
+
+const faqs = [
+  { q: "Is dit een arbeidsdeskundig onderzoek?", a: "Nee. U krijgt een indicatief advies op basis van wat u invult. Een onderzoek is een gesprek en een rapport over de situatie van een medewerker." },
+  { q: "Mag ik een diagnose invullen?", a: "Nee. Vul geen medische gegevens in en geen BSN. Beschrijf alleen wat iemand wel en niet kan in het werk." },
+  { q: "Wanneer zie ik het advies?", a: "Pas nadat u een e-mailadres of telefoonnummer hebt ingevuld en het vinkje voor toestemming hebt aangezet." },
+  { q: "Wat kost dit?", a: "Het advies op deze pagina is vrijblijvend. Een arbeidsdeskundig onderzoek daarna is een aparte opdracht." },
+];
+
+const rubrieken = [
+  ["persoonlijk", "Persoonlijk functioneren", [["concentreren", "Concentreren van de aandacht"], ["aandacht", "Verdelen van de aandacht"], ["herinneren", "Herinneren"], ["zelfstandig", "Zelfstandig handelen"], ["doelmatig", "Doelmatig handelen"], ["tempo", "Handelingstempo"]]],
+  ["sociaal", "Sociaal functioneren", [["zien", "Zien"], ["horen", "Horen"], ["spreken", "Spreken"], ["samenwerken", "Samenwerken"], ["conflicten", "Omgaan met conflicten"], ["gevoelens", "Eigen gevoelens uiten"]]],
+  ["omgeving", "Aanpassing aan fysieke omgeving", [["hitte", "Hitte"], ["kou", "Koude"], ["geluid", "Geluid"], ["trillingen", "Trillingen"], ["stof", "Stof, rook, gassen of dampen"], ["bescherming", "Beschermende middelen"]]],
+  ["dynamisch", "Dynamische handelingen", [["tillen", "Tillen of dragen"], ["duwen", "Duwen of trekken"], ["lopen", "Lopen"], ["trappen", "Trappenlopen"], ["reiken", "Reiken"], ["handen", "Hand- en vingergebruik"]]],
+  ["statisch", "Statische houdingen", [["zitten", "Zitten"], ["staan", "Staan"], ["gebogen", "Gebogen of getordeerd actief zijn"], ["schouder", "Boven schouderhoogte actief zijn"], ["afwisselen", "Afwisseling van houding"]]],
+  ["werktijden", "Werktijden", [["uren-dag", "Uren per dag"], ["uren-week", "Uren per week"], ["nacht", "Werken in de nacht"], ["onregelmatig", "Onregelmatige tijden"]]],
+];
+
+const title = "Gratis AD-adviesgenerator voor werkgevers in Brabant";
+const description = "Genereer vrijblijvend een indicatief arbeidsdeskundig advies voor uw organisatie in Noord-Brabant. Geen medisch advies en geen garantie op adequaatheid.";
+---
+
+<Base title={title} description={description} jsonLd={[crumbsLd([{ name: "Home", path: "/" }, { name: "AD-adviesgenerator", path: "/ad-advies-generator" }]), faqLd(faqs)]}>
+  <article class="mx-auto max-w-3xl px-4 py-12">
+    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-ochre-800">Vrijblijvend</p>
+    <h1 class="mt-3 text-4xl text-green-950 md:text-5xl">Genereer vrijblijvend een arbeidsdeskundig advies</h1>
+    <p class="mt-4 text-lg text-ink-soft">Voor werkgevers in Noord-Brabant met 35 tot 500 medewerkers. U beschrijft de functie en wat iemand wel en niet kan. U krijgt een indicatief advies, met de mijlpalen vanaf de eerste ziektedag.</p>
+    <p class="mt-4 rounded-2xl border border-line bg-white p-4 text-sm text-ink-soft">Dit is een automatisch gegenereerd, indicatief advies op basis van uw invoer. Het is geen medisch advies, geen vervanging van een arbeidsdeskundig onderzoek en er kunnen geen rechten aan worden ontleend. De juistheid en adequaatheid voor uw situatie zijn niet gegarandeerd. Voer geen medische informatie in.</p>
+
+    <form id="ad-advies-form" class="mt-8 grid gap-5" novalidate>
+      <label class="grid gap-1 text-sm font-semibold text-green-950">Functie
+        <input class="rounded-xl border border-line px-3 py-2 font-normal" name="functie" required maxlength="120" autocomplete="organization-title" />
+      </label>
+      <label class="grid gap-1 text-sm font-semibold text-green-950">Taken
+        <textarea class="min-h-24 rounded-xl border border-line px-3 py-2 font-normal" name="taken" required maxlength="1500"></textarea>
+      </label>
+      <label class="grid gap-1 text-sm font-semibold text-green-950">Wat kan iemand wel en niet in het werk?
+        <textarea class="min-h-28 rounded-xl border border-line px-3 py-2 font-normal" name="beperkingen" maxlength="2000"></textarea>
+        <span class="font-normal text-ink-soft">Vul geen medische gegevens in (geen diagnoses, ziektes, medicatie of behandelingen) en geen namen of BSN. Beschrijf alleen wat iemand wel en niet kan.</span>
+      </label>
+      <fieldset class="grid gap-4">
+        <legend class="text-sm font-semibold text-green-950">Beperkingen, als u die wilt aanvinken</legend>
+        {rubrieken.map(([id, label, items]) => (
+          <div>
+            <p class="text-sm font-semibold text-green-950">{label}</p>
+            <div class="mt-2 grid gap-2 sm:grid-cols-2">
+              {items.map(([item, itemLabel]) => (
+                <label class="flex gap-2 text-sm font-normal text-ink">
+                  <input type="checkbox" name={`rubriek-${id}`} value={item} />
+                  <span>{itemLabel}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        ))}
+      </fieldset>
+      <div class="grid gap-5 sm:grid-cols-2">
+        <label class="grid gap-1 text-sm font-semibold text-green-950">Eerste ziektedag
+          <input class="rounded-xl border border-line px-3 py-2 font-normal" type="date" name="eersteZiektedag" required />
+        </label>
+        <label class="grid gap-1 text-sm font-semibold text-green-950">Werkpercentage nu
+          <input class="rounded-xl border border-line px-3 py-2 font-normal" type="number" name="werkpercentage" min="0" max="100" required />
+        </label>
+      </div>
+      <fieldset>
+        <legend class="text-sm font-semibold text-green-950">Zijn er duurzaam benutbare mogelijkheden?</legend>
+        <div class="mt-2 flex flex-wrap gap-4 text-sm">
+          <label class="flex gap-2"><input type="radio" name="duurzaamheid" value="ja" required /> Ja</label>
+          <label class="flex gap-2"><input type="radio" name="duurzaamheid" value="nee" /> Nee</label>
+          <label class="flex gap-2"><input type="radio" name="duurzaamheid" value="onbekend" /> Onbekend</label>
+        </div>
+      </fieldset>
+      <div class="grid gap-5 sm:grid-cols-2">
+        <label class="grid gap-1 text-sm font-semibold text-green-950">E-mailadres
+          <input class="rounded-xl border border-line px-3 py-2 font-normal" type="email" name="email" autocomplete="email" />
+        </label>
+        <label class="grid gap-1 text-sm font-semibold text-green-950">Telefoonnummer
+          <input class="rounded-xl border border-line px-3 py-2 font-normal" type="tel" name="telefoon" autocomplete="tel" />
+        </label>
+      </div>
+      <p class="text-sm text-ink-soft">Vul een e-mailadres of een telefoonnummer in. Het advies en de PDF verschijnen daarna op deze pagina.</p>
+      <label class="flex gap-2 text-sm">
+        <input type="checkbox" name="toestemming" value="ja" required />
+        <span>Ik geef toestemming om deze gegevens te gebruiken voor dit advies en om contact met mij op te nemen. <a class="underline" href="/privacy">Privacy</a>.</span>
+      </label>
+      <div class="absolute -left-[9999px]" aria-hidden="true">
+        <label>Website <input name="company_website" tabindex="-1" autocomplete="off" /></label>
+      </div>
+      <button class="btn w-fit" type="submit">Genereer vrijblijvend een AD-advies</button>
+      <p id="ad-advies-status" class="text-sm text-ink-soft" role="status"></p>
+    </form>
+
+    <section id="ad-advies-resultaat" class="mt-10 hidden" aria-live="polite"></section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl text-green-950">Veelgestelde vragen</h2>
+      <div class="mt-4 grid gap-3">
+        {faqs.map((item) => (
+          <details class="rounded-2xl border border-line bg-white p-4">
+            <summary class="cursor-pointer font-semibold text-green-950">{item.q}</summary>
+            <p class="mt-2 text-ink-soft">{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+    <p class="mt-8 text-sm text-ink-soft">Liever een onderbouwd rapport? <a class="font-semibold text-green-800 underline" href="/diensten/arbeidsdeskundig-onderzoek">Arbeidsdeskundig onderzoek</a> of <a class="font-semibold text-green-800 underline" href="/adviesgesprek">plan een adviesgesprek</a>.</p>
+  </article>
+</Base>
+
+<script>
+  import { armForm, prepareSubmission } from "../scripts/form-guard";
+
+  const form = document.querySelector("#ad-advies-form");
+  const status = document.querySelector("#ad-advies-status");
+  const resultaat = document.querySelector("#ad-advies-resultaat");
+  if (form instanceof HTMLFormElement) armForm(form).catch(() => {
+    if (status) status.textContent = "De pagina kon de aanvraag niet beveiligen. Ververs de pagina of bel 085-0870307.";
+  });
+
+  function tekst(node, value) {
+    node.textContent = value || "";
+  }
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!(form instanceof HTMLFormElement) || !status || !resultaat) return;
+    status.textContent = "Het advies wordt gemaakt.";
+    resultaat.classList.add("hidden");
+    resultaat.replaceChildren();
+    try {
+      await prepareSubmission(form);
+    } catch {
+      status.textContent = "De pagina kon de aanvraag niet beveiligen. Ververs de pagina of bel 085-0870307.";
+      return;
+    }
+    const data = new FormData(form);
+    const rubrieken = {};
+    for (const [key, value] of data.entries()) {
+      if (!key.startsWith("rubriek-") || typeof value !== "string") continue;
+      const id = key.slice("rubriek-".length);
+      rubrieken[id] = rubrieken[id] || [];
+      rubrieken[id].push(value);
+    }
+    const body = {
+      functie: data.get("functie"),
+      taken: data.get("taken"),
+      beperkingen: data.get("beperkingen"),
+      rubrieken,
+      eersteZiektedag: data.get("eersteZiektedag"),
+      werkpercentage: data.get("werkpercentage"),
+      duurzaamheid: data.get("duurzaamheid"),
+      email: data.get("email"),
+      telefoon: data.get("telefoon"),
+      toestemming: data.get("toestemming") === "ja",
+      company_website: data.get("company_website") || "",
+      form_ts: data.get("form_ts"),
+      form_sig: data.get("form_sig"),
+    };
+    let json;
+    try {
+      const response = await fetch("/api/ad-advies", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      json = await response.json();
+    } catch {
+      status.textContent = "De verbinding lukte niet. Probeer het opnieuw of bel 085-0870307.";
+      return;
+    }
+    if (!json?.secties) {
+      status.textContent = json?.error || "Het advies kon niet worden getoond. Probeer het opnieuw of bel 085-0870307.";
+      return;
+    }
+    status.textContent = "";
+    const kop = document.createElement("h2");
+    kop.className = "text-2xl text-green-950";
+    tekst(kop, "Uw indicatieve advies");
+    resultaat.append(kop);
+    const meta = document.createElement("p");
+    meta.className = "mt-2 text-sm text-ink-soft";
+    tekst(meta, `${json.kop?.functie || ""}. Verzuimduur ${json.kop?.verzuimduur || ""}.`);
+    resultaat.append(meta);
+    for (const sectie of json.secties) {
+      const titel = document.createElement("h3");
+      titel.className = "mt-6 text-xl text-green-950";
+      tekst(titel, sectie.titel);
+      const blok = document.createElement("p");
+      blok.className = "mt-2 whitespace-pre-wrap text-ink";
+      tekst(blok, sectie.tekst);
+      resultaat.append(titel, blok);
+    }
+    const disclaimer = document.createElement("p");
+    disclaimer.className = "mt-6 text-sm text-ink-soft";
+    tekst(disclaimer, json.disclaimer);
+    const knop = document.createElement("button");
+    knop.type = "button";
+    knop.className = "btn mt-4";
+    knop.textContent = "Download de PDF";
+    knop.addEventListener("click", async () => {
+      const response = await fetch("/api/ad-advies-pdf", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ id: json.id }),
+      });
+      if (!response.ok) {
+        status.textContent = "De PDF is niet meer beschikbaar. Genereer het advies opnieuw.";
+        return;
+      }
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "ad-advies.pdf";
+      link.click();
+      URL.revokeObjectURL(url);
+    });
+    resultaat.append(disclaimer, knop);
+    resultaat.classList.remove("hidden");
+  });
+</script>

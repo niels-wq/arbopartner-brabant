@@ -64,6 +64,11 @@ const server = createServer(async (req, res) => {
       await handleChatMessage(req, res);
       return;
     }
+    if (apiUrl.pathname === "/api/ad-advies" || apiUrl.pathname === "/api/ad-advies-pdf") {
+      const { handleAdRoute } = await import("./ad-advies.mjs");
+      await handleAdRoute(req, res);
+      return;
+    }
     if (await handleApi(req, res)) return;
     const url = new URL(req.url || "/", "http://localhost");
     const canonical = wwwRedirectLocation(url.pathname, url.search, req.headers.host, req.headers["x-forwarded-host"]);

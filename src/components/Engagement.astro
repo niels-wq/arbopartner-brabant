@@ -11,8 +11,11 @@ import { site, phoneHref, mailHref, whatsappHref } from "../data/site";
 ></div>
 
 <aside class="ap-sticky" aria-label="Snel contact">
-  <a class="btn" data-cta="sticky-advies" href="/adviesgesprek">Adviesgesprek</a>
-  <a class="btn btn-ghost" data-cta="sticky-bel" data-channel="phone" href={phoneHref}>Bel {site.parent.phoneDisplay}</a>
+  <a class="ap-sticky-ad" data-cta="sticky-ad-advies" href="/ad-advies-generator">Genereer vrijblijvend een AD-advies</a>
+  <div class="ap-sticky-row">
+    <a class="btn" data-cta="sticky-advies" href="/adviesgesprek">Adviesgesprek</a>
+    <a class="btn btn-ghost" data-cta="sticky-bel" data-channel="phone" href={phoneHref}>Bel {site.parent.phoneDisplay}</a>
+  </div>
 </aside>
 
 <a class="ap-calc" data-cta="calculator-fab" href="/casemanager-inhuren-of-in-dienst#vergelijking" aria-label="Bereken uw besparing">
