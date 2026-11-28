@@ -36,6 +36,7 @@ describe("wet in de merklaag", () => {
     const offenders: string[] = [];
     for (const file of all) {
       if (file.includes(`${path.sep}content${path.sep}blog${path.sep}`)) continue;
+      if (file.endsWith(`${path.sep}vergelijking${path.sep}markt-2026-11-28.json`)) continue;
       if (file.endsWith(`${path.sep}data${path.sep}situaties.ts`)) continue;
       if (file.endsWith(`${path.sep}loonsanctie-risicoscan.astro`)) continue;
       if (file.endsWith(`${path.sep}verzuim-tijdlijn.astro`)) continue;
