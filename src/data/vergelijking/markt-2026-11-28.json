@@ -1,0 +1,1381 @@
+{
+  "peildatum": "2026-11-28",
+  "peildatum_tekst": "28 november 2026",
+  "bronvermelding": "Openbare tarieven en registergegevens, gecontroleerd op 28 november 2026. Elk bedrag in dit bestand heeft een bron-URL en is in die bron aangetroffen. Tarieven van Arbopartner Brabant staan niet in dit bestand; die komen uit de tarievenpagina van deze site.",
+  "btw_regel": "Bedragen zijn excl. btw tenzij per prijs anders staat vermeld ('niet vermeld' betekent: de bron noemt de btw-status niet).",
+  "sbca_bron": "sbca_register",
+  "sbca_toelichting": "Aantal dochtervestigingen, geteld uit het SBCA-register op 28 november 2026.",
+  "sbca_dochtervestigingen": [
+    {
+      "aanbieder_id": "arboned",
+      "naam": "ArboNed",
+      "aantal": 47
+    },
+    {
+      "aanbieder_id": "zvdz",
+      "naam": "Zorg van de Zaak",
+      "aantal": 42
+    },
+    {
+      "aanbieder_id": "perspectief",
+      "naam": "Perspectief Groep",
+      "aantal": 35
+    },
+    {
+      "aanbieder_id": "hcc",
+      "naam": "HumanCapitalCare",
+      "aantal": 33
+    },
+    {
+      "aanbieder_id": "arbounie",
+      "naam": "Arbo Unie (incl. Mkbasics)",
+      "aantal": 33
+    },
+    {
+      "aanbieder_id": "mkbasics",
+      "naam": "Arbo Unie (incl. Mkbasics)",
+      "aantal": 33
+    },
+    {
+      "aanbieder_id": "leuk",
+      "naam": "Leuk Personeel",
+      "aantal": 4
+    },
+    {
+      "aanbieder_id": "arboanders",
+      "naam": "ArboAnders",
+      "aantal": 3
+    }
+  ],
+  "interventies": [
+    {
+      "id": "arbodienstverlening",
+      "naam": "Losse arbodienstverlening (abonnement en verrichtingen)",
+      "prijsbasis": "per medewerker per jaar (abonnement) plus verrichtingen, excl. btw tenzij anders vermeld",
+      "banden": [
+        {
+          "id": "laagste_pakket",
+          "eenheid": "EUR per medewerker per jaar, laagste pakket per aanbieder",
+          "laag": 25.0,
+          "midden": 39.61,
+          "hoog": 79.0,
+          "n": 6,
+          "karakter": "steekproef van openbare prijzen, geen landelijk marktgemiddelde",
+          "basis": [
+            {
+              "aanbieder_id": "arboned",
+              "waarde": 25.0,
+              "bron": "arboned_abo"
+            },
+            {
+              "aanbieder_id": "verzuimportaal",
+              "waarde": 32.0,
+              "bron": "verzuimportaal"
+            },
+            {
+              "aanbieder_id": "fit",
+              "waarde": 36.56,
+              "bron": "fit_2026"
+            },
+            {
+              "aanbieder_id": "leuk",
+              "waarde": 42.65,
+              "bron": "leuk_2026"
+            },
+            {
+              "aanbieder_id": "arboanders",
+              "waarde": 44.15,
+              "bron": "arboanders_2026"
+            },
+            {
+              "aanbieder_id": "mkbasics",
+              "waarde": 79.0,
+              "bron": "mkbasics_2026"
+            }
+          ]
+        },
+        {
+          "id": "middelste_pakket",
+          "eenheid": "EUR per medewerker per jaar, middelste pakket per aanbieder",
+          "laag": 47.25,
+          "midden": 117.7,
+          "hoog": 145.25,
+          "n": 6,
+          "karakter": "steekproef van openbare prijzen, geen landelijk marktgemiddelde",
+          "basis": [
+            {
+              "aanbieder_id": "arboned",
+              "waarde": 47.25,
+              "bron": "arboned_abo"
+            },
+            {
+              "aanbieder_id": "arboanders",
+              "waarde": 109.5,
+              "bron": "arboanders_2026"
+            },
+            {
+              "aanbieder_id": "fit",
+              "waarde": 116.61,
+              "bron": "fit_2026"
+            },
+            {
+              "aanbieder_id": "verzuimportaal",
+              "waarde": 118.8,
+              "bron": "verzuimportaal"
+            },
+            {
+              "aanbieder_id": "mkbasics",
+              "waarde": 145.0,
+              "bron": "mkbasics_2026"
+            },
+            {
+              "aanbieder_id": "leuk",
+              "waarde": 145.25,
+              "bron": "leuk_2026"
+            }
+          ]
+        },
+        {
+          "id": "hoogste_pakket",
+          "eenheid": "EUR per medewerker per jaar, hoogste pakket per aanbieder",
+          "laag": 148.0,
+          "midden": 181.5,
+          "hoog": 217.0,
+          "n": 5,
+          "karakter": "steekproef van openbare prijzen, geen landelijk marktgemiddelde",
+          "basis": [
+            {
+              "aanbieder_id": "verzuimportaal",
+              "waarde": 148.0,
+              "bron": "verzuimportaal"
+            },
+            {
+              "aanbieder_id": "fit",
+              "waarde": 165.24,
+              "bron": "fit_2026"
+            },
+            {
+              "aanbieder_id": "arboned",
+              "waarde": 181.5,
+              "bron": "arboned_abo"
+            },
+            {
+              "aanbieder_id": "mkbasics",
+              "waarde": 213.0,
+              "bron": "mkbasics_2026"
+            },
+            {
+              "aanbieder_id": "leuk",
+              "waarde": 217.0,
+              "bron": "leuk_2026"
+            }
+          ]
+        }
+      ],
+      "aanbieders": [
+        {
+          "id": "arboned",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Flex-abonnement",
+              "bedrag": 25.0,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "arboned_abo"
+            },
+            {
+              "label": "Basis-abonnement (meest gekozen)",
+              "bedrag": 47.25,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "arboned_abo"
+            },
+            {
+              "label": "Extra-abonnement (vanaf)",
+              "bedrag": 181.5,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "arboned_abo"
+            },
+            {
+              "label": "Procesregisseur uurtarief (2025)",
+              "bedrag": 171.5,
+              "eenheid": "per uur",
+              "btw": "excl. btw",
+              "tariefjaar": "2025",
+              "bron": "arboned_2025"
+            },
+            {
+              "label": "Arbeidsdeskundige uurtarief (2025)",
+              "bedrag": 218.5,
+              "eenheid": "per uur",
+              "btw": "excl. btw",
+              "tariefjaar": "2025",
+              "bron": "arboned_2025"
+            }
+          ]
+        },
+        {
+          "id": "arbounie",
+          "prijs_status": "gedeeltelijk openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Regie op Inzetbaarheid (vaste bijdrage, 2024)",
+              "bedrag": 39.5,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2024",
+              "bron": "arbounie_2024"
+            },
+            {
+              "label": "Arbeidsdeskundige uurtarief (2024)",
+              "bedrag": 186.5,
+              "eenheid": "per uur",
+              "btw": "excl. btw",
+              "tariefjaar": "2024",
+              "bron": "arbounie_2024"
+            }
+          ]
+        },
+        {
+          "id": "mkbasics",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Casemanagement Basis",
+              "bedrag": 79.0,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "mkbasics_2026"
+            },
+            {
+              "label": "Casemanagement Extra",
+              "bedrag": 145.0,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "mkbasics_2026"
+            },
+            {
+              "label": "Casemanagement Compleet (max 10 medewerkers, zonder lopend verzuim)",
+              "bedrag": 213.0,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "mkbasics_2026"
+            },
+            {
+              "label": "Bedrijfsarts uurtarief",
+              "bedrag": 266.5,
+              "eenheid": "per uur",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "mkbasics_2026"
+            }
+          ]
+        },
+        {
+          "id": "hcc",
+          "prijs_status": "niet openbaar",
+          "prijs_tekst": "prijs niet openbaar",
+          "prijzen": []
+        },
+        {
+          "id": "zvdz",
+          "prijs_status": "gedeeltelijk openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "NN MKB Uitgebreid (2025)",
+              "bedrag": 153.45,
+              "eenheid": "per medewerker (periode niet expliciet vermeld)",
+              "btw": "excl. btw",
+              "tariefjaar": "2025",
+              "bron": "nn_zvdz_2025"
+            },
+            {
+              "label": "NN MKB Uitgebreid met preventie (2025)",
+              "bedrag": 173.7,
+              "eenheid": "per medewerker (periode niet expliciet vermeld)",
+              "btw": "excl. btw",
+              "tariefjaar": "2025",
+              "bron": "nn_zvdz_2025"
+            }
+          ]
+        },
+        {
+          "id": "perspectief",
+          "prijs_status": "gedeeltelijk openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Comfort (via Turien, 2026)",
+              "bedrag": 155.0,
+              "eenheid": "per werknemer (periode niet expliciet vermeld)",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "turien_2026"
+            },
+            {
+              "label": "Basis, activiteitenpakket (via Turien, 2026)",
+              "bedrag": 41.0,
+              "eenheid": "per werknemer (periode niet expliciet vermeld)",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "turien_2026"
+            },
+            {
+              "label": "MKB Verzuim Ontzorg (via Turien, 2026)",
+              "bedrag": 160.0,
+              "eenheid": "per werknemer (periode niet expliciet vermeld)",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "turien_2026"
+            }
+          ]
+        },
+        {
+          "id": "capability",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Basis",
+              "bedrag": 44.03,
+              "eenheid": "per medewerker (periode niet expliciet vermeld)",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "capability_2026"
+            },
+            {
+              "label": "Plus",
+              "bedrag": 144.68,
+              "eenheid": "per medewerker (periode niet expliciet vermeld)",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "capability_2026"
+            },
+            {
+              "label": "Compleet",
+              "bedrag": 188.27,
+              "eenheid": "per medewerker (periode niet expliciet vermeld)",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "capability_2026"
+            }
+          ]
+        },
+        {
+          "id": "fit",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Basis",
+              "bedrag": 36.56,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "fit_2026"
+            },
+            {
+              "label": "Uitgebreid",
+              "bedrag": 116.61,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "fit_2026"
+            },
+            {
+              "label": "Comfort",
+              "bedrag": 165.24,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "fit_2026"
+            }
+          ]
+        },
+        {
+          "id": "leuk",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Pro-Basis",
+              "bedrag": 42.65,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "leuk_2026"
+            },
+            {
+              "label": "Pro-Actief",
+              "bedrag": 145.25,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "leuk_2026"
+            },
+            {
+              "label": "Pro-Leuk",
+              "bedrag": 217.0,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "leuk_2026"
+            }
+          ]
+        },
+        {
+          "id": "arboanders",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Verrichtingen",
+              "bedrag": 44.15,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "arboanders_2026"
+            },
+            {
+              "label": "Verzuimbegeleiding",
+              "bedrag": 109.5,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "arboanders_2026"
+            }
+          ]
+        },
+        {
+          "id": "conceptarbo",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Aansluiting Basis",
+              "bedrag": 15.0,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "conceptarbo_2026"
+            },
+            {
+              "label": "Aansluiting Signalering",
+              "bedrag": 30.0,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "conceptarbo_2026"
+            },
+            {
+              "label": "Aansluiting Advies (> 50 medewerkers)",
+              "bedrag": 60.0,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "conceptarbo_2026"
+            },
+            {
+              "label": "Aansluiting Poortwachter (> 50 medewerkers)",
+              "bedrag": 90.0,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "conceptarbo_2026"
+            }
+          ]
+        },
+        {
+          "id": "verzuimportaal",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Basis pakket",
+              "bedrag": 32.0,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "verzuimportaal"
+            },
+            {
+              "label": "Poortwachter pakket (vanaf 10 medewerkers)",
+              "bedrag": 118.8,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "verzuimportaal"
+            },
+            {
+              "label": "Verzuimportaal pakket (vanaf 25 medewerkers)",
+              "bedrag": 148.0,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "verzuimportaal"
+            }
+          ]
+        },
+        {
+          "id": "acture",
+          "prijs_status": "gedeeltelijk openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Acture Arbo: MKB 'deels' verzekerd (label in bron: 2024)",
+              "bedrag": 141.94,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2024",
+              "bron": "acture_2026"
+            }
+          ]
+        },
+        {
+          "id": "assist",
+          "prijs_status": "gedeeltelijk openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "All-in Compleet (label in bron: 2024)",
+              "bedrag": 149.95,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2024",
+              "bron": "acture_2026"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "casemanagement",
+      "naam": "Casemanagement (verzuimbegeleiding, detachering)",
+      "prijsbasis": "per uur casemanager, excl. btw",
+      "banden": [
+        {
+          "id": "per_uur",
+          "eenheid": "EUR per uur casemanager, excl. btw",
+          "laag": 105.0,
+          "midden": 153.95,
+          "hoog": 176.0,
+          "n": 8,
+          "karakter": "steekproef van openbare prijzen, geen landelijk marktgemiddelde",
+          "basis": [
+            {
+              "aanbieder_id": "callo",
+              "waarde": 105.0,
+              "bron": "callo"
+            },
+            {
+              "aanbieder_id": "arboanders",
+              "waarde": 133.0,
+              "bron": "arboanders_2026"
+            },
+            {
+              "aanbieder_id": "leuk",
+              "waarde": 133.6,
+              "bron": "leuk_2026"
+            },
+            {
+              "aanbieder_id": "conceptarbo",
+              "waarde": 148.0,
+              "bron": "conceptarbo_2026"
+            },
+            {
+              "aanbieder_id": "fit",
+              "waarde": 159.9,
+              "bron": "fit_2026"
+            },
+            {
+              "aanbieder_id": "capability",
+              "waarde": 160.45,
+              "bron": "capability_2026"
+            },
+            {
+              "aanbieder_id": "arboned",
+              "waarde": 171.5,
+              "bron": "arboned_2025"
+            },
+            {
+              "aanbieder_id": "mkbasics",
+              "waarde": 176.0,
+              "bron": "mkbasics_2026"
+            }
+          ]
+        }
+      ],
+      "aanbieders": [
+        {
+          "id": "callo",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Flex casemanagement online",
+              "bedrag": 105.0,
+              "eenheid": "per uur",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "callo"
+            }
+          ]
+        },
+        {
+          "id": "leuk",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Casemanager (Pro-Basis en Pro-Actief)",
+              "bedrag": 133.6,
+              "eenheid": "per uur",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "leuk_2026"
+            }
+          ]
+        },
+        {
+          "id": "arboanders",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Begeleiding adviseur arbeid en verzuim",
+              "bedrag": 133.0,
+              "eenheid": "per uur",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "arboanders_2026"
+            }
+          ]
+        },
+        {
+          "id": "conceptarbo",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Casemanager werkzaamheden",
+              "bedrag": 148.0,
+              "eenheid": "per uur",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "conceptarbo_2026"
+            }
+          ]
+        },
+        {
+          "id": "fit",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Casemanager",
+              "bedrag": 159.9,
+              "eenheid": "per uur",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "fit_2026"
+            }
+          ]
+        },
+        {
+          "id": "capability",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Verzuimmanager",
+              "bedrag": 160.45,
+              "eenheid": "per uur",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "capability_2026"
+            }
+          ]
+        },
+        {
+          "id": "arboned",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Procesregisseur (2025)",
+              "bedrag": 171.5,
+              "eenheid": "per uur",
+              "btw": "excl. btw",
+              "tariefjaar": "2025",
+              "bron": "arboned_2025"
+            }
+          ]
+        },
+        {
+          "id": "mkbasics",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Casemanager",
+              "bedrag": 176.0,
+              "eenheid": "per uur",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "mkbasics_2026"
+            },
+            {
+              "label": "Senior casemanager",
+              "bedrag": 234.0,
+              "eenheid": "per uur",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "mkbasics_2026"
+            }
+          ]
+        },
+        {
+          "id": "hcc",
+          "prijs_status": "niet openbaar",
+          "prijs_tekst": "prijs niet openbaar",
+          "prijzen": []
+        },
+        {
+          "id": "zvdz",
+          "prijs_status": "niet openbaar",
+          "prijs_tekst": "prijs niet openbaar",
+          "prijzen": []
+        },
+        {
+          "id": "perspectief",
+          "prijs_status": "niet openbaar",
+          "prijs_tekst": "prijs niet openbaar",
+          "prijzen": []
+        }
+      ]
+    },
+    {
+      "id": "verzuimsysteem",
+      "naam": "Verzuimsystemen (software)",
+      "prijsbasis": "per medewerker per maand of per jaar, excl. btw tenzij anders vermeld",
+      "banden": [
+        {
+          "id": "per_mw_maand",
+          "eenheid": "EUR per medewerker per maand",
+          "laag": 1.0,
+          "midden": null,
+          "hoog": 5.5,
+          "n": 2,
+          "karakter": "steekproef van openbare prijzen, geen landelijk marktgemiddelde",
+          "basis": [
+            {
+              "aanbieder_id": "tiemdo",
+              "waarde": 1.0,
+              "bron": "tiemdo"
+            },
+            {
+              "aanbieder_id": "nostradamus",
+              "waarde": 5.5,
+              "bron": "nostradamus"
+            }
+          ]
+        }
+      ],
+      "aanbieders": [
+        {
+          "id": "anneke",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Basis (pay as you go) vanaf",
+              "bedrag": 4,
+              "eenheid": "per medewerker per maand (vanaf)",
+              "btw": "niet vermeld",
+              "tariefjaar": "2026",
+              "bron": "anneke"
+            },
+            {
+              "label": "Compleet (verrichtingencontract incl. preventieplatform) vanaf",
+              "bedrag": 6,
+              "eenheid": "per medewerker per maand (vanaf)",
+              "btw": "niet vermeld",
+              "tariefjaar": "2026",
+              "bron": "anneke"
+            },
+            {
+              "label": "Vast (wettelijke BA-momenten onbeperkt) vanaf",
+              "bedrag": 15,
+              "eenheid": "per medewerker per maand (vanaf)",
+              "btw": "niet vermeld",
+              "tariefjaar": "2026",
+              "bron": "anneke"
+            }
+          ]
+        },
+        {
+          "id": "tiemdo",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Verlof- en verzuimbeheer, vanaf",
+              "bedrag": 1.0,
+              "eenheid": "per actieve medewerker per maand (vanaf)",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "tiemdo"
+            }
+          ]
+        },
+        {
+          "id": "nostradamus",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Pro, jaarabonnement",
+              "bedrag": 5.5,
+              "eenheid": "per medewerker per maand",
+              "btw": "niet vermeld",
+              "tariefjaar": "2026",
+              "bron": "nostradamus"
+            },
+            {
+              "label": "Pro, maandcontract",
+              "bedrag": 6.0,
+              "eenheid": "per medewerker per maand",
+              "btw": "niet vermeld",
+              "tariefjaar": "2026",
+              "bron": "nostradamus"
+            }
+          ]
+        },
+        {
+          "id": "verzuimportaal",
+          "prijs_status": "openbaar",
+          "prijs_tekst": null,
+          "prijzen": [
+            {
+              "label": "Basis pakket",
+              "bedrag": 32.0,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "verzuimportaal"
+            },
+            {
+              "label": "Poortwachter pakket (vanaf 10 medewerkers)",
+              "bedrag": 118.8,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "verzuimportaal"
+            },
+            {
+              "label": "Verzuimportaal pakket (vanaf 25 medewerkers)",
+              "bedrag": 148.0,
+              "eenheid": "per medewerker per jaar",
+              "btw": "excl. btw",
+              "tariefjaar": "2026",
+              "bron": "verzuimportaal"
+            }
+          ]
+        },
+        {
+          "id": "verzuimsignaal",
+          "prijs_status": "niet openbaar",
+          "prijs_tekst": "prijs niet openbaar",
+          "prijzen": []
+        },
+        {
+          "id": "xpertsuite",
+          "prijs_status": "niet openbaar",
+          "prijs_tekst": "prijs niet openbaar",
+          "prijzen": []
+        }
+      ]
+    }
+  ],
+  "aanbieders": {
+    "acture": {
+      "naam": "Acture (Acture Arbo)",
+      "website": "https://acture.nl",
+      "landelijk": {
+        "waarde": "niet vastgesteld",
+        "toelichting": "Site: meer dan 6.500 organisaties; landelijke dekking niet expliciet vastgesteld",
+        "bron": null
+      },
+      "grootte": {
+        "tekst": "Eigen opgave: meer dan 6.500 organisaties",
+        "bron": null,
+        "noot": "homepage acture.nl, niet automatisch gecontroleerd"
+      },
+      "certificeringen": [
+        {
+          "naam": "Acture Arbo in SBCA-register",
+          "status": "aangetroffen in SBCA-register ('Acture Arbo')",
+          "bron": "sbca_register"
+        }
+      ]
+    },
+    "anneke": {
+      "naam": "Anneke",
+      "website": "https://anneke.nl",
+      "landelijk": {
+        "waarde": "niet vastgesteld",
+        "toelichting": "Niet onderzocht",
+        "bron": null
+      },
+      "grootte": null,
+      "certificeringen": []
+    },
+    "arboanders": {
+      "naam": "ArboAnders",
+      "website": "https://arboanders.nl",
+      "landelijk": {
+        "waarde": "niet vastgesteld",
+        "toelichting": "SBCA-register: 3 dochtervestigingen",
+        "bron": "sbca_register"
+      },
+      "grootte": null,
+      "certificeringen": [
+        {
+          "naam": "NEN7510, ISO27001:2023, SBCA, ISO9001:2025",
+          "status": "eigen opgave in tarievenlijst 2026",
+          "bron": "arboanders_2026"
+        }
+      ]
+    },
+    "arboned": {
+      "naam": "ArboNed",
+      "website": "https://www.arboned.nl",
+      "landelijk": {
+        "waarde": "ja",
+        "toelichting": "SBCA-register: 47 dochtervestigingen naast het hoofdkantoor",
+        "bron": "sbca_register"
+      },
+      "grootte": {
+        "tekst": "Eigen opgave: 63.500 werkgevers en ruim 665.000 medewerkers",
+        "bron": "arboned_over"
+      },
+      "certificeringen": [
+        {
+          "naam": "Certificatieschema Arbodiensten (SBCA)",
+          "status": "aangetroffen in SBCA-register",
+          "bron": "sbca_register"
+        },
+        {
+          "naam": "ISO 9001:2015, ISO 27001, NEN 7510",
+          "status": "eigen opgave op arboned.nl",
+          "bron": "arboned_over"
+        }
+      ]
+    },
+    "arbounie": {
+      "naam": "Arbo Unie",
+      "website": "https://www.arbounie.nl",
+      "landelijk": {
+        "waarde": "ja",
+        "toelichting": "SBCA-register: 33 dochtervestigingen (incl. Mkbasics)",
+        "bron": "sbca_register"
+      },
+      "grootte": {
+        "tekst": "Eigen opgave (LinkedIn-bedrijfspagina): ruim 12.000 organisaties, meer dan 1,2 miljoen werkenden",
+        "bron": null,
+        "noot": "Bron is een LinkedIn-bedrijfspagina; niet automatisch gecontroleerd"
+      },
+      "certificeringen": [
+        {
+          "naam": "Certificatieschema Arbodiensten (SBCA)",
+          "status": "aangetroffen in SBCA-register ('Arbo Unie B.V. (incl. Mkbasics BV)')",
+          "bron": "sbca_register"
+        }
+      ]
+    },
+    "assist": {
+      "naam": "Assist Verzuim",
+      "website": "https://www.assistverzuim.nl",
+      "landelijk": {
+        "waarde": "ja",
+        "toelichting": "Site: 'Jouw landelijke, gecertificeerde arbodienst'",
+        "bron": null
+      },
+      "grootte": null,
+      "certificeringen": [
+        {
+          "naam": "Certificatieschema Arbodiensten (SBCA)",
+          "status": "aangetroffen in SBCA-register (5 dochtervestigingen)",
+          "bron": "sbca_register"
+        }
+      ]
+    },
+    "callo": {
+      "naam": "Callo",
+      "website": "https://callo.nl",
+      "landelijk": {
+        "waarde": "ja",
+        "toelichting": "Online inzet; spreekuurlocaties door heel Nederland op aanvraag",
+        "bron": "callo"
+      },
+      "grootte": null,
+      "certificeringen": []
+    },
+    "capability": {
+      "naam": "Capability",
+      "website": "https://capability.nl",
+      "landelijk": {
+        "waarde": "niet vastgesteld",
+        "toelichting": "Geen landelijke dekking op site aangetroffen",
+        "bron": null
+      },
+      "grootte": null,
+      "certificeringen": [
+        {
+          "naam": "Certificatieschema Arbodiensten (SBCA)",
+          "status": "aangetroffen in SBCA-register (Capability B.V.)",
+          "bron": "sbca_register"
+        }
+      ]
+    },
+    "conceptarbo": {
+      "naam": "Concept Arbo",
+      "website": "https://www.conceptarbo.nl",
+      "landelijk": {
+        "waarde": "niet vastgesteld",
+        "toelichting": "Niet onderzocht",
+        "bron": null
+      },
+      "grootte": null,
+      "certificeringen": []
+    },
+    "fit": {
+      "naam": "FIT Verzuimbeheer",
+      "website": "https://fitverzuimbeheer.nl",
+      "landelijk": {
+        "waarde": "niet vastgesteld",
+        "toelichting": "Geen landelijke dekking op site aangetroffen",
+        "bron": null
+      },
+      "grootte": null,
+      "certificeringen": [
+        {
+          "naam": "Certificatieschema Arbodiensten (SBCA)",
+          "status": "aangetroffen in SBCA-register (Fit Verzuimbeheer B.V.)",
+          "bron": "sbca_register"
+        }
+      ]
+    },
+    "hcc": {
+      "naam": "HumanCapitalCare",
+      "website": "https://www.humancapitalcare.nl",
+      "landelijk": {
+        "waarde": "ja",
+        "toelichting": "SBCA-register: 33 dochtervestigingen",
+        "bron": "sbca_register"
+      },
+      "grootte": {
+        "tekst": "HumanTotalCare (ArboNed, HumanCapitalCare, Mensely, Focus Nederland, IT&Care samen): bijna 65.000 werkgevers, circa 1,4 miljoen werkenden (persbericht a.s.r., 1 okt 2025). Cijfer geldt voor de groep, niet voor het merk HumanCapitalCare alleen",
+        "bron": "humantotalcare_pers"
+      },
+      "certificeringen": [
+        {
+          "naam": "Certificatieschema Arbodiensten (SBCA)",
+          "status": "aangetroffen in SBCA-register",
+          "bron": "sbca_register"
+        }
+      ]
+    },
+    "leuk": {
+      "naam": "Leuk Personeel",
+      "website": "https://leukpersoneel.nl",
+      "landelijk": {
+        "waarde": "niet vastgesteld",
+        "toelichting": "SBCA-register: 4 dochtervestigingen; site niet bereikbaar op 28-11-2026",
+        "bron": "sbca_register"
+      },
+      "grootte": null,
+      "certificeringen": [
+        {
+          "naam": "Certificatieschema Arbodiensten (SBCA)",
+          "status": "aangetroffen in SBCA-register",
+          "bron": "sbca_register"
+        }
+      ]
+    },
+    "mkbasics": {
+      "naam": "Mkbasics (onderdeel van Arbo Unie)",
+      "website": "https://www.mkbasics.nl",
+      "landelijk": {
+        "waarde": "ja",
+        "toelichting": "Site: 'Landelijk actief met 30+ locaties in Nederland'",
+        "bron": "mkbasics_site"
+      },
+      "grootte": null,
+      "certificeringen": [
+        {
+          "naam": "Certificatieschema Arbodiensten, ISO 9001, ISO/IEC 27001",
+          "status": "eigen opgave op prijslijst 2026",
+          "bron": "mkbasics_2026"
+        }
+      ]
+    },
+    "nostradamus": {
+      "naam": "Nostradamus",
+      "website": "https://nostradamus.nl",
+      "landelijk": {
+        "waarde": "niet van toepassing",
+        "toelichting": "Software (online)",
+        "bron": null
+      },
+      "grootte": null,
+      "certificeringen": []
+    },
+    "perspectief": {
+      "naam": "Perspectief",
+      "website": "https://www.perspectief.eu",
+      "landelijk": {
+        "waarde": "ja",
+        "toelichting": "Site: 'landelijke, gecertificeerde arbodienst met 19 vestigingen'; SBCA-register: 35 dochtervestigingen",
+        "bron": "perspectief_home"
+      },
+      "grootte": null,
+      "certificeringen": [
+        {
+          "naam": "Certificatieschema Arbodiensten (SBCA)",
+          "status": "aangetroffen in SBCA-register",
+          "bron": "sbca_register"
+        }
+      ]
+    },
+    "tiemdo": {
+      "naam": "Tiemdo",
+      "website": "https://www.tiemdo.com",
+      "landelijk": {
+        "waarde": "niet van toepassing",
+        "toelichting": "Software (online)",
+        "bron": null
+      },
+      "grootte": null,
+      "certificeringen": []
+    },
+    "verzuimportaal": {
+      "naam": "Verzuimportaal",
+      "website": "https://verzuimportaal.nl",
+      "landelijk": {
+        "waarde": "niet vastgesteld",
+        "toelichting": "Niet onderzocht",
+        "bron": null
+      },
+      "grootte": null,
+      "certificeringen": []
+    },
+    "verzuimsignaal": {
+      "naam": "VerzuimSignaal",
+      "website": "https://verzuimsignaal.com",
+      "landelijk": {
+        "waarde": "niet van toepassing",
+        "toelichting": "Software (online)",
+        "bron": null
+      },
+      "grootte": null,
+      "certificeringen": []
+    },
+    "xpertsuite": {
+      "naam": "Xpert Suite",
+      "website": "https://www.xpertsuite.nl",
+      "landelijk": {
+        "waarde": "niet van toepassing",
+        "toelichting": "Software (online)",
+        "bron": null
+      },
+      "grootte": null,
+      "certificeringen": []
+    },
+    "zvdz": {
+      "naam": "Zorg van de Zaak",
+      "website": "https://www.zorgvandezaak.nl",
+      "landelijk": {
+        "waarde": "ja",
+        "toelichting": "SBCA-register: 42 dochtervestigingen",
+        "bron": "sbca_register"
+      },
+      "grootte": null,
+      "certificeringen": [
+        {
+          "naam": "Certificatieschema Arbodiensten (SBCA)",
+          "status": "aangetroffen in SBCA-register",
+          "bron": "sbca_register"
+        }
+      ]
+    }
+  },
+  "bronnen": {
+    "acture_2026": {
+      "url": "https://acture.nl/wp-content/uploads/sites/4/Overzicht-tarieven-arbodiensten-2026.pdf",
+      "titel": "Acture: overzicht tarieven arbodiensten 2026",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "anneke": {
+      "url": "https://anneke.nl/prijzen",
+      "titel": "Anneke: prijzen",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "arboanders_2026": {
+      "url": "https://arboanders.nl/wp-content/uploads/2025/09/Tarieven-2026-v2-website.pdf",
+      "titel": "ArboAnders tarieven 2026 (versie 24 september 2025)",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "arboned_2025": {
+      "url": "https://mijnturien.nl/media/m4pao5kx/arboned_activiteiten-en-tariefoverzicht_2025.pdf",
+      "titel": "ArboNed activiteiten- en tarievenoverzicht 2025 (gehost door tussenpersoon Turien)",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "arboned_abo": {
+      "url": "https://www.arboned.nl/diensten/verzuimabonnementen",
+      "titel": "ArboNed: verzuimabonnementen (overzichtspagina)",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "arboned_over": {
+      "url": "https://www.arboned.nl/over-arboned",
+      "titel": "ArboNed: over ArboNed",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "arbounie_2024": {
+      "url": "https://edge.sitecorecloud.io/arbouniebv17df7-arbounie917c-prodfffb-a65a/media/files/downloads-pdf/tarieven/arbo-unie-tarievenlijst-2024.pdf",
+      "titel": "Arbo Unie tarievenlijst 2024 (versie maart 2024)",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "callo": {
+      "url": "https://callo.nl/flex-casemanagement/",
+      "titel": "Callo: flex casemanagement",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "capability_2026": {
+      "url": "https://capability.nl/wp-content/uploads/2025/11/Capability-prijslijst_2026.pdf",
+      "titel": "Capability tarieven 2026",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "conceptarbo_2026": {
+      "url": "https://www.conceptarbo.nl/wp-content/uploads/2026/01/Tarieven-2026.pdf",
+      "titel": "Concept Arbo tarieven 2026",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "fit_2026": {
+      "url": "https://fitverzuimbeheer.nl/wp-content/uploads/2025/11/TARIEVEN-OVERZICHT-2026.pdf",
+      "titel": "FIT Verzuimbeheer tarievenoverzicht 2026",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "humantotalcare_pers": {
+      "url": "https://downloads.asr.nl/files/20251001-persbericht-asr-100-procent-aandeelhouder-humantotalcare.pdf",
+      "titel": "a.s.r. persbericht 1 okt 2025: HumanTotalCare",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "leuk_2026": {
+      "url": "https://leukpersoneel.nl/wp-content/uploads/2026-Tarievenlijst.pdf",
+      "titel": "Leuk Personeel tarievenlijst 2026",
+      "geraadpleegd": "2026-11-28",
+      "http": "pdf-onleesbaar",
+      "inhoud_gecontroleerd": true
+    },
+    "mkbasics_2026": {
+      "url": "https://edge.sitecorecloud.io/arbouniebv17df7-arbounie917c-prodfffb-a65a/media/files/mkbasics/documenten-kennisbank/prijslijst---2026---v8.pdf",
+      "titel": "Mkbasics (onderdeel van Arbo Unie) prijslijst 2026 v8",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "mkbasics_site": {
+      "url": "https://www.mkbasics.nl/",
+      "titel": "mkbasics.nl (onderdeel van Arbo Unie)",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "nn_zvdz_2025": {
+      "url": "https://www.nn.nl/Download/Informatiekaart-Zorg-van-de-Zaak-NN-mkb-uitgebreid-2025.htm",
+      "titel": "NN informatiekaart Zorg van de Zaak NN MKB Uitgebreid 2025 (prijspeil 2025, excl. btw)",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "nostradamus": {
+      "url": "https://nostradamus.nl/tarieven/",
+      "titel": "Nostradamus: tarieven",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "perspectief_home": {
+      "url": "https://www.perspectief.eu/",
+      "titel": "Perspectief homepage",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "sbca_register": {
+      "url": "https://sbca.nl/gecertificeerde-arbodiensten/",
+      "titel": "SBCA: register gecertificeerde externe arbodiensten (download lijst, 28-11-2026)",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "tiemdo": {
+      "url": "https://www.tiemdo.com/nl/verlofregistratie-software",
+      "titel": "Tiemdo: verlof- en verzuimbeheer",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "turien_2026": {
+      "url": "https://mijnturien.nl/media/idnbah4b/tarieven-arbodienst-providerboog-2026-02.pdf",
+      "titel": "Turien & Co: tarieven arbodiensten providerboog 2026 (per 1-1-2026, per werknemer, excl. btw)",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    },
+    "verzuimportaal": {
+      "url": "https://verzuimportaal.nl/verzuimpakketten/",
+      "titel": "Verzuimportaal: verzuimpakketten",
+      "geraadpleegd": "2026-11-28",
+      "http": "200",
+      "inhoud_gecontroleerd": true
+    }
+  }
+}

@@ -1,0 +1,203 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import FaqList from "../components/FaqList.astro";
+import marktJson from "../data/vergelijking/markt-2026-11-28.json";
+import { places } from "../data/places";
+import { site } from "../data/site";
+import { euro } from "../lib/format";
+import { levels } from "../lib/rates";
+import { crumbsLd, faqLd } from "../lib/schema";
+import {
+  controleerMarkt,
+  disclaimerTekst,
+  renderResultaat,
+  standaardInvoer,
+  vergelijkFaqs,
+  type MarktData,
+} from "../lib/vergelijking";
+
+const markt = marktJson as MarktData;
+const fouten = controleerMarkt(markt);
+if (fouten.length) throw new Error(fouten.join(", "));
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Vergelijken", path: "/vergelijken" },
+];
+const faqs = vergelijkFaqs();
+const basis = euro(levels.medior.rates[10]);
+const uitkomst = renderResultaat(markt, standaardInvoer);
+const disclaimer = disclaimerTekst();
+---
+
+<Base
+  title="Arbodienst, casemanagement en verzuimsysteem vergelijken"
+  description="Openbare tarieven van arbodienst, casemanagement en verzuimsystemen, voor Brabantse werkgevers met 35 tot 500 medewerkers. Indicatief, peildatum 28 november 2026."
+  jsonLd={[crumbsLd(crumbs), faqLd(faqs)]}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <div class="vgl-pagina mx-auto max-w-6xl px-4 pt-6">
+    <h1 class="font-serif text-4xl text-green-950 md:text-5xl">Arbodienst, casemanagement en verzuimsysteem vergelijken</h1>
+    <p class="mt-4 max-w-3xl text-lg">
+      Voor werkgevers in Noord-Brabant met 35 tot 500 medewerkers. U zet het aantal medewerkers, het verzuimpercentage en het type dienst erbij.
+      Ons basistarief voor casemanagement is {basis} per uur exclusief btw. De <a class="underline" href="/tarieven">tarievenpagina</a> zet de blokken naast elkaar.
+      Uw percentage naast de CBS-cijfers staat bij <a class="underline" href="/tools/verzuim-vergelijken">verzuim vergelijken</a>.
+    </p>
+
+    <form id="vgl-form" class="mt-8 space-y-8" data-endpoint="/api/offerte" data-kind="offerte" data-cta="vergelijken-offerte">
+      <fieldset class="rounded-[2rem] border border-line bg-white/80 p-5">
+        <legend class="px-1 font-serif text-2xl text-green-950">Uw situatie</legend>
+        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+          <fieldset>
+            <legend class="font-semibold">Type dienst</legend>
+            <label class="mt-2 flex gap-2"><input type="radio" name="dienst" value="arbodienstverlening" /> Losse arbodienstverlening</label>
+            <label class="mt-2 flex gap-2"><input type="radio" name="dienst" value="casemanagement" checked /> Casemanagement</label>
+            <label class="mt-2 flex gap-2"><input type="radio" name="dienst" value="verzuimsysteem" /> Verzuimsysteem</label>
+          </fieldset>
+          <div class="space-y-4">
+            <label class="block font-semibold">Aantal medewerkers
+              <input class="ap-field" name="medewerkers" type="number" min="35" max="500" value="80" required inputmode="numeric" />
+              <span class="mt-1 block text-sm font-normal">Voor organisaties met 35 tot 500 medewerkers.</span>
+            </label>
+            <label class="block font-semibold">Verzuimpercentage
+              <input class="ap-field" name="verzuim" type="text" inputmode="decimal" placeholder="bijvoorbeeld 5,4" autocomplete="off" />
+              <span class="mt-1 block text-sm font-normal">Gaat mee in de offerte. We rekenen er geen eurobedrag uit.</span>
+            </label>
+          </div>
+        </div>
+        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+          <div data-alleen="uren">
+            <label class="block font-semibold">Uren per week
+              <select class="ap-field" name="uren">
+                <option value="10" selected>10 uur</option>
+                <option value="20">20 uur</option>
+                <option value="24">24 uur</option>
+              </select>
+            </label>
+          </div>
+          <label class="block font-semibold">Niveau
+            <select class="ap-field" name="niveau">
+              <option value="Medior" selected>Medior</option>
+              <option value="Medior+">Medior+</option>
+              <option value="Senior met specialisatie">Senior met specialisatie</option>
+            </select>
+          </label>
+          <div data-alleen="arbodienstverlening" hidden>
+            <label class="block font-semibold">Welke prijzen
+              <select class="ap-field" name="pakketweergave">
+                <option value="alles" selected>Abonnement en verrichtingen</option>
+                <option value="abonnement">Alleen abonnement per medewerker</option>
+                <option value="verrichtingen">Alleen uurtarieven</option>
+              </select>
+            </label>
+          </div>
+          <div data-alleen="verzuimsysteem" hidden>
+            <label class="block font-semibold">Contract in de bron
+              <select class="ap-field" name="contract">
+                <option value="alles" selected>Jaar en maand</option>
+                <option value="jaar">Jaarabonnement, waar de bron dat noemt</option>
+                <option value="maand">Maandcontract, waar de bron dat noemt</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+          <label class="flex gap-2"><input type="checkbox" name="alleenOpenbaar" value="ja" /> Alleen openbare prijs</label>
+          <label class="flex gap-2"><input type="checkbox" name="alleenSbca" value="ja" /> SBCA-certificaat</label>
+          <label class="flex gap-2"><input type="checkbox" name="alleenLandelijk" value="ja" /> Landelijke dekking</label>
+        </div>
+      </fieldset>
+
+      <div id="vgl-result" aria-live="polite" set:html={uitkomst} />
+
+      <p class="vgl-disclaimer text-sm text-ink-soft">{disclaimer} Ziet u een onjuistheid? Mail <a class="underline" href={`mailto:${site.parent.email}?subject=Onjuistheid%20in%20de%20vergelijking`}>{site.parent.email}</a>.</p>
+
+      <fieldset class="rounded-[2rem] border border-line bg-white/80 p-5">
+        <legend class="px-1 font-serif text-2xl text-green-950">Vraag een vrijblijvende offerte aan</legend>
+        <p class="mt-3 max-w-3xl">Prijs voor uw situatie? Vul dit formulier in. {site.responsePromise} De aanvraag is nog geen contract.</p>
+        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+          <label class="block font-semibold">Naam<input class="ap-field" name="naam" required autocomplete="name" /></label>
+          <label class="block font-semibold">Telefoon<input class="ap-field" name="telefoon" type="tel" required autocomplete="tel" /></label>
+          <label class="block font-semibold">E-mail<input class="ap-field" name="email" type="email" required autocomplete="email" /></label>
+          <label class="block font-semibold">Organisatie<input class="ap-field" name="organisatie" required autocomplete="organization" /></label>
+          <label class="block font-semibold">Plaats
+            <select class="ap-field" name="plaats" required>
+              {places.map((place) => <option value={place.name}>{place.name}</option>)}
+              <option value="Elders in Noord-Brabant">Elders in Noord-Brabant</option>
+            </select>
+          </label>
+          <label class="block font-semibold">Wat speelt er?
+            <select class="ap-field" name="situatie" required>
+              <option value="Nu een probleem">Nu een probleem</option>
+              <option value="Structureel regelen" selected>Structureel regelen</option>
+              <option value="Allebei">Allebei</option>
+            </select>
+          </label>
+        </div>
+        <label class="mt-4 block font-semibold">Toelichting
+          <textarea class="ap-field min-h-24" name="toelichting"></textarea>
+        </label>
+        <input id="vgl-pakket" type="hidden" name="pakket" value="Casemanagement" />
+        <input id="vgl-samenvatting" type="hidden" name="samenvatting" value="" />
+        <label class="mt-4 flex items-start gap-2 text-sm">
+          <input name="toestemming" type="checkbox" value="ja" required />
+          <span>Matchvermogen B.V. mag deze gegevens gebruiken om een offerte te maken. Zie de <a class="underline" href="/privacy">privacyverklaring</a>.</span>
+        </label>
+        <div class="absolute -left-[9999px]" aria-hidden="true">
+          <label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label>
+        </div>
+        <button class="mt-4 rounded-full bg-ochre-500 px-5 py-3 font-semibold" type="submit">Vraag een vrijblijvende offerte aan</button>
+        <p data-status class="mt-3 text-sm" role="status"></p>
+        <p class="mt-2 text-sm text-ink-soft">Lukt het formulier niet, mail dan {site.parent.email}.</p>
+      </fieldset>
+    </form>
+
+    <FaqList items={faqs} />
+  </div>
+  <style is:global>
+    .vgl-pagina.ap-reveal,
+    .vgl-pagina .ap-reveal {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  </style>
+  <script id="vgl-markt" type="application/json" is:inline set:html={JSON.stringify(markt).replaceAll("<", "\\u003c")}></script>
+  <script>
+    import {
+      dienstTitel,
+      leesInvoer,
+      offerteSamenvatting,
+      renderResultaat,
+      type MarktData,
+    } from "../lib/vergelijking";
+    import "../scripts/forms.ts";
+
+    const form = document.querySelector<HTMLFormElement>("#vgl-form");
+    const uit = document.querySelector<HTMLElement>("#vgl-result");
+    const blok = document.getElementById("vgl-markt");
+    if (form && uit && blok?.textContent) {
+      const data = JSON.parse(blok.textContent) as MarktData;
+      const teken = () => {
+        const invoer = leesInvoer(new FormData(form));
+        uit.innerHTML = renderResultaat(data, invoer);
+        const samenvatting = form.querySelector<HTMLInputElement>("#vgl-samenvatting");
+        if (samenvatting) samenvatting.value = offerteSamenvatting(invoer);
+        const pakket = form.querySelector<HTMLInputElement>("#vgl-pakket");
+        if (pakket) pakket.value = dienstTitel(invoer.dienst);
+        document.querySelectorAll<HTMLElement>("[data-alleen]").forEach((veld) => {
+          const only = veld.dataset.alleen;
+          veld.hidden = only === "uren" ? invoer.dienst === "verzuimsysteem" : only !== invoer.dienst;
+        });
+        const medewerkers = form.querySelector<HTMLInputElement>("[name=medewerkers]");
+        if (medewerkers) {
+          medewerkers.setCustomValidity(invoer.medewerkers == null ? "Vul een aantal tussen 35 en 500 in." : "");
+        }
+      };
+      form.addEventListener("input", teken);
+      form.addEventListener("change", teken);
+      teken();
+    }
+  </script>
+</Base>
