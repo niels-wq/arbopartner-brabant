@@ -37,6 +37,7 @@ const fields = {
   magnet: ["naam", "email"],
   risicoscan: ["naam", "email", "rapport"],
   tijdlijn: ["naam", "email", "rapport"],
+  "ad-advies": [],
 };
 
 const exitChoices = ["checklist", "terugbel", "gesprek", "besparing"];
@@ -116,10 +117,10 @@ export async function sendPlainMail(mail, options = {}) {
 }
 
 export async function processSubmission(kind, body, ip, now = Date.now(), options = {}) {
-  if (spamSignal(body, now)) return dropped();
+  if (!options.skipGuards && spamSignal(body, now)) return dropped();
   const errors = validate(kind, body);
   if (errors.length) return { status: 400, payload: { ok: false, errors } };
-  if (!rateAllows(ip, now)) return dropped();
+  if (!options.skipGuards && !rateAllows(ip, now)) return dropped();
 
   const to = process.env.FORM_TO_EMAIL;
   const host = process.env.SMTP_HOST;
@@ -159,6 +160,10 @@ export async function processSubmission(kind, body, ip, now = Date.now(), option
       tijdlijn: {
         subject: "Uw verzuim-tijdlijn",
         intro: "Hier is de tijdlijn bij de eerste ziektedag die u invulde. Het is een geheugensteun, geen juridisch advies. Herinneringen zet u in uw agenda met het bestand op de site. Deze mail sturen we één keer.",
+      },
+      "ad-advies": {
+        subject: "Uw indicatieve advies",
+        intro: "We hebben uw aanvraag ontvangen. Het advies staat op de pagina waar u het hebt aangevraagd. Dit is een automatisch gegenereerd, indicatief advies. Het is geen medisch advies en de adequaatheid voor uw situatie is niet gegarandeerd.",
       },
     };
     const sendsCopy = Boolean(copyByKind[kind]) || (kind === "magnet" && oneLine(body.keuze, 40) === "checklist");

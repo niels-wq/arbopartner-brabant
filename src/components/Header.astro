@@ -44,7 +44,7 @@ const more = [
       <a href="/" class="inline-flex shrink-0 items-center no-underline" data-cta="logo-home">
         <img class="site-logo" src="/logo-light.png?v=20261027" width="263" height="64" alt="Arbopartner Brabant, van Matchvermogen" />
       </a>
-      <nav class="hidden items-center gap-5 text-sm font-semibold lg:flex" aria-label="Hoofdmenu">
+      <nav class="hidden items-center gap-3 text-sm font-semibold lg:flex" aria-label="Hoofdmenu">
         {links.map((link) => (
           link.href === "/diensten" ? (
             <details class="relative">
@@ -64,23 +64,26 @@ const more = [
               </div>
             </details>
           ) : (
-            <a href={link.href}>{link.label}</a>
+            <a class="whitespace-nowrap shrink-0" href={link.href}>{link.label}</a>
           )
         ))}
         <details class="relative">
           <summary class="cursor-pointer list-none">Meer</summary>
-          <div class="absolute right-0 z-50 mt-3 w-52 rounded-2xl border border-line bg-sand-50 p-3 text-green-950">
+          <div class="absolute right-0 z-50 mt-3 w-72 rounded-2xl border border-line bg-sand-50 p-3 text-green-950">
+            <a class="block py-2 font-semibold xl:hidden" href="/ad-advies-generator">Genereer vrijblijvend een AD-advies</a>
             {more.map((link) => (
               <a class="block py-2 font-semibold" href={link.href}>{link.label}</a>
             ))}
           </div>
         </details>
+        <a class="hidden whitespace-nowrap text-ochre-200 xl:inline" data-cta="nav-ad-advies" href="/ad-advies-generator">Genereer vrijblijvend een AD-advies</a>
         <Inloggen cta="nav-inloggen" />
         <Button data-cta="nav-advies" href="/adviesgesprek">Adviesgesprek</Button>
       </nav>
       <details class="relative lg:hidden">
         <summary class="cursor-pointer list-none rounded-full border border-sand-100 px-3 py-2 text-sm font-semibold text-sand-50">Menu</summary>
         <div class="absolute right-0 z-50 mt-2 max-h-[70vh] w-64 overflow-y-auto rounded-2xl border border-line bg-sand-50 p-4 text-green-950">
+          <a class="block py-2 font-semibold" data-cta="menu-ad-advies" href="/ad-advies-generator">Genereer vrijblijvend een AD-advies</a>
           <Inloggen class="block" variant="ghost" cta="menu-inloggen" />
           <Button class="block" data-cta="menu-advies" href="/adviesgesprek">Adviesgesprek</Button>
           {links.map((link) => (

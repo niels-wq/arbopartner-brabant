@@ -11,6 +11,11 @@ export function formApiPlugin() {
           await handleChatMessage(req, res);
           return;
         }
+        if (url.pathname === "/api/ad-advies" || url.pathname === "/api/ad-advies-pdf") {
+          const { handleAdRoute } = await import("./ad-advies.mjs");
+          await handleAdRoute(req, res);
+          return;
+        }
         const handled = await handleApi(req, res);
         if (!handled) next();
       });

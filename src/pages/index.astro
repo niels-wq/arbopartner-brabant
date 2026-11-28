@@ -60,8 +60,9 @@ const jsonLd = [faqLd(faq), ...teamPeopleLd()];
       <p class="text-sm font-semibold uppercase tracking-[0.16em] text-ochre-800">{site.labelStatement}</p>
       <h1 class="mt-3 max-w-xl text-4xl text-green-950 md:text-6xl">Casemanager en arbo in Brabant.</h1>
       <p class="mt-5 max-w-xl text-lg text-ink-soft">Nuchter, dichtbij, Brabants. Arbopartner Brabant hoort bij Matchvermogen B.V. en detacheert een vaste casemanager {site.audience} in heel Noord-Brabant. Het kantoor staat in Uden, aan de Losplaats 16d. Uw arbodienst en bedrijfsarts blijven. Een arbeidsdeskundige van Matchvermogen staat als achtervang klaar, met {site.discount.arbeidsdeskundige}% korting op dat onderzoek.</p>
-      <div class="mt-8">
+      <div class="mt-8 flex flex-col items-start gap-3">
         <Button data-cta="home-advies" href="/adviesgesprek">Plan een adviesgesprek</Button>
+        <a class="btn btn-ghost lg:ml-16" data-cta="home-ad-advies" href="/ad-advies-generator">Genereer vrijblijvend een AD-advies</a>
         <p class="mt-2 text-sm text-ink-soft">Het gesprek van 30 minuten verplicht u tot niets.</p>
         <p class="mt-3 max-w-xl text-sm text-ink-soft">
           Liever eerst kort kennismaken?
